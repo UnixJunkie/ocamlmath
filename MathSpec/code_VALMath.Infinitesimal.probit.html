@@ -1,0 +1,14 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.probit</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;probit&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;2.&nbsp;*.&nbsp;x&nbsp;-.&nbsp;erf_complem&nbsp;(&nbsp;y&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;(-.&nbsp;sqrt_of_2&nbsp;)&nbsp;*.&nbsp;(&nbsp;float_zero_general&nbsp;(&nbsp;float_richardson_binary_deriv&nbsp;2&nbsp;1e-3&nbsp;)&nbsp;2&nbsp;5&nbsp;g&nbsp;0.5&nbsp;)</code></body></html>

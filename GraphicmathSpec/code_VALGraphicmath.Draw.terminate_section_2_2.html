@@ -1,0 +1,57 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.terminate_section_2_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;terminate_section_2_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(hh:int)&nbsp;(vv:int)&nbsp;(hhh:int)&nbsp;(vvv:int)&nbsp;(h_h:int)&nbsp;(v_v:int)&nbsp;(h_margin:int)&nbsp;(v_margin:int)&nbsp;h_function&nbsp;v_function&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;aa&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;11&nbsp;(0,0,0,0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;bb&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;11&nbsp;(0,0,0,0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;cc&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;11&nbsp;(0,0,0,0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;11&nbsp;(0,0,0,0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;max_stringsize&nbsp;=&nbsp;h_margin&nbsp;/&nbsp;(&nbsp;5&nbsp;+&nbsp;tsh&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coupe&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.sub&nbsp;s&nbsp;0&nbsp;(min&nbsp;max_stringsize&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;s&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;10&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j&nbsp;=&nbsp;i&nbsp;*&nbsp;(&nbsp;hhh&nbsp;/&nbsp;10&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;jj&nbsp;=&nbsp;i&nbsp;*&nbsp;(&nbsp;vvv&nbsp;/&nbsp;10&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k&nbsp;=&nbsp;1&nbsp;+&nbsp;hh&nbsp;+&nbsp;j<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;kk&nbsp;=&nbsp;1&nbsp;+&nbsp;vv&nbsp;+&nbsp;jj&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aa.(i)&nbsp;&lt;-&nbsp;(&nbsp;k&nbsp;,&nbsp;vv&nbsp;,&nbsp;k&nbsp;,&nbsp;vv&nbsp;-&nbsp;4&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bb.(i)&nbsp;&lt;-&nbsp;(&nbsp;k&nbsp;,&nbsp;v_v&nbsp;,&nbsp;k&nbsp;,&nbsp;v_v&nbsp;+&nbsp;4&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cc.(i)&nbsp;&lt;-&nbsp;(&nbsp;hh&nbsp;-&nbsp;4&nbsp;,&nbsp;kk&nbsp;,&nbsp;hh&nbsp;,&nbsp;kk&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dd.(i)&nbsp;&lt;-&nbsp;(&nbsp;h_h&nbsp;,&nbsp;kk&nbsp;,&nbsp;h_h&nbsp;+&nbsp;4&nbsp;,&nbsp;kk&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;(&nbsp;h_function&nbsp;(&nbsp;float&nbsp;j&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;k&nbsp;(&nbsp;vv&nbsp;/&nbsp;3&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;(&nbsp;coupe&nbsp;chaine&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;k&nbsp;(&nbsp;v_v&nbsp;+&nbsp;vv&nbsp;/&nbsp;3&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;(&nbsp;coupe&nbsp;chaine&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;(&nbsp;v_function&nbsp;(&nbsp;float&nbsp;jj&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;(&nbsp;hh&nbsp;/&nbsp;7&nbsp;)&nbsp;kk&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;(&nbsp;coupe&nbsp;chaine&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;(&nbsp;h_h&nbsp;+&nbsp;hh&nbsp;/&nbsp;7&nbsp;)&nbsp;kk&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;(&nbsp;coupe&nbsp;chaine&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;<span class="constructor">Graphics</span>.yellow&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;aa&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;bb&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;cc&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;dd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;<span class="constructor">Graphics</span>.white&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;coordinates.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;(&nbsp;hh&nbsp;/&nbsp;3&nbsp;)&nbsp;3&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;chaine&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;coordinates.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;(&nbsp;size.(0)&nbsp;-&nbsp;(&nbsp;tsh&nbsp;*&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;chaine&nbsp;)&nbsp;+&nbsp;3&nbsp;)&nbsp;)&nbsp;3&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;chaine&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;coordinates.(2)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;3&nbsp;(&nbsp;2&nbsp;*&nbsp;vv&nbsp;/&nbsp;3&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;chaine&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;string_of_float&nbsp;coordinates.(3)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;3&nbsp;(&nbsp;size.(1)&nbsp;-&nbsp;vv&nbsp;/&nbsp;3&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;chaine</code></body></html>

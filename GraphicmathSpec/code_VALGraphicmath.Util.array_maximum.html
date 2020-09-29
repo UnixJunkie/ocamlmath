@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Util.array_maximum</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;array_maximum&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(cmp:<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int)&nbsp;(v:<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Array</span>.length&nbsp;v&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Empty&nbsp;array&nbsp;in&nbsp;Util.array_maximum."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;ref&nbsp;v.(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;v.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;cmp&nbsp;y&nbsp;!x&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;:=&nbsp;y<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!x</code></body></html>

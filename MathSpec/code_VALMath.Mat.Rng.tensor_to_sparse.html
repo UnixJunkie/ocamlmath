@@ -1,0 +1,28 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Rng.tensor_to_sparse</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;tensor_to_sparse&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:tensor)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;(&nbsp;<span class="constructor">T</span>.<span class="constructor">Vector</span>&nbsp;(&nbsp;vector_sparse_demakeup&nbsp;(&nbsp;vector_to_sparse&nbsp;x&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;tensor_dimensions&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">T</span>.null&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;yy&nbsp;=&nbsp;tensor_sparse_demakeup&nbsp;(&nbsp;tensor_to_sparse&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;z&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.insert_add&nbsp;z&nbsp;(&nbsp;<span class="constructor">Array</span>.append&nbsp;[|&nbsp;i&nbsp;|]&nbsp;j&nbsp;)&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.iter&nbsp;g&nbsp;yy<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.iteri&nbsp;f&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

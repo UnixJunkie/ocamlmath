@@ -1,0 +1,508 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Mat.Field</title>
+</head>
+<body>
+<code class="code">(<span class="constructor">F</span>:<span class="constructor">Data</span>.<span class="constructor">Field_coeff_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Utilitaires"><h1>Utilitaires</h1></span>
+<span id="1_Utilities"><h1>Utilities</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module resulting from the application of the functor <a href="Math.Mat.Rng.html"><code class="code"><span class="constructor">Math</span>.<span class="constructor">Mat</span>.<span class="constructor">Rng</span></code></a> or <a href="Graphicmath.Mat.Rng.html"><code class="code"><span class="constructor">Graphicmath</span>.<span class="constructor">Mat</span>.<span class="constructor">Rng</span></code></a> to the module <code class="code"><span class="constructor">F</span></code> is included in the present module.
+<p>
+
+Le module résultant de l'application du foncteur <a href="Math.Mat.Rng.html"><code class="code"><span class="constructor">Math</span>.<span class="constructor">Mat</span>.<span class="constructor">Rng</span></code></a> ou <a href="Graphicmath.Mat.Rng.html"><code class="code"><span class="constructor">Graphicmath</span>.<span class="constructor">Mat</span>.<span class="constructor">Rng</span></code></a> au module <code class="code"><span class="constructor">F</span></code> est inclus dans le présent module. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">include</span>&nbsp;(&nbsp;<span class="constructor">Rng</span>&nbsp;(<span class="constructor">F</span>)&nbsp;)&nbsp;;;<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>include ( Rng (F) ) </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module <code class="code"><span class="constructor">U</span></code> realizes the calculation on the sparse vectors with coefficients
+in the field <code class="code"><span class="constructor">F</span></code> and indices of type <code class="code">int</code>.
+<p>
+
+Le module <code class="code"><span class="constructor">U</span></code> réalise le calcul sur les vecteurs creux à coefficients 
+dans le corps commutatif <code class="code"><span class="constructor">F</span></code> et à indices de type <code class="code">int</code>.*)</span></td></tr></table><code class="code"><br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">U</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Data</span>.<span class="constructor">Zindex</span>)&nbsp;(<span class="constructor">Hash</span>.<span class="constructor">Z</span>)&nbsp;(<span class="constructor">F</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module <code class="code"><span class="constructor">S</span></code> realizes the calculation on the sparse tensors with coefficients
+in the field <code class="code"><span class="constructor">F</span></code> and indices of type <code class="code">int</code>.
+<p>
+
+Le module <code class="code"><span class="constructor">S</span></code> réalise le calcul sur les tenseurs creux à coefficients 
+dans le corps commutatif <code class="code"><span class="constructor">F</span></code> et à indices de type <code class="code">int</code>.*)</span></td></tr></table><code class="code"><br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">S</span>&nbsp;=&nbsp;<span class="constructor">Sparse_tensor</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Data</span>.<span class="constructor">Zindex</span>)&nbsp;(<span class="constructor">Hash</span>.<span class="constructor">Z</span>)&nbsp;(<span class="constructor">F</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module <code class="code"><span class="constructor">N</span></code> realizes the calculation on the sparse matrices with coefficients
+in the field <code class="code"><span class="constructor">F</span></code> and indices of type <code class="code">int</code>.
+<p>
+
+Le module <code class="code"><span class="constructor">N</span></code> réalise le calcul sur les matrices creuses à coefficients 
+dans le corps commutatif <code class="code"><span class="constructor">F</span></code> et à indices de type <code class="code">int</code>.*)</span></td></tr></table><code class="code"><br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">N</span>&nbsp;=&nbsp;<span class="constructor">Sparse_matrix</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Data</span>.<span class="constructor">Zindex</span>)&nbsp;(<span class="constructor">Hash</span>.<span class="constructor">Z</span>)&nbsp;(<span class="constructor">F</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scalar_matrix scalar dimensions</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scalar_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(d:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;(&nbsp;<span class="constructor">N</span>.<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;<span class="constructor">S</span>.null&nbsp;d&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>identity_matrix dimensions</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;identity_matrix&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(d:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;scalar_matrix&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;d&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>coeff_two unit</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;coeff_two&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">N</span>.coeff_two&nbsp;()&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>coeff_half unit</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;coeff_half&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">N</span>.coeff_half&nbsp;()&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Oprations"><h1>Opérations</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_in_place_scal_left_div scalar vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_in_place_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(y:coeff)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Array</span>.iteri&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;w.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.div&nbsp;x&nbsp;y&nbsp;)&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">U</span>.in_place_scal_left_div&nbsp;y&nbsp;w&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_scal_left_div scalar vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(y:coeff)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">F</span>.div&nbsp;x&nbsp;y&nbsp;)&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;y&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_in_place_scal_right_div scalar vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_in_place_scal_right_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(y:coeff)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Array</span>.iteri&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;w.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.div&nbsp;y&nbsp;x&nbsp;)&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">U</span>.in_place_scal_right_div&nbsp;y&nbsp;w&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_scal_right_div scalar vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_scal_right_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(y:coeff)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">F</span>.div&nbsp;y&nbsp;)&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;<span class="constructor">U</span>.scal_right_div&nbsp;y&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_reciprocal vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_reciprocal&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_scal_left_div&nbsp;(&nbsp;<span class="constructor">F</span>.norm_inject&nbsp;(&nbsp;vector_square_norm_2&nbsp;v&nbsp;)&nbsp;)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;<span class="constructor">U</span>.reciprocal&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tensor_in_place_scal_left_div scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tensor_in_place_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(v:tensor)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_tensor</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tensor_in_place_scal_mult&nbsp;(&nbsp;<span class="constructor">F</span>.inv&nbsp;x&nbsp;)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_in_place_scal_left_div&nbsp;x&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">S</span>.in_place_scal_left_div&nbsp;x&nbsp;w&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tensor_scal_left_div scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tensor_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(v:tensor)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_tensor</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tensor_scal_mult&nbsp;(&nbsp;<span class="constructor">F</span>.inv&nbsp;x&nbsp;)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;vector_scal_left_div&nbsp;x&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;(&nbsp;<span class="constructor">S</span>.scal_left_div&nbsp;x&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_scal_left_div scalar matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(v:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_scal_mult&nbsp;(&nbsp;<span class="constructor">F</span>.inv&nbsp;x&nbsp;)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;(&nbsp;<span class="constructor">N</span>.scal_left_div&nbsp;x&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_scal_reciprocal matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_scal_reciprocal&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_scal_left_div&nbsp;(&nbsp;<span class="constructor">F</span>.norm_inject&nbsp;(&nbsp;matrix_square_norm_frobenius&nbsp;m&nbsp;)&nbsp;)&nbsp;m<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;(&nbsp;<span class="constructor">N</span>.reciprocal&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_sym matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_sym&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_transpose&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_scal_mult&nbsp;(&nbsp;coeff_half&nbsp;()&nbsp;)&nbsp;(&nbsp;matrix_add&nbsp;m&nbsp;mm&nbsp;)<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_antisym matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_antisym&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_transpose&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_scal_mult&nbsp;(&nbsp;coeff_half&nbsp;()&nbsp;)&nbsp;(&nbsp;matrix_sub&nbsp;m&nbsp;mm&nbsp;)<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;m&nbsp;,&nbsp;p&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_pivot_downward&nbsp;mm&nbsp;pp<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;,&nbsp;_&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;factor&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;first_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_column&nbsp;:=&nbsp;mask_vector&nbsp;i&nbsp;rr&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;m&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;vector_first_non_zero&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Non&nbsp;invertible&nbsp;left&nbsp;matrix&nbsp;in&nbsp;Mat.Field.in_place_pivot_downward."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&gt;&nbsp;i&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_exchange&nbsp;i&nbsp;!index&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_exchange&nbsp;i&nbsp;!index&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_exchange&nbsp;i&nbsp;!index&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;<span class="constructor">F</span>.inv&nbsp;(&nbsp;vector_extract&nbsp;i&nbsp;!first_column&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_in_place_scal_mult&nbsp;!factor&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_replace&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;i&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_left&nbsp;i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_in_place_scal_mult&nbsp;!factor&nbsp;!row_right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_right&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;succ&nbsp;i&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;vector_sub&nbsp;!row_output_left&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_replace&nbsp;(&nbsp;<span class="constructor">F</span>.zero&nbsp;()&nbsp;)&nbsp;i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output_left&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;vector_sub&nbsp;!row_output_right&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output_right&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Incompatible&nbsp;formats&nbsp;in&nbsp;Mat.Field.in_place_pivot_downward."</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;m&nbsp;,&nbsp;p&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">N</span>.pivot_downward&nbsp;mm&nbsp;pp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;result.(0)&nbsp;;&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;result.(1)&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;,&nbsp;_&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_copy&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;matrix_copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Full_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;matrix_to_full&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ppp&nbsp;=&nbsp;matrix_copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;in_place_pivot_downward&nbsp;mmm&nbsp;ppp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;mmm&nbsp;;&nbsp;ppp&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>invertibility matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;invertibility&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.invertibility&nbsp;mm<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;ww&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;factor&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;first_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;matrix_copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_column&nbsp;:=&nbsp;mask_vector&nbsp;i&nbsp;rr&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;p&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;vector_first_non_zero&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Non&nbsp;invertibility&nbsp;condition&nbsp;in&nbsp;Mat.Field.invertibility."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&gt;&nbsp;i&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_exchange&nbsp;i&nbsp;!index&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_exchange&nbsp;i&nbsp;!index&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;<span class="constructor">F</span>.inv&nbsp;(&nbsp;vector_extract&nbsp;i&nbsp;!first_column&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_in_place_scal_mult&nbsp;!factor&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_replace&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;i&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;succ&nbsp;i&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;vector_sub&nbsp;!row_output&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not&nbsp;(&nbsp;<span class="constructor">F</span>.eq_zero&nbsp;(&nbsp;matrix_extract&nbsp;rr&nbsp;rr&nbsp;p&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>det matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;det&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.det&nbsp;mm<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;ww&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;factor&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;first_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;matrix_copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_column&nbsp;:=&nbsp;mask_vector&nbsp;i&nbsp;rr&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;p&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;vector_first_non_zero&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Non&nbsp;invertibility&nbsp;condition&nbsp;in&nbsp;Mat.Field.det."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&gt;&nbsp;i&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_exchange&nbsp;i&nbsp;!index&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_exchange&nbsp;i&nbsp;!index&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">F</span>.mult&nbsp;!result&nbsp;!factor&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;<span class="constructor">F</span>.inv&nbsp;!factor&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_in_place_scal_mult&nbsp;!factor&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_replace&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;i&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;succ&nbsp;i&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;vector_sub&nbsp;!row_output&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">F</span>.mult&nbsp;!result&nbsp;(&nbsp;matrix_extract&nbsp;rr&nbsp;rr&nbsp;p&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">F</span>.zero&nbsp;()<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_pivot_upward matrix1 matrix2</pre> The left matrix <code class="code">m</code> is supposed to be 
+upper triangular with ones on the diagonal.
+<p>
+
+La matrice de gauche <code class="code">m</code> est supposée triangulaire supérieure avec des 1 sur la diagonale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;m&nbsp;,&nbsp;p&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_pivot_upward&nbsp;mm&nbsp;pp<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;,&nbsp;_&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;last_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;rr&nbsp;<span class="keyword">downto</span>&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;pred&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_column&nbsp;:=&nbsp;mask_vector&nbsp;0&nbsp;!index&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;m&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;!index&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_replace&nbsp;(&nbsp;<span class="constructor">F</span>.zero&nbsp;()&nbsp;)&nbsp;j&nbsp;i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;vector_sub&nbsp;!row_output_right&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output_right&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Incompatible&nbsp;formats&nbsp;in&nbsp;Mat.Field.in_place_pivot_upward."</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>pivot_upward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;m&nbsp;,&nbsp;p&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">N</span>.pivot_upward&nbsp;mm&nbsp;pp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;result.(0)&nbsp;;&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;result.(1)&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;,&nbsp;_&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_copy&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;matrix_copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Full_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;matrix_to_full&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ppp&nbsp;=&nbsp;matrix_copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;in_place_pivot_upward&nbsp;mmm&nbsp;ppp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;mmm&nbsp;;&nbsp;ppp&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inv matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;matrix_dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;matrix_copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;identity_matrix&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;p&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>left_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;left_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;matrix_copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;pp&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>right_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;right_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_transpose&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;matrix_transpose&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_transpose&nbsp;(&nbsp;left_quotient&nbsp;pp&nbsp;mm&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>cond matrix_norm invertor matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;cond&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(norm:matrix&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">F</span>.u)&nbsp;(invertor:matrix&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix)&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">F</span>.norm_mult&nbsp;(&nbsp;norm&nbsp;m&nbsp;)&nbsp;(&nbsp;norm&nbsp;(&nbsp;invertor&nbsp;m&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>naive_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;naive_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;matrix_vector_prod&nbsp;(&nbsp;inv&nbsp;m&nbsp;)&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;1&nbsp;)&nbsp;x&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;(&nbsp;<span class="constructor">N</span>.transpose&nbsp;(&nbsp;<span class="constructor">N</span>.sparse_vector_to_square_matrix&nbsp;x&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;q&nbsp;=&nbsp;left_quotient&nbsp;m&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;p&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;z.(0)&nbsp;)&nbsp;(&nbsp;matrix_full_demakeup&nbsp;q&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;<span class="constructor">N</span>.column_extract&nbsp;0&nbsp;(&nbsp;matrix_sparse_demakeup&nbsp;q&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tune_inv matrix inverse_candidate</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tune_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:matrix)&nbsp;(y:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;matrix_dimensions&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;double&nbsp;=&nbsp;scalar_matrix&nbsp;(&nbsp;coeff_two&nbsp;()&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;d.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;right_product&nbsp;=&nbsp;matrix_mult&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;difference&nbsp;=&nbsp;matrix_sub&nbsp;double&nbsp;right_product&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;matrix_mult&nbsp;y&nbsp;difference&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>approx_inv matrix_norm invertor matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;approx_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(norm:matrix&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">F</span>.u)&nbsp;(invertor:matrix&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix)&nbsp;(x:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;invertor&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;matrix_dimensions&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;product&nbsp;=&nbsp;matrix_mult&nbsp;x&nbsp;y<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;id&nbsp;=&nbsp;identity_matrix&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;d.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;tune_inv&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;error0&nbsp;=&nbsp;norm&nbsp;(&nbsp;matrix_sub&nbsp;product&nbsp;id&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;new_product&nbsp;=&nbsp;matrix_mult&nbsp;x&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;error1&nbsp;=&nbsp;norm&nbsp;(&nbsp;matrix_sub&nbsp;new_product&nbsp;id&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">F</span>.norm_compare&nbsp;error1&nbsp;error0&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;y&nbsp;,&nbsp;error0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;result&nbsp;,&nbsp;error1&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_extrap_inv parameter matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_extrap_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(parameter:<span class="constructor">F</span>.t)&nbsp;(x:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;inv&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;yy&nbsp;=&nbsp;tune_inv&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;matrix_add&nbsp;yy&nbsp;(&nbsp;matrix_scal_mult&nbsp;parameter&nbsp;(&nbsp;matrix_sub&nbsp;yy&nbsp;y&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>approx_solve matrix_norm matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;approx_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(norm:matrix&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">F</span>.u)&nbsp;(m:matrix)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;fst&nbsp;(&nbsp;approx_inv&nbsp;norm&nbsp;inv&nbsp;m&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_vector_prod&nbsp;mm&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_iterate exponent matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;matrix_iterate&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:matrix)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_vector_prod&nbsp;x&nbsp;!y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;fst&nbsp;(&nbsp;approx_inv&nbsp;matrix_norm_inf&nbsp;inv&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_vector_prod&nbsp;xx&nbsp;!y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!y<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_power exponent matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;matrix_power&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;identity_matrix&nbsp;(&nbsp;matrix_dimensions&nbsp;x&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;s&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factor&nbsp;=&nbsp;matrix_power&nbsp;n&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;prod&nbsp;=&nbsp;matrix_mult&nbsp;factor&nbsp;factor&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;<span class="keyword">mod</span>&nbsp;2&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;prod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;matrix_mult&nbsp;prod&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;fst&nbsp;(&nbsp;approx_inv&nbsp;matrix_norm_inf&nbsp;inv&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;matrix_power&nbsp;(&nbsp;abs&nbsp;s&nbsp;)&nbsp;xx<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

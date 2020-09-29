@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.frame_field_grid_multicolor_segment_1_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;frame_field_grid_multicolor_segment_1_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(colors:<span class="constructor">Graphics</span>.color&nbsp;array)&nbsp;(f:(float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;array)&nbsp;(interval:float&nbsp;array)&nbsp;(nsteps:int)&nbsp;(nfeet:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;ap&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;color&nbsp;a&nbsp;b&nbsp;c&nbsp;d&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;[|&nbsp;(a,b,c,d)&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;frame_field_grid_multicolor_paint_1_2&nbsp;curve_segment&nbsp;ap&nbsp;colors&nbsp;f&nbsp;interval&nbsp;nsteps&nbsp;nfeet&nbsp;coordinates&nbsp;size</code></body></html>

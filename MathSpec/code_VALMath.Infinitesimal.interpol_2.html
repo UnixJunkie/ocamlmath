@@ -1,0 +1,16 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.interpol_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;interpol_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(m:<span class="keywordsign">'</span>a&nbsp;array&nbsp;array)&nbsp;(x:float)&nbsp;(y:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;intermed&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;methode&nbsp;m.(i)&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;m&nbsp;)&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vv&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;intermed&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;methode&nbsp;vv&nbsp;y</code></body></html>

@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Bary.html">
+<link rel="next" href="Math.Data.html">
+<link rel="Up" href="Math.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<title>Math.Deg</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Bary.html">Previous</a>
+&nbsp;<a href="Math.html">Up</a>
+&nbsp;<a href="Math.Data.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Math.Deg.html">Math.Deg</a> (<a href="code_Math.Deg.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Deg: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Deg.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module utility functions and types to treat big degrees and valuations
+of polynomials and polynomial fractions. The infinite values are provided by the real numbers.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+When of type <code class="code">float</code>, the absolute value of degrees must not be greater than or equal to a value
+which is the minimum of the inverse of <code class="code">epsilon_float</code> and of <code class="code">max_int</code>.
+<p>
+
+The addition and substraction and multiplication pass quickly enough into big integers in order to avoid casual overflows.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des fonctions utilitaires et types pour traiter
+les grands degrés et valuations des polynômes et fractions ratonnelles. Les infinis sont fournis par les réels.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Pour les degrés de type <code class="code">float</code>, la valeur absolue ne doit pas atteindre ou dépasser une valeur
+qui est le minimum de l'inverse de <code class="code">epsilon_float</code> et de <code class="code">max_int</code>.
+<p>
+
+Les addition, soustraction et multiplication passent assez rapidement dans les grands entiers pour éviter d'éventuels dépassements de capacité.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.1</center><br>
+<pre><span id="VALbad_float"><span class="keyword">val</span> <a href="code_VALMath.Deg.bad_float.html">bad_float</a></span> : <code class="type">float -> bool</code></pre><div class="info">
+<pre>bad_float real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Witness</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Float</span> <span class="keyword">of</span> <code class="type">float</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Int</span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Big</span> <span class="keyword">of</span> <code class="type">Big_int.big_int</code></code></td>
+
+</tr></table>
+
+<div class="info">
+The type collects integer and big integer and real values.
+The real numbers provide the infinities.
+<p>
+
+Le type collationne les valeurs entières, grandes entières, réelles.
+Les réels fournissent les infinis.<br>
+</div>
+
+<pre><span id="VALzero"><span class="keyword">val</span> <a href="code_VALMath.Deg.zero.html">zero</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a></code></pre><pre><span id="VALwitness"><span class="keyword">val</span> <a href="code_VALMath.Deg.witness.html">witness</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a></code></pre><pre><span id="VALfloat_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Deg.float_demakeup.html">float_demakeup</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> float</code></pre><div class="info">
+<pre>float_demakeup degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Deg.int_demakeup.html">int_demakeup</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>int_demakeup degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbig_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Deg.big_demakeup.html">big_demakeup</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> Big_int.big_int</code></pre><div class="info">
+<pre>big_demakeup degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint"><span class="keyword">val</span> <a href="code_VALMath.Deg.print.html">print</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>print degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq_zero"><span class="keyword">val</span> <a href="code_VALMath.Deg.eq_zero.html">eq_zero</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>eq_zero degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALMath.Deg.copy.html">copy</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>copy degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALMath.Deg.opp.html">opp</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>opp degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_int"><span class="keyword">val</span> <a href="code_VALMath.Deg.to_int.html">to_int</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>to_int degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfrom_int"><span class="keyword">val</span> <a href="code_VALMath.Deg.from_int.html">from_int</a></span> : <code class="type">int -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>from_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+u</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpred"><span class="keyword">val</span> <a href="code_VALMath.Deg.pred.html">pred</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>pred degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsucc"><span class="keyword">val</span> <a href="code_VALMath.Deg.succ.html">succ</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>succ degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmaximum"><span class="keyword">val</span> <a href="code_VALMath.Deg.maximum.html">maximum</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>maximum degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALminimum"><span class="keyword">val</span> <a href="code_VALMath.Deg.minimum.html">minimum</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>minimum degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadd"><span class="keyword">val</span> <a href="code_VALMath.Deg.add.html">add</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>add degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub"><span class="keyword">val</span> <a href="code_VALMath.Deg.sub.html">sub</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sub degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALshift"><span class="keyword">val</span> <a href="code_VALMath.Deg.shift.html">shift</a></span> : <code class="type">int -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>shift integer degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmult"><span class="keyword">val</span> <a href="code_VALMath.Deg.mult.html">mult</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a></code></pre><div class="info">
+<pre>mult degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcompare"><span class="keyword">val</span> <a href="code_VALMath.Deg.compare.html">compare</a></span> : <code class="type"><a href="Math.Deg.html#TYPEt">t</a> -> <a href="Math.Deg.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>compare degree1 degree2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Deg.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

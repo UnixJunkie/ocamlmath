@@ -1,0 +1,114 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Widget.choose_directory</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;choose_directory&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(approx_hori_size:int)&nbsp;(approx_verti_size:int)&nbsp;(max_number:int)&nbsp;(dname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;beginning&nbsp;=&nbsp;<span class="constructor">Sys</span>.getcwd&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;dname&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;wd&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Sys</span>.getcwd&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.close_graph&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;obsolete&nbsp;=&nbsp;ref&nbsp;[&nbsp;!wd&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;choice&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;sub_directories_list&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Readwrite</span>.sub_directories_with_parent&nbsp;dname&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;hori_size&nbsp;=&nbsp;approx_hori_size<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;verti_size&nbsp;=&nbsp;approx_verti_size<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;first_time&nbsp;=&nbsp;ref&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;refresh_message&nbsp;=&nbsp;[|&nbsp;<span class="string">"Rafraîchir"</span>&nbsp;;&nbsp;<span class="string">"Refresh"</span>&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;current_character&nbsp;=&nbsp;ref&nbsp;<span class="string">"0"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;sd&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;sed&nbsp;=&nbsp;ref&nbsp;[|&nbsp;<span class="string">""</span>&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;address_initial&nbsp;=&nbsp;ref&nbsp;dname&nbsp;<span class="keyword">and</span>&nbsp;address_final&nbsp;=&nbsp;ref&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ok&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;cancel&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;back&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;seek_out&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">and</span>&nbsp;refresh&nbsp;=&nbsp;ref&nbsp;[|&nbsp;0&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hori_shift&nbsp;=&nbsp;hori_size&nbsp;/&nbsp;20<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;verti_shift&nbsp;=&nbsp;verti_size&nbsp;/&nbsp;20<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;!sub_directories_list&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;small_radius&nbsp;=&nbsp;max&nbsp;10&nbsp;(&nbsp;approx_verti_size&nbsp;/&nbsp;40&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f_init&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** f_init *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Gc</span>.compact&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!first_time&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.open_graph&nbsp;(&nbsp;<span class="string">"&nbsp;"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;hori_size&nbsp;)&nbsp;^&nbsp;<span class="string">"x"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;verti_size&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_window_title&nbsp;<span class="string">"Analogic.choose_directory"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address_initial&nbsp;:=&nbsp;!wd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address_final&nbsp;:=&nbsp;<span class="string">""</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub_directories_list&nbsp;:=&nbsp;<span class="constructor">Readwrite</span>.sub_directories_with_parent&nbsp;!wd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l&nbsp;:=&nbsp;<span class="constructor">Array</span>.length&nbsp;!sub_directories_list&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;<span class="constructor">Graphics</span>.background&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.fill_rect&nbsp;0&nbsp;0&nbsp;hori_size&nbsp;verti_size&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sd&nbsp;:=&nbsp;cursor_round_folded_selector&nbsp;(&nbsp;10&nbsp;*&nbsp;hori_shift&nbsp;)&nbsp;(&nbsp;10&nbsp;*&nbsp;verti_shift&nbsp;)&nbsp;small_radius&nbsp;(&nbsp;7&nbsp;*&nbsp;(&nbsp;min&nbsp;hori_shift&nbsp;verti_shift&nbsp;)&nbsp;)&nbsp;<span class="constructor">Graphics</span>.red&nbsp;<span class="constructor">Graphics</span>.yellow&nbsp;<span class="constructor">Graphics</span>.black&nbsp;<span class="constructor">Graphics</span>.green&nbsp;<span class="constructor">Graphics</span>.white&nbsp;!sub_directories_list&nbsp;max_number&nbsp;!choice&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sed&nbsp;:=&nbsp;string_edit&nbsp;(&nbsp;10&nbsp;*&nbsp;hori_shift&nbsp;)&nbsp;verti_shift&nbsp;(&nbsp;16&nbsp;*&nbsp;hori_shift&nbsp;)&nbsp;dark_grey&nbsp;<span class="constructor">Graphics</span>.white&nbsp;<span class="constructor">Graphics</span>.yellow&nbsp;!address_initial&nbsp;!address_final&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok&nbsp;:=&nbsp;rect_switch&nbsp;(&nbsp;hori_size&nbsp;-&nbsp;hori_shift&nbsp;)&nbsp;verti_shift&nbsp;<span class="constructor">Graphics</span>.green&nbsp;<span class="constructor">Graphics</span>.black&nbsp;[|&nbsp;<span class="string">"&nbsp;OK&nbsp;"</span>&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cancel&nbsp;:=&nbsp;rect_switch&nbsp;hori_shift&nbsp;verti_shift&nbsp;<span class="constructor">Graphics</span>.red&nbsp;<span class="constructor">Graphics</span>.black&nbsp;[|&nbsp;<span class="string">"&nbsp;Annuler&nbsp;"</span>&nbsp;;&nbsp;<span class="string">"&nbsp;Cancel&nbsp;"</span>&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refresh&nbsp;:=&nbsp;rect_switch&nbsp;hori_shift&nbsp;(&nbsp;10&nbsp;*&nbsp;verti_shift&nbsp;)&nbsp;<span class="constructor">Graphics</span>.yellow&nbsp;<span class="constructor">Graphics</span>.black&nbsp;refresh_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seek_out&nbsp;:=&nbsp;rect_switch&nbsp;hori_shift&nbsp;(&nbsp;verti_size&nbsp;-&nbsp;verti_shift&nbsp;)&nbsp;<span class="constructor">Graphics</span>.cyan&nbsp;<span class="constructor">Graphics</span>.black&nbsp;[|&nbsp;<span class="string">"Remonter"</span>&nbsp;;&nbsp;<span class="string">"Seek&nbsp;out"</span>&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;back&nbsp;:=&nbsp;rect_switch&nbsp;(&nbsp;hori_size&nbsp;-&nbsp;hori_shift&nbsp;)&nbsp;(&nbsp;verti_size&nbsp;-&nbsp;verti_shift&nbsp;)&nbsp;<span class="constructor">Graphics</span>.cyan&nbsp;<span class="constructor">Graphics</span>.black&nbsp;[|&nbsp;<span class="string">"Précédent"</span>&nbsp;;&nbsp;<span class="string">"Backward"</span>&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;<span class="constructor">Graphics</span>.foreground&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;(&nbsp;18&nbsp;*&nbsp;hori_shift&nbsp;)&nbsp;(&nbsp;10&nbsp;*&nbsp;verti_shift&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;(&nbsp;(&nbsp;string_of_int&nbsp;!sd.(4)&nbsp;)&nbsp;^&nbsp;<span class="string">"&nbsp;/&nbsp;"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;!l&nbsp;)&nbsp;^&nbsp;<span class="string">"&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;!sd.(5)&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** f_init *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f_end&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;beginning&nbsp;;&nbsp;<span class="constructor">Graphics</span>.close_graph&nbsp;()&nbsp;;&nbsp;raise&nbsp;<span class="constructor">End</span>&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f_key&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;c&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;current_character&nbsp;:=&nbsp;<span class="constructor">Char</span>.escaped&nbsp;c&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f_mouse&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** f_mouse *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_time&nbsp;:=&nbsp;<span class="keyword">false</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choice&nbsp;:=&nbsp;over_folded_selector&nbsp;!sd&nbsp;x&nbsp;y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_over_rect_button&nbsp;!cancel&nbsp;x&nbsp;y&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obsolete&nbsp;:=&nbsp;!wd&nbsp;::&nbsp;!obsolete&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wd&nbsp;:=&nbsp;dname&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_end&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_over_rect_button&nbsp;!ok&nbsp;x&nbsp;y&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_end&nbsp;()&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_over_rect_button&nbsp;!refresh&nbsp;x&nbsp;y&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_init&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;!choice&nbsp;!=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;!choice&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;!choice&nbsp;&lt;&nbsp;!l&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;(&nbsp;!sub_directories_list&nbsp;).(!choice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obsolete&nbsp;:=&nbsp;!wd&nbsp;::&nbsp;!obsolete&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wd&nbsp;:=&nbsp;<span class="constructor">Sys</span>.getcwd&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choice&nbsp;:=&nbsp;0&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_init&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;!choice&nbsp;&gt;=&nbsp;!l&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;!choice&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_init&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;!choice&nbsp;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;is_over_rect_button&nbsp;!seek_out&nbsp;x&nbsp;y&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obsolete&nbsp;:=&nbsp;!wd&nbsp;::&nbsp;!obsolete&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wd&nbsp;:=&nbsp;<span class="constructor">Filename</span>.dirname&nbsp;(&nbsp;<span class="constructor">Sys</span>.getcwd&nbsp;()&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;!wd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_init&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_over_rect_button&nbsp;!back&nbsp;x&nbsp;y&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wd&nbsp;:=&nbsp;<span class="constructor">List</span>.hd&nbsp;!obsolete&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obsolete&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!obsolete&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.length&nbsp;!obsolete&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obsolete&nbsp;:=&nbsp;[&nbsp;beginning&nbsp;]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;!wd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_init&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** f_mouse *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f_except&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;unknown&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">Graphics</span>.close_graph&nbsp;()&nbsp;;&nbsp;raise&nbsp;<span class="constructor">End</span>&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;skeleton&nbsp;f_init&nbsp;f_end&nbsp;f_key&nbsp;f_mouse&nbsp;f_except&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!wd<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">End</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Gc</span>.compact&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">Sys</span>.chdir&nbsp;beginning&nbsp;;<br>
+&nbsp;&nbsp;!wd</code></body></html>

@@ -1,0 +1,47 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.read_raw_bmp_int_rgb</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;read_raw_bmp_int_rgb&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(fname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;read_bmp_header&nbsp;fname<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;offset&nbsp;=&nbsp;54&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;int_of_string&nbsp;h.(10)&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Compressed&nbsp;format&nbsp;in&nbsp;Readwrite.read_raw_bmp_int_rgb."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;int_of_string&nbsp;h.(9)&nbsp;&lt;&gt;&nbsp;24&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Number&nbsp;of&nbsp;bits&nbsp;per&nbsp;pixel&nbsp;not&nbsp;programmed&nbsp;in&nbsp;Readwrite.read_raw_bmp_int_rgb."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;width&nbsp;=&nbsp;int_of_string&nbsp;h.(6)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;height&nbsp;=&nbsp;int_of_string&nbsp;h.(7)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;pred&nbsp;width<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;hh&nbsp;=&nbsp;pred&nbsp;height<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tw&nbsp;=&nbsp;3&nbsp;*&nbsp;width<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;height&nbsp;width&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;height&nbsp;width&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;b&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;height&nbsp;width&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;a&nbsp;=&nbsp;ref&nbsp;(&nbsp;array_read_binary_file&nbsp;(&nbsp;width&nbsp;*&nbsp;height&nbsp;+&nbsp;offset&nbsp;)&nbsp;fname&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;:=&nbsp;<span class="constructor">Util</span>.array_end&nbsp;offset&nbsp;!a&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;hh&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;(&nbsp;hh&nbsp;-&nbsp;i&nbsp;)&nbsp;*&nbsp;tw<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;red_output&nbsp;=&nbsp;r.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;green_output&nbsp;=&nbsp;g.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;blue_output&nbsp;=&nbsp;b.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ww&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;jj&nbsp;=&nbsp;3&nbsp;*&nbsp;j&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue_output.(j)&nbsp;&lt;-&nbsp;!a.(&nbsp;ii&nbsp;+&nbsp;jj&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green_output.(j)&nbsp;&lt;-&nbsp;!a.(&nbsp;ii&nbsp;+&nbsp;jj&nbsp;+&nbsp;1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red_output.(j)&nbsp;&lt;-&nbsp;!a.(&nbsp;ii&nbsp;+&nbsp;jj&nbsp;+&nbsp;2&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;r&nbsp;;&nbsp;g&nbsp;;&nbsp;b&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;failwith&nbsp;<span class="string">"Error&nbsp;in&nbsp;Readwrite.read_raw_bmp_int_rgb."</span></code></body></html>

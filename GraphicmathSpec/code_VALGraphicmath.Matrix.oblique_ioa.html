@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.oblique_ioa</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;oblique_ioa&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(r:int)&nbsp;(c:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;r&nbsp;c&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;(&nbsp;min&nbsp;r&nbsp;c&nbsp;)&nbsp;-&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;w.(i).(s&nbsp;-&nbsp;i)&nbsp;&lt;-&nbsp;<span class="constructor">Int_cons</span>&nbsp;1<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;w</code></body></html>

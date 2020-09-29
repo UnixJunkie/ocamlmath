@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.frame_field_paint_3_3</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;frame_field_paint_3_3&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;paint&nbsp;(u:float&nbsp;array)&nbsp;(colors1:<span class="constructor">Graphics</span>.color&nbsp;array)&nbsp;(colors2:<span class="constructor">Graphics</span>.color&nbsp;array)&nbsp;(f:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(half_ngrid:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;ng&nbsp;,&nbsp;shift&nbsp;,&nbsp;h_size&nbsp;,&nbsp;v_size&nbsp;,&nbsp;v&nbsp;,&nbsp;w&nbsp;,&nbsp;xx&nbsp;,&nbsp;yy&nbsp;,&nbsp;zz&nbsp;,&nbsp;x_function&nbsp;,&nbsp;y_function&nbsp;,&nbsp;vx_function&nbsp;,&nbsp;vy_function&nbsp;)&nbsp;=&nbsp;prepare_section_3_3&nbsp;u&nbsp;f&nbsp;half_ngrid&nbsp;coordinates&nbsp;size<br>
+&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;&nbsp;(&nbsp;f&nbsp;[|&nbsp;coordinates.(0)&nbsp;;&nbsp;coordinates.(2)&nbsp;;&nbsp;coordinates.(4)&nbsp;|]&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;init_section_3_3&nbsp;h_size&nbsp;v_size&nbsp;size&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;/&nbsp;3&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;kk&nbsp;=&nbsp;3&nbsp;*&nbsp;k<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;k_k&nbsp;=&nbsp;k&nbsp;<span class="keyword">mod</span>&nbsp;5&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;f&nbsp;z&nbsp;<span class="keyword">in</span>&nbsp;[|&nbsp;zz.(kk)&nbsp;;&nbsp;zz.(&nbsp;kk&nbsp;+&nbsp;1&nbsp;)&nbsp;;&nbsp;zz.(&nbsp;kk&nbsp;+&nbsp;2&nbsp;)&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;field_partial_paint_3_3&nbsp;ng&nbsp;xx&nbsp;yy&nbsp;zz&nbsp;shift&nbsp;v&nbsp;w&nbsp;x_function&nbsp;y_function&nbsp;vx_function&nbsp;vy_function&nbsp;paint&nbsp;u&nbsp;colors1.(k_k)&nbsp;colors2.(k_k)&nbsp;g&nbsp;half_ngrid&nbsp;coordinates&nbsp;size&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span></code></body></html>

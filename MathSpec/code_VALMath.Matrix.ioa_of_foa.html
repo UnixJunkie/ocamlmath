@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.ioa_of_foa</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;ioa_of_foa&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;(int_of_float&nbsp;y)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_vector_cons</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_vector_cons</span>&nbsp;(&nbsp;int_of_vector&nbsp;v&nbsp;)&nbsp;<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Foa_vector_cons</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;r&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ww.(i)&nbsp;&lt;-&nbsp;ioa_of_foa&nbsp;z.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;ww<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;int_of_matrix&nbsp;m&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cc&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w.(0)&nbsp;-&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;r&nbsp;(cc&nbsp;+&nbsp;1)&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_input&nbsp;=&nbsp;w.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;ww.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;cc&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;ioa_of_foa&nbsp;(&nbsp;row_input.(j)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;ww<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;float_or_array&nbsp;in&nbsp;Matrix.ioa_of_foa."</span></code></body></html>

@@ -1,0 +1,18 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.discrete_frame_field_trans_draw_1_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_frame_field_trans_draw_1_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;(interval:float&nbsp;array)&nbsp;(nfeet:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;scale&nbsp;=&nbsp;(&nbsp;float&nbsp;r&nbsp;)&nbsp;/.&nbsp;(&nbsp;interval.(1)&nbsp;-.&nbsp;interval.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="constructor">Infinitesimal</span>.vector_trans_interpol&nbsp;(&nbsp;<span class="constructor">Infinitesimal</span>.float_tune_interpol&nbsp;<span class="constructor">Infinitesimal</span>.mean_float_discrete_richardson_binary_diff&nbsp;<span class="constructor">Infinitesimal</span>.float_decay_16&nbsp;)&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;(&nbsp;(&nbsp;x&nbsp;-.&nbsp;interval.(0)&nbsp;)&nbsp;*.&nbsp;scale&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;frame_field_draw_1_2&nbsp;g&nbsp;interval&nbsp;r&nbsp;nfeet&nbsp;coordinates&nbsp;size</code></body></html>

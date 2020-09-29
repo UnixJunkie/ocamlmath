@@ -1,0 +1,624 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Fft.Field</title>
+</head>
+<body>
+<code class="code">(<span class="constructor">F</span>:<span class="constructor">Data</span>.<span class="constructor">Field_coeff_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+The mathematician will find in this module:
+<p>
+<ul>
+<li>constructions of matrices of direct and inverse discrete Fourier transforms
+for a primary number of samples (p^n where p is prime),</li>
+</ul>
+<ul>
+<li>functions of direct and inverse fast Fourier transforms
+for a binary number of samples (2^n).</li>
+</ul>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+The coefficients must belong to a field and the user has to provide the necessary roots of unity.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des constructions de matrices de transformées de Fourier discrètes, directes et inverses
+pour un nombre d'échantillons primaire (p^n où p est premier),</li>
+</ul>
+<ul>
+<li>des fonctions de transformées de Fourier rapide directes et inverses
+pour un nombre d'échantillons binaire (2^n).</li>
+</ul>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Les coefficients doivent appartenir à un corps commutatif et l'utilisateur ou l'utilisatrice doit fournir les racines de l'unité nécessaires.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.1</center>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@version 0.1
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@author Stéphane Grognet
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@since 2012, 2013
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Constructionsminimales"><h1>Constructions minimales</h1></span>
+<span id="1_Minimalconstructions"><h1>Minimal constructions</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Util</span>&nbsp;;;<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">M</span>&nbsp;=&nbsp;<span class="constructor">Mat</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">F</span>)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>dft primitive_root_of_unity dimension</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">omega</code> est supposée d'ordre <code class="code">n</code>.
+Dans le cas des nombres complexes, on prend exp ( - 2 * i * pi / n ). *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;dft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;n&nbsp;n&nbsp;omega<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nn&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;m.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nn&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.int_pow&nbsp;(&nbsp;i&nbsp;*&nbsp;j&nbsp;<span class="keyword">mod</span>&nbsp;n&nbsp;)&nbsp;omega&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_matrix</span>&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inverse_dft primitive_root_of_unity dimension</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">omega</code> est supposée d'ordre <code class="code">n</code>.
+Dans le cas des nombres complexes, on prend exp ( - 2 * i * pi / n ). *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inverse_dft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;n&nbsp;n&nbsp;omega<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">F</span>.int_div&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nn&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;m.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nn&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;d&nbsp;(&nbsp;<span class="constructor">F</span>.int_pow&nbsp;(&nbsp;-&nbsp;i&nbsp;*&nbsp;j&nbsp;<span class="keyword">mod</span>&nbsp;n&nbsp;)&nbsp;omega&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_matrix</span>&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>twist_dft_vector twist_factor dimension</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;twist_dft_vector&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;v.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;twist&nbsp;v.(&nbsp;pred&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_vector</span>&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>twist_dft_matrix twist_factor dimension</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;twist_dft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">M</span>.vector_to_diag&nbsp;(&nbsp;twist_dft_vector&nbsp;twist&nbsp;n&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>twisted_dft primitive_root_of_unity dimension twist_factor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;twisted_dft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;dft&nbsp;omega&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;twist_dft_matrix&nbsp;twist&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_mult&nbsp;m&nbsp;mm&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Constructionsmatricielles"><h1>Constructions matricielles</h1></span>
+<span id="1_Matrixconstructions"><h1>Matrix constructions</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+<p>
+
+décrit dans le polycopié Baudoin-Bercher ESIEE 2001.
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_block_fft scalar dimension</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_block_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:<span class="constructor">F</span>.t)&nbsp;(dim:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">M</span>.scal_matrix&nbsp;x&nbsp;dim&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_binary_fft primitive_root_of_unity degree exponent</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(exponent:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;n&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;degree&nbsp;in&nbsp;Fft.element_binary_fft."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;n&nbsp;2<br>
+&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">F</span>.int_pow&nbsp;exponent&nbsp;omega&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;block_1&nbsp;=&nbsp;scal_block_fft&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;dim<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;block_2&nbsp;=&nbsp;scal_block_fft&nbsp;x&nbsp;dim<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;block_3&nbsp;=&nbsp;scal_block_fft&nbsp;(&nbsp;<span class="constructor">F</span>.opp&nbsp;x&nbsp;)&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_of_blocks&nbsp;[|&nbsp;[|&nbsp;block_1&nbsp;;&nbsp;block_2&nbsp;|]&nbsp;;&nbsp;[|&nbsp;block_1&nbsp;;&nbsp;block_3&nbsp;|]&nbsp;|]&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>factor_binary_fft primitive_root_of_unity degree step</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;factor_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(step:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;n&nbsp;&lt;&nbsp;2&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;degree&nbsp;in&nbsp;Fft.element_binary_fft."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;step&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;step&nbsp;&gt;&nbsp;nn&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;step&nbsp;in&nbsp;Fft.element_binary_fft."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;slicing&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;step&nbsp;2<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;complement&nbsp;=&nbsp;nn&nbsp;-&nbsp;step&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;small_dim&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;complement&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">M</span>.matrix_sparse_null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;2&nbsp;*&nbsp;small_dim&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;slicing&nbsp;slicing&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;slicing&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;<span class="constructor">Util</span>.truncated_bit_reversal&nbsp;nn&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.(i).(i)&nbsp;&lt;-&nbsp;element_binary_fft&nbsp;omega&nbsp;complement&nbsp;ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_of_blocks&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>naive_aux_binary_fft primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;naive_aux_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;factor_binary_fft&nbsp;omega&nbsp;n&nbsp;0&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">M</span>.matrix_mult&nbsp;(&nbsp;factor_binary_fft&nbsp;omega&nbsp;n&nbsp;i&nbsp;)&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>aux_binary_fft_matrix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;aux_binary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_transpose&nbsp;(&nbsp;factor_binary_fft&nbsp;omega&nbsp;n&nbsp;0&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">M</span>.matrix_twisted_mult&nbsp;!accu&nbsp;(&nbsp;factor_binary_fft&nbsp;omega&nbsp;n&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_transpose&nbsp;!accu&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>binary_row_mix degree matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;binary_row_mix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(m:<span class="constructor">M</span>.matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;truncated_bit_reversal&nbsp;n&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;ii&nbsp;&gt;&nbsp;i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_row_exchange&nbsp;i&nbsp;ii&nbsp;m<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>binary_fft_matrix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;binary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;aux_binary_fft_matrix&nbsp;omega&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;binary_row_mix&nbsp;n&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inverse_binary_fft_matrix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inverse_binary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;root&nbsp;=&nbsp;<span class="constructor">F</span>.inv&nbsp;omega<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;binary_fft_matrix&nbsp;root&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_map&nbsp;(&nbsp;<span class="constructor">F</span>.int_div&nbsp;dim&nbsp;)&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>binary_twist_fft_vector twist_factor degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;binary_twist_fft_vector&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;2<br>
+&nbsp;<span class="keyword">and</span>&nbsp;bits&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;<span class="keyword">false</span>&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;powers&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;powers.(0)&nbsp;&lt;-&nbsp;twist&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;dim&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;powers.(&nbsp;pred&nbsp;i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;powers.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.square&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;x&nbsp;<span class="keyword">then</span>&nbsp;powers.(i)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;:=&nbsp;reverse_array&nbsp;(&nbsp;truncated_bits_of_int&nbsp;n&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factors&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;f&nbsp;!bits&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">F</span>.mult&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;factors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_vector</span>&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>aux_binary_twist_fft_matrix twist_factor degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;aux_binary_twist_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">M</span>.vector_to_diag&nbsp;(&nbsp;binary_twist_fft_vector&nbsp;twist&nbsp;n&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>binary_twisted_fft_matrix primitive_root_of_unity degree twist_factor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;binary_twisted_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;binary_fft_matrix&nbsp;omega&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;aux_binary_twist_fft_matrix&nbsp;twist&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_mult&nbsp;m&nbsp;mm&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_AlgorithmeprimairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme primaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_PrimaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Primary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_primary_fft raw_root radix primitive_root_of_unity degree exponent</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">raw_root</code> doit être d'ordre la base <code class="code">p</code>. 
+La racine primitive de l'unité <code class="code">omega</code> doit être d'ordre p^n. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_primary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(exponent:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;n&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;degree&nbsp;in&nbsp;Fft.element_primary_fft."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;n&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;pred&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">F</span>.int_pow&nbsp;exponent&nbsp;omega&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;j&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;scal_block_fft&nbsp;(&nbsp;<span class="constructor">F</span>.mult&nbsp;(&nbsp;<span class="constructor">F</span>.int_pow&nbsp;i&nbsp;raw_root&nbsp;)&nbsp;(&nbsp;<span class="constructor">F</span>.int_pow&nbsp;j&nbsp;x&nbsp;)&nbsp;)&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;init&nbsp;=&nbsp;scal_block_fft&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;p&nbsp;p&nbsp;init&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pp&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;m.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pp&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;f&nbsp;(&nbsp;(&nbsp;i&nbsp;*&nbsp;j&nbsp;)&nbsp;<span class="keyword">mod</span>&nbsp;p&nbsp;)&nbsp;j<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_of_blocks&nbsp;m&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>factor_primary_fft raw_root radix primitive_root_of_unity degree step</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">raw_root</code> doit être d'ordre la base <code class="code">p</code>. 
+La racine primitive de l'unité <code class="code">omega</code> doit être d'ordre p^n. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;factor_primary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(step:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;n&nbsp;&lt;&nbsp;2&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;degree&nbsp;in&nbsp;Fft.element_primary_fft."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;step&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;step&nbsp;&gt;&nbsp;nn&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;step&nbsp;in&nbsp;Fft.element_primary_fft."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;slicing&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;step&nbsp;p<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;complement&nbsp;=&nbsp;nn&nbsp;-&nbsp;step&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;small_dim&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;complement&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">M</span>.matrix_sparse_null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;p&nbsp;*&nbsp;small_dim&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;slicing&nbsp;slicing&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;slicing&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;<span class="constructor">Util</span>.truncated_digit_reversal&nbsp;p&nbsp;nn&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.(i).(i)&nbsp;&lt;-&nbsp;element_primary_fft&nbsp;raw_root&nbsp;p&nbsp;omega&nbsp;complement&nbsp;ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_of_blocks&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>aux_primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;aux_primary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_transpose&nbsp;(&nbsp;factor_primary_fft&nbsp;raw_root&nbsp;p&nbsp;omega&nbsp;n&nbsp;0&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">M</span>.matrix_twisted_mult&nbsp;!accu&nbsp;(&nbsp;factor_primary_fft&nbsp;raw_root&nbsp;p&nbsp;omega&nbsp;n&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_transpose&nbsp;!accu&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>primary_row_mix radix degree matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;primary_row_mix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:int)&nbsp;(n:int)&nbsp;(m:<span class="constructor">M</span>.matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;truncated_digit_reversal&nbsp;p&nbsp;n&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;ii&nbsp;&gt;&nbsp;i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_row_exchange&nbsp;i&nbsp;ii&nbsp;m<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;primary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;aux_primary_fft_matrix&nbsp;raw_root&nbsp;p&nbsp;omega&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;primary_row_mix&nbsp;p&nbsp;n&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inverse_primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inverse_primary_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;root&nbsp;=&nbsp;<span class="constructor">F</span>.inv&nbsp;omega<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;primary_fft_matrix&nbsp;raw_root&nbsp;p&nbsp;root&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_map&nbsp;(&nbsp;<span class="constructor">F</span>.int_div&nbsp;dim&nbsp;)&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>primary_twist_fft_vector radix twist_factor degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;primary_twist_fft_vector&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;pred&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;p_p&nbsp;=&nbsp;p&nbsp;-&nbsp;2<br>
+&nbsp;<span class="keyword">and</span>&nbsp;digits&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;0&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;powers&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;n&nbsp;pp&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;first_row&nbsp;=&nbsp;powers.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;first_row.(0)&nbsp;&lt;-&nbsp;twist&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;p_p&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_row.(j)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;twist&nbsp;first_row.&nbsp;(&nbsp;pred&nbsp;j&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;dim&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pred_row&nbsp;=&nbsp;powers.(&nbsp;pred&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;powers.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;pred_row.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;pred_row.(p_p)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">F</span>.mult&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(0)&nbsp;&lt;-&nbsp;z&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;p_p&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;row.(&nbsp;pred&nbsp;j&nbsp;)&nbsp;z<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;x&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;powers.(i).(&nbsp;pred&nbsp;x&nbsp;)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digits&nbsp;:=&nbsp;reverse_array&nbsp;(&nbsp;truncated_digits_of_int&nbsp;p&nbsp;n&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factors&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;f&nbsp;!digits&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">F</span>.mult&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;factors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_vector</span>&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>aux_primary_twist_fft_matrix radix twist_factor degree</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;aux_primary_twist_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">M</span>.vector_to_diag&nbsp;(&nbsp;primary_twist_fft_vector&nbsp;p&nbsp;twist&nbsp;n&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>primary_twisted_fft_matrix raw_root radix primitive_root_of_unity degree twist_factor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;primary_twisted_fft_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(raw_root:<span class="constructor">F</span>.t)&nbsp;(p:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;primary_fft_matrix&nbsp;raw_root&nbsp;p&nbsp;omega&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;aux_primary_twist_fft_matrix&nbsp;p&nbsp;twist&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.matrix_to_full&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_mult&nbsp;m&nbsp;mm&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Fonctionsvectorielles"><h1>Fonctions vectorielles</h1></span>
+<span id="1_Vectorfunctions"><h1>Vector functions</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>naive_vector_binary_mix degree vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;naive_vector_binary_mix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(v:<span class="constructor">M</span>.vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;truncated_bit_reversal&nbsp;n&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;ii&nbsp;&gt;&nbsp;i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_exchange&nbsp;i&nbsp;ii&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_binary_mix degree vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_binary_mix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(v:<span class="constructor">M</span>.vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;truncated_bit_reversal&nbsp;n&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;ii&nbsp;&gt;&nbsp;i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_exchange&nbsp;i&nbsp;ii&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;f&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extract_odd vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extract_odd&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:<span class="constructor">M</span>.vector)<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;dd&nbsp;,&nbsp;h&nbsp;)&nbsp;=&nbsp;<span class="constructor">M</span>.vector_sparse_demakeup&nbsp;(&nbsp;<span class="constructor">M</span>.vector_to_sparse&nbsp;(&nbsp;<span class="constructor">M</span>.vector_nihil&nbsp;v&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">V</span>.<span class="constructor">H</span>.resize&nbsp;(&nbsp;max&nbsp;1&nbsp;(&nbsp;(&nbsp;abs&nbsp;(&nbsp;<span class="constructor">M</span>.<span class="constructor">V</span>.<span class="constructor">H</span>.size&nbsp;h&nbsp;)&nbsp;)&nbsp;/&nbsp;2&nbsp;)&nbsp;)&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">M</span>.<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;dd&nbsp;/&nbsp;2&nbsp;,&nbsp;h&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;i&nbsp;<span class="keyword">land</span>&nbsp;1&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;(&nbsp;i&nbsp;/&nbsp;2&nbsp;)&nbsp;result&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extract_even vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extract_even&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:<span class="constructor">M</span>.vector)<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;dd&nbsp;,&nbsp;h&nbsp;)&nbsp;=&nbsp;<span class="constructor">M</span>.vector_sparse_demakeup&nbsp;(&nbsp;<span class="constructor">M</span>.vector_to_sparse&nbsp;(&nbsp;<span class="constructor">M</span>.vector_nihil&nbsp;v&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">V</span>.<span class="constructor">H</span>.resize&nbsp;(&nbsp;max&nbsp;1&nbsp;(&nbsp;(&nbsp;abs&nbsp;(&nbsp;<span class="constructor">M</span>.<span class="constructor">V</span>.<span class="constructor">H</span>.size&nbsp;h&nbsp;)&nbsp;)&nbsp;/&nbsp;2&nbsp;)&nbsp;)&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">M</span>.<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;dd&nbsp;/&nbsp;2&nbsp;,&nbsp;h&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;i&nbsp;<span class="keyword">land</span>&nbsp;1&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;(&nbsp;i&nbsp;/&nbsp;2&nbsp;)&nbsp;result&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_binary_fft threshold primitive_root_of_unity degree powers matrix_array vector</pre>
+This function is not tail recursive.
+The dimension of the vector <code class="code">v</code> is supposed to be equal to 2^n.
+<p>
+
+La dimension du vecteur <code class="code">v</code> est supposée égale à 2^n.
+Cette fonction n'est pas récursive terminale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;vector_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(threshold:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(powers:<span class="constructor">F</span>.t&nbsp;array)&nbsp;(matrices:<span class="constructor">M</span>.matrix&nbsp;array)&nbsp;(v:<span class="constructor">M</span>.vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;compare&nbsp;n&nbsp;(&nbsp;max&nbsp;2&nbsp;threshold&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;test&nbsp;<span class="keyword">when</span>&nbsp;test&nbsp;&lt;=&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mat&nbsp;=&nbsp;matrices.(n)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dm&nbsp;=&nbsp;<span class="constructor">M</span>.matrix_dimensions&nbsp;mat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dv&nbsp;=&nbsp;<span class="constructor">M</span>.vector_dimension&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;dm.(0)&nbsp;=&nbsp;dv&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;dm.(1)&nbsp;=&nbsp;dv&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_vector_prod&nbsp;mat&nbsp;v&nbsp;,&nbsp;powers&nbsp;,&nbsp;mat&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mat&nbsp;=&nbsp;binary_fft_matrix&nbsp;omega&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_vector_prod&nbsp;mat&nbsp;v&nbsp;,&nbsp;powers&nbsp;,&nbsp;mat&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;om&nbsp;=&nbsp;<span class="constructor">F</span>.square&nbsp;omega<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;lp&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;powers<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.vector_dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">M</span>.vector_nihil&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;odd&nbsp;=&nbsp;extract_odd&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;even&nbsp;=&nbsp;extract_even&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Util</span>.primo&nbsp;(&nbsp;vector_binary_fft&nbsp;threshold&nbsp;om&nbsp;nn&nbsp;(&nbsp;<span class="constructor">Util</span>.extract_even&nbsp;powers&nbsp;)&nbsp;matrices&nbsp;even&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;d&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tt&nbsp;=&nbsp;<span class="constructor">Util</span>.primo&nbsp;(&nbsp;vector_binary_fft&nbsp;threshold&nbsp;om&nbsp;nn&nbsp;(&nbsp;<span class="constructor">Util</span>.extract_even&nbsp;powers&nbsp;)&nbsp;matrices&nbsp;odd&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pow&nbsp;=&nbsp;<span class="keyword">if</span>&nbsp;lp&nbsp;&gt;=&nbsp;dd&nbsp;<span class="keyword">then</span>&nbsp;powers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tableau&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;powers&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;dd&nbsp;-&nbsp;lp&nbsp;)&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;lp&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tableau.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;omega&nbsp;tableau.(&nbsp;pred&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tableau<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;i&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;(&nbsp;i&nbsp;+&nbsp;dd&nbsp;)&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;(&nbsp;<span class="constructor">F</span>.mult&nbsp;pow.(i)&nbsp;x&nbsp;)&nbsp;i&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_sub&nbsp;(&nbsp;<span class="constructor">F</span>.mult&nbsp;pow.(i)&nbsp;x&nbsp;)&nbsp;(&nbsp;i&nbsp;+&nbsp;dd&nbsp;)&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;f&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;g&nbsp;tt&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;result&nbsp;,&nbsp;pow&nbsp;,&nbsp;<span class="constructor">M</span>.matrix_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_inverse_binary_fft threshold primitive_root_of_unity degree inverse_powers matrix_array vector</pre>
+This function is not tail recursive.
+The dimension of the vector <code class="code">v</code> is supposed to be equal to 2^n.
+<p>
+
+La dimension du vecteur <code class="code">v</code> est supposée égale à 2^n.
+Cette fonction n'est pas récursive terminale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;vector_inverse_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(threshold:int)&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(powers:<span class="constructor">F</span>.t&nbsp;array)&nbsp;(matrices:<span class="constructor">M</span>.matrix&nbsp;array)&nbsp;(v:<span class="constructor">M</span>.vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;compare&nbsp;n&nbsp;(&nbsp;max&nbsp;2&nbsp;threshold&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;test&nbsp;<span class="keyword">when</span>&nbsp;test&nbsp;&lt;=&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mat&nbsp;=&nbsp;matrices.(n)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dm&nbsp;=&nbsp;<span class="constructor">M</span>.matrix_dimensions&nbsp;mat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dv&nbsp;=&nbsp;<span class="constructor">M</span>.vector_dimension&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;dm.(0)&nbsp;=&nbsp;dv&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;dm.(1)&nbsp;=&nbsp;dv&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_vector_prod&nbsp;mat&nbsp;v&nbsp;,&nbsp;powers&nbsp;,&nbsp;mat&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mat&nbsp;=&nbsp;inverse_binary_fft_matrix&nbsp;omega&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">M</span>.matrix_vector_prod&nbsp;mat&nbsp;v&nbsp;,&nbsp;powers&nbsp;,&nbsp;mat&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;om&nbsp;=&nbsp;<span class="constructor">F</span>.square&nbsp;omega<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;inv_omega&nbsp;=&nbsp;<span class="constructor">F</span>.inv&nbsp;omega<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;half&nbsp;=&nbsp;<span class="constructor">F</span>.int_div&nbsp;2&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;lp&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;powers<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.vector_dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">M</span>.vector_nihil&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;odd&nbsp;=&nbsp;extract_odd&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;even&nbsp;=&nbsp;extract_even&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Util</span>.primo&nbsp;(&nbsp;vector_inverse_binary_fft&nbsp;threshold&nbsp;om&nbsp;nn&nbsp;(&nbsp;<span class="constructor">Util</span>.extract_even&nbsp;powers&nbsp;)&nbsp;matrices&nbsp;even&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;d&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tt&nbsp;=&nbsp;<span class="constructor">Util</span>.primo&nbsp;(&nbsp;vector_inverse_binary_fft&nbsp;threshold&nbsp;om&nbsp;nn&nbsp;(&nbsp;<span class="constructor">Util</span>.extract_even&nbsp;powers&nbsp;)&nbsp;matrices&nbsp;odd&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pow&nbsp;=&nbsp;<span class="keyword">if</span>&nbsp;lp&nbsp;&gt;=&nbsp;dd&nbsp;<span class="keyword">then</span>&nbsp;powers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tableau&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;powers&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;dd&nbsp;-&nbsp;lp&nbsp;)&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;lp&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tableau.(i)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;inv_omega&nbsp;tableau.(&nbsp;pred&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tableau<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;i&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;x&nbsp;(&nbsp;i&nbsp;+&nbsp;dd&nbsp;)&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_add&nbsp;(&nbsp;<span class="constructor">F</span>.mult&nbsp;pow.(i)&nbsp;x&nbsp;)&nbsp;i&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_insert_sub&nbsp;(&nbsp;<span class="constructor">F</span>.mult&nbsp;pow.(i)&nbsp;x&nbsp;)&nbsp;(&nbsp;i&nbsp;+&nbsp;dd&nbsp;)&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;f&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.vector_iter&nbsp;g&nbsp;tt&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">M</span>.vector_scal_mult&nbsp;(&nbsp;half&nbsp;)&nbsp;result&nbsp;,&nbsp;pow&nbsp;,&nbsp;<span class="constructor">M</span>.matrix_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

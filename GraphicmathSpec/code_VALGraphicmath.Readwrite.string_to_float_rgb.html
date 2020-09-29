@@ -1,0 +1,21 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.string_to_float_rgb</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;string_to_float_rgb&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;s.[0]&nbsp;=&nbsp;<span class="string">'#'</span>&nbsp;<span class="keyword">then</span>&nbsp;triple_byte_string_to_float_rgb&nbsp;s<br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Str</span>.string_match&nbsp;(&nbsp;<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"Gray[0-9]"</span>&nbsp;)&nbsp;s&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;gray_string_to_float_rgb&nbsp;s<br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;triple_byte_string_to_float_rgb&nbsp;(&nbsp;name_to_triple_byte&nbsp;s&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

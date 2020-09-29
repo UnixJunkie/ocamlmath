@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.expm_ode_bis</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;expm_ode_bis&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(nsteps:int)&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;m&nbsp;y&nbsp;)&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;y&nbsp;m&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;methode&nbsp;f&nbsp;nsteps&nbsp;(&nbsp;<span class="constructor">Matrix</span>.eye_float&nbsp;m&nbsp;)&nbsp;0.&nbsp;0.5</code></body></html>

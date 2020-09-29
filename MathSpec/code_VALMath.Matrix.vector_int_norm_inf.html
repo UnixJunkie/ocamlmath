@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.vector_int_norm_inf</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_int_norm_inf&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(-&nbsp;max_int)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;v)&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">Util</span>.int_max&nbsp;(&nbsp;abs&nbsp;v.(i)&nbsp;)&nbsp;!accu<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!accu</code></body></html>

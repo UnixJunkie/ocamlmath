@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Util.vector_interlace</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_interlace&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;a&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;a.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ll&nbsp;=&nbsp;n&nbsp;*&nbsp;l&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;ll&nbsp;a.(0).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;ll&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.(i)&nbsp;&lt;-&nbsp;a.(&nbsp;i&nbsp;<span class="keyword">mod</span>&nbsp;n&nbsp;).(&nbsp;i&nbsp;/&nbsp;n&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;v</code></body></html>

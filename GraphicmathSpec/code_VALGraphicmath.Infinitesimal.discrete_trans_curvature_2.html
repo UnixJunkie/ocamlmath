@@ -1,0 +1,31 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.discrete_trans_curvature_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_trans_curvature_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(scale:float)&nbsp;(position:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;second_jet&nbsp;=&nbsp;discrete_trans_jet&nbsp;methode&nbsp;2&nbsp;scale&nbsp;position&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;first&nbsp;=&nbsp;second_jet.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;second&nbsp;=&nbsp;second_jet.(2)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xdot&nbsp;=&nbsp;first.(0)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ydot&nbsp;=&nbsp;first.(1)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;xsec&nbsp;=&nbsp;second.(0)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ysec&nbsp;=&nbsp;second.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;xsec&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;curvature&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;n&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v0&nbsp;=&nbsp;xdot.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v1&nbsp;=&nbsp;ydot.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;a0&nbsp;=&nbsp;xsec.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;a1&nbsp;=&nbsp;ysec.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;v0&nbsp;*.&nbsp;v0&nbsp;+.&nbsp;v1&nbsp;*.&nbsp;v1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature.(i)&nbsp;&lt;-&nbsp;(&nbsp;v0&nbsp;*.&nbsp;a1&nbsp;-.&nbsp;v1&nbsp;*.&nbsp;a0&nbsp;)&nbsp;/.&nbsp;(&nbsp;coeff&nbsp;*.&nbsp;(&nbsp;sqrt&nbsp;coeff&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature</code></body></html>

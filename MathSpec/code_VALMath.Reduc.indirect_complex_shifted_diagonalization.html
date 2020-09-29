@@ -1,0 +1,18 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.indirect_complex_shifted_diagonalization</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;indirect_complex_shifted_diagonalization&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(factor:float)&nbsp;methode_ker&nbsp;(threshold_qr:float)&nbsp;(threshold:float)&nbsp;(steps_qr:int)&nbsp;(steps:int)&nbsp;(shift:float&nbsp;array&nbsp;array)&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;res&nbsp;=&nbsp;direct_complex_shifted_diagonalization&nbsp;methode_ker&nbsp;threshold_qr&nbsp;threshold&nbsp;steps_qr&nbsp;steps&nbsp;shift&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;res.(1).(0)&nbsp;<span class="keyword">and</span>&nbsp;tp&nbsp;=&nbsp;res.(2).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;complex_tune_diagonalization&nbsp;factor&nbsp;(&nbsp;direct_complex_shifted_diagonalization&nbsp;methode_ker&nbsp;threshold_qr&nbsp;threshold&nbsp;steps_qr&nbsp;steps&nbsp;shift&nbsp;)&nbsp;m&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_p&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;p&nbsp;result.(1).(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;new_tp&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;result.(2).(0)&nbsp;tp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;result.(0)&nbsp;;&nbsp;[|&nbsp;new_p&nbsp;|]&nbsp;;&nbsp;[|&nbsp;new_tp&nbsp;|]&nbsp;|]</code></body></html>

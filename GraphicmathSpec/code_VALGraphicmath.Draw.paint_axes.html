@@ -1,0 +1,39 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.paint_axes</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;paint_axes&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;paint_segments&nbsp;(color:<span class="constructor">Graphics</span>.color)&nbsp;(v:float&nbsp;array)&nbsp;(w:float&nbsp;array)&nbsp;(axes:float&nbsp;array)&nbsp;(coo:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;axes&nbsp;)&nbsp;&gt;=&nbsp;6&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;h_real&nbsp;=&nbsp;coo.(1)&nbsp;-.&nbsp;coo.(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;v_real&nbsp;=&nbsp;coo.(3)&nbsp;-.&nbsp;coo.(2)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;h_margin&nbsp;=&nbsp;max&nbsp;(&nbsp;size.(0)&nbsp;/&nbsp;10&nbsp;)&nbsp;(&nbsp;10&nbsp;*&nbsp;tsh&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;v_margin&nbsp;=&nbsp;max&nbsp;(&nbsp;size.(1)&nbsp;/&nbsp;10&nbsp;)&nbsp;(&nbsp;4&nbsp;*&nbsp;tsv&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;v&nbsp;x&nbsp;;&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;w&nbsp;x&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ax&nbsp;=&nbsp;f&nbsp;[|&nbsp;axes.(0)&nbsp;;&nbsp;0.&nbsp;;&nbsp;0.&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;bx&nbsp;=&nbsp;f&nbsp;[|&nbsp;axes.(1)&nbsp;;&nbsp;0.&nbsp;;&nbsp;0.&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ay&nbsp;=&nbsp;f&nbsp;[|&nbsp;0.&nbsp;;&nbsp;axes.(2)&nbsp;;&nbsp;0.&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;by&nbsp;=&nbsp;f&nbsp;[|&nbsp;0.&nbsp;;&nbsp;axes.(3)&nbsp;;&nbsp;0.&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;az&nbsp;=&nbsp;f&nbsp;[|&nbsp;0.&nbsp;;&nbsp;0.&nbsp;;&nbsp;axes.(4)&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;bz&nbsp;=&nbsp;f&nbsp;[|&nbsp;0.&nbsp;;&nbsp;0.&nbsp;;&nbsp;axes.(5)&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h_inv_scale&nbsp;=&nbsp;(&nbsp;float&nbsp;(&nbsp;size.(0)&nbsp;-&nbsp;2&nbsp;*&nbsp;h_margin&nbsp;)&nbsp;)&nbsp;/.&nbsp;h_real<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v_inv_scale&nbsp;=&nbsp;(&nbsp;float&nbsp;(&nbsp;size.(1)&nbsp;-&nbsp;2&nbsp;*&nbsp;v_margin&nbsp;)&nbsp;)&nbsp;/.&nbsp;v_real&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x_function&nbsp;=&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;z&nbsp;)&nbsp;*.&nbsp;h_inv_scale&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y_function&nbsp;=&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;z&nbsp;&nbsp;)&nbsp;*.&nbsp;v_inv_scale&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h_center&nbsp;=&nbsp;<span class="constructor">Util</span>.round&nbsp;(&nbsp;-.&nbsp;coo.(0)&nbsp;*.&nbsp;h_inv_scale&nbsp;)&nbsp;+&nbsp;h_margin<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v_center&nbsp;=&nbsp;<span class="constructor">Util</span>.round&nbsp;(&nbsp;-.&nbsp;coo.(2)&nbsp;*.&nbsp;v_inv_scale&nbsp;)&nbsp;+&nbsp;v_margin&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;h_center&nbsp;+&nbsp;<span class="constructor">Util</span>.round&nbsp;(&nbsp;x_function&nbsp;z.(0)&nbsp;)&nbsp;;&nbsp;v_center&nbsp;+&nbsp;<span class="constructor">Util</span>.round&nbsp;(&nbsp;y_function&nbsp;z.(1)&nbsp;)&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cx&nbsp;=&nbsp;g&nbsp;ax<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dx&nbsp;=&nbsp;g&nbsp;bx<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cy&nbsp;=&nbsp;g&nbsp;ay<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dy&nbsp;=&nbsp;g&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cz&nbsp;=&nbsp;g&nbsp;az<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dz&nbsp;=&nbsp;g&nbsp;bz&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paint_segments&nbsp;color&nbsp;[|&nbsp;(&nbsp;cx&nbsp;,&nbsp;dx&nbsp;)&nbsp;;&nbsp;(&nbsp;cy&nbsp;,&nbsp;dy&nbsp;)&nbsp;;&nbsp;(&nbsp;cz&nbsp;,&nbsp;dz&nbsp;)&nbsp;|]</code></body></html>

@@ -1,0 +1,18 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_vector.Rng.special_to_string</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;special_to_string&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(dim_sep:char)&nbsp;(beginning:string)&nbsp;(separator:string)&nbsp;(ending:string)&nbsp;((&nbsp;d&nbsp;,&nbsp;v&nbsp;):t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;beginning&nbsp;)&nbsp;+&nbsp;1&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;ending&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;<span class="constructor">Index</span>.to_string&nbsp;d<br>
+&nbsp;<span class="keyword">and</span>&nbsp;b&nbsp;=&nbsp;ref&nbsp;<span class="string">""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;z&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;b&nbsp;:=&nbsp;!b&nbsp;^&nbsp;beginning&nbsp;^&nbsp;(&nbsp;<span class="constructor">Index</span>.to_string&nbsp;i&nbsp;)&nbsp;^&nbsp;separator&nbsp;^&nbsp;(&nbsp;<span class="constructor">Coeff</span>.to_string&nbsp;z&nbsp;)&nbsp;^&nbsp;ending&nbsp;<span class="keyword">in</span><br>
+&nbsp;<span class="constructor">H</span>.iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;a&nbsp;^&nbsp;(&nbsp;<span class="constructor">String</span>.make&nbsp;1&nbsp;dim_sep&nbsp;)&nbsp;^&nbsp;(&nbsp;<span class="constructor">String</span>.sub&nbsp;!b&nbsp;0&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;pred&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;!b&nbsp;)&nbsp;)&nbsp;)&nbsp;)</code></body></html>

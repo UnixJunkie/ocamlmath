@@ -1,0 +1,45 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sci.nth_root_1024</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;nth_root_1024&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(a:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;a.(2)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nm1&nbsp;=&nbsp;pred&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;n_n&nbsp;=&nbsp;sci_of_int&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;z&nbsp;=&nbsp;ref&nbsp;[|&nbsp;a.(0)&nbsp;;&nbsp;a.(1)&nbsp;;&nbsp;num_0&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;<span class="constructor">Num</span>.quo_num&nbsp;w&nbsp;nn<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;n__n&nbsp;=&nbsp;sci_of_int&nbsp;nm1<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;www&nbsp;=&nbsp;<span class="constructor">Num</span>.int_of_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mod_num&nbsp;w&nbsp;nn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;www&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;z&nbsp;:=&nbsp;mult_1024&nbsp;!z&nbsp;(&nbsp;int_pow&nbsp;www&nbsp;sci_2&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;complex_of_sci&nbsp;!z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;abs_float&nbsp;zz.(0).(0)&nbsp;)&nbsp;+.&nbsp;(&nbsp;abs_float&nbsp;zz.(1).(0)&nbsp;)&nbsp;&lt;=&nbsp;epsilon_float&nbsp;<span class="keyword">then</span>&nbsp;sci_0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z_z&nbsp;=&nbsp;{&nbsp;<span class="constructor">Complex</span>.re&nbsp;=&nbsp;zz.(0).(0)&nbsp;;&nbsp;<span class="constructor">Complex</span>.im&nbsp;=&nbsp;zz.(1).(0)&nbsp;}&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zzz&nbsp;=&nbsp;<span class="constructor">Complex</span>.exp&nbsp;(&nbsp;<span class="constructor">Complex</span>.div&nbsp;(&nbsp;<span class="constructor">Complex</span>.log&nbsp;z_z&nbsp;)&nbsp;{&nbsp;<span class="constructor">Complex</span>.re&nbsp;=&nbsp;float&nbsp;n&nbsp;;&nbsp;<span class="constructor">Complex</span>.im&nbsp;=&nbsp;0.&nbsp;}&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xz&nbsp;=&nbsp;zzz.<span class="constructor">Complex</span>.re<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yz&nbsp;=&nbsp;zzz.<span class="constructor">Complex</span>.im&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;(&nbsp;sci_of_complex&nbsp;[|&nbsp;[|&nbsp;xz&nbsp;;&nbsp;-.&nbsp;yz&nbsp;|]&nbsp;;&nbsp;[|&nbsp;yz&nbsp;;&nbsp;xz&nbsp;|]&nbsp;|]&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;error&nbsp;=&nbsp;ref&nbsp;max_float&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!error&nbsp;&gt;&nbsp;min_float&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;!y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;div_1024&nbsp;(&nbsp;plus_1024&nbsp;(&nbsp;mult_1024&nbsp;n__n&nbsp;x&nbsp;)&nbsp;(&nbsp;div_1024&nbsp;!z&nbsp;(&nbsp;int_pow_1024&nbsp;nm1&nbsp;x&nbsp;)&nbsp;)&nbsp;)&nbsp;n_n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;xx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;succ&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;complex_of_sci&nbsp;(&nbsp;minus_1024&nbsp;x&nbsp;xx&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ee&nbsp;=&nbsp;e.(0).(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;eee&nbsp;=&nbsp;e.(1).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error&nbsp;:=&nbsp;sqrt&nbsp;(&nbsp;ee&nbsp;*.&nbsp;ee&nbsp;+.&nbsp;eee&nbsp;*.&nbsp;eee&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mult_1024&nbsp;!y&nbsp;[|&nbsp;num_1&nbsp;;&nbsp;num_0&nbsp;;&nbsp;ww&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

@@ -1,0 +1,21 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.oversample_paint</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;oversample_paint&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(gamma:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(color:<span class="constructor">Graphics</span>.color)&nbsp;(h_margin:int)&nbsp;(v_margin:int)&nbsp;(luminosity_rectangle:int&nbsp;array&nbsp;*&nbsp;(int&nbsp;*&nbsp;int&nbsp;*&nbsp;float)&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;info&nbsp;,&nbsp;luminosity&nbsp;)&nbsp;=&nbsp;luminosity_rectangle&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;remaining&nbsp;=&nbsp;ref&nbsp;luminosity&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;info.(2)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;j&nbsp;,&nbsp;coeff&nbsp;)&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;!remaining&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;(&nbsp;enlighten&nbsp;(&nbsp;gamma&nbsp;coeff&nbsp;)&nbsp;color&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.plot&nbsp;(&nbsp;h_margin&nbsp;+&nbsp;j&nbsp;)&nbsp;(&nbsp;v_margin&nbsp;+&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remaining&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!remaining&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span></code></body></html>

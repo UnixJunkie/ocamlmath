@@ -1,0 +1,57 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Field.det</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;det&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.det&nbsp;mm<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;ww&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;factor&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;first_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;matrix_copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_column&nbsp;:=&nbsp;mask_vector&nbsp;i&nbsp;rr&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;p&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;vector_first_non_zero&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Non&nbsp;invertibility&nbsp;condition&nbsp;in&nbsp;Mat.Field.det."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&gt;&nbsp;i&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_exchange&nbsp;i&nbsp;!index&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_exchange&nbsp;i&nbsp;!index&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!first_column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">F</span>.mult&nbsp;!result&nbsp;!factor&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factor&nbsp;:=&nbsp;<span class="constructor">F</span>.inv&nbsp;!factor&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_in_place_scal_mult&nbsp;!factor&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector_replace&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;i&nbsp;!row&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;succ&nbsp;i&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output&nbsp;:=&nbsp;vector_sub&nbsp;!row_output&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">F</span>.mult&nbsp;!result&nbsp;(&nbsp;matrix_extract&nbsp;rr&nbsp;rr&nbsp;p&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">F</span>.zero&nbsp;()<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

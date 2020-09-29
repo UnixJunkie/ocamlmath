@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.float_sub_matrix</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_sub_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;i&nbsp;ii&nbsp;j&nbsp;jj&nbsp;<span class="keywordsign">-&gt;</span><br>
+</code><table><tr><td></td><td><span class="comment">(** i et j : beginning: début ; ii et jj : end: fin *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(ii&nbsp;-&nbsp;i&nbsp;+&nbsp;1)&nbsp;(jj&nbsp;-&nbsp;j&nbsp;+&nbsp;1)&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;index&nbsp;=&nbsp;i&nbsp;<span class="keyword">to</span>&nbsp;ii&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_input&nbsp;=&nbsp;m.(index)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;mm.(index&nbsp;-&nbsp;i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;j&nbsp;<span class="keyword">to</span>&nbsp;jj&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(indice&nbsp;-&nbsp;j)&nbsp;&lt;-&nbsp;row_input.(indice)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;mm</code></body></html>

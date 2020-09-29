@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Data.Normalize_field_coefficient.html">
+<link rel="next" href="Math.Data.Multi_index.html">
+<link rel="Up" href="Math.Data.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Data.Index_of_array</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Data.Normalize_field_coefficient.html">Previous</a>
+&nbsp;<a href="Math.Data.html">Up</a>
+&nbsp;<a href="Math.Data.Multi_index.html">Next</a>
+</div>
+<center><h1>Functor <a href="type_Math.Data.Index_of_array.html">Math.Data.Index_of_array</a> (<a href="code_Math.Data.Index_of_array.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Index_of_array: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">A</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Array_type.html">Array_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Index_of_array.html">..</a> <code class="code"><span class="keyword">end</span></code></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>A</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Array_type.html">Array_type</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<br><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Saturation</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Witness</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Index</span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Element</span> <span class="keyword">of</span> <code class="type">A.t</code></code></td>
+
+</tr></table>
+
+
+<pre><span id="VALlength"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.length.html">length</a></span> : <code class="type">int</code></pre><pre><span id="VALpred_length"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.pred_length.html">pred_length</a></span> : <code class="type">int</code></pre><pre><span id="VALindex_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.index_demakeup.html">index_demakeup</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> int</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelement_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.element_demakeup.html">element_demakeup</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> A.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALzero"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.zero.html">zero</a></span> : <code class="type">unit -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwitness"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.witness.html">witness</a></span> : <code class="type">unit -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALof_string"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.of_string.html">of_string</a></span> : <code class="type">string -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_string"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.to_string.html">to_string</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> string</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.print.html">print</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> unit</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq_zero"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.eq_zero.html">eq_zero</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> bool</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.copy.html">copy</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_int"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.to_int.html">to_int</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> int</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.eq.html">eq</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> bool</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfrom_int"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.from_int.html">from_int</a></span> : <code class="type">int -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcompare"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.compare.html">compare</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> int</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmin"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.min.html">min</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -><br>       <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmax"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.max.html">max</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -><br>       <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpred"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.pred.html">pred</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsucc"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.succ.html">succ</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadd"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.add.html">add</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -><br>       <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.sub.html">sub</a></span> : <code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a> -><br>       <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALshift"><span class="keyword">val</span> <a href="code_VALMath.Data.Index_of_array.shift.html">shift</a></span> : <code class="type">int -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a> -> <a href="Math.Data.Index_of_array.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_of_array.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+</body></html>

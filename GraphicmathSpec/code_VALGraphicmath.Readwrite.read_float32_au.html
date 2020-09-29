@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.read_float32_au</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;read_float32_au&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(fname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;read_header_au&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ic&nbsp;=&nbsp;open_in_bin&nbsp;fname&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;compare&nbsp;h.(3)&nbsp;6&nbsp;!=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;encoding&nbsp;in&nbsp;Readwrite.read_float32_au."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;seek_in&nbsp;ic&nbsp;h.(1)&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">End_of_file</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;offset&nbsp;in&nbsp;Readwrite.read_float32_au."</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;ref&nbsp;[]<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;channels&nbsp;=&nbsp;h.(5)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;count&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l&nbsp;:=&nbsp;(&nbsp;input_binary_int&nbsp;ic&nbsp;)&nbsp;::&nbsp;!l&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count&nbsp;:=&nbsp;succ&nbsp;!count&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">End_of_file</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;close_in_noerr&nbsp;ic<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;samples&nbsp;=&nbsp;!count&nbsp;/&nbsp;channels&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;channels&nbsp;samples&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;pred&nbsp;channels&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;pred&nbsp;samples&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;c&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.(j).(i)&nbsp;&lt;-&nbsp;<span class="constructor">Int32</span>.float_of_bits&nbsp;(&nbsp;<span class="constructor">Int32</span>.of_int&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;!l&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!l<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;m</code></body></html>

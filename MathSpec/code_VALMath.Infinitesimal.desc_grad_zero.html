@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.desc_grad_zero</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;desc_grad_zero&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(maxstep:int)&nbsp;(f:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(a:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;step&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;ref&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;a&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;(&nbsp;(&nbsp;!step&nbsp;&lt;=&nbsp;maxstep&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;f&nbsp;!x&nbsp;&lt;&gt;&nbsp;0.&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pente&nbsp;=&nbsp;gradient&nbsp;methode&nbsp;f&nbsp;!x<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ordonnee&nbsp;=&nbsp;f&nbsp;!x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;<span class="constructor">Matrix</span>.vector_float_minus&nbsp;!x&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_right_div&nbsp;ordonnee&nbsp;pente&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;:=&nbsp;!step&nbsp;+&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;abs_float&nbsp;(&nbsp;f&nbsp;!x&nbsp;)&nbsp;&gt;&nbsp;abs_float&nbsp;(&nbsp;f&nbsp;!y&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;x&nbsp;:=&nbsp;!y<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!x</code></body></html>

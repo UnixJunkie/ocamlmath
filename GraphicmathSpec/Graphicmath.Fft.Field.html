@@ -1,0 +1,1181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Graphicmath.Fft.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Constructions minimales" rel="Section" href="#1_Constructionsminimales">
+<link title="Minimal constructions" rel="Section" href="#1_Minimalconstructions">
+<link title="Constructions matricielles" rel="Section" href="#1_Constructionsmatricielles">
+<link title="Matrix constructions" rel="Section" href="#1_Matrixconstructions">
+<link title="Fonctions vectorielles" rel="Section" href="#1_Fonctionsvectorielles">
+<link title="Vector functions" rel="Section" href="#1_Vectorfunctions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<link title="Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey">
+<link title="Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey">
+<link title="Algorithme primaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_AlgorithmeprimairedeGaussRungeDanielsonLanczosCooleyTukey">
+<link title="Primary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_PrimaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey">
+<link title="Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey">
+<link title="Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey" rel="Subsection" href="#2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey">
+<title>Graphicmath.Fft.Field</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Graphicmath.Fft.html">Up</a>
+&nbsp;</div>
+<center><h1>Functor <a href="type_Graphicmath.Fft.Field.html">Graphicmath.Fft.Field</a> (<a href="code_Graphicmath.Fft.Field.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Field: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">F</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Field_coeff_type.html">Graphicmath.Data.Field_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Fft.Field.html">..</a> <code class="code"><span class="keyword">end</span></code></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>F</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Field_coeff_type.html">Graphicmath.Data.Field_coeff_type</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module:
+<p>
+<ul>
+<li>constructions of matrices of direct and inverse discrete Fourier transforms
+for a primary number of samples (p^n where p is prime),</li>
+</ul>
+<ul>
+<li>functions of direct and inverse fast Fourier transforms
+for a binary number of samples (2^n).</li>
+</ul>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+The coefficients must belong to a field and the user has to provide the necessary roots of unity.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des constructions de matrices de transformées de Fourier discrètes, directes et inverses
+pour un nombre d'échantillons primaire (p^n où p est premier),</li>
+</ul>
+<ul>
+<li>des fonctions de transformées de Fourier rapide directes et inverses
+pour un nombre d'échantillons binaire (2^n).</li>
+</ul>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Les coefficients doivent appartenir à un corps commutatif et l'utilisateur ou l'utilisatrice doit fournir les racines de l'unité nécessaires.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.1</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constructionsminimales"><h1>Constructions minimales</h1></span>
+<span id="1_Minimalconstructions"><h1>Minimal constructions</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Fft.Field.M.html">M</a>: <code class="type"><a href="Graphicmath.Mat.Field.html">Graphicmath.Mat.Field</a></code><code class="code">(</code><code class="type">F</code><code class="code">)</code></pre><pre><span id="VALdft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.dft.html">dft</a></span> : <code class="type">M.coeff -> int -> M.matrix</code></pre><div class="info">
+<pre>dft primitive_root_of_unity dimension</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">omega</code> est supposée d'ordre <code class="code">n</code>.
+Dans le cas des nombres complexes, on prend exp ( - 2 * i * pi / n ).<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.coeff</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinverse_dft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.inverse_dft.html">inverse_dft</a></span> : <code class="type">M.coeff -> int -> M.matrix</code></pre><div class="info">
+<pre>inverse_dft primitive_root_of_unity dimension</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">omega</code> est supposée d'ordre <code class="code">n</code>.
+Dans le cas des nombres complexes, on prend exp ( - 2 * i * pi / n ).<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.coeff</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtwist_dft_vector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.twist_dft_vector.html">twist_dft_vector</a></span> : <code class="type">F.t -> int -> M.vector</code></pre><div class="info">
+<pre>twist_dft_vector twist_factor dimension</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtwist_dft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.twist_dft_matrix.html">twist_dft_matrix</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>twist_dft_matrix twist_factor dimension</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtwisted_dft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.twisted_dft.html">twisted_dft</a></span> : <code class="type">M.coeff -> int -> F.t -> M.matrix</code></pre><div class="info">
+<pre>twisted_dft primitive_root_of_unity dimension twist_factor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.coeff</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constructionsmatricielles"><h1>Constructions matricielles</h1></span>
+<span id="1_Matrixconstructions"><h1>Matrix constructions</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span><br>
+<br>
+<center> </center><br>
+<br>
+décrit dans le polycopié Baudoin-Bercher ESIEE 2001.<br>
+<pre><span id="VALscal_block_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.scal_block_fft.html">scal_block_fft</a></span> : <code class="type">M.coeff -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -> M.matrix</code></pre><div class="info">
+<pre>scal_block_fft scalar dimension</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.coeff</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dim</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelement_binary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.element_binary_fft.html">element_binary_fft</a></span> : <code class="type">F.t -> int -> int -> M.matrix</code></pre><div class="info">
+<pre>element_binary_fft primitive_root_of_unity degree exponent</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+exponent</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfactor_binary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.factor_binary_fft.html">factor_binary_fft</a></span> : <code class="type">F.t -> int -> int -> M.matrix</code></pre><div class="info">
+<pre>factor_binary_fft primitive_root_of_unity degree step</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+step</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnaive_aux_binary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.naive_aux_binary_fft.html">naive_aux_binary_fft</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>naive_aux_binary_fft primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALaux_binary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.aux_binary_fft_matrix.html">aux_binary_fft_matrix</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>aux_binary_fft_matrix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbinary_row_mix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.binary_row_mix.html">binary_row_mix</a></span> : <code class="type">int -> M.matrix -> unit</code></pre><div class="info">
+<pre>binary_row_mix degree matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.matrix</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbinary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.binary_fft_matrix.html">binary_fft_matrix</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>binary_fft_matrix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinverse_binary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.inverse_binary_fft_matrix.html">inverse_binary_fft_matrix</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>inverse_binary_fft_matrix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbinary_twist_fft_vector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.binary_twist_fft_vector.html">binary_twist_fft_vector</a></span> : <code class="type">F.t -> int -> M.vector</code></pre><div class="info">
+<pre>binary_twist_fft_vector twist_factor degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALaux_binary_twist_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.aux_binary_twist_fft_matrix.html">aux_binary_twist_fft_matrix</a></span> : <code class="type">F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>aux_binary_twist_fft_matrix twist_factor degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbinary_twisted_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.binary_twisted_fft_matrix.html">binary_twisted_fft_matrix</a></span> : <code class="type">F.t -> int -> F.t -> M.matrix</code></pre><div class="info">
+<pre>binary_twisted_fft_matrix primitive_root_of_unity degree twist_factor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="2_AlgorithmeprimairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme primaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_PrimaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Primary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALelement_primary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.element_primary_fft.html">element_primary_fft</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -><br>       F.t -> int -> int -> M.matrix</code></pre><div class="info">
+<pre>element_primary_fft raw_root radix primitive_root_of_unity degree exponent</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">raw_root</code> doit être d'ordre la base <code class="code">p</code>. 
+La racine primitive de l'unité <code class="code">omega</code> doit être d'ordre p^n.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+exponent</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfactor_primary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.factor_primary_fft.html">factor_primary_fft</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -><br>       F.t -> int -> int -> M.matrix</code></pre><div class="info">
+<pre>factor_primary_fft raw_root radix primitive_root_of_unity degree step</pre>
+<p>
+
+La racine primitive de l'unité <code class="code">raw_root</code> doit être d'ordre la base <code class="code">p</code>. 
+La racine primitive de l'unité <code class="code">omega</code> doit être d'ordre p^n.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+step</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALaux_primary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.aux_primary_fft_matrix.html">aux_primary_fft_matrix</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -> F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>aux_primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimary_row_mix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.primary_row_mix.html">primary_row_mix</a></span> : <code class="type">int -> int -> M.matrix -> unit</code></pre><div class="info">
+<pre>primary_row_mix radix degree matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.matrix</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.primary_fft_matrix.html">primary_fft_matrix</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -> F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinverse_primary_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.inverse_primary_fft_matrix.html">inverse_primary_fft_matrix</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -> F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>inverse_primary_fft_matrix raw_root radix primitive_root_of_unity degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimary_twist_fft_vector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.primary_twist_fft_vector.html">primary_twist_fft_vector</a></span> : <code class="type">int -> F.t -> int -> M.vector</code></pre><div class="info">
+<pre>primary_twist_fft_vector radix twist_factor degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALaux_primary_twist_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.aux_primary_twist_fft_matrix.html">aux_primary_twist_fft_matrix</a></span> : <code class="type">int -> F.t -> int -> M.matrix</code></pre><div class="info">
+<pre>aux_primary_twist_fft_matrix radix twist_factor degree</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimary_twisted_fft_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.primary_twisted_fft_matrix.html">primary_twisted_fft_matrix</a></span> : <code class="type">F.t -><br>       <a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a> -><br>       F.t -> int -> F.t -> M.matrix</code></pre><div class="info">
+<pre>primary_twisted_fft_matrix raw_root radix primitive_root_of_unity degree twist_factor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+raw_root</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Zindex.html#TYPEt">Graphicmath.Data.Zindex.t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+twist</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fonctionsvectorielles"><h1>Fonctions vectorielles</h1></span>
+<span id="1_Vectorfunctions"><h1>Vector functions</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="2_AlgorithmebinairedeGaussRungeDanielsonLanczosCooleyTukey"><h2>Algorithme binaire de Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span>
+<span id="2_BinaryalgorithmofGaussRungeDanielsonLanczosCooleyTukey"><h2>Binary algorithm of Gauss-Runge-Danielson-Lanczos-Cooley-Tukey</h2></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALnaive_vector_binary_mix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.naive_vector_binary_mix.html">naive_vector_binary_mix</a></span> : <code class="type">int -> M.vector -> unit</code></pre><div class="info">
+<pre>naive_vector_binary_mix degree vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_binary_mix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.vector_binary_mix.html">vector_binary_mix</a></span> : <code class="type">int -> M.vector -> unit</code></pre><div class="info">
+<pre>vector_binary_mix degree vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract_odd"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.extract_odd.html">extract_odd</a></span> : <code class="type">M.vector -> M.vector</code></pre><div class="info">
+<pre>extract_odd vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract_even"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.extract_even.html">extract_even</a></span> : <code class="type">M.vector -> M.vector</code></pre><div class="info">
+<pre>extract_even vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_binary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.vector_binary_fft.html">vector_binary_fft</a></span> : <code class="type">int -><br>       F.t -><br>       int -><br>       F.t array -><br>       M.matrix array -><br>       M.vector -><br>       M.vector * F.t array * M.matrix</code></pre><div class="info">
+<pre>vector_binary_fft threshold primitive_root_of_unity degree powers matrix_array vector</pre>
+This function is not tail recursive.
+The dimension of the vector <code class="code">v</code> is supposed to be equal to 2^n.
+<p>
+
+La dimension du vecteur <code class="code">v</code> est supposée égale à 2^n.
+Cette fonction n'est pas récursive terminale.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+powers</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+matrices</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.matrix array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_inverse_binary_fft"><span class="keyword">val</span> <a href="code_VALGraphicmath.Fft.Field.vector_inverse_binary_fft.html">vector_inverse_binary_fft</a></span> : <code class="type">int -><br>       F.t -><br>       int -><br>       F.t array -><br>       M.matrix array -><br>       M.vector -><br>       M.vector * F.t array * M.matrix</code></pre><div class="info">
+<pre>vector_inverse_binary_fft threshold primitive_root_of_unity degree inverse_powers matrix_array vector</pre>
+This function is not tail recursive.
+The dimension of the vector <code class="code">v</code> is supposed to be equal to 2^n.
+<p>
+
+La dimension du vecteur <code class="code">v</code> est supposée égale à 2^n.
+Cette fonction n'est pas récursive terminale.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+omega</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+powers</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">F.t array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+matrices</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.matrix array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.vector</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

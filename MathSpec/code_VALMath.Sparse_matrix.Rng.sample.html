@@ -1,0 +1,66 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_matrix.Rng.sample</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;sample&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(vert_beginning:index)&nbsp;(vert_ending:index)&nbsp;(hor_beginning:index)&nbsp;(hor_ending:index)&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Index</span>.succ&nbsp;(&nbsp;<span class="constructor">Index</span>.sub&nbsp;hor_ending&nbsp;hor_beginning&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;b&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;vert_beginning<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;(&nbsp;<span class="constructor">Index</span>.sub&nbsp;vert_ending&nbsp;vert_beginning&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">V</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;rr&nbsp;)&nbsp;d&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result.(i)&nbsp;&lt;-&nbsp;<span class="constructor">V</span>.sub_vector&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w.(&nbsp;b&nbsp;+&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;(&nbsp;tensor_sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;vert_beginning&nbsp;hor_beginning&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;tensor_sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;vert_beginning&nbsp;hor_beginning&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_multi_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;tensor_sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;vert_beginning&nbsp;hor_beginning&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vb&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;vert_beginning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ve&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;vert_ending<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;he&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;hor_ending&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;aa&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;a&nbsp;vb&nbsp;(&nbsp;(&nbsp;min&nbsp;ve&nbsp;he&nbsp;)&nbsp;-&nbsp;vb&nbsp;+&nbsp;1&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_diag_matrix</span>&nbsp;(&nbsp;aa&nbsp;,&nbsp;tensor_sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;vert_beginning&nbsp;hor_beginning&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vb&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;vert_beginning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ve&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;vert_ending&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cc&nbsp;=&nbsp;ve&nbsp;-&nbsp;vb&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;succ&nbsp;cc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;aa&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;table&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Array</span>.sub&nbsp;table&nbsp;vb&nbsp;c&nbsp;)&nbsp;a&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_multi_diag_matrix</span>&nbsp;(&nbsp;aa&nbsp;,&nbsp;tensor_sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sample&nbsp;vert_beginning&nbsp;vert_ending&nbsp;hor_beginning&nbsp;hor_ending&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

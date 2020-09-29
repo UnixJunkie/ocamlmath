@@ -1,0 +1,33 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.square_ioa_crash</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;square_ioa_crash&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(data:int_or_array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;data.(0)&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;vector_ioa_demakeup&nbsp;data.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin&nbsp;=&nbsp;vector_int_demakeup&nbsp;s.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ioa_thickness&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;endrow&nbsp;=&nbsp;(ioa_numrows&nbsp;m)&nbsp;-&nbsp;margin.(0)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;endcolumn&nbsp;=&nbsp;(ioa_numcolumns&nbsp;m)&nbsp;-&nbsp;margin.(1)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;s&nbsp;1&nbsp;(&nbsp;(<span class="constructor">Array</span>.length&nbsp;s)&nbsp;-&nbsp;1&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;matrix&nbsp;=&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;int_sub_matrix&nbsp;(matrix_int_demakeup&nbsp;m)&nbsp;0&nbsp;endrow&nbsp;0&nbsp;endcolumn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;matrix&nbsp;;&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;t&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_ioa_paste&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;endrow&nbsp;=&nbsp;(ioa_numrows&nbsp;mm)&nbsp;-&nbsp;margin.(0)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;endcolumn&nbsp;=&nbsp;(ioa_numcolumns&nbsp;mm)&nbsp;-&nbsp;margin.(1)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;s&nbsp;1&nbsp;(&nbsp;(<span class="constructor">Array</span>.length&nbsp;s)&nbsp;-&nbsp;1&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;matrix&nbsp;=&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;int_sub_matrix&nbsp;(matrix_int_demakeup&nbsp;mm)&nbsp;0&nbsp;endrow&nbsp;0&nbsp;endcolumn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;square_ioa_crash&nbsp;[|&nbsp;matrix&nbsp;;&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;t&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_ioa_paste&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;endrow&nbsp;=&nbsp;(ioa_numrows&nbsp;mm)&nbsp;-&nbsp;margin.(0)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;endcolumn&nbsp;=&nbsp;(ioa_numcolumns&nbsp;mm)&nbsp;-&nbsp;margin.(1)&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;s&nbsp;1&nbsp;(&nbsp;(<span class="constructor">Array</span>.length&nbsp;s)&nbsp;-&nbsp;1&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;matrix&nbsp;=&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;(&nbsp;sub_matrix&nbsp;(matrix_ioa_demakeup&nbsp;mm)&nbsp;0&nbsp;endrow&nbsp;0&nbsp;endcolumn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;square_ioa_crash&nbsp;[|&nbsp;matrix&nbsp;;&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;t&nbsp;|]</code></body></html>

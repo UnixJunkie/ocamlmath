@@ -1,0 +1,31 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.sym_float_sort_reduc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;sym_float_sort_reduc&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;methode&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;r.(0).(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;left&nbsp;=&nbsp;ref&nbsp;r.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;right&nbsp;=&nbsp;ref&nbsp;r.(3)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;l&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dd&nbsp;=&nbsp;vector_float_copy&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.fast_sort&nbsp;compare&nbsp;dd&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;l&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j&nbsp;=&nbsp;vector_float_find_first&nbsp;dd.(i)&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.(j)&nbsp;&lt;-&nbsp;max_float&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.(i)&nbsp;&lt;-&nbsp;j&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right&nbsp;:=&nbsp;exchange_column&nbsp;i&nbsp;j&nbsp;!right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;:=&nbsp;exchange_row&nbsp;i&nbsp;j&nbsp;!left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;matrix_float_triple_prod&nbsp;!left&nbsp;m&nbsp;!right&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;measure&nbsp;=&nbsp;matrix_float_non_diagonality&nbsp;matrix_float_norm_inf&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;[|&nbsp;dd&nbsp;|]&nbsp;;&nbsp;!left&nbsp;;&nbsp;result&nbsp;;&nbsp;!right&nbsp;;&nbsp;[|[|&nbsp;measure&nbsp;|]|]&nbsp;|]</code></body></html>

@@ -1,0 +1,24 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Util.int_of_digits</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;int_of_digits&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:int)&nbsp;(a:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;digit&nbsp;=&nbsp;a.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;digit&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+&nbsp;digit&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;p&nbsp;*&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;digit&nbsp;=&nbsp;a.(n)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;digit&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+&nbsp;digit&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!accu</code></body></html>

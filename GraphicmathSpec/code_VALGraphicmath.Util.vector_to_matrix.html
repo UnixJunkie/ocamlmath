@@ -1,0 +1,25 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Util.vector_to_matrix</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_to_matrix&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(r:int)&nbsp;(c:int)&nbsp;a&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;l&nbsp;!=&nbsp;r&nbsp;*&nbsp;c&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;dimensions&nbsp;in&nbsp;Readwrite.vector_to_matrix."</span>&nbsp;;&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;r&nbsp;c&nbsp;a.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cc&nbsp;=&nbsp;pred&nbsp;c&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_output&nbsp;=&nbsp;m.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ii&nbsp;=&nbsp;c&nbsp;*&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;cc&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;a.(&nbsp;ii&nbsp;+&nbsp;j&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;m</code></body></html>

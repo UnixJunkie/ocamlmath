@@ -1,0 +1,34 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Analogic.relative_draw_column_magnify_float_rgb</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;relative_draw_column_magnify_float_rgb&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(factor:int)&nbsp;(x_offset:int)&nbsp;(y_offset:int)&nbsp;(m:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;(column:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;red&nbsp;=&nbsp;m.(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;green&nbsp;=&nbsp;m.(1)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;blue&nbsp;=&nbsp;m.(2)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ff&nbsp;=&nbsp;pred&nbsp;factor&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;height&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;red<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;width&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;red.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;guarded_column&nbsp;=&nbsp;max&nbsp;0&nbsp;(&nbsp;min&nbsp;column&nbsp;(&nbsp;pred&nbsp;width&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;(&nbsp;y_offset&nbsp;+&nbsp;factor&nbsp;*&nbsp;(&nbsp;height&nbsp;-&nbsp;1&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;x_offset&nbsp;+&nbsp;factor&nbsp;*&nbsp;guarded_column&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;height&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_red&nbsp;=&nbsp;red.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_green&nbsp;=&nbsp;green.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_blue&nbsp;=&nbsp;blue.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;h&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ff&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ff&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;(&nbsp;(&nbsp;red_for_color&nbsp;row_red.(guarded_column)&nbsp;)&nbsp;+&nbsp;(&nbsp;green_for_color&nbsp;row_green.(guarded_column)&nbsp;)&nbsp;+&nbsp;(&nbsp;blue_for_color&nbsp;row_blue.(guarded_column)&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.plot&nbsp;(&nbsp;x&nbsp;+&nbsp;h&nbsp;)&nbsp;(&nbsp;!y&nbsp;+&nbsp;k&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;!y&nbsp;-&nbsp;factor&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span></code></body></html>

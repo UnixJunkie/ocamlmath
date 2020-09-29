@@ -1,0 +1,35 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_tensor.Rng.exchange</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;exchange&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(level:int)&nbsp;(i:index)&nbsp;(j:index)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;level&nbsp;in&nbsp;Sparse.Rng_tensor.exchange."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;level&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.exchange&nbsp;i&nbsp;j&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.cleanup&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;level&nbsp;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;old_i&nbsp;=&nbsp;sub_tensor_extract&nbsp;level&nbsp;i&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;old_j&nbsp;=&nbsp;sub_tensor_extract&nbsp;level&nbsp;j&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub_tensor_replace&nbsp;old_i&nbsp;level&nbsp;j&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub_tensor_replace&nbsp;old_j&nbsp;level&nbsp;i&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

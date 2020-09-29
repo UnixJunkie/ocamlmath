@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.matrix_find_all</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;eq&nbsp;x&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;numrows&nbsp;m&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;[||]&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;[||]&nbsp;<span class="keyword">and</span>&nbsp;indice&nbsp;=&nbsp;ref&nbsp;[||]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;indice&nbsp;:=&nbsp;<span class="constructor">Util</span>.vector_find_all&nbsp;eq&nbsp;x&nbsp;m.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!indice&nbsp;&lt;&gt;&nbsp;[||]&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;<span class="constructor">Array</span>.map&nbsp;(<span class="keyword">function</span>&nbsp;a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;i&nbsp;;&nbsp;a|])&nbsp;!indice&nbsp;;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Array</span>.append&nbsp;!result&nbsp;!index&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!result</code></body></html>

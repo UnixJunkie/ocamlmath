@@ -1,0 +1,253 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.foa_restricted_slow_pivot_downward</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;foa_slow_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:int)&nbsp;(m:float_or_array)&nbsp;(p:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;m&nbsp;;&nbsp;<span class="constructor">Float_cons</span>&nbsp;1.&nbsp;;&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;[|&nbsp;[|&nbsp;0.&nbsp;;&nbsp;0.&nbsp;|]&nbsp;|]&nbsp;;&nbsp;<span class="constructor">Float_cons</span>&nbsp;(1.&nbsp;/.&nbsp;x)&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;float_slow_pivot_downward&nbsp;i&nbsp;w&nbsp;(matrix_float_demakeup&nbsp;p)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;[|&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(0)&nbsp;;&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(2)&nbsp;;&nbsp;<span class="constructor">Float_cons</span>&nbsp;resultat.(3).(0).(0)&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;matrix_foa_demakeup&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mmmm&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pppp&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;p&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;numcolumns&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;min&nbsp;r&nbsp;c&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;permutation&nbsp;=&nbsp;ref&nbsp;(&nbsp;[|&nbsp;[|&nbsp;0.&nbsp;;&nbsp;0.&nbsp;|]&nbsp;|]&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ww&nbsp;=&nbsp;sub_matrix&nbsp;w&nbsp;i&nbsp;(r&nbsp;-&nbsp;1)&nbsp;i&nbsp;(c&nbsp;-&nbsp;1)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;k&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!k&nbsp;&lt;&nbsp;<span class="constructor">Array</span>.length&nbsp;ww&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;foa_slow_invertibility&nbsp;ww.(!k).(0)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;index&nbsp;:=&nbsp;!k&nbsp;;&nbsp;k&nbsp;:=&nbsp;r&nbsp;)&nbsp;<span class="keyword">else</span>&nbsp;(&nbsp;k&nbsp;:=&nbsp;!k&nbsp;+&nbsp;1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mmmm&nbsp;:=&nbsp;exchange_row&nbsp;i&nbsp;(i&nbsp;+&nbsp;!index)&nbsp;!mmmm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pppp&nbsp;:=&nbsp;exchange_row&nbsp;i&nbsp;(i&nbsp;+&nbsp;!index)&nbsp;!pppp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;bloc&nbsp;=&nbsp;!mmmm.(i).(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;foa_slow_invertibility&nbsp;bloc&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Block&nbsp;non&nbsp;invertible&nbsp;in&nbsp;Matrix.foa_slow_pivot_downward."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;foa_slow_inv&nbsp;bloc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ligne&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(matrix_foa_prod&nbsp;coefficient)&nbsp;!pppp.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;partial_foa_left_prod&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;coefficient&nbsp;!mmmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;i&nbsp;+&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** Pay attention to order: attention à l'ordre *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;!mmmm.(j).(i)&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!pppp.(j)&nbsp;&lt;-&nbsp;line_foa_minus&nbsp;!pppp.(j)&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(matrix_foa_prod&nbsp;coeff)&nbsp;ligne&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!mmmm.(j)&nbsp;&lt;-&nbsp;partial_foa_minus&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;!mmmm.(j)&nbsp;(&nbsp;partial_foa_left_prod&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;coeff&nbsp;row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;!mmmm&nbsp;;&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;!pppp&nbsp;;&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;!permutation&nbsp;;&nbsp;coefficient&nbsp;|]<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_restricted_slow_pivot_downward i m</pre> The block matrix m is assumed to be upper triangular from line 0 to i - 1.
+<p>
+
+La matrice par blocs m est supposée, de la ligne 0 à i - 1, triangulaire supérieure. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_restricted_slow_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:int)&nbsp;(m:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;m&nbsp;;&nbsp;m&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;float_restricted_slow_pivot_downward&nbsp;i&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;[|&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(0)&nbsp;;&nbsp;<span class="constructor">Float_cons</span>&nbsp;resultat.(1).(0).(0)&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;matrix_foa_demakeup&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mmmm&nbsp;=&nbsp;ref&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;numcolumns&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;min&nbsp;r&nbsp;c&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ww&nbsp;=&nbsp;sub_matrix&nbsp;w&nbsp;i&nbsp;(r&nbsp;-&nbsp;1)&nbsp;i&nbsp;(c&nbsp;-&nbsp;1)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;k&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!k&nbsp;&lt;&nbsp;<span class="constructor">Array</span>.length&nbsp;ww&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;foa_slow_invertibility&nbsp;ww.(!k).(0)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;index&nbsp;:=&nbsp;!k&nbsp;;&nbsp;k&nbsp;:=&nbsp;r&nbsp;)&nbsp;<span class="keyword">else</span>&nbsp;(&nbsp;k&nbsp;:=&nbsp;!k&nbsp;+&nbsp;1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!index&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;mmmm&nbsp;:=&nbsp;exchange_row&nbsp;i&nbsp;(i&nbsp;+&nbsp;!index)&nbsp;!mmmm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;ref&nbsp;!mmmm.(i).(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;foa_slow_invertibility&nbsp;!element&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;foa_slow_inv&nbsp;!element&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;partial_foa_left_prod&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;coefficient&nbsp;!mmmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;i&nbsp;+&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;!mmmm.(j).(i)&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!mmmm.(j)&nbsp;&lt;-&nbsp;partial_foa_minus&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;!mmmm.(j)&nbsp;(&nbsp;partial_foa_left_prod&nbsp;(i&nbsp;+&nbsp;1)&nbsp;(c&nbsp;-&nbsp;1)&nbsp;coeff&nbsp;row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;element&nbsp;:=&nbsp;<span class="constructor">Float_cons</span>&nbsp;0.&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;!mmmm&nbsp;;&nbsp;!element&nbsp;|]<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_slow_pivot_upward i m p</pre> The block matrix m is assumed to be diagonal from line i + 1 to r - 1.
+The matrix p registers the same changes as m.
+<p>
+
+La matrice par blocs m est supposée, de la ligne i + 1 à r - 1, diagonale. 
+La matrice p enregistre les memes changements que m. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_slow_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:int)&nbsp;(m:float_or_array)&nbsp;(p:float_or_array)&nbsp;(coefficient:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;m&nbsp;;&nbsp;<span class="constructor">Float_cons</span>&nbsp;1.&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;float_slow_pivot_upward&nbsp;i&nbsp;w&nbsp;(matrix_float_demakeup&nbsp;p)&nbsp;(float_demakeup&nbsp;coefficient)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;[|&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(0)&nbsp;;&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;resultat.(1)&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmmm&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pppp&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;p&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ligne&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(matrix_foa_prod&nbsp;coefficient)&nbsp;!pppp.(i)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;partial_foa_left_prod&nbsp;0&nbsp;(i&nbsp;-&nbsp;1)&nbsp;coefficient&nbsp;!mmmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;i&nbsp;-&nbsp;1&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** Pay attention to order : attention à l'ordre *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;!mmmm.(j).(i)&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!pppp.(j)&nbsp;&lt;-&nbsp;line_foa_minus&nbsp;!pppp.(j)&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(matrix_foa_prod&nbsp;coeff)&nbsp;ligne&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!mmmm.(j)&nbsp;&lt;-&nbsp;partial_foa_minus&nbsp;j&nbsp;(i&nbsp;-&nbsp;1)&nbsp;!mmmm.(j)&nbsp;(&nbsp;partial_foa_left_prod&nbsp;j&nbsp;(i&nbsp;-&nbsp;1)&nbsp;coeff&nbsp;row&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;!mmmm&nbsp;;&nbsp;<span class="constructor">Foa_matrix_cons</span>&nbsp;!pppp&nbsp;|]<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_slow_invertibility matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_slow_invertibility&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x&nbsp;&lt;&gt;&nbsp;0.<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float_slow_invertibility&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;min&nbsp;(foa_numrows&nbsp;m)&nbsp;(foa_numcolumns&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;(matrix_foa_copy&nbsp;m)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;output&nbsp;=&nbsp;ref&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_restricted_slow_pivot_downward&nbsp;!i&nbsp;!mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;resultat.(1)&nbsp;=&nbsp;<span class="constructor">Float_cons</span>&nbsp;0.&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;i&nbsp;:=&nbsp;r&nbsp;;&nbsp;output&nbsp;:=&nbsp;<span class="keyword">false</span>&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;!i&nbsp;+&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;output&nbsp;:=&nbsp;!output&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;foa_slow_invertibility&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;!mm&nbsp;).(rr).(rr)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!output<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_slow_invertibility_evaluation matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_slow_invertibility_evaluation&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float_slow_invertibility_evaluation&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;min&nbsp;(foa_numrows&nbsp;m)&nbsp;(foa_numcolumns&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;(matrix_foa_copy&nbsp;m)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;diagonale&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;r&nbsp;(<span class="constructor">Float_cons</span>&nbsp;0.)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;output&nbsp;=&nbsp;ref&nbsp;max_float&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_restricted_slow_pivot_downward&nbsp;!i&nbsp;!mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;resultat.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;coeff&nbsp;=&nbsp;<span class="constructor">Float_cons</span>&nbsp;0.&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;i&nbsp;:=&nbsp;r&nbsp;;&nbsp;output&nbsp;:=&nbsp;0.&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(!i)&nbsp;&lt;-&nbsp;coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;!i&nbsp;+&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!output&nbsp;&lt;&gt;&nbsp;0.&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(rr)&nbsp;&lt;-&nbsp;(matrix_foa_demakeup&nbsp;!mm).(rr).(rr)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;suite&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;foa_slow_invertibility_evaluation&nbsp;)&nbsp;diagonale&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;absdiag&nbsp;=&nbsp;vector_float_abs&nbsp;suite&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mini&nbsp;=&nbsp;<span class="constructor">Util</span>.vector_min&nbsp;absdiag&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;vector_float_find_first&nbsp;mini&nbsp;absdiag&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;suite.(index)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;0.<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_slow_abs_det matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_slow_abs_det&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;abs_float&nbsp;(&nbsp;float_slow_det&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;min&nbsp;(foa_numrows&nbsp;m)&nbsp;(foa_numcolumns&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;(matrix_foa_copy&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;1.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_restricted_slow_pivot_downward&nbsp;!i&nbsp;!mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;resultat.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;coeff&nbsp;=&nbsp;<span class="constructor">Float_cons</span>&nbsp;0.&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;i&nbsp;:=&nbsp;r&nbsp;;&nbsp;accu&nbsp;:=&nbsp;0.&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;*.&nbsp;(&nbsp;foa_slow_abs_det&nbsp;coeff&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;!i&nbsp;+&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!accu&nbsp;&lt;&gt;&nbsp;0.&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abs_float&nbsp;(&nbsp;!accu&nbsp;*.&nbsp;(&nbsp;foa_slow_abs_det&nbsp;(&nbsp;matrix_foa_demakeup&nbsp;!mm&nbsp;).(rr).(rr)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;0.<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>matrix_foa_slow_left_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;matrix_foa_slow_left_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:float_or_array)&nbsp;(q:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_foa_scal_left_div&nbsp;x&nbsp;q<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;(matrix_float_slow_left_quotient&nbsp;w&nbsp;(&nbsp;matrix_float_demakeup&nbsp;q&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;min&nbsp;(foa_numrows&nbsp;m)&nbsp;(foa_numcolumns&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_copy&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_foa_copy&nbsp;q&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;diagonale&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;r&nbsp;(<span class="constructor">Float_cons</span>&nbsp;0.)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;2&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_slow_pivot_downward&nbsp;i&nbsp;!mm&nbsp;!pp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp&nbsp;:=&nbsp;resultat.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(i)&nbsp;&lt;-&nbsp;resultat.(3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;bloc&nbsp;=&nbsp;(matrix_foa_demakeup&nbsp;!mm).(rr).(rr)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;foa_slow_invertibility&nbsp;bloc&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Block&nbsp;non&nbsp;invertible&nbsp;in&nbsp;Matrix.matrix_foa_slow_left_quotient."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(rr)&nbsp;&lt;-&nbsp;foa_slow_inv&nbsp;bloc&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;rr&nbsp;<span class="keyword">downto</span>&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_slow_pivot_upward&nbsp;i&nbsp;!mm&nbsp;!pp&nbsp;diagonale.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp&nbsp;:=&nbsp;resultat.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;foa_diag_left_mult&nbsp;(&nbsp;<span class="constructor">Foa_strip_cons</span>&nbsp;diagonale&nbsp;)&nbsp;!pp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!mm<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>line_foa_slow_left_quotient matrix1 matrix_array</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;line_foa_slow_left_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:float_or_array)&nbsp;(q:float_or_array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;matrix_foa_slow_left_quotient&nbsp;m&nbsp;)&nbsp;q<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>foa_slow_inv matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;foa_slow_inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:float_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Float_cons</span>&nbsp;(&nbsp;1.&nbsp;/.&nbsp;x&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Float_matrix_cons</span>&nbsp;(float_slow_inv&nbsp;w)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;min&nbsp;(foa_numrows&nbsp;m)&nbsp;(foa_numcolumns&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;(matrix_foa_copy&nbsp;m)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;ref&nbsp;(eye_foa&nbsp;m)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;diagonale&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;r&nbsp;(<span class="constructor">Float_cons</span>&nbsp;0.)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;2&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_slow_pivot_downward&nbsp;i&nbsp;!mm&nbsp;!pp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp&nbsp;:=&nbsp;resultat.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(i)&nbsp;&lt;-&nbsp;resultat.(3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;bloc&nbsp;=&nbsp;(matrix_foa_demakeup&nbsp;!mm).(rr).(rr)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;foa_slow_invertibility&nbsp;bloc&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Block&nbsp;non&nbsp;invertible&nbsp;in&nbsp;Matrix.foa_slow_inv."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diagonale.(rr)&nbsp;&lt;-&nbsp;foa_slow_inv&nbsp;bloc&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;rr&nbsp;<span class="keyword">downto</span>&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;foa_slow_pivot_upward&nbsp;i&nbsp;!mm&nbsp;!pp&nbsp;diagonale.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp&nbsp;:=&nbsp;resultat.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;foa_diag_left_mult&nbsp;(&nbsp;<span class="constructor">Foa_strip_cons</span>&nbsp;diagonale&nbsp;)&nbsp;!pp&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!mm</code></body></html>

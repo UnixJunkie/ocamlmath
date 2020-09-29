@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_vector.Rng.scal_prod</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;scal_prod&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;((&nbsp;d&nbsp;,&nbsp;v&nbsp;):t)&nbsp;((&nbsp;e&nbsp;,&nbsp;w&nbsp;):t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;previous&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;<span class="constructor">H</span>.extract&nbsp;i&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.add&nbsp;previous&nbsp;(&nbsp;<span class="constructor">Coeff</span>.mult&nbsp;x&nbsp;(&nbsp;snd&nbsp;zz&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;previous<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">H</span>.fold&nbsp;f&nbsp;v&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)</code></body></html>

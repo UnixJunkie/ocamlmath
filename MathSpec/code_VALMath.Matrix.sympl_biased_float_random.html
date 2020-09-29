@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.sympl_biased_float_random</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;sympl_biased_float_random&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(r:int)&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;sym_biased_float_random&nbsp;(&nbsp;2&nbsp;*&nbsp;r&nbsp;)&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;eye_float&nbsp;a<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j&nbsp;=&nbsp;gen_sympl_float&nbsp;(&nbsp;l&nbsp;/&nbsp;2&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;b&nbsp;=&nbsp;matrix_float_prod&nbsp;a&nbsp;j&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;matrix_float_plus&nbsp;i&nbsp;b&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;float_approx_inv&nbsp;matrix_float_norm_inf&nbsp;generic_float_inv&nbsp;c&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_float_minus&nbsp;(&nbsp;matrix_float_scal_mult&nbsp;2.&nbsp;d.(0)&nbsp;)&nbsp;i</code></body></html>

@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.maehly_complex_step</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;maehly_complex_step&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;eval_rule&nbsp;(r:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;(p:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;(der_p:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;(x:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;vector&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;x&nbsp;)&nbsp;r<br>
+&nbsp;<span class="keyword">and</span>&nbsp;numerator&nbsp;=&nbsp;eval_rule&nbsp;p&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;init&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_opp&nbsp;(&nbsp;eval_rule&nbsp;der_p&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;other_vector&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;complex_div&nbsp;numerator&nbsp;)&nbsp;vector&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;denominator&nbsp;=&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;init&nbsp;other_vector&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;fraction&nbsp;=&nbsp;complex_div&nbsp;numerator&nbsp;denominator&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;x&nbsp;fraction</code></body></html>

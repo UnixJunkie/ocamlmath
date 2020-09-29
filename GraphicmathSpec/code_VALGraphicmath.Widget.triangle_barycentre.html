@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Widget.triangle_barycentre</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;triangle_barycentre&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(weight:float)&nbsp;(x:int&nbsp;*&nbsp;int)&nbsp;(y:int&nbsp;*&nbsp;int)&nbsp;(z:int&nbsp;*&nbsp;int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;[|&nbsp;int_of_float&nbsp;(&nbsp;weight&nbsp;*.&nbsp;(&nbsp;float&nbsp;(&nbsp;fst&nbsp;x&nbsp;)&nbsp;)&nbsp;+.&nbsp;(&nbsp;0.5&nbsp;*.&nbsp;(&nbsp;1.&nbsp;-.&nbsp;weight&nbsp;)&nbsp;)&nbsp;*.&nbsp;(&nbsp;float&nbsp;(&nbsp;fst&nbsp;y&nbsp;+&nbsp;fst&nbsp;z&nbsp;)&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;int_of_float&nbsp;(&nbsp;weight&nbsp;*.&nbsp;(&nbsp;float&nbsp;(&nbsp;snd&nbsp;x&nbsp;)&nbsp;)&nbsp;+.&nbsp;(&nbsp;0.5&nbsp;*.&nbsp;(&nbsp;1.&nbsp;-.&nbsp;weight&nbsp;)&nbsp;)&nbsp;*.&nbsp;(&nbsp;float&nbsp;(&nbsp;snd&nbsp;y&nbsp;+&nbsp;snd&nbsp;z&nbsp;)&nbsp;)&nbsp;)&nbsp;|]</code></body></html>

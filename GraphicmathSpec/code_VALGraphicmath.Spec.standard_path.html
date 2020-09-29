@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Spec.standard_path</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;standard_path&nbsp;=<br>
+&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;<span class="string">"which&nbsp;ocamlrun&nbsp;&gt;&nbsp;tmp.txt"</span>&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;(&nbsp;<span class="constructor">Readwrite</span>.list_read_reverse_text_file&nbsp;<span class="string">"tmp.txt"</span>)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;<span class="string">"rm&nbsp;tmp.txt"</span>&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;<span class="constructor">Filename</span>.dirname&nbsp;(&nbsp;<span class="constructor">Filename</span>.dirname&nbsp;chaine&nbsp;)</code></body></html>

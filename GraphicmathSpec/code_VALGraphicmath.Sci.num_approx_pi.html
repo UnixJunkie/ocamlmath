@@ -1,0 +1,33 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sci.num_approx_pi</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;num_approx_pi&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(digits:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;prod&nbsp;=&nbsp;ref&nbsp;num_12<br>
+&nbsp;<span class="keyword">and</span>&nbsp;sum&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;13591409&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;640320&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;n&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;(&nbsp;12&nbsp;*&nbsp;13591409&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;sixn&nbsp;=&nbsp;ref&nbsp;num_0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;binom&nbsp;=&nbsp;ref&nbsp;num_1&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** 3n^2+3n+1 *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keyword">and</span>&nbsp;pown3&nbsp;=&nbsp;ref&nbsp;num_0&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** n^3 *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keyword">and</span>&nbsp;(&nbsp;sqrt&nbsp;,&nbsp;pow&nbsp;)&nbsp;=&nbsp;num_sqrt640320&nbsp;(&nbsp;digits&nbsp;-&nbsp;2&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pow3&nbsp;=&nbsp;<span class="constructor">Num</span>.power_num&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;640320&nbsp;)&nbsp;num_3&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pow_test&nbsp;=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;pow&nbsp;num_10&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="constructor">Num</span>.gt_num&nbsp;(&nbsp;<span class="constructor">Num</span>.abs_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!prod&nbsp;!sum&nbsp;)&nbsp;pow_test&nbsp;)&nbsp;)&nbsp;!d&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;prod&nbsp;:=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;(&nbsp;-&nbsp;8&nbsp;)&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.succ_num&nbsp;!sixn&nbsp;)&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.add_num&nbsp;!sixn&nbsp;num_3&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.add_num&nbsp;!sixn&nbsp;num_5&nbsp;)&nbsp;)&nbsp;)&nbsp;!prod&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sum&nbsp;:=&nbsp;<span class="constructor">Num</span>.add_num&nbsp;(&nbsp;<span class="constructor">Num</span>.num_of_int&nbsp;545140134&nbsp;)&nbsp;!sum&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pown3&nbsp;:=&nbsp;<span class="constructor">Num</span>.add_num&nbsp;!binom&nbsp;!pown3&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;:=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!pown3&nbsp;pow3&nbsp;)&nbsp;!d&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;:=&nbsp;<span class="constructor">Num</span>.add_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!pown3&nbsp;&nbsp;pow3&nbsp;)&nbsp;!n&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!prod&nbsp;!sum&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sixn&nbsp;:=&nbsp;<span class="constructor">Num</span>.add_num&nbsp;!sixn&nbsp;num_6&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;binom&nbsp;:=&nbsp;<span class="constructor">Num</span>.add_num&nbsp;!sixn&nbsp;!binom<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.div_num&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;sqrt&nbsp;!d&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!n&nbsp;pow&nbsp;)</code></body></html>

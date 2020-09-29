@@ -1,0 +1,4811 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Fft.html">
+<link rel="next" href="Math.Infinitesimal.html">
+<link rel="Up" href="Math.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Fichiers textes, fichiers binaires et traitement des chaînes de caractères" rel="Section" href="#1_Fichierstextesfichiersbinairesettraitementdeschanesdecaractres">
+<link title="Text files, binary files and character strings treatment" rel="Section" href="#1_Textfilesbinaryfilesandcharacterstringstreatment">
+<link title="Conversions d'images" rel="Section" href="#1_Conversionsdimages">
+<link title="Picture conversions" rel="Section" href="#1_Pictureconversions">
+<link title="Fichiers de vecteurs et matrices" rel="Section" href="#1_Fichiersdevecteursetmatrices">
+<link title="Vector and matrix files" rel="Section" href="#1_Vectorandmatrixfiles">
+<link title="Fichiers d'images xpm" rel="Section" href="#1_Fichiersdimagesxpm">
+<link title="Xpm picture files" rel="Section" href="#1_Xpmpicturefiles">
+<link title="Fichiers d'images pnm : pgm et ppm" rel="Section" href="#1_Fichiersdimagespnmpgmetppm">
+<link title="Pnm picture files: pgm and ppm" rel="Section" href="#1_Pnmpicturefilespgmandppm">
+<link title="Fichiers d'images bitmap" rel="Section" href="#1_Fichiersdimagesbitmap">
+<link title="Bitmap picture files" rel="Section" href="#1_Bitmappicturefiles">
+<link title="Fichiers sons au" rel="Section" href="#1_Fichierssonsau">
+<link title="Au sound files" rel="Section" href="#1_Ausoundfiles">
+<link title="Fichiers sons wav" rel="Section" href="#1_Fichierssonswav">
+<link title="Wav sound files" rel="Section" href="#1_Wavsoundfiles">
+<link title="Fichiers et répertoires" rel="Section" href="#1_Fichiersetrpertoires">
+<link title="Files and directories" rel="Section" href="#1_Filesanddirectories">
+<link title="Images réelles" rel="Section" href="#1_Imagesrelles">
+<link title="Floating point pictures" rel="Section" href="#1_Floatingpointpictures">
+<link title="Environnement" rel="Section" href="#1_Environnement">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Math.Readwrite</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Fft.html">Previous</a>
+&nbsp;<a href="Math.html">Up</a>
+&nbsp;<a href="Math.Infinitesimal.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Math.Readwrite.html">Math.Readwrite</a> (<a href="code_Math.Readwrite.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Readwrite: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Readwrite.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module:
+<p>
+<ul>
+<li>utility functions in order to permit the following exchanges between Ocaml and the file system:</li>
+</ul>
+<OL>
+<li>read and write integer or real vectors and matrices,</li>
+<li>read and write text files, </li>
+<li>read XPM picture files (which are text files indeed),</li>
+<li>read PNM picture files of type P4, which means bitmap pictures in binary data,</li>
+<li>read and write PNM picture files of types P5 and P6, which means gray levels pictures (PGM) or trichromic pictures (PPM) in binary data,</li>
+<li>read and write BMP picture files,</li>
+<li>read and write sound files in the AU float 32 bits format, </li>
+<li>read and write real vectors and matrices in the AU float 64 bits format,</li>
+<li>read and write sound files in some WAV format,</li>
+<li>read the directories,</li>
+</OL>
+<ul>
+<li>methods to treat the characters obtained from these files,</li>
+</ul>
+<ul>
+<li>conversions between different ways to record pictures inside Ocaml,</li>
+</ul>
+<ul>
+<li>utility functions in order to retrieve data about the environment of the operating system.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+The color used in the Graphics module of Ocaml is coded by an integer according to the formula
+color = red * 256 * 256 + green * 256 + blue
+where the integers red, green, blue are between 0 and 255.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+The reading and writing of float 64 bits AU sound files (real vectors and matrices) makes use of
+the commands <code class="code">head</code> and <code class="code">tail</code> available on every minimal UNIX system.
+<p>
+
+The reading and writing of float 32 bits AU sound files (real vectors) makes use of
+conversions with the class <code class="code">int</code> which are only correct on 64 bits machines.
+<p>
+
+The functions about environment use instructions that vary considerably 
+from one operating system to another. They have been only tested under FreeBSD.
+<p>
+
+The functions for reading the content of a file into a list and writing the content of a file from an Ocaml structure come from P. Manoury: 
+Programmation de droite à gauche et vice-versa, Paracamplus, Paris, 2011:
+<p>
+
+<code class="code">www.paracamplus.com</code>
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des fonctions utilitaires permettant les échanges suivants entre Ocaml et le système de fichiers : </li>
+</ul>
+<OL>
+<li>lecture et écriture des vecteurs et matrices entiers ou réels,</li>
+<li>lecture et écriture des fichiers textes, </li>
+<li>lecture des fichiers d'images XPM (qui sont en fait des fichiers textes), </li>
+<li>lecture des fichiers d'images PNM de type P4, c'est-à-dire des images noir-blanc en données binaires,</li>
+<li>lecture et écriture des fichiers d'images PNM de types P5 et P6, c'est-à-dire des images soit en niveaux de gris (PGM) soit trichromiques (PPM) en données binaires,</li>
+<li>lecture et écriture des fichiers d'images BMP,</li>
+<li>lecture et écriture des fichiers sons au format AU float 32 bits, </li>
+<li>lecture et écriture des vecteurs et matrices réels au format AU float 64 bits,</li>
+<li>lecture et écriture de fichiers sons à certains formats WAV,</li>
+<li>lecture des répertoires,</li>
+</OL>
+<ul>
+<li>des méthodes pour traiter les caractères obtenus de ces fichiers,</li>
+</ul>
+<ul>
+<li>des conversions entre différentes manières de consigner les images à l'intérieur d'Ocaml,</li>
+</ul>
+<ul>
+<li>des fonctions utilitaires permettant de récupérer des données sur l'environnement du système d'exploitation.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+La couleur utilisée dans le module Graphics d'Ocaml est codée par entier selon la formule
+couleur = rouge * 256 * 256 + vert * 256 + bleu 
+où les entiers rouge, vert, bleu sont compris entre 0 et 255.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+La lecture et l'écriture de fichiers sons AU float 64 bits (vecteurs et matrices réels)
+utilise les commandes <code class="code">head</code> et <code class="code">tail</code> fournies dans tous les systèmes UNIX minimaux.
+<p>
+
+La lecture et l'écriture des fichiers sons AU float 32 bits utilisent des conversions avec 
+la classe <code class="code">int</code> qui ne sont correctes que sur les machines 64 bits.
+<p>
+
+Les informations sur l'environnement utilisent des instructions qui varient fortement
+d'un système d'exploitation à l'autre. Elles ne sont testées que sous FreeBSD.
+<p>
+
+Les fonctions de lecture d'un fichier vers une liste ou d'écriture d'un fichier depuis une structure d'Ocaml proviennent de P. Manoury : 
+Programmation de droite à gauche et vice-versa, Paracamplus, Paris, 2011 :
+<p>
+
+<code class="code">www.paracamplus.com</code>
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.3</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichierstextesfichiersbinairesettraitementdeschanesdecaractres"><h1>Fichiers textes, fichiers binaires et traitement des chaînes de caractères</h1></span>
+<span id="1_Textfilesbinaryfilesandcharacterstringstreatment"><h1>Text files, binary files and character strings treatment</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALstring_match"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_match.html">string_match</a></span> : <code class="type">Str.regexp -> string -> int -> bool</code></pre><div class="info">
+<pre>string_match regexp string start</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Str.regexp</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_reverse_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_reverse_text_file.html">list_read_reverse_text_file</a></span> : <code class="type">string -> string list</code></pre><div class="info">
+<pre>list_read_reverse_text_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_reverse_text_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_reverse_text_header.html">list_read_reverse_text_header</a></span> : <code class="type">int -> string -> string list</code></pre><div class="info">
+<pre>list_read_reverse_text_header file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_text_file.html">list_read_text_file</a></span> : <code class="type">string -> string list</code></pre><div class="info">
+<pre>list_read_text_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_read_reverse_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_read_reverse_text_file.html">array_read_reverse_text_file</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>array_read_reverse_text_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_read_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_read_text_file.html">array_read_text_file</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>array_read_text_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_write_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_write_text_file.html">list_write_text_file</a></span> : <code class="type">string list -> string -> unit</code></pre><div class="info">
+<pre>list_write_text_file string_list file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_write_text_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_write_text_file.html">array_write_text_file</a></span> : <code class="type">string array -> string -> unit</code></pre><div class="info">
+<pre>array_write_text_file string_array file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_text_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_text_header.html">list_read_text_header</a></span> : <code class="type">int -> string -> string list</code></pre><div class="info">
+<pre>list_read_text_header size file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_read_reverse_text_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_read_reverse_text_header.html">array_read_reverse_text_header</a></span> : <code class="type">int -> string -> string array</code></pre><div class="info">
+<pre>array_read_reverse_text_header size file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_read_text_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_read_text_header.html">array_read_text_header</a></span> : <code class="type">int -> string -> string array</code></pre><div class="info">
+<pre>array_read_text_header size file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_reverse_binary_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_reverse_binary_file.html">list_read_reverse_binary_file</a></span> : <code class="type">string -> int list</code></pre><div class="info">
+<pre>list_read_reverse_binary_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_read_binary_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_read_binary_file.html">list_read_binary_file</a></span> : <code class="type">string -> int list</code></pre><div class="info">
+<pre>list_read_binary_file file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstep_read_binary_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.step_read_binary_file.html">step_read_binary_file</a></span> : <code class="type">Buffer.t -> int -> Pervasives.in_channel -> int</code></pre><div class="info">
+<pre>step_read_binary_file buffer block_size file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Buffer.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+block_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ic</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Pervasives.in_channel</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbuffer_to_binary_array"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.buffer_to_binary_array.html">buffer_to_binary_array</a></span> : <code class="type">Buffer.t -> int array</code></pre><div class="info">
+<pre>buffer_to_binary_array buffer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Buffer.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_read_binary_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_read_binary_file.html">array_read_binary_file</a></span> : <code class="type">int -> string -> int array</code></pre><div class="info">
+<pre>array_read_binary_file init_size file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_write_binary_file"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.array_write_binary_file.html">array_write_binary_file</a></span> : <code class="type">int array -> string -> unit</code></pre><div class="info">
+<pre>array_write_binary_file vector file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhexa_char_to_int"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.hexa_char_to_int.html">hexa_char_to_int</a></span> : <code class="type">char -> int</code></pre><div class="info">
+<pre>hexa_char_to_int figure</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">char</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_to_hexa_char"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.int_to_hexa_char.html">int_to_hexa_char</a></span> : <code class="type">int -> char</code></pre><div class="info">
+<pre>int_to_hexa_char figure</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbyte_string_to_int"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.byte_string_to_int.html">byte_string_to_int</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>byte_string_to_int string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_int_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_int_luminance.html">triple_byte_string_to_int_luminance</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>triple_byte_string_to_int_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_int_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_int_red.html">triple_byte_string_to_int_red</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>triple_byte_string_to_int_red string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_int_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_int_green.html">triple_byte_string_to_int_green</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>triple_byte_string_to_int_green string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_int_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_int_blue.html">triple_byte_string_to_int_blue</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>triple_byte_string_to_int_blue string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_int_rgb.html">triple_byte_string_to_int_rgb</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>triple_byte_string_to_int_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_color.html">triple_byte_string_to_color</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>triple_byte_string_to_color string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhexa_char_to_float"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.hexa_char_to_float.html">hexa_char_to_float</a></span> : <code class="type">char -> float</code></pre><div class="info">
+<pre>hexa_char_to_float figure</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">char</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbyte_string_to_float"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.byte_string_to_float.html">byte_string_to_float</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>byte_string_to_float string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_float_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_float_luminance.html">triple_byte_string_to_float_luminance</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>triple_byte_string_to_float_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_float_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_float_red.html">triple_byte_string_to_float_red</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>triple_byte_string_to_float_red string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_float_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_float_green.html">triple_byte_string_to_float_green</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>triple_byte_string_to_float_green string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_float_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_float_blue.html">triple_byte_string_to_float_blue</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>triple_byte_string_to_float_blue string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_byte_string_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.triple_byte_string_to_float_rgb.html">triple_byte_string_to_float_rgb</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>triple_byte_string_to_float_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_float_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_float_luminance.html">gray_string_to_float_luminance</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>gray_string_to_float_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_float_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_float_unicolor.html">gray_string_to_float_unicolor</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>gray_string_to_float_unicolor string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_float_rgb.html">gray_string_to_float_rgb</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>gray_string_to_float_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_int_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_int_unicolor.html">gray_string_to_int_unicolor</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>gray_string_to_int_unicolor string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_int_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_int_luminance.html">gray_string_to_int_luminance</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>gray_string_to_int_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_int_rgb.html">gray_string_to_int_rgb</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>gray_string_to_int_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgray_string_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.gray_string_to_color.html">gray_string_to_color</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>gray_string_to_color string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALname_to_triple_byte"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.name_to_triple_byte.html">name_to_triple_byte</a></span> : <code class="type">string -> string</code></pre><div class="info">
+<pre>name_to_triple_byte string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_float_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_float_red.html">string_to_float_red</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>string_to_float_red string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_float_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_float_green.html">string_to_float_green</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>string_to_float_green string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_float_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_float_blue.html">string_to_float_blue</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>string_to_float_blue string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_float_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_float_luminance.html">string_to_float_luminance</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>string_to_float_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_float_rgb.html">string_to_float_rgb</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>string_to_float_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_int_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_int_red.html">string_to_int_red</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>string_to_int_red string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_int_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_int_green.html">string_to_int_green</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>string_to_int_green string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_int_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_int_blue.html">string_to_int_blue</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>string_to_int_blue string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_int_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_int_luminance.html">string_to_int_luminance</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>string_to_int_luminance string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_int_rgb.html">string_to_int_rgb</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>string_to_int_rgb string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.string_to_color.html">string_to_color</a></span> : <code class="type">string -> int</code></pre><div class="info">
+<pre>string_to_color string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_float_value"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_float_value.html">read_float_value</a></span> : <code class="type">string -> float</code></pre><div class="info">
+<pre>read_float_value file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_float_array_value"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_float_array_value.html">read_float_array_value</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>read_float_array_value file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_float_value"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_float_value.html">write_float_value</a></span> : <code class="type">float -> string -> unit</code></pre><div class="info">
+<pre>write_float_value real file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_float_array_value"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_float_array_value.html">write_float_array_value</a></span> : <code class="type">float array -> string -> unit</code></pre><div class="info">
+<pre>write_float_array_value real_vector file_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Conversionsdimages"><h1>Conversions d'images</h1></span>
+<span id="1_Pictureconversions"><h1>Picture conversions</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALcolor_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.color_to_int_rgb.html">color_to_int_rgb</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>color_to_int_rgb color</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolor_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.color_to_float_rgb.html">color_to_float_rgb</a></span> : <code class="type">int -> float array</code></pre><div class="info">
+<pre>color_to_float_rgb color</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_int_rgb.html">matrix_color_to_int_rgb</a></span> : <code class="type">int array array -> int array array array</code></pre><div class="info">
+<pre>matrix_color_to_int_rgb color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_rgb_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_rgb_to_color.html">matrix_int_rgb_to_color</a></span> : <code class="type">int array array array -> int array array</code></pre><div class="info">
+<pre>matrix_int_rgb_to_color rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_unicolor_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_unicolor_to_color.html">matrix_int_unicolor_to_color</a></span> : <code class="type">int array array -> int array array</code></pre><div class="info">
+<pre>matrix_int_unicolor_to_color matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_rgb_to_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_rgb_to_int_rgb.html">matrix_float_rgb_to_int_rgb</a></span> : <code class="type">float array array array -> int array array array</code></pre><div class="info">
+<pre>matrix_float_rgb_to_int_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_rgb_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_rgb_to_float_rgb.html">matrix_int_rgb_to_float_rgb</a></span> : <code class="type">int array array array -> float array array array</code></pre><div class="info">
+<pre>matrix_int_rgb_to_float_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_rgb_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_rgb_to_color.html">matrix_float_rgb_to_color</a></span> : <code class="type">float array array array -> int array array</code></pre><div class="info">
+<pre>matrix_float_rgb_to_color rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_float_rgb.html">matrix_color_to_float_rgb</a></span> : <code class="type">int array array -> float array array array</code></pre><div class="info">
+<pre>matrix_color_to_float_rgb color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_unicolor_to_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_unicolor_to_color.html">matrix_float_unicolor_to_color</a></span> : <code class="type">float array array -> int array array</code></pre><div class="info">
+<pre>matrix_float_unicolor_to_color matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_rgb_to_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_rgb_to_gray.html">matrix_float_rgb_to_gray</a></span> : <code class="type">float array array array -> float array array</code></pre><div class="info">
+<pre>matrix_float_rgb_to_gray rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_rgb_to_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_rgb_to_gray.html">matrix_int_rgb_to_gray</a></span> : <code class="type">int array array array -> int array array</code></pre><div class="info">
+<pre>matrix_int_rgb_to_gray rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_int_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_int_gray.html">matrix_color_to_int_gray</a></span> : <code class="type">int array array -> int array array</code></pre><div class="info">
+<pre>matrix_color_to_int_gray color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_float_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_float_gray.html">matrix_color_to_float_gray</a></span> : <code class="type">int array array -> float array array</code></pre><div class="info">
+<pre>matrix_color_to_float_gray color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_rgb_to_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_rgb_to_luminance.html">matrix_int_rgb_to_luminance</a></span> : <code class="type">int array array array -> int array array</code></pre><div class="info">
+<pre>matrix_int_rgb_to_luminance rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_int_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_int_luminance.html">matrix_color_to_int_luminance</a></span> : <code class="type">int array array -> int array array</code></pre><div class="info">
+<pre>matrix_color_to_int_luminance color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_rgb_to_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_rgb_to_luminance.html">matrix_float_rgb_to_luminance</a></span> : <code class="type">float array array array -> float array array</code></pre><div class="info">
+<pre>matrix_float_rgb_to_luminance rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_color_to_float_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_color_to_float_luminance.html">matrix_color_to_float_luminance</a></span> : <code class="type">int array array -> float array array</code></pre><div class="info">
+<pre>matrix_color_to_float_luminance color_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_unicolor_under_sample"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_unicolor_under_sample.html">matrix_float_unicolor_under_sample</a></span> : <code class="type">int -> float array array -> float array array</code></pre><div class="info">
+<pre>matrix_float_unicolor_under_sample edge matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_rgb_under_sample"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_rgb_under_sample.html">matrix_float_rgb_under_sample</a></span> : <code class="type">int -> float array array array -> float array array array</code></pre><div class="info">
+<pre>matrix_float_rgb_under_sample edge rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_unicolor_under_sample"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_unicolor_under_sample.html">matrix_int_unicolor_under_sample</a></span> : <code class="type">int -> int array array -> int array array</code></pre><div class="info">
+<pre>matrix_int_unicolor_under_sample edge matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_rgb_under_sample"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_rgb_under_sample.html">matrix_int_rgb_under_sample</a></span> : <code class="type">int -> int array array array -> int array array array</code></pre><div class="info">
+<pre>matrix_int_rgb_under_sample edge rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrgb_crop"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.rgb_crop.html">rgb_crop</a></span> : <code class="type">'a array array array -> int -> int -> int -> int -> 'a array array array</code></pre><div class="info">
+<pre>rgb_crop rgb_matrix beg-row end-row beg-col end-col</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ii</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+jj</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_unicolor_magnify"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.float_unicolor_magnify.html">float_unicolor_magnify</a></span> : <code class="type">int -> float array array -> float array array</code></pre><div class="info">
+<pre>float_unicolor_magnify factor matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_rgb_magnify"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.float_rgb_magnify.html">float_rgb_magnify</a></span> : <code class="type">int -> float array array array -> float array array array</code></pre><div class="info">
+<pre>float_rgb_magnify factor rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichiersdevecteursetmatrices"><h1>Fichiers de vecteurs et matrices</h1></span>
+<span id="1_Vectorandmatrixfiles"><h1>Vector and matrix files</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALvector_int_of_string"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_int_of_string.html">vector_int_of_string</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>vector_int_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_int_write"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_int_write.html">vector_int_write</a></span> : <code class="type">int array -> string -> unit</code></pre><div class="info">
+<pre>vector_int_write vector filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_write"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_write.html">matrix_int_write</a></span> : <code class="type">int array array -> string -> unit</code></pre><div class="info">
+<pre>matrix_int_write matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_reverse_int_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_reverse_int_read.html">list_reverse_int_read</a></span> : <code class="type">string -> int list</code></pre><div class="info">
+<pre>list_reverse_int_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_int_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_int_read.html">list_int_read</a></span> : <code class="type">string -> int list</code></pre><div class="info">
+<pre>list_int_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_reverse_int_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_reverse_int_read.html">vector_reverse_int_read</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>vector_reverse_int_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_int_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_int_read.html">vector_int_read</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>vector_int_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_int_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_int_read.html">matrix_int_read</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>matrix_int_read filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_float_of_string"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_float_of_string.html">vector_float_of_string</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>vector_float_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_float_write"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_float_write.html">vector_float_write</a></span> : <code class="type">float array -> string -> unit</code></pre><div class="info">
+<pre>vector_float_write vector filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_write"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_write.html">matrix_float_write</a></span> : <code class="type">float array array -> string -> unit</code></pre><div class="info">
+<pre>matrix_float_write matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_reverse_float_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_reverse_float_read.html">list_reverse_float_read</a></span> : <code class="type">string -> float list</code></pre><div class="info">
+<pre>list_reverse_float_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_float_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.list_float_read.html">list_float_read</a></span> : <code class="type">string -> float list</code></pre><div class="info">
+<pre>list_float_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_reverse_float_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_reverse_float_read.html">vector_reverse_float_read</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>vector_reverse_float_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_float_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.vector_float_read.html">vector_float_read</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>vector_float_read</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_float_read"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.matrix_float_read.html">matrix_float_read</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>matrix_float_read filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichiersdimagesxpm"><h1>Fichiers d'images xpm</h1></span>
+<span id="1_Xpmpicturefiles"><h1>Xpm picture files</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The XPM files are of type text; they are supposed to have already been
+introduced in the memory of Ocaml as arrays of character strings.
+<p>
+
+Les fichiers XPM sont de type texte ; on suppose qu'ils ont déja été rentrés 
+dans la mémoire d'Ocaml sous forme de tableaux de chaînes de caractères.<br>
+<pre><span id="VALxpm_colors_index"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_colors_index.html">xpm_colors_index</a></span> : <code class="type">String.t array -> int</code></pre><div class="info">
+<pre>xpm_colors_index string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_pixels_index"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_pixels_index.html">xpm_pixels_index</a></span> : <code class="type">String.t array -> int</code></pre><div class="info">
+<pre>xpm_pixels_index string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_pixels_end"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_pixels_end.html">xpm_pixels_end</a></span> : <code class="type">String.t array -> int</code></pre><div class="info">
+<pre>xpm_pixels_end string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_sizes"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_sizes.html">xpm_sizes</a></span> : <code class="type">String.t array -> int array</code></pre><div class="info">
+<pre>xpm_sizes string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_colors_strings"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_colors_strings.html">xpm_colors_strings</a></span> : <code class="type">String.t array -> String.t array</code></pre><div class="info">
+<pre>xpm_colors_strings string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_colors_symbols"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_colors_symbols.html">xpm_colors_symbols</a></span> : <code class="type">String.t array -> Str.regexp array</code></pre><div class="info">
+<pre>xpm_colors_symbols string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_colors_values"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_colors_values.html">xpm_colors_values</a></span> : <code class="type">String.t array -> string array</code></pre><div class="info">
+<pre>xpm_colors_values string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_colors_substitution"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_colors_substitution.html">xpm_colors_substitution</a></span> : <code class="type">String.t array -> string -> string</code></pre><div class="info">
+<pre>xpm_colors_substitution string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpixels_line_splitting"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.pixels_line_splitting.html">pixels_line_splitting</a></span> : <code class="type">int -> int -> string -> string array</code></pre><div class="info">
+<pre>pixels_line_splitting string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_pixels_strings"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_pixels_strings.html">xpm_pixels_strings</a></span> : <code class="type">String.t array -> string array array</code></pre><div class="info">
+<pre>xpm_pixels_strings string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_pixels_values"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_pixels_values.html">xpm_pixels_values</a></span> : <code class="type">String.t array -> string array array</code></pre><div class="info">
+<pre>xpm_pixels_values string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_int_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_int_red.html">xpm_int_red</a></span> : <code class="type">String.t array -> int array array</code></pre><div class="info">
+<pre>xpm_int_red string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_int_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_int_green.html">xpm_int_green</a></span> : <code class="type">String.t array -> int array array</code></pre><div class="info">
+<pre>xpm_int_green string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_int_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_int_blue.html">xpm_int_blue</a></span> : <code class="type">String.t array -> int array array</code></pre><div class="info">
+<pre>xpm_int_blue string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_int_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_int_luminance.html">xpm_int_luminance</a></span> : <code class="type">String.t array -> int array array</code></pre><div class="info">
+<pre>xpm_int_luminance string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_int_rgb.html">xpm_int_rgb</a></span> : <code class="type">String.t array -> int array array array</code></pre><div class="info">
+<pre>xpm_int_rgb string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_float_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_float_red.html">xpm_float_red</a></span> : <code class="type">String.t array -> float array array</code></pre><div class="info">
+<pre>xpm_float_red string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_float_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_float_green.html">xpm_float_green</a></span> : <code class="type">String.t array -> float array array</code></pre><div class="info">
+<pre>xpm_float_green string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_float_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_float_blue.html">xpm_float_blue</a></span> : <code class="type">String.t array -> float array array</code></pre><div class="info">
+<pre>xpm_float_blue string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_float_luminance"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_float_luminance.html">xpm_float_luminance</a></span> : <code class="type">String.t array -> float array array</code></pre><div class="info">
+<pre>xpm_float_luminance string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_float_rgb.html">xpm_float_rgb</a></span> : <code class="type">String.t array -> float array array array</code></pre><div class="info">
+<pre>xpm_float_rgb string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALxpm_color_array"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.xpm_color_array.html">xpm_color_array</a></span> : <code class="type">String.t array -> int array array</code></pre><div class="info">
+<pre>xpm_color_array string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichiersdimagespnmpgmetppm"><h1>Fichiers d'images pnm : pgm et ppm</h1></span>
+<span id="1_Pnmpicturefilespgmandppm"><h1>Pnm picture files: pgm and ppm</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The PNM files split into three classes: PBM with one bit per pixel,
+PGM with grey levels, PPM with three primary colors. They may be saved in text files
+or in consecutive bytes.
+<p>
+
+Les fichiers PNM se décomposent en trois classes : PBM à un bit par pixel, 
+PGM en niveaux de gris, PPM en trichromie. Ils peuvent être stockés en fichiers textes
+ou en octets consécutifs.<br>
+<pre><span id="VALread_pnm_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pnm_header.html">read_pnm_header</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>read_pnm_header filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALppm_header_of_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.ppm_header_of_rgb.html">ppm_header_of_rgb</a></span> : <code class="type">'a array array array -> string array</code></pre><div class="info">
+<pre>ppm_header_of_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpgm_header_of_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.pgm_header_of_unicolor.html">pgm_header_of_unicolor</a></span> : <code class="type">'a array array -> string array</code></pre><div class="info">
+<pre>pgm_header_of_unicolor matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_int_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_int_gray.html">read_pbm_binary_int_gray</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pbm_binary_int_gray filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_int_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_int_unicolor.html">read_pbm_binary_int_unicolor</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pbm_binary_int_unicolor filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_int_rbg"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_int_rbg.html">read_pbm_binary_int_rbg</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_pbm_binary_int_rbg filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_color.html">read_pbm_binary_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pbm_binary_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_float_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_float_gray.html">read_pbm_binary_float_gray</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_pbm_binary_float_gray filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_float_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_float_unicolor.html">read_pbm_binary_float_unicolor</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_pbm_binary_float_unicolor filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pbm_binary_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pbm_binary_float_rgb.html">read_pbm_binary_float_rgb</a></span> : <code class="type">string -> float array array array</code></pre><div class="info">
+<pre>read_pbm_binary_float_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_int_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_int_gray.html">read_pgm_binary_int_gray</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pgm_binary_int_gray filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_int_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_int_unicolor.html">read_pgm_binary_int_unicolor</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pgm_binary_int_unicolor filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_int_rbg"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_int_rbg.html">read_pgm_binary_int_rbg</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_pgm_binary_int_rbg filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_pgm_binary_int_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_pgm_binary_int_unicolor.html">write_pgm_binary_int_unicolor</a></span> : <code class="type">int array array -> string -> unit</code></pre><div class="info">
+<pre>write_pgm_binary_int_unicolor matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_color.html">read_pgm_binary_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_pgm_binary_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_float_gray"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_float_gray.html">read_pgm_binary_float_gray</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_pgm_binary_float_gray filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_float_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_float_unicolor.html">read_pgm_binary_float_unicolor</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_pgm_binary_float_unicolor filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pgm_binary_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pgm_binary_float_rgb.html">read_pgm_binary_float_rgb</a></span> : <code class="type">string -> float array array array</code></pre><div class="info">
+<pre>read_pgm_binary_float_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_pgm_binary_float_unicolor"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_pgm_binary_float_unicolor.html">write_pgm_binary_float_unicolor</a></span> : <code class="type">float array array -> string -> unit</code></pre><div class="info">
+<pre>write_pgm_binary_float_unicolor matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_int_rgb.html">read_ppm_binary_int_rgb</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_ppm_binary_int_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_int_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_int_red.html">read_ppm_binary_int_red</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_int_red filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_int_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_int_green.html">read_ppm_binary_int_green</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_int_green filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_int_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_int_blue.html">read_ppm_binary_int_blue</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_int_blue filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_ppm_binary_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_ppm_binary_int_rgb.html">write_ppm_binary_int_rgb</a></span> : <code class="type">int array array array -> string -> unit</code></pre><div class="info">
+<pre>write_ppm_binary_int_rgb rgb_matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_color.html">read_ppm_binary_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_ppm_binary_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_ppm_binary_color.html">write_ppm_binary_color</a></span> : <code class="type">int array array -> string -> unit</code></pre><div class="info">
+<pre>write_ppm_binary_color matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_float_rgb.html">read_ppm_binary_float_rgb</a></span> : <code class="type">string -> float array array array</code></pre><div class="info">
+<pre>read_ppm_binary_float_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_float_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_float_red.html">read_ppm_binary_float_red</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_float_red filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_float_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_float_green.html">read_ppm_binary_float_green</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_float_green filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_float_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_float_blue.html">read_ppm_binary_float_blue</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_float_blue filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_ppm_binary_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_ppm_binary_float_rgb.html">write_ppm_binary_float_rgb</a></span> : <code class="type">float array array array -> string -> unit</code></pre><div class="info">
+<pre>write_ppm_binary_float_rgb rgb_matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_float_rgb.html">read_ppm_binary_under_sample_float_rgb</a></span> : <code class="type">int -> string -> float array array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_float_rgb edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_float_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_float_red.html">read_ppm_binary_under_sample_float_red</a></span> : <code class="type">int -> string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_float_red edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_float_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_float_green.html">read_ppm_binary_under_sample_float_green</a></span> : <code class="type">int -> string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_float_green edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_float_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_float_blue.html">read_ppm_binary_under_sample_float_blue</a></span> : <code class="type">int -> string -> float array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_float_blue edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_color.html">read_ppm_binary_under_sample_color</a></span> : <code class="type">int -> string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_color edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_int_rgb.html">read_ppm_binary_under_sample_int_rgb</a></span> : <code class="type">int -> string -> int array array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_int_rgb edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_int_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_int_red.html">read_ppm_binary_under_sample_int_red</a></span> : <code class="type">int -> string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_int_red edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_int_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_int_green.html">read_ppm_binary_under_sample_int_green</a></span> : <code class="type">int -> string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_int_green edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_ppm_binary_under_sample_int_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_ppm_binary_under_sample_int_blue.html">read_ppm_binary_under_sample_int_blue</a></span> : <code class="type">int -> string -> int array array</code></pre><div class="info">
+<pre>read_ppm_binary_under_sample_int_blue edge filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichiersdimagesbitmap"><h1>Fichiers d'images bitmap</h1></span>
+<span id="1_Bitmappicturefiles"><h1>Bitmap picture files</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+A description of the bmp format is available in the numbers 62 and 100 of the magazine LOGIN: pages 64-67.
+<p>
+
+Une description du format bmp est disponible dans les numéros 62 et 100 du magazine LOGIN: pages 64-67.<br>
+<pre><span id="VALf32"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.f32.html">f32</a></span> : <code class="type">int -> int array -> string</code></pre><div class="info">
+<pre>f32 offset array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALf16"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.f16.html">f16</a></span> : <code class="type">int -> int array -> string</code></pre><div class="info">
+<pre>f16 offset array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALg16"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.g16.html">g16</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>g16 integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALg32"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.g32.html">g32</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>g32 integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_header.html">read_bmp_header</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>read_bmp_header filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_raw_bmp_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_raw_bmp_int_rgb.html">read_raw_bmp_int_rgb</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_raw_bmp_int_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_raw_bmp_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_raw_bmp_red.html">read_raw_bmp_red</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_raw_bmp_red filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_raw_bmp_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_raw_bmp_green.html">read_raw_bmp_green</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_raw_bmp_green filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_raw_bmp_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_raw_bmp_blue.html">read_raw_bmp_blue</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_raw_bmp_blue filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_raw_bmp_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_raw_bmp_color.html">read_raw_bmp_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_raw_bmp_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_palette_bmp_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_palette_bmp_int_rgb.html">read_palette_bmp_int_rgb</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_palette_bmp_int_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_palette_bmp_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_palette_bmp_red.html">read_palette_bmp_red</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_palette_bmp_red filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_palette_bmp_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_palette_bmp_green.html">read_palette_bmp_green</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_palette_bmp_green filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_palette_bmp_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_palette_bmp_blue.html">read_palette_bmp_blue</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_palette_bmp_blue filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_palette_bmp_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_palette_bmp_color.html">read_palette_bmp_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_palette_bmp_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_int_rgb.html">read_bmp_int_rgb</a></span> : <code class="type">string -> int array array array</code></pre><div class="info">
+<pre>read_bmp_int_rgb filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_red"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_red.html">read_bmp_red</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_bmp_red filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_green"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_green.html">read_bmp_green</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_bmp_green filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_blue"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_blue.html">read_bmp_blue</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_bmp_blue filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_bmp_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_bmp_color.html">read_bmp_color</a></span> : <code class="type">string -> int array array</code></pre><div class="info">
+<pre>read_bmp_color filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbmp_header_of_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.bmp_header_of_rgb.html">bmp_header_of_rgb</a></span> : <code class="type">int array array array -> int array</code></pre><div class="info">
+<pre>bmp_header_of_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_bmp_int_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_bmp_int_rgb.html">write_bmp_int_rgb</a></span> : <code class="type">int array array array -> string -> unit</code></pre><div class="info">
+<pre>write_bmp_int_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_bmp_color"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_bmp_color.html">write_bmp_color</a></span> : <code class="type">int array array -> string -> unit</code></pre><div class="info">
+<pre>write_bmp_color rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_bmp_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_bmp_float_rgb.html">write_bmp_float_rgb</a></span> : <code class="type">float array array array -> string -> unit</code></pre><div class="info">
+<pre>write_bmp_float_rgb rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichierssonsau"><h1>Fichiers sons au</h1></span>
+<span id="1_Ausoundfiles"><h1>Au sound files</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALread_header_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_header_au.html">read_header_au</a></span> : <code class="type">string -> int array</code></pre><div class="info">
+<pre>read_header_au</pre> This function is only for 64 bits platforms. The output has the following form:
+<p>
+
+<code class="code">[| magic_type ; offset ; size ; encoding ; sample_rate ; channels |]</code>
+<p>
+
+La sortie a la forme précédente.
+Cette fonction est réservée aux plateformes 64 bits.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_float32_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_float32_au.html">read_float32_au</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_float32_au</pre> This function is only for 64 bits platforms.
+<p>
+
+Cette fonction est réservée aux plateformes 64 bits.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_vector_float_to_float32_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_vector_float_to_float32_au.html">write_vector_float_to_float32_au</a></span> : <code class="type">int -> float array -> string -> unit</code></pre><div class="info">
+<pre>write_vector_float_to_float32_au</pre> This function is only for 64 bits platforms.
+<p>
+
+Cette fonction est réservée aux plateformes 64 bits.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+sample_rate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_matrix_float_to_float32_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_matrix_float_to_float32_au.html">write_matrix_float_to_float32_au</a></span> : <code class="type">int -> float array array -> string -> unit</code></pre><div class="info">
+<pre>write_matrix_float_to_float32_au</pre> This function is only for 64 bits platforms.
+<p>
+
+Cette fonction est réservée aux plateformes 64 bits.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+sample_rate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_vector_float64_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_vector_float64_au.html">read_vector_float64_au</a></span> : <code class="type">string -> float array</code></pre><div class="info">
+<pre>read_vector_float64_au</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_vector_float_to_float64_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_vector_float_to_float64_au.html">write_vector_float_to_float64_au</a></span> : <code class="type">int -> float array -> string -> unit</code></pre><div class="info">
+<pre>write_vector_float_to_float64_au</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+sample_rate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_matrix_float64_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_matrix_float64_au.html">read_matrix_float64_au</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_matrix_float64_au</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_matrix_float_to_float64_au"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_matrix_float_to_float64_au.html">write_matrix_float_to_float64_au</a></span> : <code class="type">int -> float array array -> string -> unit</code></pre><div class="info">
+<pre>write_matrix_float_to_float64_au</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+sample_rate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichierssonswav"><h1>Fichiers sons wav</h1></span>
+<span id="1_Wavsoundfiles"><h1>Wav sound files</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The wav format is described in the following site.
+<p>
+
+http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/
+<p>
+
+Le format wav est décrit dans le site ci-dessus.<br>
+<pre><span id="VALread_pcm_wav_header"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pcm_wav_header.html">read_pcm_wav_header</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>read_pcm_wav_header filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_pcm_wav"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_pcm_wav.html">read_pcm_wav</a></span> : <code class="type">string -> float array array</code></pre><div class="info">
+<pre>read_pcm_wav filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_pcm_wav"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_pcm_wav.html">write_pcm_wav</a></span> : <code class="type">int -> int -> float array array -> string -> unit</code></pre><div class="info">
+<pre>write_pcm_wav sample_rate bytes_per_sample matrix filename</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+sample_rate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+bytes_per_sample</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fichiersetrpertoires"><h1>Fichiers et répertoires</h1></span>
+<span id="1_Filesanddirectories"><h1>Files and directories</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALsub_directories"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.sub_directories.html">sub_directories</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>sub_directories directory_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_directories_with_parent"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.sub_directories_with_parent.html">sub_directories_with_parent</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>sub_directories_with_parent directory_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_directories_with_current"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.sub_directories_with_current.html">sub_directories_with_current</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>sub_directories_with_current directory_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_directories_with_parent_and_current"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.sub_directories_with_parent_and_current.html">sub_directories_with_parent_and_current</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>sub_directories_with_parent_and_current directory_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALregular_files"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.regular_files.html">regular_files</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>regular_files directory_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Imagesrelles"><h1>Images réelles</h1></span>
+<span id="1_Floatingpointpictures"><h1>Floating point pictures</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALread_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_float_rgb.html">read_float_rgb</a></span> : <code class="type">string -> string -> string -> float array array array</code></pre><div class="info">
+<pre>read_float_rgb red_name green_name blue_name</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+rname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+gname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+bname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwrite_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.write_float_rgb.html">write_float_rgb</a></span> : <code class="type">float array array array -> string -> unit</code></pre><div class="info">
+<pre>write_float_rgb rgb_matrix file_prefix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALread_picture_float_rgb"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.read_picture_float_rgb.html">read_picture_float_rgb</a></span> : <code class="type">string -> float array array array</code></pre><div class="info">
+<pre>read_picture_float_rgb filename</pre> The accepted formats are: xpm, pgm binary, ppm binary.
+<p>
+
+Les formats acceptés sont : xpm, pgm binaire, ppm binaire.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Environnement"><h1>Environnement</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALclear"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.clear.html">clear</a></span> : <code class="type">string -> unit</code></pre><div class="info">
+<pre>clear string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcrew_bsd"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.crew_bsd.html">crew_bsd</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>crew_bsd unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcrew_linux_lscpu"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.crew_linux_lscpu.html">crew_linux_lscpu</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>crew_linux_lscpu unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcrew_linux_sysctl"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.crew_linux_sysctl.html">crew_linux_sysctl</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>crew_linux_sysctl unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcrew_unix"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.crew_unix.html">crew_unix</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>crew_unix unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcrew"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.crew.html">crew</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>crew unit</pre> Number of active processors.
+<p>
+
+Nombre de processeurs en fonctionnement.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcpu_freq"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.cpu_freq.html">cpu_freq</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>cpu_freq unit</pre> Frequency in megahertz of the first processor.
+<p>
+
+Fréquence du premier processeur en mégahertz.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfree_ram"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.free_ram.html">free_ram</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>free_ram unit</pre> Number of free bytes in Random access memory.
+<p>
+
+Nombre d'octets libres en mémoire vive.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfree_disk"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.free_disk.html">free_disk</a></span> : <code class="type">unit -> int</code></pre><div class="info">
+<pre>free_disk unit</pre> Number of free kilobytes on the file system containing the current directory.
+<p>
+
+Nombre de kilooctets libres sur le système de fichiers contenant le répertoire courant.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALline"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.line.html">line</a></span> : <code class="type">unit -> bool</code></pre><div class="info">
+<pre>line unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbattery"><span class="keyword">val</span> <a href="code_VALMath.Readwrite.battery.html">battery</a></span> : <code class="type">unit -> string array</code></pre><div class="info">
+<pre>battery unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

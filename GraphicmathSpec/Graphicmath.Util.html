@@ -1,0 +1,3059 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Graphicmath.Bary.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Constructions minimales sur les entiers et réels" rel="Section" href="#1_Constructionsminimalessurlesentiersetrels">
+<link title="Minimal constructions on integer and real numbers" rel="Section" href="#1_Minimalconstructionsonintegerandrealnumbers">
+<link title="Constructions minimales sur les vecteurs réels" rel="Section" href="#1_Constructionsminimalessurlesvecteursrels">
+<link title="Minimal constructions on real vectors" rel="Section" href="#1_Minimalconstructionsonrealvectors">
+<link title="Constructions diverses" rel="Section" href="#1_Constructionsdiverses">
+<link title="Miscellaneous constructions" rel="Section" href="#1_Miscellaneousconstructions">
+<link title="Constructions polymorphes sur les structures élémentaires d'Ocaml" rel="Section" href="#1_ConstructionspolymorphessurlesstructureslmentairesdOcaml">
+<link title="Polymorphic constructions on elementary structures of Ocaml" rel="Section" href="#1_PolymorphicconstructionsonelementarystructuresofOcaml">
+<link title="Numération" rel="Section" href="#1_Numration">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Util</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;<a href="Graphicmath.Bary.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Graphicmath.Util.html">Graphicmath.Util</a> (<a href="code_Graphicmath.Util.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Util: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Util.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module several elementary tools
+used in the other modules of the <code class="code">ocamlmath</code> library.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module différents outils
+élémentaires utilisés dans les autres modules de la bibliothèque <code class="code">ocamlmath</code>.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.2</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constructionsminimalessurlesentiersetrels"><h1>Constructions minimales sur les entiers et réels</h1></span>
+<span id="1_Minimalconstructionsonintegerandrealnumbers"><h1>Minimal constructions on integer and real numbers</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALint_copy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_copy.html">int_copy</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>int_copy integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbig_int_copy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.big_int_copy.html">big_int_copy</a></span> : <code class="type">Big_int.big_int -> Big_int.big_int</code></pre><div class="info">
+<pre>big_int_copy big_integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Big_int.big_int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbig"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.big.html">big</a></span> : <code class="type">int -> Big_int.big_int</code></pre><div class="info">
+<pre>big integer integer</pre><br>
+</div>
+<pre><span id="VALsmall"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.small.html">small</a></span> : <code class="type">Big_int.big_int -> int</code></pre><div class="info">
+<pre>small big_integer</pre><br>
+</div>
+<pre><span id="VALround_num"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.round_num.html">round_num</a></span> : <code class="type">Num.num -> Num.num</code></pre><div class="info">
+<pre>round_num number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadhoc_division"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.adhoc_division.html">adhoc_division</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>adhoc_division integer1 integer2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_sign"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_sign.html">int_sign</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>int_sign integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_truncate"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_truncate.html">int_truncate</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>int_truncate base number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_gcd"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_gcd.html">int_gcd</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>int_gcd integer1 integer2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+q</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_identity"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_identity.html">int_identity</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>int_identity integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_sqrt"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_sqrt.html">int_sqrt</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>int_sqrt integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_power"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_power.html">int_power</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>int_power exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALilog"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.ilog.html">ilog</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>ilog integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_zero"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_zero.html">float_zero</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>float_zero float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_one"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_one.html">float_one</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>float_one float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALulp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.ulp.html">ulp</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>ulp real</pre> Unit in the last place. This function is described by William Kahan in <code class="code">http://www.cs.berkeley.edu/~wkahan/<span class="constructor">LOG10HAF</span>.<span class="constructor">TXT</span></code>.
+<p>
+
+Unité dans la position la moins significative. Cette fonction est décrite par William Kahan dans <code class="code">http://www.cs.berkeley.edu/~wkahan/<span class="constructor">LOG10HAF</span>.<span class="constructor">TXT</span></code>.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_sign"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_sign.html">float_sign</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>float_sign float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_identity"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_identity.html">float_identity</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>float_identity float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALround"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.round.html">round</a></span> : <code class="type">float -> int</code></pre><div class="info">
+<pre>round real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfrac"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.frac.html">frac</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>frac real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_pos_part"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_pos_part.html">float_pos_part</a></span> : <code class="type">float -> float</code></pre><div class="info">
+<pre>float_pos_part float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_float_power"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_float_power.html">int_float_power</a></span> : <code class="type">int -> float -> float</code></pre><div class="info">
+<pre>int_float_power integer float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The factorial function is defined in a tail recursive way.
+<p>
+
+La factorielle est définie de manière récursive terminale.<br>
+<pre><span id="VALfact_aux"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.fact_aux.html">fact_aux</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>fact_aux stack init</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfact"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.fact.html">fact</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>fact integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_max"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_max.html">float_max</a></span> : <code class="type">float -> float -> float</code></pre><div class="info">
+<pre>float_max real1 real2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_min"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.float_min.html">float_min</a></span> : <code class="type">float -> float -> float</code></pre><div class="info">
+<pre>float_min real1 real2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_max"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_max.html">int_max</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>int_max int1 int2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_min"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_min.html">int_min</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>int_min int1 int2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constructionsminimalessurlesvecteursrels"><h1>Constructions minimales sur les vecteurs réels</h1></span>
+<span id="1_Minimalconstructionsonrealvectors"><h1>Minimal constructions on real vectors</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALvector_zero"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_zero.html">vector_zero</a></span> : <code class="type">int -> float -> float array</code></pre><div class="info">
+<pre>vector_zero dimension</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_one"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_one.html">vector_one</a></span> : <code class="type">int -> float -> float array</code></pre><div class="info">
+<pre>vector_one dimension float</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_float_prod_3"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_float_prod_3.html">vector_float_prod_3</a></span> : <code class="type">float array -> float array -> float array</code></pre><div class="info">
+<pre>vector_float_prod_3 vector1 vector2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v1</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v2</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constructionsdiverses"><h1>Constructions diverses</h1></span>
+<span id="1_Miscellaneousconstructions"><h1>Miscellaneous constructions</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALprint_bool"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.print_bool.html">print_bool</a></span> : <code class="type">bool -> unit</code></pre><div class="info">
+<pre>print_bool boolean</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALappend_char"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.append_char.html">append_char</a></span> : <code class="type">string -> char -> string</code></pre><div class="info">
+<pre>append_char string character</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">char</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_eq"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.string_eq.html">string_eq</a></span> : <code class="type">String.t -> String.t -> bool</code></pre><div class="info">
+<pre>string_eq string1 string2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">String.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_tail"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.string_tail.html">string_tail</a></span> : <code class="type">string -> string</code></pre><div class="info">
+<pre>string_tail string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdeverminage"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.deverminage.html">deverminage</a></span> : <code class="type">unit -> unit</code></pre><div class="info">
+<pre>deverminage ()</pre> L'erreur <code class="code"><span class="constructor">Exception</span>: <span class="constructor">Invalid_argument</span> <span class="string">"index out of bounds"</span>.</code> arrive fréquemment
+quand on fait de mauvais dimensionnenments de matrices ou de vecteurs. Placer cette instruction 
+à différents endroits du code peut permettre de localiser le problème.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdebugging"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.debugging.html">debugging</a></span> : <code class="type">unit -> unit</code></pre><div class="info">
+<pre>degugging ()</pre> The error <code class="code"><span class="constructor">Exception</span>: <span class="constructor">Invalid_argument</span> <span class="string">"index out of bounds"</span>.</code>
+is frequently seen when matrices or vectors are ill-dimensioned. Placing this instruction 
+at different places in the code may help to situate the issue.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_ConstructionspolymorphessurlesstructureslmentairesdOcaml"><h1>Constructions polymorphes sur les structures élémentaires d'Ocaml</h1></span>
+<span id="1_PolymorphicconstructionsonelementarystructuresofOcaml"><h1>Polymorphic constructions on elementary structures of Ocaml</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+Polymorphic functions are reputed to be slow.
+<p>
+
+Les fonctions polymorphes sont réputés lentes.<br>
+<br>
+<center>§ </center><br>
+<pre><span id="VALprimo"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.primo.html">primo</a></span> : <code class="type">'a * 'b * 'c -> 'a</code></pre><div class="info">
+primo triple<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(x,y,z)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'b * 'c</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsecundo"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.secundo.html">secundo</a></span> : <code class="type">'a * 'b * 'c -> 'b</code></pre><div class="info">
+secundo triple<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(x,y,z)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'b * 'c</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtertio"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.tertio.html">tertio</a></span> : <code class="type">'a * 'b * 'c -> 'c</code></pre><div class="info">
+tertio triple<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(x,y,z)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'b * 'c</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_print"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_print.html">vector_print</a></span> : <code class="type">('a -> unit) -> 'a array -> unit</code></pre><div class="info">
+<pre>vector_print coeff_print vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_print</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbare_vector_print"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bare_vector_print.html">bare_vector_print</a></span> : <code class="type">('a -> unit) -> 'a array -> unit</code></pre><div class="info">
+<pre>bare_vector_print coeff_print vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_print</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_to_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_to_string.html">vector_to_string</a></span> : <code class="type">('a -> string) -> string -> string -> string -> 'a array -> string</code></pre><div class="info">
+<pre>vector_to_string coeff_to_string beginning separator ending vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_to_string</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+separator</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbare_vector_to_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bare_vector_to_string.html">bare_vector_to_string</a></span> : <code class="type">('a -> string) -> 'a array -> string</code></pre><div class="info">
+<pre>bare_vector_to_string coeff_to_string vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_to_string</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_of_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_of_string.html">vector_of_string</a></span> : <code class="type">(string -> 'a) -> string -> string -> string -> string -> 'a array</code></pre><div class="info">
+<pre>vector_of_string coeff_of_string beginning separator ending string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_of_string</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+separator</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbare_vector_of_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bare_vector_of_string.html">bare_vector_of_string</a></span> : <code class="type">(string -> 'a) -> string -> 'a array</code></pre><div class="info">
+<pre>bare_vector_of_string coeff_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coeff_of_string</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract_even"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.extract_even.html">extract_even</a></span> : <code class="type">'a array -> 'a array</code></pre><div class="info">
+<pre>extract_even table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract_odd"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.extract_odd.html">extract_odd</a></span> : <code class="type">'a array -> 'a array</code></pre><div class="info">
+<pre>extract_odd table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract_every_other"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.extract_every_other.html">extract_every_other</a></span> : <code class="type">int -> 'a array -> 'a array</code></pre><div class="info">
+<pre>extract_every_other number table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_combine"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_combine.html">array_combine</a></span> : <code class="type">'a array -> 'b array -> ('a * 'b) array</code></pre><div class="info">
+<pre>array_combine array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_split"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_split.html">array_split</a></span> : <code class="type">('a * 'b) array -> 'a array * 'b array</code></pre><div class="info">
+<pre>array_split array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">('a * 'b) array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_non_empty"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_non_empty.html">list_non_empty</a></span> : <code class="type">'a list -> bool</code></pre><div class="info">
+<pre>list_non_empty list</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_is_empty"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_is_empty.html">list_is_empty</a></span> : <code class="type">'a list -> bool</code></pre><div class="info">
+<pre>list_is_empty list</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_is_empty"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_is_empty.html">array_is_empty</a></span> : <code class="type">'a array -> bool</code></pre><div class="info">
+<pre>array_is_empty array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreverse_array"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.reverse_array.html">reverse_array</a></span> : <code class="type">'a array -> 'a array</code></pre><div class="info">
+<pre>reverse_array array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlexico_compare"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.lexico_compare.html">lexico_compare</a></span> : <code class="type">('a -> 'a -> int) -> 'a array -> 'a array -> int</code></pre><div class="info">
+<pre>lexico_compare comparison array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_eq"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_eq.html">array_eq</a></span> : <code class="type">('a -> 'a -> bool) -> 'a array -> 'a array -> bool</code></pre><div class="info">
+<pre>array_eq coeff_equality array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_eq_zero"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_eq_zero.html">array_eq_zero</a></span> : <code class="type">('a -> bool) -> 'a array -> bool</code></pre><div class="info">
+<pre>array_eq_zero coeff_nullity array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq_zero</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_max"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_max.html">vector_max</a></span> : <code class="type">'a array -> 'a</code></pre><div class="info">
+<pre>vector_max vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_min"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_min.html">vector_min</a></span> : <code class="type">'a array -> 'a</code></pre><div class="info">
+<pre>vector_min vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmaximum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.maximum.html">maximum</a></span> : <code class="type">('a -> 'a -> int) -> 'a -> 'a -> 'a</code></pre><div class="info">
+<pre>maximum comparison x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALminimum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.minimum.html">minimum</a></span> : <code class="type">('a -> 'a -> int) -> 'a -> 'a -> 'a</code></pre><div class="info">
+<pre>minimum comparison x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_maximum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_maximum.html">array_maximum</a></span> : <code class="type">('a -> 'a -> int) -> 'a array -> 'a</code></pre><div class="info">
+<pre>array_maximum comparison array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_minimum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_minimum.html">array_minimum</a></span> : <code class="type">('a -> 'a -> int) -> 'a array -> 'a</code></pre><div class="info">
+<pre>array_minimum comparison array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_maximum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_maximum.html">list_maximum</a></span> : <code class="type">('a -> 'a -> int) -> 'a list -> 'a</code></pre><div class="info">
+<pre>list_maximum comparison list</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_minimum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_minimum.html">list_minimum</a></span> : <code class="type">('a -> 'a -> int) -> 'a list -> 'a</code></pre><div class="info">
+<pre>list_minimum comparison list</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_find_first"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_find_first.html">array_find_first</a></span> : <code class="type">('a -> bool) -> 'a array -> int</code></pre><div class="info">
+<pre>array_find_first predicate vector</pre> This function returns <code class="code">-1</code> if it does not find:
+<p>
+
+Cette fonction retourne <code class="code">-1</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_find_last"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_find_last.html">array_find_last</a></span> : <code class="type">('a -> bool) -> 'a array -> int</code></pre><div class="info">
+<pre>array_find_last predicate vector</pre> This function returns <code class="code">-1</code> if it does not find:
+<p>
+
+Cette fonction retourne <code class="code">-1</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_find_last"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_find_last.html">vector_find_last</a></span> : <code class="type">('a -> 'b -> bool) -> 'a -> 'b array -> int</code></pre><div class="info">
+<pre>vector_find_last equality element vector</pre> vector_find_last returns <code class="code">-1</code> if it does not find:
+<p>
+
+vector_find_last retourne <code class="code">-1</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'b -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_find_first"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_find_first.html">vector_find_first</a></span> : <code class="type">('a -> 'b -> bool) -> 'a -> 'b array -> int</code></pre><div class="info">
+<pre>vector_find_first equality element vector</pre> vector_find_first returns <code class="code">-1</code> if it does not find:
+<p>
+
+vector_find_first retourne <code class="code">-1</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'b -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_find_twin"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_find_twin.html">vector_find_twin</a></span> : <code class="type">('a -> 'a -> bool) -> 'a -> 'a array -> int</code></pre><div class="info">
+<pre>vector_find_twin equality element vector</pre> vector_find_first returns <code class="code">-1</code> if it does not find:
+<p>
+
+vector_find_twin retourne <code class="code">-1</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_find_all.html">vector_find_all</a></span> : <code class="type">('a -> 'b -> bool) -> 'a -> 'b array -> int array</code></pre><div class="info">
+<pre>vector_find_all equality element vector</pre> vector_find_all returns <code class="code">[||]</code>  if it does not find:
+<p>
+
+vector_find_all retourne <code class="code">[||]</code> s'il ne trouve pas.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+eq</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'b -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_filter"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_filter.html">vector_filter</a></span> : <code class="type">(int -> bool) -> 'a array -> (int * 'a) list</code></pre><div class="info">
+<pre>vector_filter predicate vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_accumulate"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_accumulate.html">list_accumulate</a></span> : <code class="type">('a -> 'a -> int) -><br>       ('b -> 'b -> 'b) -> 'a * 'b -> ('a * 'b) list -> ('a * 'b) list</code></pre><div class="info">
+<pre>list_accumulate first_factor_comparison second_factor_addition combined_element ordered_combined_list</pre> The list <code class="code">lis</code> is supposed
+to be sorted according to <code class="code">cmp</code> with respect to the first factors.
+<p>
+
+La liste <code class="code">lis</code> est supposée triée selon <code class="code">cmp</code> par rapport aux premiers facteurs.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+add</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b -> 'b -> 'b</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(i,x)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'b</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+lis</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">('a * 'b) list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The collision functions take two ordered families Y and Z into argument and provide four such ones.
+The first value is Y \ Z and the second is Z \ Y and the third is Y inter Z as seen from Y, the last is Y inter Z as seen from Z.
+The order is either globally reversed or globally respected. A total preorder is enough.
+These functions are tail-recursive.
+<p>
+
+Les fonctions de collisions prennent deux familles ordonnées Y et Z en argument et en renvoient quatre.
+La première valeur est Y \ Z, la deuxième est Z \ Y, la troisième est Y inter Z vu par Y et la dernière est Y inter Z vu par Z.
+L'ordre est soit globalement renversé soit globalement respecté. Un préordre total suffit.
+Ces fonctions sont récursives terminales.<br>
+<pre><span id="VALlist_collision_aux"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_collision_aux.html">list_collision_aux</a></span> : <code class="type">('a -> 'a -> int) -> 'a list array -> 'a list -> 'a list -> 'a list array</code></pre><div class="info">
+<pre>list_collision_aux comparison accumulator list1 list2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+accu</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreverse_list_collision"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.reverse_list_collision.html">reverse_list_collision</a></span> : <code class="type">('a -> 'a -> int) -> 'a list -> 'a list -> 'a list array</code></pre><div class="info">
+<pre>reverse_list_collision comparison list1 list2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_collision"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.list_collision.html">list_collision</a></span> : <code class="type">('a -> 'a -> int) -> 'a list -> 'a list -> 'a list array</code></pre><div class="info">
+<pre>list_collision comparison list1 list2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreverse_array_collision"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.reverse_array_collision.html">reverse_array_collision</a></span> : <code class="type">('a -> 'a -> int) -> 'a array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>reverse_array_collision comparison array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_collision"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_collision.html">array_collision</a></span> : <code class="type">('a -> 'a -> int) -> 'a array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_collision comparison array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cmp</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtranspose"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.transpose.html">transpose</a></span> : <code class="type">'a array array -> 'a array array</code></pre><div class="info">
+<pre>transpose matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_first"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_first.html">array_first</a></span> : <code class="type">'a array -> 'a</code></pre><div class="info">
+<pre>array_first</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_last"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_last.html">array_last</a></span> : <code class="type">'a array -> 'a</code></pre><div class="info">
+<pre>array_last array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_tail"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_tail.html">array_tail</a></span> : <code class="type">'a array -> 'a array</code></pre><div class="info">
+<pre>array_tail array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_end"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_end.html">array_end</a></span> : <code class="type">int -> 'a array -> 'a array</code></pre><div class="info">
+<pre>array_end index array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_forget"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_forget.html">array_forget</a></span> : <code class="type">int -> 'a array -> 'a array</code></pre><div class="info">
+<pre>array_forget index array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_insert"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_insert.html">array_insert</a></span> : <code class="type">int -> 'a -> 'a array -> 'a array</code></pre><div class="info">
+<pre>array_insert index value array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_cut"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_cut.html">array_cut</a></span> : <code class="type">int array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_cut table array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_guarded_cut"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_guarded_cut.html">array_guarded_cut</a></span> : <code class="type">int -> int array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_guarded_cut thickness table array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+e</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_cut"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_cut.html">array_cut</a></span> : <code class="type">int array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_cut table array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_over_cut"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_over_cut.html">array_over_cut</a></span> : <code class="type">int array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_over_cut table array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_guarded_over_cut"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_guarded_over_cut.html">array_guarded_over_cut</a></span> : <code class="type">int -> int array -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>array_guarded_over_cut thickness table array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+e</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+table</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_map2"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_map2.html">array_map2</a></span> : <code class="type">('a -> 'b -> 'c) -> 'a array -> 'b array -> 'c array</code></pre><div class="info">
+<pre>array_map2 function array1 array2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'b -> 'c</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'b array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarray_center_add"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.array_center_add.html">array_center_add</a></span> : <code class="type">('a -> 'a) -> ('a -> 'a -> 'a) -> 'a array -> 'a array -> 'a array</code></pre><div class="info">
+<pre>array_center_add copy addition array1 array2</pre> The lengths of the arrays are supposed to be odd.
+The coefficients are added whith alignment of the center of the arrays.
+<p>
+
+Les tailles des tableaux sont supposées impaires. Les coefficients sont additionnés en alignant les centres des tableaux.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+copy</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+add</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a -> 'a -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_spray"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_spray.html">vector_spray</a></span> : <code class="type">int -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>vector_spray integer vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_interlace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_interlace.html">vector_interlace</a></span> : <code class="type">'a array array -> 'a array</code></pre><div class="info">
+<pre>vector_interlace vector_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_to_matrix"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.vector_to_matrix.html">vector_to_matrix</a></span> : <code class="type">int -> int -> 'a array -> 'a array array</code></pre><div class="info">
+<pre>vector_to_matrix rows columns vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Numration"><h1>Numération</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALbits_of_byte"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bits_of_byte.html">bits_of_byte</a></span> : <code class="type">int -> bool array</code></pre><div class="info">
+<pre>bits_of_byte int_byte</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_bits_of_byte"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_bits_of_byte.html">int_bits_of_byte</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>int_bits_of_byte int_byte</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreverse_int_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.reverse_int_sequence.html">reverse_int_sequence</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>reverse_int_sequence integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstandard_reverse_int_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.standard_reverse_int_sequence.html">standard_reverse_int_sequence</a></span> : <code class="type">int array</code></pre><div class="info">
+<pre>standard_reverse_int_sequence</pre><br>
+</div>
+<pre><span id="VALstandard_reverse_binary_powers_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.standard_reverse_binary_powers_sequence.html">standard_reverse_binary_powers_sequence</a></span> : <code class="type">int array</code></pre><div class="info">
+<pre>standard_reverse_binary_powers_sequence</pre><br>
+</div>
+<pre><span id="VALint_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_sequence.html">int_sequence</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>int_sequence integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstandard_int_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.standard_int_sequence.html">standard_int_sequence</a></span> : <code class="type">int array</code></pre><div class="info">
+<pre>standard_int_sequence</pre><br>
+</div>
+<pre><span id="VALbinary_powers_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.binary_powers_sequence.html">binary_powers_sequence</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>binary_powers_sequence integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstandard_binary_powers_sequence"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.standard_binary_powers_sequence.html">standard_binary_powers_sequence</a></span> : <code class="type">int array</code></pre><div class="info">
+<pre>standard_binary_powers_sequence</pre><br>
+</div>
+<pre><span id="VALbits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bits_of_int.html">bits_of_int</a></span> : <code class="type">int -> bool array</code></pre><div class="info">
+<pre>bits_of_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnext_binary_exponent"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.next_binary_exponent.html">next_binary_exponent</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>next_binary_exponent integer</pre> This functions shifts from one unit if the integer is a power of two.
+<p>
+
+Cette fonction décale d'un cran si l'entier est une puissance de deux.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtruncated_bits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.truncated_bits_of_int.html">truncated_bits_of_int</a></span> : <code class="type">int -> int -> bool array</code></pre><div class="info">
+<pre>truncated_bits_of_int exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_bits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_bits_of_int.html">int_bits_of_int</a></span> : <code class="type">int -> int array</code></pre><div class="info">
+<pre>int_bits_of_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtruncated_int_bits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.truncated_int_bits_of_int.html">truncated_int_bits_of_int</a></span> : <code class="type">int -> int -> int array</code></pre><div class="info">
+<pre>truncated_int_bits_of_int exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdigits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.digits_of_int.html">digits_of_int</a></span> : <code class="type">int -> int -> int array</code></pre><div class="info">
+<pre>digits_of_int radix integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtruncated_digits_of_int"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.truncated_digits_of_int.html">truncated_digits_of_int</a></span> : <code class="type">int -> int -> int -> int array</code></pre><div class="info">
+<pre>truncated_digits_of_int radix exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnaive_reverse_int_of_bits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.naive_reverse_int_of_bits.html">naive_reverse_int_of_bits</a></span> : <code class="type">bool array -> int</code></pre><div class="info">
+<pre>naive_reverse_int_of_bits bool_bits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreverse_int_of_bits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.reverse_int_of_bits.html">reverse_int_of_bits</a></span> : <code class="type">bool array -> int</code></pre><div class="info">
+<pre>reverse_int_of_bits bool_bits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnaive_int_of_bits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.naive_int_of_bits.html">naive_int_of_bits</a></span> : <code class="type">bool array -> int</code></pre><div class="info">
+<pre>naive_int_of_bits bool_bits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALother_int_of_bits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.other_int_of_bits.html">other_int_of_bits</a></span> : <code class="type">bool array -> int</code></pre><div class="info">
+<pre>other_int_of_bits bool_bits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_of_bits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_of_bits.html">int_of_bits</a></span> : <code class="type">bool array -> int</code></pre><div class="info">
+<pre>int_of_bits bool_bits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_of_digits"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.int_of_digits.html">int_of_digits</a></span> : <code class="type">int -> int array -> int</code></pre><div class="info">
+<pre>int_of_digits radix integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbit_reversal"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.bit_reversal.html">bit_reversal</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>bit_reversal integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtruncated_bit_reversal"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.truncated_bit_reversal.html">truncated_bit_reversal</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>truncated_bit_reversal exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdigit_reversal"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.digit_reversal.html">digit_reversal</a></span> : <code class="type">int -> int -> int</code></pre><div class="info">
+<pre>digit_reversal radix integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtruncated_digit_reversal"><span class="keyword">val</span> <a href="code_VALGraphicmath.Util.truncated_digit_reversal.html">truncated_digit_reversal</a></span> : <code class="type">int -> int -> int -> int</code></pre><div class="info">
+<pre>truncated_digit_reversal radix exponent integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

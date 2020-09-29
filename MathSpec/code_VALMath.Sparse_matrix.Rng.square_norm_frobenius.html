@@ -1,0 +1,29 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_matrix.Rng.square_norm_frobenius</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;square_norm_frobenius&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">Coeff</span>.norm_add&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_zero&nbsp;()&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">V</span>.square_norm_2&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm_add&nbsp;!result&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_mult&nbsp;y&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!result<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;square_norm_frobenius&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)</code></body></html>

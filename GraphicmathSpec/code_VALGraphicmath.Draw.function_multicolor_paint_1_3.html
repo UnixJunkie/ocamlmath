@@ -1,0 +1,25 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.function_multicolor_paint_1_3</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;function_multicolor_paint_1_3&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;paint&nbsp;axes_paint&nbsp;(colors:<span class="constructor">Graphics</span>.color&nbsp;array)&nbsp;(u:float&nbsp;array)&nbsp;(f:(float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;array)&nbsp;(interval:float&nbsp;array)&nbsp;(nsteps:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;f<br>
+&nbsp;<span class="keyword">and</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;,&nbsp;accu&nbsp;,&nbsp;hh&nbsp;,&nbsp;v&nbsp;,&nbsp;w&nbsp;,&nbsp;coo&nbsp;)&nbsp;=&nbsp;prepare_1_3&nbsp;u&nbsp;interval&nbsp;nsteps&nbsp;coordinates&nbsp;size&nbsp;<span class="keyword">in</span><br>
+</code><table><tr><td></td><td><span class="comment">(** The following instruction puts the extremal coordinates in the <code class="code">accu</code> array.
+<p>
+
+L'instruction suivante place les coordonnées extrémales dans le tableau <code class="code">accu</code>.*)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;project_1_3&nbsp;accu&nbsp;a&nbsp;b&nbsp;u&nbsp;v&nbsp;w&nbsp;nsteps&nbsp;coordinates&nbsp;coo&nbsp;)&nbsp;f&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;axes_paint&nbsp;v&nbsp;w&nbsp;accu&nbsp;coo&nbsp;size&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;paint&nbsp;colors.(i)&nbsp;u&nbsp;f.(i)&nbsp;interval&nbsp;nsteps&nbsp;coordinates&nbsp;size&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;terminate_1_3&nbsp;accu&nbsp;hh</code></body></html>

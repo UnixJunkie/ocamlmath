@@ -1,0 +1,28 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.float_int_tanh_sinh</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_int_tanh_sinh&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:int)&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(a:float)&nbsp;(b:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;float&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;halflength&nbsp;=&nbsp;0.5&nbsp;*.&nbsp;(&nbsp;b&nbsp;-.&nbsp;a&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;center&nbsp;=&nbsp;0.5&nbsp;*.&nbsp;(&nbsp;a&nbsp;+.&nbsp;b&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;2.&nbsp;**&nbsp;mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;8&nbsp;*&nbsp;(&nbsp;int_of_float&nbsp;coeff&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h&nbsp;=&nbsp;1.&nbsp;/.&nbsp;coeff<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;2&nbsp;*&nbsp;n&nbsp;+&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tanh&nbsp;(&nbsp;halfpi&nbsp;*.&nbsp;sinh&nbsp;(&nbsp;(&nbsp;float&nbsp;(&nbsp;i&nbsp;-&nbsp;n&nbsp;)&nbsp;)&nbsp;*.&nbsp;h&nbsp;)&nbsp;)&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;nn&nbsp;0.&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;xx&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;cosh&nbsp;(&nbsp;(&nbsp;float&nbsp;(&nbsp;i&nbsp;-&nbsp;n&nbsp;)&nbsp;)&nbsp;*.&nbsp;h&nbsp;)&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;nn&nbsp;0.&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_coeff_prod&nbsp;xx&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;(&nbsp;h&nbsp;*.&nbsp;halfpi&nbsp;)&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_right_sub&nbsp;1.&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_coeff_prod&nbsp;x&nbsp;x&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nn&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+.&nbsp;w.(i)&nbsp;*.&nbsp;(&nbsp;f&nbsp;(&nbsp;center&nbsp;+.&nbsp;halflength&nbsp;*.&nbsp;x.(i)&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!accu&nbsp;*.&nbsp;halflength</code></body></html>

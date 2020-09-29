@@ -1,0 +1,27 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_matrix.Rng.tensor_sub_row_iter</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;tensor_sub_row_iter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(i:index)&nbsp;(beginning:index)&nbsp;(ending:index)&nbsp;(w:<span class="constructor">T</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;=&nbsp;<span class="constructor">T</span>.flat_tensor_demakeup&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;candidates&nbsp;=&nbsp;<span class="constructor">T</span>.<span class="constructor">Multi_hash</span>.mask_vector&nbsp;[|&nbsp;i&nbsp;;&nbsp;beginning&nbsp;|]&nbsp;[|&nbsp;i&nbsp;;&nbsp;ending&nbsp;|]&nbsp;(&nbsp;<span class="constructor">T</span>.<span class="constructor">Info</span>.raw_extract&nbsp;i&nbsp;t.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;(&nbsp;dim&nbsp;,&nbsp;table&nbsp;)&nbsp;=&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ensemble&nbsp;=&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">T</span>.<span class="constructor">Multi_hash</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.union&nbsp;(&nbsp;<span class="constructor">T</span>.<span class="constructor">Multi_hash</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.empty&nbsp;()&nbsp;)&nbsp;(&nbsp;snd&nbsp;candidates&nbsp;).<span class="constructor">T</span>.<span class="constructor">Multi_hash</span>.<span class="constructor">H</span>.data<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tab&nbsp;=&nbsp;table.<span class="constructor">T</span>.<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;tab&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j1&nbsp;=&nbsp;j.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j.(0)&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;beginning&nbsp;j1&nbsp;&lt;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;j1&nbsp;ending&nbsp;&lt;=&nbsp;0&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;g&nbsp;tab.(&nbsp;x&nbsp;<span class="keyword">mod</span>&nbsp;s&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.<span class="constructor">Multi_hash</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;h&nbsp;ensemble</code></body></html>

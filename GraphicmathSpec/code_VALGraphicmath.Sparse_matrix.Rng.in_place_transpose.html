@@ -1,0 +1,56 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_matrix.Rng.in_place_transpose</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;in_place_transpose&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;to_sparse_tensor&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;d.(0)&nbsp;d.(1)&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;square&nbsp;half_full&nbsp;matrix&nbsp;in&nbsp;Sparse_matrix.Rng.in_place_transpose."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;w&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w.(i)&nbsp;&lt;-&nbsp;column_extract&nbsp;(&nbsp;<span class="constructor">Index</span>.from_int&nbsp;i&nbsp;)&nbsp;mm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.level_exchange&nbsp;0&nbsp;1&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.level_exchange&nbsp;0&nbsp;1&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_scal_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.level_exchange&nbsp;0&nbsp;1&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;a.(0)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;(&nbsp;r&nbsp;/&nbsp;2&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;r&nbsp;-&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;a.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.(i)&nbsp;&lt;-&nbsp;a.(ii)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.(ii)&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.level_exchange&nbsp;0&nbsp;1&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.level_exchange&nbsp;0&nbsp;1&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;a.(0)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r2&nbsp;=&nbsp;r&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r2&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;r&nbsp;-&nbsp;i<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;shift&nbsp;=&nbsp;r2&nbsp;-&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;a.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.append&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;shift&nbsp;()&nbsp;)&nbsp;)&nbsp;a.(ii)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.(ii)&nbsp;&lt;-&nbsp;<span class="constructor">Util</span>.array_end&nbsp;shift&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

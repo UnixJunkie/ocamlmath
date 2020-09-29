@@ -1,0 +1,14 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.largo_simple_direct_complex_shifted_roots</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;largo_simple_direct_complex_shifted_roots&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;eval_rule&nbsp;(stages_roots:int)&nbsp;(steps:int)&nbsp;(threshold_qr:float)&nbsp;(threshold:float)&nbsp;(shift:float&nbsp;array&nbsp;array)&nbsp;(p:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;simple_direct_sci_1024_shifted_roots&nbsp;eval_rule&nbsp;stages_roots&nbsp;steps&nbsp;threshold_qr&nbsp;threshold&nbsp;shift&nbsp;(&nbsp;poly_complex_to_sci&nbsp;p&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;poly_sci_to_complex&nbsp;r</code></body></html>

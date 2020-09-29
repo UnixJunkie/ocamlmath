@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title></title>
+</head>
+<body>
+<center><h1></h1></center>
+<a href="index_types.html">Index of types</a><br>
+<a href="index_exceptions.html">Index of exceptions</a><br>
+<a href="index_values.html">Index of values</a><br>
+<a href="index_modules.html">Index of modules</a><br>
+<a href="index_module_types.html">Index of module types</a><br>
+
+<p>
+
+<center>§ </center>
+<span id="1_Introduction"><h1>Introduction</h1></span>
+<center> </center>
+<p>
+
+<span id="2_Aim"><h2>Aim</h2></span>
+<p>
+
+These modules may be used as interactive calculation constructions when loaded in the <code class="code">ocaml</code> pseudo_interpreter,
+or as calculation libraries.
+They are designed to function in layers. The dispositions of layers may be modified.
+The aim is neither to design a standard nor to deliver a software,
+but to prove that any mathematician can program in  a few hundreds of hours
+an ordinary chapter of a mathematics lecture.
+<p>
+
+Everything is written in the Ocaml language, the same language as that of utilization.
+All the definitions are in fact macro-definitions.
+The mathematician may thus modify up to her or his will the definitions
+through any text editor and without having to learn any further language.
+<p>
+
+The principles of writing follow the following hierarchy in decreasing order:<OL>
+<li>the functions must be written in the same language as their utilization,</li>
+<li>comfort of use is more important than speed,</li>
+<li>the ease of transition between the different tradeoffs is more important than the tradeoffs themselves,</li>
+<li>the person who is using the text must have the possibility to redefine or increase any part of it,</li>
+<li>different tradeoffs between calculation time and accuracy must be available if the situation deserves it,</li>
+<li>most of the parameters must be chosen at the time of eventual use,</li>
+<li>if a calculation is difficultied by the crossing of a singularity, it is better to raise an exception rather than silently yield wacky results.</li>
+</OL>
+
+<span id="2_Content"><h2>Content</h2></span>
+<p>
+
+The file <code class="code">graphicmath.ml</code> is the concatenation of the following modules:
+<a href="./Graphicmath.Util.html"> util.ml</a>,
+<a href="./Graphicmath.Bary.html"> bary.ml</a>,
+<a href="./Graphicmath.Data.html"> data.ml</a>,
+<a href="./Graphicmath.Deg.html"> deg.ml</a>,
+<a href="./Graphicmath.Hash.html"> hash.ml</a>,
+<a href="./Graphicmath.Sparse_vector.html"> sparse_vector.ml</a>,
+<a href="./Graphicmath.Sparse_tensor.html"> sparse_tensor.ml</a>,
+<a href="./Graphicmath.Sparse_matrix.html"> sparse_matrix.ml</a>,
+<a href="./Graphicmath.Mat.html"> mat.ml</a>,
+<a href="./Graphicmath.Fft.html"> fft.ml</a>,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,
+<a href="./Graphicmath.Readwrite.html"> readwrite.ml</a>,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,
+<a href="./Graphicmath.Data2.html"> data2.ml</a>,
+<a href="./Graphicmath.Draw.html"> draw.ml</a>,
+<a href="./Graphicmath.Widget.html"> widget.ml</a>,
+<a href="./Graphicmath.Analogic.html"> analogic.ml</a>,
+<a href="./Graphicmath.Spec.html"> spec.ml</a>.
+<p>
+
+This set of modules is aimed at being used in a graphic environment.
+<p>
+
+The file <a href="../README"> README</a> takes up on the differents uses of the archive set of mathematical tools for Ocaml
+and describes different shell scripts found in this archive in order to help compilation.
+<p>
+
+The mathematician will find in these modules:
+<p>
+<ul>
+<li>constructions to practice real and integer matrix calculations,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to practice differential and integral calculations,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to approximate solutions of ordinary differential equations of first order,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to practice complex matrix calculations,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to practice calculations on univariate polynomials with real or complex coefficients,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to practice complex calculations in extended precision,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>usual constants,
+<a href="./Graphicmath.Data.Classical.html"> module Classical of data.ml</a>,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>modules for the coefficients of matrices (usual algebraic objects) - and for the indices:
+<a href="./Graphicmath.Data.html"> data.ml</a>, <a href="./Graphicmath.Data2.html"> data2.ml</a>, </li>
+</ul>
+<ul>
+<li>common convergence acceleration methods,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>simple random generators with values in common Lie groups,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>utilities to exchange vectors, lists and matrices with text files, binary files, some picture files and some sound files (in the Audacity format),
+<a href="./Graphicmath.Readwrite.html"> readwrite.ml</a>,</li>
+</ul>
+<ul>
+<li>calculation utilities for polynomial degrees,
+<a href="./Graphicmath.Deg.html"> deg.ml</a>,</li>
+</ul>
+<ul>
+<li>tools for handling sparse vectors, matrices and tensors,
+the coefficients <em>and indices</em> being polymorphic:
+<a href="./Graphicmath.Sparse_vector.html"> sparse_vector.ml</a>,
+<a href="./Graphicmath.Sparse_tensor.html"> sparse_tensor.ml</a>,
+<a href="./Graphicmath.Sparse_matrix.html"> sparse_matrix.ml</a>,</li>
+</ul>
+<ul>
+<li>tools for handling polymorphic matrices, indifferently full or sparse,
+<a href="./Graphicmath.Mat.html"> mat.ml</a>,</li>
+</ul>
+<ul>
+<li>tools for fast Fourier transorms,
+<a href="./Graphicmath.Fft.html"> fft.ml</a>,</li>
+</ul>
+<ul>
+<li>basic tools necessary to several modules,
+<a href="./Graphicmath.Util.html"> util.ml</a>,</li>
+</ul>
+<ul>
+<li>tools for handling weighted sets,
+<a href="./Graphicmath.Bary.html"> bary.ml</a>,</li>
+</ul>
+<ul>
+<li>tools for handling weighted hash tables,
+<a href="./Graphicmath.Hash.html"> hash.ml</a>,</li>
+</ul>
+<ul>
+<li>constructions to draw on screen graphs, curves, surfaces,
+vector fields and frame fields in dimension two and three,
+with points, segments, casually with anti-aliassing,
+<a href="./Graphicmath.Draw.html"> draw.ml</a>,</li>
+</ul>
+<ul>
+<li>gadgets in order to make interactive graphical windows,
+<a href="./Graphicmath.Widget.html"> widget.ml</a>,</li>
+</ul>
+<ul>
+<li>utilities to digitize oscillograms and photographic pictures of graphic recorders,
+<a href="./Graphicmath.Analogic.html"> analogic.ml</a>,</li>
+</ul>
+<ul>
+<li>utilities to find one's way in the specification and the source code,
+<a href="./Graphicmath.Spec.html"> spec.ml</a>, among others</li>
+</ul>
+<OL>
+<li>the function <em>which</em> which permits to know to which module belongs a function
+(its range gets out of the scope of the archive of mathematic tools),</li>
+<li>the function <em>how</em> which displays the source code of the function,</li>
+<li>the function <em>what</em> which displays the corresponding paragraph in the html documentation of the module,</li>
+<li>the function <em>why</em> which searches for uses of the function.</li>
+</OL>
+<ul>
+<li>prefabricated pieces to quickly make other constructions,</li>
+</ul>
+<ul>
+<li>complete source codes permitting to resize everything to any use,</li>
+</ul>
+<ul>
+<li>a motley wildlife of various mathematical calculations; for example,
+different function are presented to calculate the inverse of a real matrix,
+to approximate the roots of a polynomial,
+offering more or less slowlyness of execution and different levels of precision.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+The interdependency of the modules is described in <a href="../depend.txt"> depend.txt</a>
+<p>
+
+All the needed informations are in the present specifications documents
+and the source codes. The need for further documentation can only be
+the symptom of a weakness of the specification or of the program; 
+a correction is thus necessary.
+<p>
+
+The calculations discussed here deal with general mathematics; unless otherwise,
+the specifications and proofs of the algorithms are either immediately visible or
+contained in the classical literature.
+In case the specification of an algorithm is unknown, a warning is explicitly stated.
+<p>
+
+A function is <em>sealed</em> if there is no sharing between the input variables and the output value.
+This is the expected behavior of usual mathematical functions.
+The present specification must allow in every case to decide if the programmed functions are sealed or not.
+Enough copy functions are provided in order to seal any function, at the expense of increased calculation time and memory footprint.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+The delivered functions are rough from workshop and require the usual care of use.
+<p>
+
+The plasticity of the Ocaml language allows to get as closed to the hardware as to
+insure a moderate time of execution, as well as to reach high abstraction 
+through mutually recursive definitions for some functions.
+<p>
+
+The rigidity of the typing allows a quick and easy setting of the programs.
+<p>
+
+These modules are distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<span id="1_Avantpropos"><h1>Avant-propos</h1></span>
+<p>
+
+<span id="2_But"><h2>But</h2></span>
+<p>
+
+Ces modules peuvent être utilisés comme constructions interactives de calcul quand chargés
+dans le pseudo_interpreteur <code class="code">ocaml</code>, ou comme bibliothèques de calcul.
+Ils sont conçus pour fonctionner en couches. La disposition des couches peut être modifiée.
+Le but n'est ni de rédiger une norme ni de fournir un logiciel,
+mais de démontrer que n'importe quel mathématicien peut programmer en quelques centaines d'heures 
+un chapitre courant d'un cours de mathématiques.
+<p>
+
+Tout est rédigé en langage Ocaml, le même langage que celui d'utilisation.
+Toutes les définitions sont en fait des macro-définitions.
+La mathématicienne ou le mathématicien peut ainsi modifier à sa guise les définitions 
+à l'aide de n'importe quel éditeur de texte et sans avoir besoin d'apprendre un langage supplémentaire.
+<p>
+
+Les principes de rédaction suivent la hiérarchie suivante dans l'ordre décroissant :<OL>
+<li>les fonctions doivent être écrites dans le même langage que leur utilisation,</li>
+<li>le confort d'utilisation est plus important que la vitesse,</li>
+<li>la fluidité de passage entre les différents compromis est plus importante que les compromis eux-mêmes,</li>
+<li>la personne qui utilise le texte doit pouvoir en redéfinir ou augmenter aisément n'importe quelle partie,</li>
+<li>différents compromis entre temps de calcul et précision doivent être disponibles si la situation le mérite,</li>
+<li>la plupart des paramètres doivent être choisis au moment de l'utilisation finale,</li>
+<li>si un calcul est mis en difficulté par la traversée d'une singularité, il vaut mieux lever une exception plutôt que de produire silencieusement des résultats farfelus.</li>
+</OL>
+
+<span id="2_Contenu"><h2>Contenu</h2></span>
+<p>
+
+Le fichier <code class="code">graphicmath.ml</code> est la concaténation des modules suivants :
+<a href="./Graphicmath.Util.html"> util.ml</a>,
+<a href="./Graphicmath.Bary.html"> bary.ml</a>,
+<a href="./Graphicmath.Data.html"> data.ml</a>,
+<a href="./Graphicmath.Deg.html"> deg.ml</a>,
+<a href="./Graphicmath.Hash.html"> hash.ml</a>,
+<a href="./Graphicmath.Sparse_vector.html"> sparse_vector.ml</a>,
+<a href="./Graphicmath.Sparse_tensor.html"> sparse_tensor.ml</a>,
+<a href="./Graphicmath.Sparse_matrix.html"> sparse_matrix.ml</a>,
+<a href="./Graphicmath.Mat.html"> mat.ml</a>,
+<a href="./Graphicmath.Fft.html"> fft.ml</a>,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,
+<a href="./Graphicmath.Readwrite.html"> readwrite.ml</a>,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,
+<a href="./Graphicmath.Data2.html"> data2.ml</a>,
+<a href="./Graphicmath.Draw.html"> draw.ml</a>,
+<a href="./Graphicmath.Widget.html"> widget.ml</a>,
+<a href="./Graphicmath.Analogic.html"> analogic.ml</a>,
+<a href="./Graphicmath.Spec.html"> spec.ml</a>.
+<p>
+
+Cet ensemble de modules est destiné à une utilisation dans un environnement graphique.
+<p>
+
+Le fichier <a href="../README"> README</a> aborde les différents usages de l'ensemble de l'archive d'outils mathématiques pour Ocaml
+et décrit différents scripts shell présents dans cette archive pour faciliter la compilation.
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ces modules :
+<p>
+<ul>
+<li>des outils permettant de pratiquer le calcul matriciel réel et entier,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant de pratiquer le calcul différentiel et intégral,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant d'approcher des solutions d'équations différentielles ordinaires du premier ordre,
+<a href="./Graphicmath.Infinitesimal.html"> infinitesimal.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant de pratiquer le calcul matriciel complexe,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant de pratiquer le calcul sur les polynômes à coefficients réels et complexes,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant de pratiquer le calcul complexe en précision étendue,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>des constantes usuelles,
+<a href="./Graphicmath.Data.Classical.html"> module Classical de data.ml</a>,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>des modules pour les coefficients des matrices (objets algébriques usuels) - et pour les indices :
+<a href="./Graphicmath.Data.html"> data.ml</a>, <a href="./Graphicmath.Data2.html"> data2.ml</a>, </li>
+</ul>
+<ul>
+<li>des méthodes usuelles d'accélération de convergence,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,
+<a href="./Graphicmath.Sci.html"> sci.ml</a>,</li>
+</ul>
+<ul>
+<li>des générateurs aléatoires simples à valeurs dans des groupes de Lie usuels,
+<a href="./Graphicmath.Matrix.html"> matrix.ml</a>,
+<a href="./Graphicmath.Reduc.html"> reduc.ml</a>,</li>
+</ul>
+<ul>
+<li>des utilitaires pour échanger vecteurs, listes et matrices avec des fichiers textes, des fichiers binaires, quelques fichiers d'images et des fichiers sons (au format Audacity),
+<a href="./Graphicmath.Readwrite.html"> readwrite.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils de calcul pour les degrés des polynômes,
+<a href="./Graphicmath.Deg.html"> deg.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils de manipulation des vecteurs, matrices et tenseurs creux,
+les coefficients <em>et indices</em> étant polymorphes :
+<a href="./Graphicmath.Sparse_vector.html"> sparse_vector.ml</a>,
+<a href="./Graphicmath.Sparse_tensor.html"> sparse_tensor.ml</a>,
+<a href="./Graphicmath.Sparse_matrix.html"> sparse_matrix.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils pour traiter les vecteurs, tenseur et matrices polymorphes, indifféremment pleins ou creux,
+<a href="./Math.Mat.html"> mat.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils pour les transformées de Fourier rapides,
+<a href="./Math.Fft.html"> fft.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils de bases nécessaires à plusieurs modules,
+<a href="./Graphicmath.Util.html"> util.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils pour manipuler les ensembles à poids,
+<a href="./Math.Bary.html"> bary.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils pour manipuler les tables de hachage à poids,
+<a href="./Math.Hash.html"> hash.ml</a>,</li>
+</ul>
+<ul>
+<li>des outils permettant de tracer à l'écran des graphes, courbes, surfaces, 
+champs de vecteurs et de repères en dimensions deux et trois,
+avec des points, des segments, éventuellement avec antialiassage,
+<a href="./Graphicmath.Draw.html"> draw.ml</a>,</li>
+</ul>
+<ul>
+<li>des gadgets pour construire des fenêtres graphiques interactives,
+<a href="./Graphicmath.Widget.html"> widget.ml</a>,</li>
+</ul>
+<ul>
+<li>des utilitaires pour numériser des oscillogrammes et des photographies de tables traçantes,
+<a href="./Graphicmath.Analogic.html"> analogic.ml</a>,</li>
+</ul>
+<ul>
+<li>des utilitaires pour se repérer dans la spécification et le code source,
+<a href="./Graphicmath.Spec.html"> spec.ml</a>, notamment</li>
+</ul>
+<OL>
+<li>la fonction <em>which</em> qui permet de savoir à quels modules appartient une fonction 
+(sa portée sort du cadre de l'archive d'outils mathématiques),</li>
+<li>la fonction <em>how</em> qui affiche le code source de la fonction,</li>
+<li>la fonction <em>what</em> qui affiche le paragraphe correspondant dans la documentation html du module,</li>
+<li>la fonction <em>why</em> qui recherche les utilisations de la fonction.</li>
+</OL>
+<ul>
+<li>des pièces préfabriquées permettant de construire rapidement d'autres outils,</li>
+</ul>
+<ul>
+<li>les codes sources complets permettant de tout retailler à la mesure d'une utilisation quelconque,</li>
+</ul>
+<ul>
+<li>une faune bigarrée de calculs mathématiques divers ; par exemple, 
+différentes fonctions sont présentées pour calculer l'inverse d'une matrice réelle,
+pour approcher les racines d'un polynôme,
+offrant des exécutions plus ou moins lentes et différents niveaux de précision.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+L'interdépendance des modules est décrite dans <a href="../depend.txt"> depend.txt</a>
+<p>
+
+Toutes les informations nécessaires sont dans les présents documents de spécifications
+et les codes-sources. Le besoin d'une documentation supplémentaire ne peut être 
+que le symptôme de l'insuffisance de la spécification ou du programme ; 
+une correction est alors nécessaire.
+<p>
+
+Les calculs abordés ici concernent les mathématiques générales ; sauf avis contraire,
+les spécifications et démonstrations des algorithmes sont soit immédiatement visibles 
+soit contenues dans la littérature classique.
+Dans le cas où la spécification d'un algorithme est inconnue, 
+un avertissement est explicitement marqué.
+<p>
+
+Une fonction est <em>étanche</em> quand il n'y a aucun partage entre les variables fournies en entrée et la valeur obtenue en sortie.
+C'est le comportement attendu des fonctions mathématiques habituelles. 
+La présente spécification doit permettre de décider dans tous les cas si les fonctions programmées sont étanches ou pas.
+Suffisamment de fonctions de recopies sont fournies pour étanchéifier n'importe quelle fonction, au prix d'un temps de calcul et d'un encombrement de mémoire augmentés.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Les fonctions délivrées sont brutes de fonderie et réclament les précautions habituelles d'utilisation.
+<p>
+
+La plasticité du langage Ocaml permet aussi bien de coller au matériel d'assez près 
+pour assurer une durée d'exécution raisonnable, que de planer vers de hautes sphères d'abstraction
+grâce à des définitions mutuellement récursives pour certaines fonctions.
+<p>
+
+La rigidité du typage permet une mise au point rapide et facile des programmes.
+<p>
+
+Ces modules sont distribués selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.4</center><br>
+<b>Author(s):</b> Stéphane Grognet<br>
+<b>Version:</b> 0.4<br>
+<b>Since</b> septembre 2011, 2012<br>
+</body>
+</html>

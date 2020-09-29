@@ -1,0 +1,41 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.sym_float_classical_jacobi_reduc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;sym_float_classical_jacobi_reduc&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(step_threshold:float)&nbsp;(elasticity:float)&nbsp;(diag_threshold:float)&nbsp;(s:int)&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;measure&nbsp;=&nbsp;ref&nbsp;(&nbsp;matrix_float_non_diagonality&nbsp;matrix_float_square_frobenius&nbsp;m&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;old_measure&nbsp;=&nbsp;ref&nbsp;max_float<br>
+&nbsp;<span class="keyword">and</span>&nbsp;steps&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;ref&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;old_mm&nbsp;=&nbsp;ref&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;identity_float&nbsp;r&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left&nbsp;=&nbsp;ref&nbsp;i<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;right&nbsp;=&nbsp;ref&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;(&nbsp;!measure&nbsp;&gt;&nbsp;diag_threshold&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;(&nbsp;!old_measure&nbsp;&gt;&nbsp;elasticity&nbsp;*.&nbsp;!measure&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;!steps&nbsp;&lt;&nbsp;s&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;resultat&nbsp;=&nbsp;sym_float_classical_jacobi_step&nbsp;step_threshold&nbsp;!mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_mm&nbsp;:=&nbsp;!mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;resultat.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_measure&nbsp;:=&nbsp;!measure&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;measure&nbsp;:=&nbsp;matrix_float_non_diagonality&nbsp;matrix_float_square_frobenius&nbsp;!mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;elasticity&nbsp;*.&nbsp;!measure&nbsp;&lt;&nbsp;!old_measure&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;:=&nbsp;matrix_float_prod&nbsp;resultat.(1)&nbsp;!left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right&nbsp;:=&nbsp;matrix_float_prod&nbsp;!right&nbsp;resultat.(2)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;steps&nbsp;:=&nbsp;!steps&nbsp;+&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm&nbsp;:=&nbsp;!old_mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;measure&nbsp;:=&nbsp;!old_measure&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;steps&nbsp;:=&nbsp;max_int&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;[|&nbsp;extract_diag&nbsp;!mm&nbsp;|]&nbsp;;&nbsp;!left&nbsp;;&nbsp;!mm&nbsp;;&nbsp;!right&nbsp;;&nbsp;[|[|&nbsp;!measure&nbsp;|]|]&nbsp;|]</code></body></html>

@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Data.Nbare_mult</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** This module is aimed at working on natural integer multiplication and at building sparse vectors by omitting the occurrences of the neutral element 1.
+<p>
+
+Ce module sert à travailler sur la multiplication des entiers naturels et à construire des vecteurs creux en omettant les occurrences de l'élément neutre 1. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;int&nbsp;<span class="keyword">as</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;int&nbsp;<span class="keyword">as</span>&nbsp;<span class="keywordsign">'</span>u&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;v&nbsp;=&nbsp;t&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(x:v)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(1:t)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;int_of_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;string_of_int&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;print_int&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;x:t&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;x&nbsp;=&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;eq&nbsp;(&nbsp;zero&nbsp;()&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;compare&nbsp;x&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;x&nbsp;*&nbsp;y:t)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;x&nbsp;)&nbsp;;&nbsp;x&nbsp;/&nbsp;y:t&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;power&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:int)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;1<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;y<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;2&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;y&nbsp;*&nbsp;y<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">mod</span>&nbsp;2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;y&nbsp;*&nbsp;(&nbsp;power&nbsp;(&nbsp;pred&nbsp;x&nbsp;)&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;power&nbsp;(&nbsp;x&nbsp;/&nbsp;2&nbsp;)&nbsp;y&nbsp;<span class="keyword">in</span>&nbsp;z&nbsp;*&nbsp;z<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;power&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;y&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;x&nbsp;*&nbsp;y:t&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;square&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;x&nbsp;&gt;=&nbsp;0&nbsp;)&nbsp;;&nbsp;x&nbsp;*&nbsp;x:t&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_pow&nbsp;=&nbsp;power&nbsp;;;<br>
+<br>
+<span class="keyword">end</span></code></body></html>

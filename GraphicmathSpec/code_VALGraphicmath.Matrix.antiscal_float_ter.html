@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.antiscal_float_ter</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;antiscal_float_ter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(r:int)&nbsp;(c:int)&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;r&nbsp;c&nbsp;0.<br>
+&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;(&nbsp;min&nbsp;r&nbsp;c&nbsp;)&nbsp;-&nbsp;1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;delta&nbsp;=&nbsp;<span class="constructor">Util</span>.int_max&nbsp;0&nbsp;(r&nbsp;-&nbsp;c)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;(&nbsp;min&nbsp;r&nbsp;c&nbsp;)&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;m.(&nbsp;i&nbsp;+&nbsp;delta&nbsp;).(s-i)&nbsp;&lt;-&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;m</code></body></html>

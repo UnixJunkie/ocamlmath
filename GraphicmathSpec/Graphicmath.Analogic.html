@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Widget.html">
+<link rel="next" href="Graphicmath.Spec.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Utilitaires" rel="Section" href="#1_Utilitaires">
+<link title="Utilities" rel="Section" href="#1_Utilities">
+<link title="Boîtes de dialogues" rel="Section" href="#1_Botesdedialogues">
+<link title="Dialog boxes" rel="Section" href="#1_Dialogboxes">
+<link title="Calculs" rel="Section" href="#1_Calculs">
+<link title="Numérisation interactive" rel="Section" href="#1_Numrisationinteractive">
+<link title="Interactive digitization" rel="Section" href="#1_Interactivedigitization">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Analogic</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Widget.html">Previous</a>
+&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;<a href="Graphicmath.Spec.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Graphicmath.Analogic.html">Graphicmath.Analogic</a> (<a href="code_Graphicmath.Analogic.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Analogic: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Analogic.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module: 
+<p>
+<ul>
+<li>function to digitize oscillograms and photographic pictures of graphic recorders,</li>
+</ul>
+<ul>
+<li>utilities for the intermediate steps of picture treatment or digitization.</li>
+</ul>
+
+Going with it, a script <a href="../analogic/compile.sh"> compile.sh</a> compiles
+<a href="../analogic/ferdinand.ml"> ferdinand.ml</a>, yielding a native executable <code class="code">ferdinand</code> for digitizing oscillograms;
+a script <a href="../analogic/bytecode.sh"> bytecode.sh</a> compiles
+<a href="../analogic/ferdinand-bytecode.ml"> ferdinand-bytecode.ml</a>, 
+yielding a bytecode executable <code class="code">ferdinand.o</code> for digitizing oscillograms.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+In digitizing a curve from its picture, the picture has to be cropped in order that only the pixels containing either the screen background or the curve are treated.
+The horizontal cropping will preferably match the horizontal extension of the curve, without exceeding it.
+<p>
+
+The treatment of an oscillogram uses the luminosity of the picture.
+The median value of the luminosity is roughly evaluated as the median of the medians of the luminosities of the lines.
+<p>
+
+The signal is supposed to be in the values of luminosity greater than the product of the threshold with the median.
+The graticule is supposed to be in the lower values, up to full black.
+<p>
+
+For the pictures of oscilloscopes with graticule lit up by incandescence light or for pictures of graphic recorders 
+(for which the variety of colors is unpredictable),
+it is necessary to treat the colors in order to be reduced to the preceding conventions for oscillograms.
+The <code class="code">phosphor</code> switch permits to choose between the functions <code class="code">oscillo</code> and <code class="code">recorder</code>.
+<p>
+
+The mathematician must supply the value of the threshold to separate the traces from the rest of the picture.
+The detection of the number of traces is automatically done a priori (with a convenient threshold value),
+but it is possible to stretch the work on a unique trace by assigning the value <code class="code"><span class="keyword">true</span></code> to the argument <code class="code">monotrace</code>.
+<p>
+
+The algorithm does not accept the trace crossing.
+<p>
+
+As the luminosity of the trace is higher inside the bends than outside, 
+the position of the curve is evaluated recursively by taking into account the curvature radius from the preceding step,
+until the variation from a step to another is low enough.
+<p>
+
+If the digitization gives strange results, try again changing the threshold value or the cropping.
+If for a multitrace picture the number of traces remains inadequate, crop again the traces one-by-one and stretch the monotrace mode.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+Here follow the maximal quantities of information contained inside a picture :
+<p>
+<OL>
+<li>of size 1333 * 2000 with 8 bits per color : 2000 samples of 20 bits or one measurement of 31 bits,</li>
+<li>of size 3000 * 4000 with 12 bits per color : 4000 samples of 25 bits or one measurement of 37 bits,</li>
+<li>of size 8000 * 12000 with 16 bits per color : 12000 samples of 30,5 bits or one measurement of 44 bits.</li>
+</OL>
+
+The digitization of an oscillogram receives interference from different phenomenons, the main one being the presence of the graticule.
+<p>
+
+The noise plays a part in the measurement with the probe, the input attenuator, the amplifying chain, 
+the cathode ray tube and the unevenness of the phosphore layer.
+<p>
+
+The noise plays a part in the view capture with the optical irregularities, the thermal noise,
+the Bayer outmatrixing, the lossy compression.
+<p>
+
+A screen without graticule will give more pure results.
+<p>
+
+For monochromatic photographic archives of oscillograms in presence of lit up graticule or of graphic records with graticule,
+it is necessary to touch up the picture once digitized by erasing the graticule before applying the present treatment.
+<p>
+
+The graphical interfaces are greedy in resources; 
+a generous use of <code class="code"><span class="constructor">Gc</span>.compact ()</code> is realized by calling it at each window update.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des fonctions pour numériser des oscillogrammes ou des images photographiques de tables traçantes,</li>
+</ul>
+<ul>
+<li>des utilitaires pour les étapes intermédiaires dans le traitement ou la numérisation des images.</li>
+</ul>
+
+L'accompagnant, un script <a href="../analogic/compile.sh"> compile.sh</a> compile
+<a href="../analogic/ferdinand.ml"> ferdinand.ml</a>, produisant un exécutable natif <code class="code">ferdinand</code> de numérisation d'oscillogrammes ;
+un script <a href="../analogic/bytecode.sh"> bytecode.sh</a> compile
+<a href="../analogic/ferdinand-bytecode.ml"> ferdinand-bytecode.ml</a>, 
+produisant un exécutable virtuel <code class="code">ferdinand.o</code> de numérisation d'oscillogrammes.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Dans la numérisation d'une courbe par son image, l'image doit d'abord être recadrée de façon que ne soient traités que des pixels qui contiennent
+soit le fond d'écran soit la courbe. Le cadrage horizontal collera de préférence à l'extension horizontale de la courbe, sans la dépasser.
+<p>
+
+Le traitement d'un oscillogramme utilise la luminosité de l'image.
+La valeur médiane de luminosité est évaluée grossièrement comme la médiane des médianes des luminosités de chaque ligne.
+<p>
+
+Le signal est censé être dans les valeurs de luminosité supérieures au produit du seuil par la médiane.
+Le réticule est censé être dans les valeurs inférieures de luminosité, jusqu'au noir complet.
+<p>
+
+Pour les images d'oscilloscope avec réticule éclairé par des lampes à incandescence ou pour les images de tables traçantes 
+(pour lesquelles la variété des couleurs est imprévisible),
+il est nécessaire de traiter les couleurs pour se ramener aux conventions précédentes pour l'oscillogramme.
+Le commutateur <code class="code">phosphor</code> permet de choisir entre les fonctions <code class="code">oscillo</code> et <code class="code">recorder</code>.
+<p>
+
+La mathématicienne ou le mathématicien doit fournir la valeur de seuil pour séparer les traces du reste de l'image.
+La détection du nombre de traces se fait a priori automatiquement (avec une valeur de seuil convenable), 
+mais il est possible de forcer le travail sur une trace unique en attribuant la valeur <code class="code"><span class="keyword">true</span></code> à l'argument <code class="code">monotrace</code>.
+<p>
+
+L'algorithme n'accepte pas le croisement des traces.
+<p>
+
+Comme la luminosité de la trace est plus élevée à l'intérieur des virages qu'à l'extérieur, 
+la position de la courbe est évaluée récursivement en tenant compte du rayon de courbure à l'étape précédente,
+jusqu'à ce que la variation d'une étape à l'autre soit assez faible.
+<p>
+
+Si la numérisation donne des résultats bizarres, recommencer en changeant la valeur de seuil ou le recadrage.
+Si pour une image multitrace le nombre de traces détectées reste inadéquat, recadrer trace par trace et forcer le mode monotrace.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Suivent les quantités maximales d'information contenues dans une image :
+<p>
+<OL>
+<li>de taille 1333 * 2000 à 8 bits par couleur : 2000 échantillons de 20 bits ou une mesure de 31 bits,</li>
+<li>de taille 3000 * 4000 à 12 bits par couleur : 4000 échantillons de 25 bits ou une mesure de 37 bits,</li>
+<li>de taille 8000 * 12000 à 16 bits par couleur : 12000 échantillons de 30,5 bits ou une mesure de 44 bits.</li>
+</OL>
+
+La numérisation d'un oscillogramme est parasitée par différents phénomènes, le principal étant la présence du réticule.
+<p>
+
+Le bruit de souffle intervient dans la mesure avec la sonde, l'atténuateur d'entrée, la chaîne d'amplification, 
+le tube cathodique et l'irrégularité de la couche de phosphore.
+<p>
+
+Le bruit de souffle intervient dans la prise de vue avec les irrégularités optiques, le bruit thermique, 
+le dématriçage de Bayer, la compression avec perte.
+<p>
+
+Un écran sans réticule donnera des résultats plus purs.
+<p>
+
+Pour des archives photographiques monochromes d'oscillogrammes avec présence du réticule éclairé ou de table traçante avec réticule,, 
+il est nécessaire de retoucher l'image une fois numérisée en effaçant le réticule avant d'appliquer le présent traitement.
+<p>
+
+Les interfaces graphiques sont gourmandes en ressouces ; 
+une utilisation généreuse de <code class="code"><span class="constructor">Gc</span>.compact ()</code> est effectuée par son appel à chaque rafraîchissement de fenêtre.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.3</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Utilitaires"><h1>Utilitaires</h1></span>
+<span id="1_Utilities"><h1>Utilities</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALmax_color"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.max_color.html">max_color</a></span> : <code class="type">int</code></pre><div class="info">
+<pre>max_color</pre><br>
+</div>
+<pre><span id="VALred_for_color"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.red_for_color.html">red_for_color</a></span> : <code class="type">float -> Graphics.color</code></pre><div class="info">
+<pre>red_for_color real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALgreen_for_color"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.green_for_color.html">green_for_color</a></span> : <code class="type">float -> Graphics.color</code></pre><div class="info">
+<pre>green_for_color real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALblue_for_color"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.blue_for_color.html">blue_for_color</a></span> : <code class="type">float -> Graphics.color</code></pre><div class="info">
+<pre>blue_for_color real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdisplay_float_unicolor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.display_float_unicolor.html">display_float_unicolor</a></span> : <code class="type">int -> int -> float array array -> unit</code></pre><div class="info">
+<pre>display_float_unicolor h_offset v_offset matrix</pre> The function Graphics.draw_image is too unstable to be useful.
+<p>
+
+La fonction Graphics.draw_image est trop instable pour être utilisable.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdisplay_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.display_float_rgb.html">display_float_rgb</a></span> : <code class="type">int -> int -> float array array array -> unit</code></pre><div class="info">
+<pre>display_float_rgb h_offset v_offset rgb_matrix</pre> The function Graphics.draw_image is too unstable to be useful.
+<p>
+
+La fonction Graphics.draw_image est trop instable pour être utilisable.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrelative_draw_line_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.relative_draw_line_float_rgb.html">relative_draw_line_float_rgb</a></span> : <code class="type">int -> int -> float array array array -> int -> unit</code></pre><div class="info">
+<pre>relative_draw_line_float_rgb x_offset y_offset rgb_matrix row</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+row</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrelative_draw_line_magnify_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.relative_draw_line_magnify_float_rgb.html">relative_draw_line_magnify_float_rgb</a></span> : <code class="type">int -> int -> int -> float array array array -> int -> unit</code></pre><div class="info">
+<pre>relative_draw_line_magnify_float_rgb factor x_offset y_offset rgb_matrix row</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+row</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrelative_draw_column_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.relative_draw_column_float_rgb.html">relative_draw_column_float_rgb</a></span> : <code class="type">int -> int -> float array array array -> int -> unit</code></pre><div class="info">
+<pre>relative_draw_column_float_rgb x_offset y_offset rgb_matrix row</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+column</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrelative_draw_column_magnify_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.relative_draw_column_magnify_float_rgb.html">relative_draw_column_magnify_float_rgb</a></span> : <code class="type">int -> int -> int -> float array array array -> int -> unit</code></pre><div class="info">
+<pre>relative_draw_column_magnify_float_rgb factor x_offset y_offset rgb_matrix row</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y_offset</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+column</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcross_float_rgb"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.cross_float_rgb.html">cross_float_rgb</a></span> : <code class="type">float array -><br>       int -> int -> float array array array -> float array array array</code></pre><div class="info">
+<pre>cross_float_rgb float_color row column rgb_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+row</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+column</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Botesdedialogues"><h1>Boîtes de dialogues</h1></span>
+<span id="1_Dialogboxes"><h1>Dialog boxes</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALfloat_rgb_crop_image"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.float_rgb_crop_image.html">float_rgb_crop_image</a></span> : <code class="type">int -><br>       int -><br>       float array array array -> float array array array -> int array -> int array</code></pre><div class="info">
+<pre>float_rgb_crop_image approx_hori_size approx_verti_size rgb_matrix reduced_matrix crop_values</pre> The integer vector <code class="code">crop_values</code> is modified in place.
+<p>
+
+Le vecteur entier <code class="code">crop_values</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+reduc</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+crop_values</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_rgb_color_treatment"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.float_rgb_color_treatment.html">float_rgb_color_treatment</a></span> : <code class="type">int -> int -> float array array array -> int array -> int array</code></pre><div class="info">
+<pre>float_rgb_color_treatment approx_hori_size approx_verti_size reduced_rgb_matrix coefficients</pre> The integer vector <code class="code">coefficients</code> is modified in place.
+<p>
+
+Le vecteur entier <code class="code">coefficients</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+reduc</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+coefficients</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_rgb_mark_image"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.float_rgb_mark_image.html">float_rgb_mark_image</a></span> : <code class="type">int -><br>       int -><br>       float array array array -><br>       float array array array -> float array -> float array</code></pre><div class="info">
+<pre>float_rgb_mark_image approx_hori_size approx_verti_size rgb_matrix reduced_matrix mark</pre> The real vector <code class="code">mark</code> is modified in place.
+<p>
+
+Le vecteur réel <code class="code">mark</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+reduc</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mark</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_rgb_refine_mark"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.float_rgb_refine_mark.html">float_rgb_refine_mark</a></span> : <code class="type">int -> int -> float array array array -> float array -> float array</code></pre><div class="info">
+<pre>float_rgb_refine_mark approx_hori_size approx_verti_size rgb_matrix mark</pre> The real vector <code class="code">mark</code> is modified in place.
+<p>
+
+Le vecteur réel <code class="code">mark</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mark</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcoefficient_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.coefficient_list.html">coefficient_list</a></span> : <code class="type">string array</code></pre><div class="info">
+<pre>coefficient_list</pre><br>
+</div>
+<pre><span id="VALother_coefficient_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.other_coefficient_list.html">other_coefficient_list</a></span> : <code class="type">string array</code></pre><div class="info">
+<pre>other_coefficient_list</pre><br>
+</div>
+<pre><span id="VALmultiplicator_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.multiplicator_list.html">multiplicator_list</a></span> : <code class="type">float array</code></pre><div class="info">
+<pre>multiplicator_list</pre><br>
+</div>
+<pre><span id="VALprefix_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.prefix_list.html">prefix_list</a></span> : <code class="type">string array</code></pre><div class="info">
+<pre>prefix_list</pre><br>
+</div>
+<pre><span id="VALexponent_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.exponent_list.html">exponent_list</a></span> : <code class="type">float array</code></pre><div class="info">
+<pre>exponent_list</pre><br>
+</div>
+<pre><span id="VALunit_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.unit_list.html">unit_list</a></span> : <code class="type">string array</code></pre><div class="info">
+<pre>unit_list</pre><br>
+</div>
+<pre><span id="VALvisual_unit_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.visual_unit_list.html">visual_unit_list</a></span> : <code class="type">string array</code></pre><div class="info">
+<pre>visual_unit_list</pre><br>
+</div>
+<pre><span id="VALchoose_unit"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.choose_unit.html">choose_unit</a></span> : <code class="type">int -> int -> string array -> string array</code></pre><div class="info">
+<pre>choose_unit hori_size verti_size units</pre> The string vector <code class="code">unit_strings</code> is modified in place.
+<p>
+
+Le vecteur de chaînes de caractères <code class="code">unit_strings</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+unit_strings</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Calculs"><h1>Calculs</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALantigamma"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.antigamma.html">antigamma</a></span> : <code class="type">float array array -> float array array</code></pre><div class="info">
+<pre>antigamma luminance_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+signal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprepare_trace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.prepare_trace.html">prepare_trace</a></span> : <code class="type">float -> float array array -> float array array array array</code></pre><div class="info">
+<pre>prepare_trace threshold luminance_matrix</pre> This function corresponds to the function <code class="code">split_traces</code>
+when the monotrace mode is strectched.
+<p>
+
+Cette fonction correspond à la fonction <code class="code">split_traces</code> quand le mode monotrace est forcé.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+lumi</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsplit_traces"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.split_traces.html">split_traces</a></span> : <code class="type">float -> float array array -> float array array array array</code></pre><div class="info">
+<pre>split_traces threshold luminance_matrix</pre> A good value for the threshold is between around 0.1 and 10.
+It depends much on the view capture and must be set by the user.
+Output: transposed matrices of the peaks of the luminosities restricted to the zone of each trace: <code class="code">traces</code>,
+partial derivatives (in the vertical direction of the picture) of the preceding ones: <code class="code">slopes = diff_traces</code>.
+<p>
+
+Une bonne valeur pour le seuil <code class="code">threshold</code> est autour de 0.1 à 10.
+Il dépend beaucoup de la prise de vue et doit être fixé par l'utilisateur.
+Sortie : transposées des crêtes de luminosités restreintes aux zones de chaque trace : <code class="code">traces</code>, 
+dérivées partielles (dans la direction verticale de l'image) des précédentes : <code class="code">slopes = diff_traces</code>.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+lumi</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbound_trace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.bound_trace.html">bound_trace</a></span> : <code class="type">float array array -> float array array</code></pre><div class="info">
+<pre>bound_trace trace</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+trace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdigitize_step"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.digitize_step.html">digitize_step</a></span> : <code class="type">float array array -><br>       float array -> float array array -> float array array -> float array</code></pre><div class="info">
+<pre>digitize_step bounds weights trace slope</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+bounds</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+weights</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+trace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+slope</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALthickness"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.thickness.html">thickness</a></span> : <code class="type">float array array -> float array</code></pre><div class="info">
+<pre>thickness matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+trace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_tame"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.direct_tame.html">direct_tame</a></span> : <code class="type">float array -> float array</code></pre><div class="info">
+<pre>direct_tame vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtame"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.tame.html">tame</a></span> : <code class="type">int -> float array -> float array</code></pre><div class="info">
+<pre>tame degree vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALweigh"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.weigh.html">weigh</a></span> : <code class="type">float -> int -> float array -> float array</code></pre><div class="info">
+<pre>weigh factor position</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+index</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+position</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdigitize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.digitize.html">digitize</a></span> : <code class="type">float -> float array array -> float array array -> float array</code></pre><div class="info">
+<pre>digitize threshold trace slope</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+trace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+slope</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALautomatic_digitize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.automatic_digitize.html">automatic_digitize</a></span> : <code class="type">float array array -> float array array -> float array</code></pre><div class="info">
+<pre>automatic_digitize trace slope</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+trace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+slope</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlinear_regression"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.linear_regression.html">linear_regression</a></span> : <code class="type">float array array -> float array array -> float array array array</code></pre><div class="info">
+<pre>linear_regression departure arrival</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALautocrop"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.autocrop.html">autocrop</a></span> : <code class="type">float array array -> int array</code></pre><div class="info">
+<pre>autocrop luminance_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+lumi</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Numrisationinteractive"><h1>Numérisation interactive</h1></span>
+<span id="1_Interactivedigitization"><h1>Interactive digitization</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The following functions save automatically some window captures in <code class="code">ppm</code> files.
+The numerical data are automatically saved in text files or <code class="code">au</code> files.
+The treatment data are saved in a file whose name ends with "metadata".
+A good value for the threshold is between around 0.1 and 10.
+It depends much on the view capture and must be set by the user.
+The <code class="code">monotrace</code> switch permits to stretch the work on a unique trace.
+The integer <code class="code">max_number</code> limits the display of selectors: go all over the lists with the central button.
+<p>
+
+Les fonctions suivantes sauvegardent automatiquement certaines saisies de fenêtres dans des fichiers <code class="code">ppm</code>.
+Les données numériques sont sauvegardées automatiquement dans des fichiers textes ou des fichiers <code class="code">au</code>.
+Les données de traitement sont sauvegardées dans un fichier dont le nom se termine par "metadata".
+Une bonne valeur pour le seuil est autour de 0.1 à 10.
+Il dépend beaucoup de la prise de vue et doit être fixé par l'utilisateur.
+Le commutateur <code class="code">monotrace</code> permet de forcer le travail sur une trace unique.
+L'entier <code class="code">max_number</code> limite l'affichage des sélecteurs : parcourir les listes avec le bouton central.<br>
+<pre><span id="VALoscillo_recorder"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.oscillo_recorder.html">oscillo_recorder</a></span> : <code class="type">bool -> bool -> int -> int -> int -> unit</code></pre><div class="info">
+<pre>oscillo_recorder phosphor_switch monotrace_switch hori_size verti_size max_number</pre> This function acts only by side effect, writing data into files.
+The <code class="code">phosphor</code> switch permits using this function for oscilloscopes and graphic recorders.
+<p>
+
+Cette fonction opère uniquement par effet de bord, en écrivant les données dans des fichiers.
+Le commutateur <code class="code">phosphor</code> permet une utilisation pour les oscilloscopes, les tables traçantes, les enregistreurs graphiques.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+phosphor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+monotrace</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALoscillo"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.oscillo.html">oscillo</a></span> : <code class="type">bool -> int -> int -> int -> unit</code></pre><div class="info">
+<pre>oscillo monotrace_switch hori_size verti_size max_number</pre> This function acts only by side effect, writing data into files.
+<p>
+
+Cette fonction opère uniquement par effet de bord, en écrivant les données dans des fichiers.<br>
+</div>
+<pre><span id="VALrecorder"><span class="keyword">val</span> <a href="code_VALGraphicmath.Analogic.recorder.html">recorder</a></span> : <code class="type">bool -> int -> int -> int -> unit</code></pre><div class="info">
+<pre>recorder monotrace_switch hori_size verti_size max_number</pre> This function acts only by side effect, writing data into files.
+<p>
+
+Cette fonction opère uniquement par effet de bord, en écrivant les données dans des fichiers.<br>
+</div>
+<br>
+<center>§ § § </center><br>
+</body></html>

@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_vector.Rng.exchange</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;exchange&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index)&nbsp;(j:index)&nbsp;(u:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;ii&nbsp;,&nbsp;x&nbsp;)&nbsp;=&nbsp;extract&nbsp;i&nbsp;u<br>
+&nbsp;<span class="keyword">and</span>&nbsp;(&nbsp;jj&nbsp;,&nbsp;y&nbsp;)&nbsp;=&nbsp;extract&nbsp;j&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;replace&nbsp;x&nbsp;j&nbsp;u&nbsp;;<br>
+&nbsp;&nbsp;replace&nbsp;y&nbsp;i&nbsp;u</code></body></html>

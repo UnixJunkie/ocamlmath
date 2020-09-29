@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.free_ram</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;free_ram&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;array_write_text_file&nbsp;[|&nbsp;<span class="string">"#!/bin/sh"</span>&nbsp;;&nbsp;<span class="string">"vmstat&nbsp;-s&nbsp;|&nbsp;grep&nbsp;'pages&nbsp;free'&nbsp;|&nbsp;grep&nbsp;-o&nbsp;'[0-9][0-9]*'&nbsp;&gt;&nbsp;tmp_free_ram"</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="string">"vmstat&nbsp;-s&nbsp;|&nbsp;grep&nbsp;'bytes&nbsp;per&nbsp;page'&nbsp;|&nbsp;grep&nbsp;-o&nbsp;'[0-9][0-9]*'&nbsp;&gt;&gt;&nbsp;tmp_free_ram"</span>&nbsp;;&nbsp;<span class="string">"exit&nbsp;0"</span>&nbsp;|]&nbsp;<span class="string">"tmp_script.sh"</span>&nbsp;;<br>
+&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;<span class="string">"sh&nbsp;tmp_script.sh"</span>&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;free&nbsp;=&nbsp;array_read_reverse_text_file&nbsp;<span class="string">"tmp_free_ram"</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;clear&nbsp;<span class="string">"tmp_script.sh&nbsp;tmp_free_ram"</span>&nbsp;;<br>
+&nbsp;&nbsp;(&nbsp;int_of_string&nbsp;free.(0)&nbsp;)&nbsp;*&nbsp;(&nbsp;int_of_string&nbsp;free.(1)&nbsp;)</code></body></html>

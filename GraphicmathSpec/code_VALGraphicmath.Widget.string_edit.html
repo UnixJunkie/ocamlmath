@@ -1,0 +1,36 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Widget.string_edit</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;string_edit&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(abscissa:int)&nbsp;(ordinate:int)&nbsp;(width:int)&nbsp;(color:int)&nbsp;(left_text_color:int)&nbsp;(right_text_color:int)&nbsp;(initial:string)&nbsp;(final:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;offset&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;initial<br>
+&nbsp;<span class="keyword">and</span>&nbsp;setoff&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;final<br>
+&nbsp;<span class="keyword">and</span>&nbsp;text&nbsp;=&nbsp;<span class="string">"&nbsp;"</span>&nbsp;^&nbsp;initial&nbsp;^&nbsp;final&nbsp;^&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;abscissa&nbsp;-&nbsp;width&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;<span class="constructor">Graphics</span>.text_size&nbsp;text<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;length&nbsp;=&nbsp;2&nbsp;+&nbsp;offset&nbsp;+&nbsp;setoff&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;(&nbsp;length&nbsp;*&nbsp;width&nbsp;)&nbsp;/&nbsp;(&nbsp;fst&nbsp;size&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h&nbsp;=&nbsp;snd&nbsp;size&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;n&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;ordinate&nbsp;-&nbsp;h&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;beginning&nbsp;=&nbsp;max&nbsp;0&nbsp;(&nbsp;offset&nbsp;-&nbsp;nn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left_length&nbsp;=&nbsp;offset&nbsp;-&nbsp;beginning&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;initial&nbsp;beginning&nbsp;left_length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;right_length&nbsp;=&nbsp;min&nbsp;(&nbsp;n&nbsp;-&nbsp;left_length&nbsp;)&nbsp;setoff&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;right&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;final&nbsp;0&nbsp;right_length&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.fill_rect&nbsp;x&nbsp;y&nbsp;width&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;x&nbsp;(&nbsp;y&nbsp;+&nbsp;h&nbsp;/&nbsp;10&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;left_text_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;right_text_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;string_of_int&nbsp;abscissa&nbsp;;&nbsp;string_of_int&nbsp;ordinate&nbsp;;&nbsp;string_of_int&nbsp;width&nbsp;;&nbsp;string_of_int&nbsp;x&nbsp;;&nbsp;string_of_int&nbsp;y&nbsp;;&nbsp;initial&nbsp;;&nbsp;final&nbsp;|]</code></body></html>

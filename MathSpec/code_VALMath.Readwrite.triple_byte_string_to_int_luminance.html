@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Readwrite.triple_byte_string_to_int_luminance</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;triple_byte_string_to_int_luminance&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+</code><table><tr><td></td><td><span class="comment">(** The string begins with a #. *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keyword">let</span>&nbsp;indices&nbsp;=&nbsp;[|&nbsp;1&nbsp;;&nbsp;2&nbsp;;&nbsp;3&nbsp;;&nbsp;4&nbsp;;&nbsp;5&nbsp;;&nbsp;6&nbsp;|]<br>
+&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;i&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;hexa_char_to_int&nbsp;s.[i]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;f&nbsp;indices&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;16&nbsp;*&nbsp;(&nbsp;v.(0)&nbsp;+&nbsp;v.(2)&nbsp;+&nbsp;v.(4)&nbsp;)&nbsp;+&nbsp;v.(1)&nbsp;+&nbsp;v.(3)&nbsp;+&nbsp;v.(5)</code></body></html>

@@ -1,0 +1,38 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.func_oversample</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;func_oversample&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(gamma:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(color:<span class="constructor">Graphics</span>.color)&nbsp;(size:int&nbsp;array)&nbsp;(h_margin:int)&nbsp;(v_margin:int)&nbsp;(x_function:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(y_function:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dims&nbsp;=&nbsp;[|&nbsp;size.(1)&nbsp;-2&nbsp;*&nbsp;v_margin&nbsp;;&nbsp;size.(0)&nbsp;-2&nbsp;*&nbsp;h_margin&nbsp;|]<br>
+&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;0.<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pn&nbsp;=&nbsp;pred&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;filling&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;column&nbsp;=&nbsp;ref&nbsp;[]<br>
+&nbsp;<span class="keyword">and</span>&nbsp;intercal&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;index&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;index&nbsp;,&nbsp;b&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;1.&nbsp;/.&nbsp;(&nbsp;float&nbsp;n&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h_function&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x_function&nbsp;(&nbsp;z&nbsp;*.&nbsp;nn&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v_function&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;float&nbsp;n&nbsp;)&nbsp;*.&nbsp;(&nbsp;y_function&nbsp;z&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;luminosity&nbsp;=&nbsp;ref&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;jj&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;dims.(1)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pn&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j&nbsp;=&nbsp;n&nbsp;*&nbsp;jj&nbsp;+&nbsp;k&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;h_function&nbsp;(&nbsp;float&nbsp;j&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;v_function&nbsp;(&nbsp;f&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Util</span>.round&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;i&nbsp;/&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;:=&nbsp;<span class="constructor">Util</span>.list_accumulate&nbsp;compare&nbsp;(&nbsp;+.&nbsp;)&nbsp;(&nbsp;ii&nbsp;,&nbsp;nn&nbsp;)&nbsp;!column&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;luminosity&nbsp;:=&nbsp;<span class="constructor">List</span>.rev_append&nbsp;(&nbsp;<span class="constructor">List</span>.rev_map&nbsp;(&nbsp;intercal&nbsp;jj&nbsp;)&nbsp;!column&nbsp;)&nbsp;!luminosity&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filling&nbsp;:=&nbsp;!filling&nbsp;+&nbsp;(&nbsp;<span class="constructor">List</span>.length&nbsp;!column&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;:=&nbsp;[]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;0.&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;oversample_paint&nbsp;gamma&nbsp;color&nbsp;h_margin&nbsp;v_margin&nbsp;(&nbsp;<span class="constructor">Array</span>.append&nbsp;dims&nbsp;[|&nbsp;!filling&nbsp;|]&nbsp;,&nbsp;!luminosity&nbsp;)</code></body></html>

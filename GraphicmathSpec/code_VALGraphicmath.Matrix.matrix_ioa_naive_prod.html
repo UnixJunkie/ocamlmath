@@ -1,0 +1,102 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.matrix_ioa_naive_prod</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;matrix_ioa_naive_prod&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:int_or_array)&nbsp;(mm:int_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;<span class="constructor">Util</span>.int_max&nbsp;(ioa_thickness&nbsp;m)&nbsp;(ioa_thickness&nbsp;mm)&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** matrices plates --- flat matrices *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;mm&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;(x&nbsp;*&nbsp;y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;matrix_int_scal_mult&nbsp;x&nbsp;(matrix_int_demakeup&nbsp;mm)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;mm&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;matrix_int_scal_mult&nbsp;y&nbsp;(matrix_int_demakeup&nbsp;m)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;(&nbsp;matrix_int_prod&nbsp;(matrix_int_demakeup&nbsp;m)&nbsp;(matrix_int_demakeup&nbsp;mm)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** matrices plates --- flat matrices *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** matrices épaisses --- thick matrices *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_ioa_scal_mult&nbsp;x&nbsp;mm<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** m est plate --- m is flat *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;matrix_ioa_demakeup&nbsp;mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;numcolumns&nbsp;ww&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(r&nbsp;+&nbsp;1)&nbsp;(c&nbsp;+&nbsp;1)&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_input&nbsp;=&nbsp;w.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;mmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;c&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_scal_mult&nbsp;row_input.(0)&nbsp;ww.(0).(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_plus&nbsp;row_output.(j)&nbsp;(&nbsp;matrix_ioa_scal_mult&nbsp;row_input.(k)&nbsp;ww.(k).(j)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;mmm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** m est plate --- m is flat *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** m est épaisse --- m is thick *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;mm&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_ioa_scal_mult&nbsp;y&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;ww&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** mm est plate --- mm is flat *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;matrix_ioa_demakeup&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;numcolumns&nbsp;ww&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(r&nbsp;+&nbsp;1)&nbsp;(c&nbsp;+&nbsp;1)&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_input&nbsp;=&nbsp;w.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;mmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;c&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_scal_mult&nbsp;ww.(0).(j)&nbsp;row_input.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_plus&nbsp;row_output.(j)&nbsp;(&nbsp;matrix_ioa_scal_mult&nbsp;ww.(k).(j)&nbsp;row_input.(k)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;mmm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** mm est plate --- mm is flat *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** mm est épaisse --- mm is thick *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;matrix_ioa_demakeup&nbsp;m&nbsp;<span class="keyword">and</span>&nbsp;ww&nbsp;=&nbsp;matrix_ioa_demakeup&nbsp;mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;<span class="constructor">Array</span>.length&nbsp;ww<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;-&nbsp;1&nbsp;+&nbsp;numcolumns&nbsp;ww&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(r&nbsp;+&nbsp;1)&nbsp;(c&nbsp;+&nbsp;1)&nbsp;(<span class="constructor">Int_cons</span>&nbsp;0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_input&nbsp;=&nbsp;w.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output&nbsp;=&nbsp;mmm.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;c&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_naive_prod&nbsp;row_input.(0)&nbsp;ww.(0).(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output.(j)&nbsp;&lt;-&nbsp;matrix_ioa_plus&nbsp;row_output.(j)&nbsp;(&nbsp;matrix_ioa_naive_prod&nbsp;row_input.(k)&nbsp;ww.(k).(j)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;mmm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** mm est épaisse --- mm is thick *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** m est épaisse --- m is thick *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_matrix.Rng.extract</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index)&nbsp;(j:index)&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;snd&nbsp;(&nbsp;<span class="constructor">V</span>.extract&nbsp;j&nbsp;w.(&nbsp;<span class="constructor">Index</span>.to_int&nbsp;i&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;snd&nbsp;(&nbsp;<span class="constructor">T</span>.extract&nbsp;[|&nbsp;i&nbsp;;&nbsp;j&nbsp;|]&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;snd&nbsp;(&nbsp;<span class="constructor">T</span>.extract&nbsp;[|&nbsp;i&nbsp;;&nbsp;j&nbsp;|]&nbsp;w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.add&nbsp;y&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_scal_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;snd&nbsp;(&nbsp;<span class="constructor">T</span>.extract&nbsp;[|&nbsp;i&nbsp;;&nbsp;j&nbsp;|]&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h_a_l&nbsp;=&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;)&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;diff&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;(&nbsp;<span class="constructor">Index</span>.sub&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;abs&nbsp;diff&nbsp;&lt;=&nbsp;h_a_l&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.add&nbsp;a.(&nbsp;h_a_l&nbsp;+&nbsp;diff&nbsp;)&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;snd&nbsp;(&nbsp;<span class="constructor">T</span>.extract&nbsp;[|&nbsp;i&nbsp;;&nbsp;j&nbsp;|]&nbsp;w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.add&nbsp;a.(&nbsp;<span class="constructor">Index</span>.to_int&nbsp;i&nbsp;)&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_multi_diag_matrix</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;snd&nbsp;(&nbsp;<span class="constructor">T</span>.extract&nbsp;[|&nbsp;i&nbsp;;&nbsp;j&nbsp;|]&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h_a_l&nbsp;=&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;a&nbsp;)&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;diff&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;(&nbsp;<span class="constructor">Index</span>.sub&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;abs&nbsp;diff&nbsp;&lt;=&nbsp;h_a_l&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.add&nbsp;a.(&nbsp;h_a_l&nbsp;+&nbsp;diff&nbsp;).(&nbsp;<span class="constructor">Index</span>.to_int&nbsp;i&nbsp;)&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

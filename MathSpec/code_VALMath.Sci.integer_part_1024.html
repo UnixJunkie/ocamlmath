@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sci.integer_part_1024</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;integer_part_1024&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Num</span>.ge_num&nbsp;x.(2)&nbsp;num_1024&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;an&nbsp;acceptable&nbsp;number&nbsp;in&nbsp;Sci.integer_part_1024."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Num</span>.lt_num&nbsp;x.(2)&nbsp;num_0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;sci_0<br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factor&nbsp;=&nbsp;<span class="constructor">Num</span>.power_num&nbsp;num_2&nbsp;x.(2)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;factor&nbsp;x.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;factor&nbsp;x.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format_1024&nbsp;[|&nbsp;<span class="constructor">Num</span>.integer_num&nbsp;xx&nbsp;;&nbsp;<span class="constructor">Num</span>.integer_num&nbsp;yy&nbsp;;&nbsp;num_0&nbsp;|]<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

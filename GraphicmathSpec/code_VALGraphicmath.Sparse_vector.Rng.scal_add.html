@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_vector.Rng.scal_add</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;scal_add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(y:coeff)&nbsp;((&nbsp;d&nbsp;,&nbsp;v&nbsp;):t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">H</span>.map&nbsp;(&nbsp;<span class="constructor">Coeff</span>.add&nbsp;y&nbsp;)&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;(&nbsp;<span class="constructor">Index</span>.copy&nbsp;d&nbsp;,&nbsp;h&nbsp;)</code></body></html>

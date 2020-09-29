@@ -1,0 +1,1131 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;built_in_complex_to_matrix&nbsp;:&nbsp;<span class="constructor">Complex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;apply_built_in_complex_to_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Complex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Complex</span>.t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;apply_built_in_complex_float_to_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Complex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;polar_to_matrix&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;apply2_built_in_complex_to_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Complex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Complex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Complex</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_to_complex&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_to_complex&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clean_complex&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_inv_bis&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_inv_ter&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_inv&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_slow_inv&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_module&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_square_module&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_abs_max&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_abs_sum&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_real_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_imaginary_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_solve_degree_2&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_solve_degree_2&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_trace&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_real_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_imag_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complexify&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_saturate&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_real_to_complex&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_imag_to_complex&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;scal_complex&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_jordan&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_scal_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_scal_left_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_scal_right_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_scal_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_scal_left_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_norm_inf&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_norm_inf_bis&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_norm_1&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_norm_1_bis&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_norm_2&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_square_norm_2&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_to_gauss&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_inv&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_div&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_square_module&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_real_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_imaginary_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_trace&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_real_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_imag_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_complexify&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_real_to_gauss&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_imag_to_gauss&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;scal_gauss&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_jordan&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_scal_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_scal_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_scal_left_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_norm_inf&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_norm_1&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_square_norm_2&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_1&nbsp;:&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_minus_1&nbsp;:&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_0&nbsp;:&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_i&nbsp;:&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_1&nbsp;:&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_minus_1&nbsp;:&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_0&nbsp;:&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_i&nbsp;:&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_x&nbsp;:&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_x_power&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_x_a&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_x&nbsp;:&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_x_power&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_x_a&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_x&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_x_power&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_x_a&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_x&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_x_power&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_x_a&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_x&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_x_power&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_x_a&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;extract_even_part&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;extract_odd_part&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_coefficient&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_row_to_poly&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_row_to_vector&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_row_to_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_row_to_matrix_trans&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_column_to_poly&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_column_to_vector&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_column_to_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_column_to_matrix_trans&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_extract_diag_to_poly&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_contraction&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_hermitian_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;diag_complex&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_non_diagonality&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_non_diagonal_part&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_i_times&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_complex_to_matrix&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_extract_diag_to_poly&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_contraction&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_hermitian_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;diag_gauss&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_non_diagonality&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_non_diagonal_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_i_times&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;vector_gauss_to_matrix&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_deg&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_val&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_cleanup&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_normalize&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_deriv&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_plus&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_minus&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_mult&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_mult_karatsuba&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_horner_comp&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_sylvester_matrix&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_resultant&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_discriminant&nbsp;:&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_deg&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_val&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_cleanup&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_deriv&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_plus&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_minus&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_mult&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_mult_karatsuba&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_horner_comp&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_sylvester_matrix&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_resultant&nbsp;:&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_discriminant&nbsp;:&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_deg&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_val&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_cleanup&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_normalize&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_copy&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_poly_to_complex_vector&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_poly_to_complex_double_vector&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_vector_to_complex_poly&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_deriv&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_plus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_minus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_mult_karatsuba&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_sylvester_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_resultant&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_discriminant&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_deg&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_val&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_cleanup&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_copy&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_poly_to_gauss_vector&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_poly_to_gauss_double_vector&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_vector_to_gauss_poly&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_deriv&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_plus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_minus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_mult_karatsuba&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_sylvester_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_resultant&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_discriminant&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_deg&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_val&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_cleanup&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_normalize&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_copy&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_deriv&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_plus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_minus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_mult_karatsuba&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_eq_0&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_eq&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_normalize&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_deriv&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_plus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_minus&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_mult&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_mult_karatsuba&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_pow&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_finite_prod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_from_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_ranged_horner_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_brent_kung_hart_novocin_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_evaluate&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_eq_0&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_eq&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_to_complex&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_to_gauss&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_to_sci&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_to_complex&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_to_sci&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_real_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_imag_part&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_real_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_imag_part&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_real_part&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_imag_part&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_div&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_div_inc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_mod&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_gcd&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_bezout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_lcm&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_simplify&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_div_inc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_mod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_gcd&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_bezout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_lcm&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_simplify&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_div_inc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_mod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_gcd&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_bezout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_lcm&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_simplify&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_div&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_div_inc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_mod&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_gcd&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_bezout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_lcm&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_simplify&nbsp;:&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_apply_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_apply_matrix_rec&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_companion&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;leverrier_real_char_poly&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_poly_det&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_resultant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_discriminant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_real_inv&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_apply_matrix&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_int_apply_matrix_rec&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_companion&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;leverrier_int_char_poly&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_poly_det&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_resultant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_discriminant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_int_inv&nbsp;:&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_apply_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_apply_matrix_rec&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_companion&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;leverrier_complex_char_poly&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_poly_det&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_resultant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_discriminant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_inv&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_apply_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_apply_matrix_rec&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_companion&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;leverrier_gauss_char_poly&nbsp;:&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_poly_det&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_resultant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_discriminant_bis&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_inv&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sci_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sci_1024_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lento_complex_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lento_real_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_real_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;real_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_jordan_decomposition_polynomial&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;jordan_decomposition&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;newton_float_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;alternate_newton_float_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;newton_int_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;alternate_newton_int_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;newton_complex_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;alternate_newton_complex_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;newton_gauss_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;alternate_newton_gauss_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;newton_sci_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;alternate_newton_sci_binom_coeff&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_euler_transform&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_differences&nbsp;:&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_euler_sum_series&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_euler_sum_sequence&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_euler_transform&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_differences&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_euler_sum_series&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_euler_sum_sequence&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_random&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_unitary_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_herm_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_complex_anti_herm_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_unitary_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_gauss_unitary_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_herm_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_gauss_anti_herm_random&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_diago_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_householder_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_qr_decomposition&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_iteration&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_shifted_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_shifted_iteration&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_schur_decomposition&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_shifted_francis_schur_decomposition&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_shifted_francis_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_francis_spectrum_seq&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_shifted_francis_spectrum_seq&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_compensated_francis_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_compensated_shifted_francis_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_shifted_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_shifted_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_tune_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;indirect_complex_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;indirect_complex_shifted_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_compensated_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_compensated_shifted_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_compensated_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_compensated_shifted_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_compensated_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_compensated_shifted_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clean_complex_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clean_complex_shifted_spectrum&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_raw_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_complex_raw_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_tune_root_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_tune_root_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_tune_root_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_sci_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_real_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lento_poly_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lento_poly_real_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_poly_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_poly_real_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_aitken_seki_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_shanks2_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_wynn_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_brezinski_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_aitken_seki_rec_1024_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_aitken_seki_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_wynn_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_brezinski_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;poly_aitken_seki_rec_complex_tune_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;maehly_complex_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_maehly_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_sci_1024_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;maehly_sci_1024_step&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_maehly_sci_1024_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_simple_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_simple_maehly_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_direct_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_direct_sci_1024_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_simple_direct_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;naive_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_maehly_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;naive_sci_1024_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sci_1024_maehly_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_sci_1024_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_naive_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_direct_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_sci_1024_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_simple_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_direct_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;simple_direct_sci_1024_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_simple_direct_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sci_1024_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;direct_sci_1024_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_direct_complex_shifted_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sci_1024_roots&nbsp;:&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;largo_complex_roots&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_diagonalization&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;demultip&nbsp;:&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_det&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;gauss_det&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;complex_krylov_reduction&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;array&nbsp;array<br>
+<span class="keyword">end</span></code></body></html>

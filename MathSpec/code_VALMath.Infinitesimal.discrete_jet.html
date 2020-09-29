@@ -1,0 +1,13 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.discrete_jet</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_jet&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(order:int)&nbsp;(scale:float)&nbsp;(position:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Util</span>.transpose&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Matrix</span>.float_transpose&nbsp;(&nbsp;discrete_trans_jet&nbsp;methode&nbsp;order&nbsp;scale&nbsp;(&nbsp;<span class="constructor">Matrix</span>.float_transpose&nbsp;position&nbsp;)&nbsp;)&nbsp;)</code></body></html>

@@ -1,0 +1,4849 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Math.Sparse_matrix.Field.html">
+<link rel="Up" href="Math.Sparse_matrix.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Déstructurations" rel="Section" href="#3_Dstructurations">
+<link title="Opérations élémentaires" rel="Section" href="#3_Oprationslmentaires">
+<link title="Elementary operations" rel="Section" href="#3_Elementaryoperations">
+<link title="Coercitions" rel="Section" href="#3_Coercitions">
+<link title="Autres opérations" rel="Section" href="#3_Autresoprations">
+<link title="Other operations" rel="Section" href="#3_Otheroperations">
+<link title="Opérations de calcul" rel="Section" href="#3_Oprationsdecalcul">
+<link title="Calculative operations" rel="Section" href="#3_Calculativeoperations">
+<title>Math.Sparse_matrix.Rng</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Math.Sparse_matrix.html">Up</a>
+&nbsp;<a href="Math.Sparse_matrix.Field.html">Next</a>
+</div>
+<center><h1>Functor <a href="type_Math.Sparse_matrix.Rng.html">Math.Sparse_matrix.Rng</a> (<a href="code_Math.Sparse_matrix.Rng.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Rng: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Index_type.html">Math.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Math.Hash.Hash_type.html">Math.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Rng_coeff_type.html">Math.Data.Rng_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Sparse_matrix.Rng.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Index</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Index_type.html">Math.Data.Index_type</a></code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Hasher</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Hash.Hash_type with type t = Index.t</code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Coeff</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Data.Rng_coeff_type.html">Math.Data.Rng_coeff_type</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<pre><span id="TYPEindex"><span class="keyword">type</span> <code class="type"></code>index</span> = <code class="type">Index.t</code> </pre>
+
+<pre><span id="TYPEcoeff"><span class="keyword">type</span> <code class="type"></code>coeff</span> = <code class="type">Coeff.t</code> </pre>
+
+<pre><span id="TYPEelt"><span class="keyword">type</span> <code class="type"></code>elt</span> = <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> * <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code> </pre>
+
+<pre><span class="keyword">module</span> <a href="Math.Sparse_matrix.Rng.V.html">V</a>: <code class="type"><a href="Math.Sparse_vector.Rng.html">Math.Sparse_vector.Rng</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Hasher</code><code class="code">)</code><code class="code">(</code><code class="type">Coeff</code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Sparse_matrix.Rng.T.html">T</a>: <code class="type"><a href="Math.Sparse_tensor.Rng.html">Math.Sparse_tensor.Rng</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Hasher</code><code class="code">)</code><code class="code">(</code><code class="type">Coeff</code><code class="code">)</code></pre><br><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Sparse_tensor_matrix</span> <span class="keyword">of</span> <code class="type">T.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Diff_to_scal_matrix</span> <span class="keyword">of</span> <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> * T.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Diff_to_multi_scal_matrix</span> <span class="keyword">of</span> <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array * T.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Half_full_matrix</span> <span class="keyword">of</span> <code class="type">V.t array</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Diff_to_diag_matrix</span> <span class="keyword">of</span> <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array * T.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Diff_to_multi_diag_matrix</span> <span class="keyword">of</span> <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array array * T.t</code></code></td>
+
+</tr></table>
+
+<div class="info">
+A very sparse matrix is profitably represented as a sparse tensor.
+The matrices who are little different from a scalar or multi-scalar matrix are also included in the type.
+In all the preceding cases, the indices may be naturally polymorphic.
+In all the following cases, the indices are generally of type <code class="code">int</code>.
+The invertible sparse matrices are handled preferably as full vectors whose coefficients are sparse vectors.
+The matrices who differ a little from a diagonal or multi-diagonal matrix are also included in the type.
+The non square matrices of type Diff* are supposed to have more columns than rows.
+The lengths of the lines of coefficients on their own in Diff_to_diag_matrix and Diff_to_multi_diag_matrix 
+may be greater than the dimensions of the associated sparse tensor.
+<p>
+
+BEWARE : In the <code class="code"><span class="constructor">Diff_to_multi_diag</span></code> type, somme marginal coefficients of the multidiagonal are not taken into account : the second index of the multidiagonal is always (up to <code class="code"><span class="constructor">Index</span>.from_int</code> translation) the row number of the matrix.
+<p>
+
+Une matrice très creuse sera représentée avantageusement comme un tenseur creux.
+Les matrices qui diffèrent peu d'un matrice scalaire ou multi-scalaire sont aussi incluses dans le type.
+Dans tous les cas précédents, les indices peuvent être naturellement polymorphes.
+Dans les cas qui suivent, les indices sont généralement de type <code class="code">int</code>.
+Les matrices creuses inversibles sont manipulées de préférence comme des vecteurs pleins dont les coefficients sont des vecteurs creux.
+Les matrices qui diffèrent peu d'une matrice diagonale ou multidiagonale sont aussi incluses dans le type.
+Les matrics non carrées de type Diff* sont censées avoir plus de colonnes que de lignes.
+La longueur des lignes de coefficients mis à part dans Diff_to_diag_matrix et Diff_to_multi_diag_matrix 
+peuvent être supérieures aux dimensions du tenseur creux associé.
+<p>
+
+ATTENTION : Dans le type <code class="code"><span class="constructor">Diff_to_multi_diag</span></code>, certains coefficients marginaux de la multidiagonale ne sont pas pris en compte : le second indice de la multidiagonale est toujours le numéro de ligne de la matrice (à traduction <code class="code"><span class="constructor">Index</span>.from_int</code> près).<br>
+</div>
+
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.copy.html">copy</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>copy matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="3_Dstructurations"><h3>Déstructurations</h3></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALsparse_tensor_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_matrix_demakeup.html">sparse_tensor_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.t</code></pre><div class="info">
+<pre>sparse_tensor_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_scal_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_scal_matrix_demakeup.html">diff_to_scal_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> * T.t</code></pre><div class="info">
+<pre>diff_to_scal_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_scal_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_scal_matrix_demakeup.html">diff_to_multi_scal_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array * T.t</code></pre><div class="info">
+<pre>diff_to_multi_scal_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhalf_full_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.half_full_matrix_demakeup.html">half_full_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.t array</code></pre><div class="info">
+<pre>half_full_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_diag_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_diag_matrix_demakeup.html">diff_to_diag_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array * T.t</code></pre><div class="info">
+<pre>diff_to_diag_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_diag_matrix_demakeup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_diag_matrix_demakeup.html">diff_to_multi_diag_matrix_demakeup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array array * T.t</code></pre><div class="info">
+<pre>diff_to_multi_diag_matrix_demakeup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="3_Oprationslmentaires"><h3>Opérations élémentaires</h3></span>
+<span id="3_Elementaryoperations"><h3>Elementary operations</h3></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALnull"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.null.html">null</a></span> : <code class="type">T.M.index -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>null dimensions</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dimensions</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALzero"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.zero.html">zero</a></span> : <code class="type">unit -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>zero unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfilling"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.filling.html">filling</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>filling matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdetailed_filling"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.detailed_filling.html">detailed_filling</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> int array</code></pre><div class="info">
+<pre>detailed_filling matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsizes"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sizes.html">sizes</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> int * int array</code></pre><div class="info">
+<pre>sizes matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsize"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.size.html">size</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>size matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdimensions"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.dimensions.html">dimensions</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.Multi_index.t</code></pre><div class="info">
+<pre>dimensions matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcleanup"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.cleanup.html">cleanup</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>cleanup matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALresize"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.resize.html">resize</a></span> : <code class="type">int -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>resize size matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_string.html">to_string</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> string</code></pre><div class="info">
+<pre>to_string matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_matrix_of_string.html">sparse_tensor_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_tensor_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhalf_full_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.half_full_matrix_of_string.html">half_full_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>half_full_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_scal_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_scal_matrix_of_string.html">diff_to_scal_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>diff_to_scal_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_scal_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_scal_matrix_of_string.html">diff_to_multi_scal_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>diff_to_multi_scal_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_diag_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_diag_matrix_of_string.html">diff_to_diag_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>diff_to_diag_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_diag_matrix_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_diag_matrix_of_string.html">diff_to_multi_diag_matrix_of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>diff_to_multi_diag_matrix_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALof_string"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.of_string.html">of_string</a></span> : <code class="type">string -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.print.html">print</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>print matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdescription_eq_zero"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.description_eq_zero.html">description_eq_zero</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>description_eq_zero matrix</pre> This verification of nullity is superficial.
+<p>
+
+Cette vérification de nullité est superficielle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdescription_eq"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.description_eq.html">description_eq</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>description_eq matrix1 matrix2</pre> This verification of equality is superficial.
+<p>
+
+Cette vérification de nullité est superficielle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_row_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_row_extract.html">tensor_row_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.V.t</code></pre><div class="info">
+<pre>tensor_row_extract index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_column_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_column_extract.html">tensor_column_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.V.t</code></pre><div class="info">
+<pre>tensor_column_extract index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_extract.html">row_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.t</code></pre><div class="info">
+<pre>row_extract index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_extract.html">column_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.V.t</code></pre><div class="info">
+<pre>column_extract index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.extract.html">extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.coeff</code></pre><div class="info">
+<pre>extract row column matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_row_remove"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_row_remove.html">tensor_row_remove</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_row_remove index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_column_remove"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_column_remove.html">tensor_column_remove</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_column_remove index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_remove"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_remove.html">row_remove</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>row_remove index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_remove"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_remove.html">column_remove</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>column_remove index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALremove"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.remove.html">remove</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>remove row column matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_row_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_row_replace.html">tensor_row_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_row_replace vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_column_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_column_replace.html">tensor_column_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_column_replace vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_row_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.raw_row_replace.html">raw_row_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>raw_row_replace vector index matrix</pre> For the types storing diagonal values on their own,
+these ones are not taken into account in the operation.
+This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.
+Dans les types stockant des valeurs diagonales à part, celles-ci n'entrent pas en compte dans l'opération.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_column_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.raw_column_replace.html">raw_column_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>raw_column_replace vector index matrix</pre> For the types storing diagonal values on their own,
+these ones are not taken into account in the operation.
+This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.
+Dans les types stockant des valeurs diagonales à part, celles-ci n'entrent pas en compte dans l'opération.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_replace.html">row_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>row_replace vector index matrix</pre> This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_replace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_replace.html">column_replace</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>column_replace vector index matrix</pre> This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreplace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.replace.html">replace</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>replace coefficient row column matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_row_insert_add"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_row_insert_add.html">tensor_row_insert_add</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_row_insert_add vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_column_insert_add"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_column_insert_add.html">tensor_column_insert_add</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_column_insert_add vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_insert_add"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_insert_add.html">row_insert_add</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>row_insert_add vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_insert_add"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_insert_add.html">column_insert_add</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>column_insert_add vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinsert_add"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.insert_add.html">insert_add</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>insert_add coefficient row column matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_row_insert_sub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_row_insert_sub.html">tensor_row_insert_sub</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_row_insert_sub vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_column_insert_sub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_column_insert_sub.html">tensor_column_insert_sub</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_column_insert_sub vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_insert_sub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_insert_sub.html">row_insert_sub</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>row_insert_sub vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_insert_sub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_insert_sub.html">column_insert_sub</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>column_insert_sub vector index matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinsert_sub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.insert_sub.html">insert_sub</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>insert_sub coefficient row column matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_diag_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_diag_extract.html">tensor_diag_extract</a></span> : <code class="type">T.t -> Index.t * V.H.t</code></pre><div class="info">
+<pre>tensor_diag_extract tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_diag_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_diag_extract.html">sparse_diag_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_diag_extract tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_diag_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_diag_extract.html">full_diag_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.coeff array</code></pre><div class="info">
+<pre>full_diag_extract tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_diag_isolate.html">tensor_diag_isolate</a></span> : <code class="type">T.t -> T.t</code></pre><div class="info">
+<pre>tensor_diag_isolate tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diag_isolate.html">diag_isolate</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>diag_isolate matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_out_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_out_diag_isolate.html">tensor_out_diag_isolate</a></span> : <code class="type">T.t -> T.t</code></pre><div class="info">
+<pre>tensor_out_diag_isolate tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_upper_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_upper_diag_isolate.html">tensor_upper_diag_isolate</a></span> : <code class="type">T.t -> T.t</code></pre><div class="info">
+<pre>tensor_upper_diag_isolate tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_lower_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_lower_diag_isolate.html">tensor_lower_diag_isolate</a></span> : <code class="type">T.t -> T.t</code></pre><div class="info">
+<pre>tensor_lower_diag_isolate tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALout_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.out_diag_isolate.html">out_diag_isolate</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>out_diag_isolate matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALupper_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.upper_diag_isolate.html">upper_diag_isolate</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>upper_diag_isolate matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlower_diag_isolate"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.lower_diag_isolate.html">lower_diag_isolate</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>lower_diag_isolate matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="3_Coercitions"><h3>Coercitions</h3></span><br>
+<br>
+<center> </center><br>
+<br>
+These functions are not sealed.
+<p>
+
+Ces fonctions ne sont pas étanches.<br>
+<pre><span id="VALto_half_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_half_full.html">to_half_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_half_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_sparse_tensor"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_sparse_tensor.html">to_sparse_tensor</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_sparse_tensor matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mm</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_diff_to_scal"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_diff_to_scal.html">to_diff_to_scal</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_diff_to_scal matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mmm</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_diff_to_multi_scal"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_diff_to_multi_scal.html">to_diff_to_multi_scal</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_diff_to_multi_scal matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mm</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_diff_to_diag"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_diff_to_diag.html">to_diff_to_diag</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_diff_to_diag matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mm</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_diff_to_multi_diag"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_diff_to_multi_diag.html">to_diff_to_multi_diag</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_diff_to_multi_diag matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+mm</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhalf_full_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.half_full_matrix_to_full.html">half_full_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.coeff array array</code></pre><div class="info">
+<pre>half_full_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_to_full_matrix"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_to_full_matrix.html">sparse_tensor_to_full_matrix</a></span> : <code class="type">T.t -> T.M.coeff array array</code></pre><div class="info">
+<pre>sparse_tensor_to_full_matrix tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_matrix_to_full.html">sparse_tensor_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>sparse_tensor_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_scal_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_scal_matrix_to_full.html">diff_to_scal_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>diff_to_scal_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_scal_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_scal_matrix_to_full.html">diff_to_multi_scal_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>diff_to_multi_scal_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_diag_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_diag_matrix_to_full.html">diff_to_diag_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>diff_to_diag_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiff_to_multi_diag_matrix_to_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.diff_to_multi_diag_matrix_to_full.html">diff_to_multi_diag_matrix_to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>diff_to_multi_diag_matrix_to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_full"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_full.html">to_full</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.coeff array array</code></pre><div class="info">
+<pre>to_full matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_sparse"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.to_sparse.html">to_sparse</a></span> : <code class="type">int -><br>       float -><br>       V.coeff array array -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>to_sparse size threshold matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALauto_to_sparse"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.auto_to_sparse.html">auto_to_sparse</a></span> : <code class="type">float -><br>       V.coeff array array -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>auto_to_sparse threshold matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_vector_to_line_matrix"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_vector_to_line_matrix.html">sparse_vector_to_line_matrix</a></span> : <code class="type">V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_vector_to_line_matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_vector_to_square_matrix"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_vector_to_square_matrix.html">sparse_vector_to_square_matrix</a></span> : <code class="type">V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_vector_to_square_matrix vector</pre> The vector is placed in the first row.
+<p>
+
+Le vecteur est placé dans la première ligne.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_vector_to_square_matrix"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_vector_to_square_matrix.html">full_vector_to_square_matrix</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>full_vector_to_square_matrix vector</pre> The vector is placed in the first row.
+<p>
+
+Le vecteur est placé dans la première ligne.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="3_Autresoprations"><h3>Autres opérations</h3></span>
+<span id="3_Otheroperations"><h3>Other operations</h3></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALeq_zero"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.eq_zero.html">eq_zero</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>eq_zero matrix</pre> This verification of nullity is correct, provided that the dimensions be not too big.
+<p>
+
+Cette vérification de nullité est correcte, à condition que les dimensions ne soient pas trop grandes.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_transpose"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.in_place_transpose.html">in_place_transpose</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_transpose matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtranspose"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.transpose.html">transpose</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>transpose matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_vector_to_column_matrix"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_vector_to_column_matrix.html">sparse_vector_to_column_matrix</a></span> : <code class="type">V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_vector_to_column_matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_find"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.raw_find.html">raw_find</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.index</code></pre><div class="info">
+<pre>raw_find coefficient matrix</pre> If the coefficient <code class="code">x</code> is null, the search fails.
+<p>
+
+Si le coefficient <code class="code">x</code> est nul, la recherche échoue.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfind"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.find.html">find</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> T.M.index</code></pre><div class="info">
+<pre>find coefficient matrix</pre> If the coefficient <code class="code">x</code> is null, the search fails.
+<p>
+
+Si le coefficient <code class="code">x</code> est nul, la recherche échoue.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sub_row_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sub_row_iter.html">tensor_sub_row_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_sub_row_iter function index beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sub_row_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sub_row_extract.html">tensor_sub_row_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> Index.t * V.H.t</code></pre><div class="info">
+<pre>tensor_sub_row_extract index beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sub_column_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sub_column_iter.html">tensor_sub_column_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_sub_column_iter function index beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sub_column_extract"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sub_column_extract.html">tensor_sub_column_extract</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> Index.t * V.H.t</code></pre><div class="info">
+<pre>tensor_sub_column_extract index beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_hor_band_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_hor_band_iter.html">tensor_hor_band_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_hor_band_iter function beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_masked_hor_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_masked_hor_band.html">tensor_masked_hor_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_masked_hor_band beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_hor_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_hor_band.html">tensor_hor_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_hor_band beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_vert_band_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_vert_band_iter.html">tensor_vert_band_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_vert_band_iter function beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_masked_vert_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_masked_vert_band.html">tensor_masked_vert_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_masked_vert_band beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_vert_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_vert_band.html">tensor_vert_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_vert_band beginning ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_head_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_head_iter.html">tensor_head_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_head_iter function vert_ending hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_masked_head"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_masked_head.html">tensor_masked_head</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_masked_head vert_ending hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_head"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_head.html">tensor_head</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_head vert_ending hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_tail_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_tail_iter.html">tensor_tail_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_tail_iter function vert_beginning hor_beginning tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_masked_tail"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_masked_tail.html">tensor_masked_tail</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_masked_tail vert_beginning hor_beginning tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_tail"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_tail.html">tensor_tail</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_tail vert_beginning hor_beginning tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sample_iter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sample_iter.html">tensor_sample_iter</a></span> : <code class="type">(T.M.index * T.M.coeff -> unit) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> T.t -> unit</code></pre><div class="info">
+<pre>tensor_sample_iter function vert_beginning vert_ending hor_beginning hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index * T.M.coeff -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_masked_sample"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_masked_sample.html">tensor_masked_sample</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_masked_sample vert_beginning vert_ending hor_beginning hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sample"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tensor_sample.html">tensor_sample</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       T.t -> T.t</code></pre><div class="info">
+<pre>tensor_sample vert_beginning vert_ending hor_beginning hor_ending tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmasked_hor_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.masked_hor_band.html">masked_hor_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>masked_hor_band beginning ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmasked_vert_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.masked_vert_band.html">masked_vert_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>masked_vert_band beginning ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmasked_head"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.masked_head.html">masked_head</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>masked_head vert_ending hor_ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmasked_tail"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.masked_tail.html">masked_tail</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>masked_tail vert_beginning hor_beginning matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmasked_sample"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.masked_sample.html">masked_sample</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>masked_sample vert_beginning vert_ending hor_beginning hor_ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhor_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.hor_band.html">hor_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>hor_band beginning ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvert_band"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.vert_band.html">vert_band</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>vert_band beginning ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhead"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.head.html">head</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>head vert_ending hor_ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtail"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.tail.html">tail</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>tail vert_beginning hor_beginning matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsample"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sample.html">sample</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sample vert_beginning vert_ending hor_beginning hor_ending matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+vert_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hor_ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALiter"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.iter.html">iter</a></span> : <code class="type">(T.M.elt -> unit) -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>iter function matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.elt -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALrow_exchange"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.row_exchange.html">row_exchange</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>row_exchange index1 index2 matrix</pre> This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcolumn_exchange"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.column_exchange.html">column_exchange</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>column_exchange index1 index2 matrix</pre> This function is applied in place.
+<p>
+
+Cette fonction est exécutée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_map"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.in_place_map.html">in_place_map</a></span> : <code class="type">(T.M.H.weight -> T.M.H.weight) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_map function matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.H.weight -> T.M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmap"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.map.html">map</a></span> : <code class="type">(T.M.H.weight -> T.M.H.weight) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>map function matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.H.weight -> T.M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_opp"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.in_place_opp.html">in_place_opp</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_opp matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.opp.html">opp</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>opp matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALembed"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.embed.html">embed</a></span> : <code class="type">T.M.index -><br>       T.M.index -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>embed dimensions shifts matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dim</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+shifts</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_dirty_rows_list"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_dirty_rows_list.html">sparse_tensor_dirty_rows_list</a></span> : <code class="type">T.t -> T.Info.index list</code></pre><div class="info">
+<pre>sparse_tensor_dirty_rows_list tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_dirty_columns_list"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_dirty_columns_list.html">sparse_tensor_dirty_columns_list</a></span> : <code class="type">T.t -> T.Info.index list</code></pre><div class="info">
+<pre>sparse_tensor_dirty_columns_list tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_dirty_rows_array"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_dirty_rows_array.html">sparse_tensor_dirty_rows_array</a></span> : <code class="type">T.t -> T.Info.index array</code></pre><div class="info">
+<pre>sparse_tensor_dirty_rows_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_tensor_dirty_columns_array"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_tensor_dirty_columns_array.html">sparse_tensor_dirty_columns_array</a></span> : <code class="type">T.t -> T.Info.index array</code></pre><div class="info">
+<pre>sparse_tensor_dirty_columns_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">T.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="3_Oprationsdecalcul"><h3>Opérations de calcul</h3></span>
+<span id="3_Calculativeoperations"><h3>Calculative operations</h3></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALsparse_row_fold"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_row_fold.html">sparse_row_fold</a></span> : <code class="type">(<a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>        V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a>) -><br>       V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_row_fold function init matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_column_fold"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_column_fold.html">sparse_column_fold</a></span> : <code class="type">(<a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>        V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a>) -><br>       V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_column_fold function init matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_row_fold"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_row_fold.html">full_row_fold</a></span> : <code class="type">(<a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>        V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a>) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_row_fold function matrix init</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_column_fold"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_column_fold.html">full_column_fold</a></span> : <code class="type">(<a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>        V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a>) -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_column_fold function init matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_row_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_row_sum.html">sparse_row_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_row_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_column_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_column_sum.html">sparse_column_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_column_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_row_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_row_sum.html">full_row_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_row_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_column_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_column_sum.html">full_column_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_column_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_matrix_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_matrix_sum.html">sparse_matrix_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>sparse_matrix_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_matrix_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_matrix_sum.html">full_matrix_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>full_matrix_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_sparse_vector_sparse_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.matrix_sparse_vector_sparse_prod.html">matrix_sparse_vector_sparse_prod</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       V.t -> Index.t * V.H.t</code></pre><div class="info">
+<pre>matrix_sparse_vector_sparse_prod matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_full_vector_sparse_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.matrix_full_vector_sparse_prod.html">matrix_full_vector_sparse_prod</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       V.coeff array -><br>       Index.t * V.H.t</code></pre><div class="info">
+<pre>matrix_full_vector_sparse_prod matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_sparse_vector_full_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.matrix_sparse_vector_full_prod.html">matrix_sparse_vector_full_prod</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       V.t -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>matrix_sparse_vector_full_prod matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmatrix_full_vector_full_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.matrix_full_vector_full_prod.html">matrix_full_vector_full_prod</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       V.coeff array -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>matrix_full_vector_full_prod matrix vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_vector_matrix_sparse_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_vector_matrix_sparse_prod.html">sparse_vector_matrix_sparse_prod</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_vector_matrix_sparse_prod vector matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_vector_matrix_sparse_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_vector_matrix_sparse_prod.html">full_vector_matrix_sparse_prod</a></span> : <code class="type">V.coeff array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>full_vector_matrix_sparse_prod vector matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_vector_matrix_full_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_vector_matrix_full_prod.html">sparse_vector_matrix_full_prod</a></span> : <code class="type">V.t -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>sparse_vector_matrix_full_prod vector matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_vector_matrix_full_prod"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_vector_matrix_full_prod.html">full_vector_matrix_full_prod</a></span> : <code class="type">V.coeff array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_vector_matrix_full_prod vector matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+v</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_row_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_row_max.html">sparse_row_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_row_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_column_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_column_max.html">sparse_column_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_column_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_row_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_row_max.html">full_row_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_row_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_column_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_column_max.html">full_column_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_column_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_matrix_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_matrix_max.html">sparse_matrix_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.H.weight</code></pre><div class="info">
+<pre>sparse_matrix_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_matrix_max"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_matrix_max.html">full_matrix_max</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>full_matrix_max matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_row_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_row_min.html">sparse_row_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_row_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_column_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_column_min.html">sparse_column_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Index.t * V.H.t</code></pre><div class="info">
+<pre>sparse_column_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_row_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_row_min.html">full_row_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_row_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_column_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_column_min.html">full_column_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array</code></pre><div class="info">
+<pre>full_column_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_matrix_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_matrix_min.html">sparse_matrix_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> V.H.weight</code></pre><div class="info">
+<pre>sparse_matrix_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_matrix_min"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_matrix_min.html">full_matrix_min</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>full_matrix_min matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_inf"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.norm_inf.html">norm_inf</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>norm_inf matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_1"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.norm_1.html">norm_1</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>norm_1 matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsquare_norm_frobenius"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.square_norm_frobenius.html">square_norm_frobenius</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>square_norm_frobenius matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_sum"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.norm_sum.html">norm_sum</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>norm_sum matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_trace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_trace.html">sparse_trace</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>sparse_trace matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_trace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_trace.html">full_trace</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>full_trace matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtrace"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.trace.html">trace</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>trace matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.scal_mult.html">scal_mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>scal_mult coefficient matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadd"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.add.html">add</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>add matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sub.html">sub</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sub matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.eq.html">eq</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>eq matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtwisted_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.twisted_mult.html">twisted_mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>twisted_mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.mult.html">mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_full_twisted_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_full_twisted_mult.html">sparse_full_twisted_mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       V.coeff array array -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_full_twisted_mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsparse_full_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.sparse_full_mult.html">sparse_full_mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array array -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sparse_full_mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEcoeff">coeff</a> array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_sparse_twisted_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_sparse_twisted_mult.html">full_sparse_twisted_mult</a></span> : <code class="type">V.coeff array array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>full_sparse_twisted_mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfull_sparse_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.full_sparse_mult.html">full_sparse_mult</a></span> : <code class="type">V.coeff array array -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>full_sparse_mult matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">V.coeff array array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriple_mult"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.triple_mult.html">triple_mult</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>triple_mult matrix1 matrix2 matrix3</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcommut"><span class="keyword">val</span> <a href="code_VALMath.Sparse_matrix.Rng.commut.html">commut</a></span> : <code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -><br>       <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a> -> <a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>commut matrix1 matrix2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Math.Sparse_matrix.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

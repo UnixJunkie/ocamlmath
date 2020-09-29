@@ -1,0 +1,31 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sci.direct_sin_1024</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;direct_sin_1024&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;ref&nbsp;(&nbsp;complex_of_sci&nbsp;x&nbsp;).(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;x2&nbsp;=&nbsp;(&nbsp;mult&nbsp;x&nbsp;x)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;shift&nbsp;=&nbsp;ref&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;num_1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;ref&nbsp;num_1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;gauge&nbsp;=&nbsp;ref&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!gauge&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.incr_num&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;d&nbsp;:=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!d&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;shift&nbsp;:=&nbsp;mult&nbsp;x2&nbsp;!shift&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.incr_num&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;d&nbsp;:=&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;!d&nbsp;(&nbsp;<span class="constructor">Num</span>.minus_num&nbsp;!i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;shift&nbsp;:=&nbsp;div_1024&nbsp;!shift&nbsp;(&nbsp;sci_of_num&nbsp;!d&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;xx&nbsp;:=&nbsp;(&nbsp;complex_of_sci&nbsp;[|&nbsp;!shift.(0)&nbsp;;&nbsp;!shift.(1)&nbsp;;&nbsp;<span class="constructor">Num</span>.add_num&nbsp;num_3&nbsp;!shift.(2)&nbsp;|]&nbsp;).(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;gauge&nbsp;:=&nbsp;compare&nbsp;(&nbsp;(&nbsp;abs_float&nbsp;!xx.(0)&nbsp;)&nbsp;+.&nbsp;(&nbsp;abs_float&nbsp;!xx.(1)&nbsp;)&nbsp;)&nbsp;min_float&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;plus_1024&nbsp;!result&nbsp;!shift&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!result</code></body></html>

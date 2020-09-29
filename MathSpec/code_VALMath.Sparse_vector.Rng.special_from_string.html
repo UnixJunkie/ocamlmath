@@ -1,0 +1,37 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_vector.Rng.special_from_string</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;special_from_string&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(dim_sep:char)&nbsp;(beginning:string)&nbsp;(separator:string)&nbsp;(ending:string)&nbsp;(size:int)&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;beginning&nbsp;)&nbsp;+&nbsp;1&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;ending&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;boundary&nbsp;separator&nbsp;st&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lst&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;st&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;str&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;st&nbsp;boundary&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;lst&nbsp;-&nbsp;2&nbsp;*&nbsp;boundary&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Str</span>.split&nbsp;(&nbsp;<span class="constructor">Str</span>.regexp_string&nbsp;separator&nbsp;)&nbsp;str<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;separation&nbsp;=&nbsp;<span class="constructor">String</span>.index&nbsp;s&nbsp;dim_sep&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dimension&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;s&nbsp;0&nbsp;separation<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;sep&nbsp;=&nbsp;succ&nbsp;separation&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;content&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;s&nbsp;sep&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;s&nbsp;)&nbsp;-&nbsp;sep&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;listing&nbsp;=&nbsp;f&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;beginning&nbsp;)&nbsp;(&nbsp;ending&nbsp;^&nbsp;beginning&nbsp;)&nbsp;content<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;st&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;f&nbsp;0&nbsp;separator&nbsp;st&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;head&nbsp;::&nbsp;tail&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.of_string&nbsp;head&nbsp;,&nbsp;<span class="constructor">Coeff</span>.of_string&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;tail&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;string&nbsp;in&nbsp;Sparse.Rng_vector.of_string."</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">H</span>.of_list&nbsp;size&nbsp;(&nbsp;<span class="constructor">List</span>.rev_map&nbsp;g&nbsp;listing&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="constructor">Index</span>.of_string&nbsp;dimension&nbsp;,&nbsp;h&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;null&nbsp;(&nbsp;<span class="constructor">Index</span>.of_string&nbsp;dimension&nbsp;)</code></body></html>

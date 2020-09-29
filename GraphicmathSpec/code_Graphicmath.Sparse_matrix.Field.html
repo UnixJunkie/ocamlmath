@@ -1,0 +1,960 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_matrix.Field</title>
+</head>
+<body>
+<code class="code">(<span class="constructor">Index</span>:<span class="constructor">Data</span>.<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Hasher</span>:<span class="constructor">Hash</span>.<span class="constructor">Hash_type</span>&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t)&nbsp;(<span class="constructor">Coeff</span>:<span class="constructor">Data</span>.<span class="constructor">Field_coeff_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<span class="keyword">include</span>&nbsp;<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">U</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">S</span>&nbsp;=&nbsp;<span class="constructor">Sparse_tensor</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The coefficient two is used at different places for matrix calculations.
+<p>
+
+Le coefficient deux est utilisé à différents endroits pour les calculs matriciels. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;coeff_two&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Coeff</span>.add&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;);;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The coefficient one half is used at different places for matrix calculations.
+The characteristic of the field is supposed to be different from two.
+<p>
+
+Le coefficient un demi est utilisé à différents endroits pour les calculs matriciels.
+On suppose que la caractéristique du corps est différente de deux. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;coeff_half&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Coeff</span>.inv&nbsp;(&nbsp;coeff_two&nbsp;()&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_left_div scalar matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;scal_mult&nbsp;(&nbsp;<span class="constructor">Coeff</span>.inv&nbsp;x&nbsp;)&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>reciprocal matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;reciprocal&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;scal_left_div&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_inject&nbsp;(&nbsp;square_norm_frobenius&nbsp;m&nbsp;)&nbsp;)&nbsp;m&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sym matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sym&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;scal_mult&nbsp;(&nbsp;coeff_half&nbsp;()&nbsp;)&nbsp;(&nbsp;add&nbsp;m&nbsp;(&nbsp;transpose&nbsp;m&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>antisym matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;antisym&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;scal_mult&nbsp;(&nbsp;coeff_half&nbsp;()&nbsp;)&nbsp;(&nbsp;sub&nbsp;m&nbsp;(&nbsp;transpose&nbsp;m&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Non&nbsp;invertible&nbsp;left&nbsp;matrix&nbsp;in&nbsp;Sparse_matrix.Field.in_place_pivot_downward."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dip&nbsp;=&nbsp;dimensions&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip0&nbsp;=&nbsp;dip.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip1&nbsp;=&nbsp;dip.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ii&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dip0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;col&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!ii<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;dim0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;=&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!ii&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col&nbsp;:=&nbsp;column_extract&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;j&nbsp;!ii&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.iter&nbsp;f&nbsp;!col&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!ii&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!ii&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col&nbsp;:=&nbsp;column_extract&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!ii&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_right&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_right&nbsp;!ii&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;j&nbsp;!ii&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;x&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_right&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;x&nbsp;!substraction_row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_right&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.iter&nbsp;g&nbsp;!col&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>invertibility matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;invertibility&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;hh&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ii&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;col&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!ii<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;dim0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;=&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!ii&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col&nbsp;:=&nbsp;column_extract&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;j&nbsp;!ii&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.iter&nbsp;f&nbsp;!col&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"The&nbsp;end."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!ii&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!ii&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;h&nbsp;=&nbsp;!i&nbsp;+&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hh&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;!hh&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;!hh&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">false</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>det matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;det&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;hh&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ii&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;col&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!ii<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;dim0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&lt;=&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!ii&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col&nbsp;:=&nbsp;column_extract&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;j&nbsp;!ii&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.iter&nbsp;f&nbsp;!col&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"The&nbsp;end."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!ii&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.mult&nbsp;!result&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!ii&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!ii&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;h&nbsp;=&nbsp;!i&nbsp;+&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;rr&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hh&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;!hh&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;!hh&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_pivot_upward matrix1 matrix2</pre> The left matrix is supposed to be upper triangular with 
+ones on the diagonal.
+<p>
+
+La matrice de gauche est supposée triangulaire supérieure avec des uns sur la diagonale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dip&nbsp;=&nbsp;dimensions&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;hh&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip0&nbsp;=&nbsp;dip.(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip1&nbsp;=&nbsp;dip.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dip0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;col&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Index</span>.to_int&nbsp;dim0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;rr&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!i&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii&nbsp;:=&nbsp;<span class="constructor">Index</span>.from_int&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;row_extract&nbsp;!ii&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col&nbsp;:=&nbsp;column_extract&nbsp;!ii&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;j&nbsp;!ii&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;!hh&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;x&nbsp;!row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!ii&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;!hh&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;row_extract&nbsp;!hh&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_right&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;x&nbsp;!row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_right&nbsp;!hh&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.iter&nbsp;g&nbsp;!col&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decr&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>pivot_upward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inv matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;,&nbsp;<span class="constructor">T</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;dimensions&nbsp;m&nbsp;).(0)&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;p&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>left_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;left_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;in_place_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;pp&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>right_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;right_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;transpose&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;transpose&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_pivot_downward&nbsp;pp&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;in_place_pivot_upward&nbsp;pp&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;transpose&nbsp;mm&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>cond norm invertor matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;cond&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;norm&nbsp;invertor&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Coeff</span>.norm_mult&nbsp;(&nbsp;norm&nbsp;m&nbsp;)&nbsp;(&nbsp;norm&nbsp;(&nbsp;invertor&nbsp;m&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>naive_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;naive_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;inv&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_sparse_vector_sparse_prod&nbsp;mm&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;sparse_vector_to_column_matrix&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;column_extract&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)&nbsp;(&nbsp;left_quotient&nbsp;m&nbsp;p&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>full_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;full_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:coeff&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;to_sparse&nbsp;(&nbsp;-1&nbsp;)&nbsp;1.&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;1&nbsp;)&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.(0)&nbsp;)&nbsp;(&nbsp;to_full&nbsp;(&nbsp;left_quotient&nbsp;m&nbsp;p&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tune_inv matrix inverse_candidate</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tune_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(y:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;two&nbsp;=&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;coeff_two&nbsp;()&nbsp;,&nbsp;<span class="constructor">S</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;dimensions&nbsp;x&nbsp;).(0)&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;right_product&nbsp;=&nbsp;mult&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;difference&nbsp;=&nbsp;sub&nbsp;two&nbsp;right_product&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;mult&nbsp;y&nbsp;difference&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>approx_inv distance invertor matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;approx_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;distance&nbsp;invertor&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;invertor&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;product&nbsp;=&nbsp;mult&nbsp;x&nbsp;y<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;identity&nbsp;=&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;,&nbsp;<span class="constructor">T</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;dimensions&nbsp;x&nbsp;).(0)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;tune_inv&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;error0&nbsp;=&nbsp;distance&nbsp;(&nbsp;sub&nbsp;product&nbsp;identity&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;new_product&nbsp;=&nbsp;mult&nbsp;x&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;error1&nbsp;=&nbsp;distance&nbsp;(&nbsp;sub&nbsp;new_product&nbsp;identity&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;error1&nbsp;error0&nbsp;&gt;=0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;y&nbsp;,&nbsp;error0&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;result&nbsp;,&nbsp;error1&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extrap_inv parameter matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extrap_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(parameter:<span class="constructor">Coeff</span>.t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;inv&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;yy&nbsp;=&nbsp;tune_inv&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;add&nbsp;yy&nbsp;(&nbsp;scal_mult&nbsp;parameter&nbsp;(&nbsp;sub&nbsp;yy&nbsp;y&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>approx_solve distance matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;approx_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;distance&nbsp;(m:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;approx_inv&nbsp;distance&nbsp;inv&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_sparse_vector_sparse_prod&nbsp;(&nbsp;fst&nbsp;mm&nbsp;)&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>approx_full_solve distance matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;approx_full_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;distance&nbsp;(m:t)&nbsp;(v:coeff&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;approx_inv&nbsp;distance&nbsp;inv&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_full_vector_sparse_prod&nbsp;(&nbsp;fst&nbsp;mm&nbsp;)&nbsp;v&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>iterate exponent matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;iterate&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_sparse_vector_sparse_prod&nbsp;x&nbsp;!y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;fst&nbsp;(&nbsp;approx_inv&nbsp;norm_inf&nbsp;inv&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;(&nbsp;abs&nbsp;s&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_sparse_vector_sparse_prod&nbsp;xx&nbsp;!y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;!y&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>int_pow exponent matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;int_pow&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;,&nbsp;<span class="constructor">T</span>.null&nbsp;(&nbsp;dimensions&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;s&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factor&nbsp;=&nbsp;int_pow&nbsp;n&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;prod&nbsp;=&nbsp;mult&nbsp;factor&nbsp;factor&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;<span class="keyword">mod</span>&nbsp;2&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mult&nbsp;prod&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;int_pow&nbsp;(&nbsp;abs&nbsp;s&nbsp;)&nbsp;(&nbsp;fst&nbsp;(&nbsp;approx_inv&nbsp;norm_inf&nbsp;inv&nbsp;x&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>find_first_pivot_downward tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;find_first_pivot_downward&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:<span class="constructor">S</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i0&nbsp;=&nbsp;i.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;i1&nbsp;=&nbsp;i.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index0&nbsp;=&nbsp;!index.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index1&nbsp;=&nbsp;!index.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i0&nbsp;i1&nbsp;&gt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;index1&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i1&nbsp;index1&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i1&nbsp;index1&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i0&nbsp;index0&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">S</span>.iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;(&nbsp;!index&nbsp;,&nbsp;!coeff&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>find_first_pivot_upward tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;find_first_pivot_upward&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:<span class="constructor">S</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i0&nbsp;=&nbsp;i.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;i1&nbsp;=&nbsp;i.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index0&nbsp;=&nbsp;!index.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index1&nbsp;=&nbsp;!index.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i0&nbsp;i1&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;index1&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i1&nbsp;index1&nbsp;&gt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i1&nbsp;index1&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;i0&nbsp;index0&nbsp;&gt;&nbsp;0&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">S</span>.iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;(&nbsp;!index&nbsp;,&nbsp;!coeff&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_diff_to_id_pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_diff_to_id_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_string&nbsp;=&nbsp;<span class="string">"The&nbsp;first&nbsp;argument&nbsp;must&nbsp;be&nbsp;Diff_to_scal_matrix&nbsp;(&nbsp;Coeff.one&nbsp;,&nbsp;sparse_tensor&nbsp;)&nbsp;in&nbsp;Sparse_matrix.Field.diff_to_id_pivot_downward."</span><br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Non&nbsp;invertible&nbsp;left&nbsp;matrix&nbsp;in&nbsp;Sparse_matrix.Field.in_place_diff_to_id_pivot_downward"</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_one&nbsp;x&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pivot&nbsp;=&nbsp;ref&nbsp;(&nbsp;find_first_pivot_downward&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip&nbsp;=&nbsp;dimensions&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip1&nbsp;=&nbsp;dip.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dip.(0)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;si&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;<span class="constructor">Index</span>.pred&nbsp;dim0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cc&nbsp;=&nbsp;<span class="constructor">Index</span>.pred&nbsp;dim1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!i&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!i&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;f&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!i&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_right&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_right&nbsp;!i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">U</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;<span class="constructor">U</span>.sub&nbsp;!row_output_right&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_right&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;g&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pivot&nbsp;:=&nbsp;find_first_pivot_downward&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;si&nbsp;:=&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;j0&nbsp;j.(1)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coefficient&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.inv&nbsp;!coefficient&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;tensor_sub_row_extract&nbsp;j0&nbsp;(&nbsp;<span class="constructor">Index</span>.succ&nbsp;j0&nbsp;)&nbsp;cc&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_mult&nbsp;!coeff&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_row_replace&nbsp;!row_output_left&nbsp;j0&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_mult&nbsp;!coeff&nbsp;!row_output_right&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_right&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">S</span>.iter&nbsp;ff&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_string<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;error_string&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_pivot_downward matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_pivot_downward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_invertibility matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_invertibility&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(mm:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;copy&nbsp;mm<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;mm<br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_string&nbsp;=&nbsp;<span class="string">"The&nbsp;argument&nbsp;must&nbsp;be&nbsp;Diff_to_scal_matrix&nbsp;(&nbsp;Coeff.one&nbsp;,&nbsp;sparse_tensor&nbsp;)&nbsp;in&nbsp;Sparse_matrix.Field.diff_to_id_invertibility."</span><br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Not&nbsp;invertible."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_one&nbsp;x&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pivot&nbsp;=&nbsp;ref&nbsp;(&nbsp;find_first_pivot_downward&nbsp;w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;si&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;<span class="constructor">Index</span>.pred&nbsp;dim0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!i&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!i&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;f&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="keyword">false</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!i&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">U</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;g&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pivot&nbsp;:=&nbsp;find_first_pivot_downward&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;si&nbsp;:=&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;j0&nbsp;j.(1)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coefficient&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">S</span>.iter&nbsp;ff&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_string<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;error_string&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_det matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_det&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(mm:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;copy&nbsp;mm<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;mm<br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_string&nbsp;=&nbsp;<span class="string">"The&nbsp;argument&nbsp;must&nbsp;be&nbsp;Diff_to_scal_matrix&nbsp;(&nbsp;Coeff.one&nbsp;,&nbsp;sparse_tensor&nbsp;)&nbsp;in&nbsp;Sparse_matrix.Field.diff_to_id_det."</span><br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Not&nbsp;invertible."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_one&nbsp;x&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pivot&nbsp;=&nbsp;ref&nbsp;(&nbsp;find_first_pivot_downward&nbsp;w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;norm_coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;si&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;substraction_row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;<span class="constructor">Index</span>.pred&nbsp;dim0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;!i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!i&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;extract&nbsp;!i&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nx&nbsp;=&nbsp;<span class="constructor">Coeff</span>.norm&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;nx&nbsp;!norm_coeff&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;norm_coeff&nbsp;:=&nbsp;nx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;j.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;f&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coeff&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.mult&nbsp;!result&nbsp;!coeff&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!index&nbsp;!i&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_exchange&nbsp;!index&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substraction_row_left&nbsp;:=&nbsp;<span class="constructor">U</span>.scal_left_div&nbsp;!coeff&nbsp;!row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.replace&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;!i&nbsp;!substraction_row_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!substraction_row_left&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">U</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!substraction_row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;g&nbsp;!i&nbsp;!si&nbsp;rr&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pivot&nbsp;:=&nbsp;find_first_pivot_downward&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;si&nbsp;:=&nbsp;<span class="constructor">Index</span>.succ&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;j0&nbsp;j.(1)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;!coefficient&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.mult&nbsp;!result&nbsp;!coefficient&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">S</span>.iter&nbsp;ff&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_string<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;error_string&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_diff_to_id_pivot_upward matrix1 matrix2</pre> The left matrix is supposed to be 
+upper triangular with ones on the diagonal.
+<p>
+
+La matrice de gauche est supposée triangulaire supérieure avec des uns sur la diagonale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_diff_to_id_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;dimensions&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;error_string&nbsp;=&nbsp;<span class="string">"The&nbsp;first&nbsp;argument&nbsp;must&nbsp;be&nbsp;Diff_to_scal_matrix&nbsp;(&nbsp;Coeff.one&nbsp;,&nbsp;sparse_tensor&nbsp;)&nbsp;in&nbsp;Sparse_matrix.Field.diff_to_id_pivot_upward."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Coeff</span>.eq_one&nbsp;x&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pivot&nbsp;=&nbsp;ref&nbsp;(&nbsp;find_first_pivot_upward&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Index</span>.zero&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip&nbsp;=&nbsp;dimensions&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim0&nbsp;=&nbsp;dim.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dim1&nbsp;=&nbsp;dim.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip0&nbsp;=&nbsp;dip.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dip1&nbsp;=&nbsp;dip.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dim1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;dim0&nbsp;dip0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dim1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">U</span>.null&nbsp;dip1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pi&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Index</span>.pred&nbsp;!i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;!i&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_left&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;row_extract&nbsp;!i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;j0&nbsp;=&nbsp;j.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coefficient&nbsp;:=&nbsp;<span class="constructor">U</span>.raw_extract&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_left&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!row_left&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">U</span>.remove&nbsp;!i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_left&nbsp;j0&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;row_extract&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;<span class="constructor">V</span>.sub&nbsp;!row_output_right&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;!coefficient&nbsp;!row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_replace&nbsp;!row_output_right&nbsp;j0&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tensor_sub_column_iter&nbsp;g&nbsp;!i&nbsp;z&nbsp;!pi&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pivot&nbsp;:=&nbsp;find_first_pivot_downward&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;:=&nbsp;(&nbsp;fst&nbsp;!pivot&nbsp;).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pi&nbsp;:=&nbsp;<span class="constructor">Index</span>.pred&nbsp;!i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_string<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;error_string&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_pivot_upward matrix1 matrix2</pre> The left matrix is supposed to be 
+upper triangular with ones on the diagonal.
+<p>
+
+La matrice de gauche est supposée triangulaire supérieure avec des uns sur la diagonale. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;[|&nbsp;mm&nbsp;;&nbsp;pp&nbsp;|]&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_inv matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;,&nbsp;<span class="constructor">T</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;dimensions&nbsp;m&nbsp;).(0)&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_downward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_upward&nbsp;mm&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;p&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_left_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_left_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;copy&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;copy&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_downward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_upward&nbsp;mm&nbsp;pp&nbsp;;<br>
+&nbsp;&nbsp;pp&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_right_quotient matrix1 matrix2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_right_quotient&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(p:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;transpose&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;transpose&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_downward&nbsp;pp&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;in_place_diff_to_id_pivot_upward&nbsp;pp&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;transpose&nbsp;mm&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;sparse_vector_to_column_matrix&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;column_extract&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)&nbsp;(&nbsp;diff_to_id_left_quotient&nbsp;m&nbsp;p&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_full_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_full_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:coeff&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;to_sparse&nbsp;(&nbsp;-1&nbsp;)&nbsp;1.&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;1&nbsp;)&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.(0)&nbsp;)&nbsp;(&nbsp;to_full&nbsp;(&nbsp;diff_to_id_left_quotient&nbsp;m&nbsp;p&nbsp;)&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_tune_inv matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_tune_inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;tune_inv&nbsp;m&nbsp;(&nbsp;diff_to_id_inv&nbsp;m&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_tune_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_tune_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;tune_inv&nbsp;m&nbsp;(&nbsp;diff_to_id_inv&nbsp;m&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_sparse_vector_sparse_prod&nbsp;mm&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_tune_full_solve matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_tune_full_solve&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:t)&nbsp;(v:coeff&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;diff_to_id_tune_inv&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_full_vector_sparse_prod&nbsp;mm&nbsp;v&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_iterate exponent matrix vector</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff_to_id_iterate&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:t)&nbsp;(v:<span class="constructor">U</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;ref&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_sparse_vector_sparse_prod&nbsp;x&nbsp;!y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;diff_to_id_tune_inv&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;(&nbsp;abs&nbsp;s&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;:=&nbsp;matrix_sparse_vector_sparse_prod&nbsp;xx&nbsp;!y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;!y&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff_to_id_int_pow exponent matrix</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;diff_to_id_int_pow&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s:int)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Diff_to_scal_matrix</span>&nbsp;(&nbsp;<span class="constructor">Coeff</span>.one&nbsp;()&nbsp;,&nbsp;<span class="constructor">T</span>.null&nbsp;(&nbsp;dimensions&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;s&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factor&nbsp;=&nbsp;int_pow&nbsp;n&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;prod&nbsp;=&nbsp;mult&nbsp;factor&nbsp;factor&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;<span class="keyword">mod</span>&nbsp;2&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mult&nbsp;prod&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;int_pow&nbsp;(&nbsp;abs&nbsp;s&nbsp;)&nbsp;(&nbsp;diff_to_id_tune_inv&nbsp;x&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

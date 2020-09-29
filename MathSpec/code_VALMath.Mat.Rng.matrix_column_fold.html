@@ -1,0 +1,36 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Rng.matrix_column_fold</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_column_fold&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:coeff&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;coeff)&nbsp;(init:vector)&nbsp;(m:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;array_null&nbsp;c&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;c&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x.(i)&nbsp;&lt;-&nbsp;f&nbsp;(&nbsp;vector_extract&nbsp;i&nbsp;init&nbsp;)&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;m&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Full_vector</span>&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;init&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;initial&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;initialization&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;initialization&nbsp;(&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;(&nbsp;<span class="constructor">M</span>.sparse_column_fold&nbsp;ff&nbsp;initial&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;initial&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;initialization&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;initialization&nbsp;(&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Full_vector</span>&nbsp;(&nbsp;<span class="constructor">M</span>.full_column_fold&nbsp;ff&nbsp;initial&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

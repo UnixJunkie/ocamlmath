@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Sparse_tensor.html">
+<link rel="next" href="Math.Mat.html">
+<link rel="Up" href="Math.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<link title="Matrices creuses à coefficients dans un annau commutatif" rel="Subsection" href="#2_Matricescreusescoefficientsdansunannaucommutatif">
+<link title="Sparse matrices with coefficients in a commiutative Rng" rel="Subsection" href="#2_SparsematriceswithcoefficientsinacommiutativeRng">
+<title>Math.Sparse_matrix</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Sparse_tensor.html">Previous</a>
+&nbsp;<a href="Math.html">Up</a>
+&nbsp;<a href="Math.Mat.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Math.Sparse_matrix.html">Math.Sparse_matrix</a> (<a href="code_Math.Sparse_matrix.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Sparse_matrix: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Sparse_matrix.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module functors to handle
+sparse matrices with coefficients in a commutative rng or a field.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Dimensions are often unreachable in a sparse tensor as soon as it is null (excepted sometimes for the first variable). 
+Since sparse matrices are modelled on sparse tensors, the problem is present too for null sparse amtrices, 
+and a null sparse matrix is sometimes supposed to be square.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+A function is <em>sealed</em> if there is no sharing between the input variables and the output value.
+This is the expected behavior of usual mathematical functions.
+The recursive programming of polymorphic functions is easier in a <em>non sealed</em> way.
+Some copy functions are provided for every type of data.
+They are sealed provided that they receive as argument elementary copy functions for coefficients and indices.
+By composition, they permit to seal all functions necessary.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des focnteurs pour traiter
+les matrices creuses à coefficients dans un annau commutatif ou un corps.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les dimensions d'un tenseur creux sont souvent inaccessibles (sauf parfois pour la première variable) dès qu'il est nul.
+Puisque les matrices creuses sont modelées sur les tenseurs creux, le problème se pose aussi pour les matrices creuses nulles, 
+et une matrice creuse nulle est parfois supposée carrée.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Une fonction est <em>étanche</em> quand il n'y a aucun partage entre les variables fournies en entrée et la valeur obtenue en sortie.
+C'est le comportement attendu des fonctions mathématiques habituelles. 
+La programmation récursive des fonctions polymorphes est plus facile de manière <em>non étanche</em>.
+Des fonctions de recopie sont fournies pour tous les types de données. 
+Elles sont étanches à condition de leur fournir en argument des fonctions élémentaires de recopie des coefficients et des indices. 
+Par composition, elle permettent d'étanchéifier toutes les fonctions voulues.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="2_Matricescreusescoefficientsdansunannaucommutatif"><h2>Matrices creuses à coefficients dans un annau commutatif</h2></span>
+<span id="2_SparsematriceswithcoefficientsinacommiutativeRng"><h2>Sparse matrices with coefficients in a commiutative Rng</h2></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Math.Sparse_matrix.Rng.html">Rng</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Index_type.html">Math.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Math.Hash.Hash_type.html">Math.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Rng_coeff_type.html">Math.Data.Rng_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Sparse_matrix.Rng.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><pre><span class="keyword">module</span> <a href="Math.Sparse_matrix.Field.html">Field</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Index_type.html">Math.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Math.Hash.Hash_type.html">Math.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Field_coeff_type.html">Math.Data.Field_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Sparse_matrix.Field.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><br>
+<center>§ § § </center><br>
+</body></html>

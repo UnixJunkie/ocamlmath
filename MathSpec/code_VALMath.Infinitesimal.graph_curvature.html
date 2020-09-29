@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.graph_curvature</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;graph_curvature&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;methode&nbsp;f&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;methode&nbsp;g<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;g&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;h&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;u&nbsp;=&nbsp;1.&nbsp;+.&nbsp;y&nbsp;*.&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;sqrt&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z&nbsp;/.&nbsp;(u&nbsp;*.&nbsp;v&nbsp;)</code></body></html>

@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.vector_ioa_minus</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;vector_ioa_minus&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(v:int_or_array)&nbsp;(vv:int_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_ioa_opp&nbsp;vv<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_ioa_scal_right_sub&nbsp;x&nbsp;vv<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_vector_cons</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;vv&nbsp;<span class="keyword">with</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;&nbsp;vector_ioa_scal_left_sub&nbsp;y&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_vector_cons</span>&nbsp;uu&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Int_vector_cons</span>&nbsp;(&nbsp;vector_int_minus&nbsp;u&nbsp;uu&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;an&nbsp;int_or_array&nbsp;vector&nbsp;of&nbsp;thickness&nbsp;0&nbsp;in&nbsp;Matrix.vector_ioa_minus."</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;vv&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Int_cons</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_ioa_scal_left_sub&nbsp;y&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;ww&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vvv&nbsp;=&nbsp;ref&nbsp;(<span class="constructor">Array</span>.make&nbsp;r&nbsp;w.(0))&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!vvv.(i)&nbsp;&lt;-&nbsp;vector_ioa_minus&nbsp;w.(i)&nbsp;ww.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_vector_cons</span>&nbsp;!vvv&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;an&nbsp;int_or_array&nbsp;vector&nbsp;of&nbsp;same&nbsp;thickness&nbsp;in&nbsp;Matrix.vector_ioa_minus."</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;an&nbsp;int_or_array&nbsp;vector&nbsp;in&nbsp;Matrix.vector_ioa_minus."</span></code></body></html>

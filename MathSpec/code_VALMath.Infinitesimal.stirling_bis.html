@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.stirling_bis</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;stirling_bis&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;sqrt&nbsp;(&nbsp;doublepi&nbsp;*.&nbsp;x&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;b&nbsp;=&nbsp;x&nbsp;*.&nbsp;(&nbsp;(&nbsp;log&nbsp;x&nbsp;)&nbsp;-.&nbsp;1.&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;1.&nbsp;/.&nbsp;(&nbsp;12.&nbsp;*.&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;1.&nbsp;+.&nbsp;y&nbsp;*.&nbsp;(&nbsp;1.&nbsp;+.&nbsp;y&nbsp;*.&nbsp;(&nbsp;0.5&nbsp;-.&nbsp;y&nbsp;*.&nbsp;(&nbsp;139.&nbsp;+.&nbsp;y&nbsp;*.&nbsp;571.&nbsp;/.&nbsp;4.&nbsp;)&nbsp;/.&nbsp;30.&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;a&nbsp;*.&nbsp;c&nbsp;*.&nbsp;exp&nbsp;b</code></body></html>

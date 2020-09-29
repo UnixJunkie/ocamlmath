@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.float_richardson_deriv</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;float_richardson_deriv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(radix:float)&nbsp;(degree:int)&nbsp;(step:float)&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;degree&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float_approx_deriv&nbsp;step&nbsp;f&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;radix&nbsp;*.&nbsp;radix&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;(&nbsp;coeff&nbsp;*.&nbsp;f&nbsp;(&nbsp;x&nbsp;+.&nbsp;step&nbsp;/.&nbsp;radix&nbsp;)&nbsp;+.&nbsp;(&nbsp;1.&nbsp;-.&nbsp;coeff&nbsp;)&nbsp;*.&nbsp;(&nbsp;f&nbsp;x&nbsp;)&nbsp;-.&nbsp;f&nbsp;(&nbsp;x&nbsp;+.&nbsp;step&nbsp;)&nbsp;)&nbsp;/.&nbsp;(&nbsp;step&nbsp;*.&nbsp;(&nbsp;radix&nbsp;-.&nbsp;1.&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;radix&nbsp;**&nbsp;(&nbsp;float&nbsp;degree&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;oo&nbsp;=&nbsp;degree&nbsp;-&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;(&nbsp;coeff&nbsp;*.&nbsp;(&nbsp;float_richardson_deriv&nbsp;radix&nbsp;oo&nbsp;(&nbsp;step&nbsp;/.&nbsp;radix&nbsp;)&nbsp;f&nbsp;x&nbsp;)&nbsp;-.&nbsp;(&nbsp;float_richardson_deriv&nbsp;radix&nbsp;oo&nbsp;step&nbsp;f&nbsp;x&nbsp;)&nbsp;)&nbsp;/.&nbsp;(&nbsp;coeff&nbsp;-.&nbsp;1.&nbsp;)</code></body></html>

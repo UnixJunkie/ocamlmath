@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.fond_form_I</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;fond_form_I&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(f:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(position:float&nbsp;array)&nbsp;(vector1:float&nbsp;array)&nbsp;(vector2:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;tlm&nbsp;methode&nbsp;f&nbsp;position&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w1&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_vector_float_prod&nbsp;a&nbsp;vector1<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w2&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_vector_float_prod&nbsp;a&nbsp;vector2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;w1&nbsp;w2</code></body></html>

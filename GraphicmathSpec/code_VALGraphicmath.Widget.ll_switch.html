@@ -1,0 +1,39 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Widget.ll_switch</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;ll_switch&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:int)&nbsp;(y:int)&nbsp;(color:int)&nbsp;(text_color:int)&nbsp;(text:string&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;text<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ts&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Graphics</span>.text_size&nbsp;text&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;widths&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;fst&nbsp;ts<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;heights&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;snd&nbsp;ts&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_int_max&nbsp;heights&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;j&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;z&nbsp;+&nbsp;(&nbsp;n&nbsp;-&nbsp;j&nbsp;)&nbsp;*&nbsp;h&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;width_measures&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;f&nbsp;widths&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;wh&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_int_max&nbsp;width_measures&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;5&nbsp;+&nbsp;(&nbsp;(&nbsp;12&nbsp;*&nbsp;wh&nbsp;)&nbsp;/&nbsp;20&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;bw&nbsp;=&nbsp;2&nbsp;*&nbsp;size<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;shift&nbsp;=&nbsp;ref&nbsp;(&nbsp;1&nbsp;+&nbsp;size&nbsp;/&nbsp;10&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;x&nbsp;+&nbsp;bw<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;y&nbsp;+&nbsp;bw&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sequence&nbsp;=&nbsp;[|&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;;&nbsp;(&nbsp;xx&nbsp;,&nbsp;y&nbsp;)&nbsp;;&nbsp;(&nbsp;x&nbsp;,&nbsp;yy&nbsp;)&nbsp;|]&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.fill_poly&nbsp;sequence&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;<span class="constructor">Graphics</span>.foreground&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_poly&nbsp;sequence&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;text_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;pred&nbsp;n&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left&nbsp;=&nbsp;x&nbsp;+&nbsp;size&nbsp;/&nbsp;10&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;left&nbsp;(&nbsp;y&nbsp;+&nbsp;!shift&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;text.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift&nbsp;:=&nbsp;!shift&nbsp;+&nbsp;heights.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;x&nbsp;;&nbsp;y&nbsp;;&nbsp;xx&nbsp;;&nbsp;yy&nbsp;|]</code></body></html>

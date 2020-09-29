@@ -1,0 +1,33 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.discrete_serret_frenet</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_serret_frenet&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(scale:float)&nbsp;(position:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;position.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim_jet&nbsp;=&nbsp;discrete_jet&nbsp;methode&nbsp;dim&nbsp;scale&nbsp;position<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;n&nbsp;=&nbsp;dim&nbsp;-&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;dim_jet&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;size&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;celer&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;size&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;curvature&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;size&nbsp;n&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;frame&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;size&nbsp;(&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;dim&nbsp;dim&nbsp;0.&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;size&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;repere&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;dim_jet.(i)&nbsp;1&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frame.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.float_trans_orthonormalize&nbsp;repere&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;celer.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;repere.(0)&nbsp;frame.(i).(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature.(i).(0)&nbsp;&lt;-&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;repere.(1)&nbsp;frame.(i).(1)&nbsp;)&nbsp;/.&nbsp;(&nbsp;celer.(i)&nbsp;*.&nbsp;celer.(i)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu.(i)&nbsp;&lt;-&nbsp;curvature.(i).(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;2&nbsp;<span class="keyword">to</span>&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature.(i).(&nbsp;j&nbsp;-&nbsp;1&nbsp;)&nbsp;&lt;-&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;repere.(j)&nbsp;frame.(i).(j)&nbsp;)&nbsp;/.&nbsp;(&nbsp;accu.(i)&nbsp;*.&nbsp;(&nbsp;celer.(i)&nbsp;**&nbsp;(&nbsp;float&nbsp;(&nbsp;j&nbsp;+&nbsp;1&nbsp;)&nbsp;)&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu.(i)&nbsp;&lt;-&nbsp;accu.(i)&nbsp;*.&nbsp;curvature.(i).(&nbsp;j&nbsp;-&nbsp;1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;[|&nbsp;curvature&nbsp;|]&nbsp;;&nbsp;frame&nbsp;;&nbsp;[|&nbsp;[|&nbsp;accu&nbsp;|]&nbsp;|]&nbsp;|]</code></body></html>

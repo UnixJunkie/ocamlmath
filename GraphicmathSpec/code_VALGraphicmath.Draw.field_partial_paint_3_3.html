@@ -1,0 +1,30 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.field_partial_paint_3_3</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;field_partial_paint_3_3&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;ng&nbsp;xx&nbsp;yy&nbsp;zz&nbsp;shift&nbsp;v&nbsp;w&nbsp;x_function&nbsp;y_function&nbsp;vx_function&nbsp;vy_function&nbsp;arrow_paint&nbsp;(u:float&nbsp;array)&nbsp;(color1:<span class="constructor">Graphics</span>.color)&nbsp;(color2:<span class="constructor">Graphics</span>.color)&nbsp;(f:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(half_ngrid:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ng&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;couleur&nbsp;=&nbsp;mix_color&nbsp;(&nbsp;(&nbsp;float&nbsp;i&nbsp;)&nbsp;/.&nbsp;(&nbsp;float&nbsp;ng&nbsp;)&nbsp;)&nbsp;color1&nbsp;color2<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;xx.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ng&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;yy.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ng&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;zz.(k)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pos&nbsp;=&nbsp;[|&nbsp;x&nbsp;;&nbsp;y&nbsp;;&nbsp;z&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xyz&nbsp;=&nbsp;f&nbsp;pos&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift.(0)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;v&nbsp;pos&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift.(1)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;w&nbsp;pos&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x_x&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;xyz&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y_y&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_prod&nbsp;xyz&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arrow&nbsp;(&nbsp;arrow_paint&nbsp;couleur&nbsp;)&nbsp;(&nbsp;x_function&nbsp;shift.(0)&nbsp;)&nbsp;(&nbsp;y_function&nbsp;shift.(1)&nbsp;)&nbsp;(&nbsp;vx_function&nbsp;x_x&nbsp;)&nbsp;(&nbsp;vy_function&nbsp;y_y&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;<span class="keyword">done</span></code></body></html>

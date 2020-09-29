@@ -1,0 +1,43 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Fft.Field.primary_twist_fft_vector</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;primary_twist_fft_vector&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:int)&nbsp;(twist:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;int_power&nbsp;n&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;pred&nbsp;p<br>
+&nbsp;<span class="keyword">and</span>&nbsp;p_p&nbsp;=&nbsp;p&nbsp;-&nbsp;2<br>
+&nbsp;<span class="keyword">and</span>&nbsp;digits&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;0&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;powers&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;n&nbsp;pp&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;first_row&nbsp;=&nbsp;powers.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;first_row.(0)&nbsp;&lt;-&nbsp;twist&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;p_p&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_row.(j)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;twist&nbsp;first_row.&nbsp;(&nbsp;pred&nbsp;j&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">F</span>.one&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;dim&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;pred&nbsp;dim&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pred_row&nbsp;=&nbsp;powers.(&nbsp;pred&nbsp;i&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row&nbsp;=&nbsp;powers.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;pred_row.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;pred_row.(p_p)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">F</span>.mult&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(0)&nbsp;&lt;-&nbsp;z&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;p_p&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;<span class="constructor">F</span>.mult&nbsp;row.(&nbsp;pred&nbsp;j&nbsp;)&nbsp;z<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;x&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;powers.(i).(&nbsp;pred&nbsp;x&nbsp;)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digits&nbsp;:=&nbsp;reverse_array&nbsp;(&nbsp;truncated_digits_of_int&nbsp;p&nbsp;n&nbsp;i&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;factors&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;f&nbsp;!digits&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">F</span>.mult&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)&nbsp;factors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">Full_vector</span>&nbsp;v</code></body></html>

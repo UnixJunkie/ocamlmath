@@ -1,0 +1,32 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.vector_end_ode_rk4</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_end_ode_rk4&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(nsteps:int)&nbsp;(y0:float&nbsp;array)&nbsp;(beginning:float)&nbsp;(ending:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;step&nbsp;=&nbsp;(&nbsp;ending&nbsp;-.&nbsp;beginning&nbsp;)&nbsp;/.&nbsp;(&nbsp;float&nbsp;nsteps&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;ref&nbsp;beginning<br>
+&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;y0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_copy&nbsp;y0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;l&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ll&nbsp;=&nbsp;l&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;halfstep&nbsp;=&nbsp;step&nbsp;*.&nbsp;0.5&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;nsteps&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k1&nbsp;=&nbsp;f&nbsp;!x&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;xx&nbsp;=&nbsp;!x&nbsp;+.&nbsp;halfstep&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k2&nbsp;=&nbsp;f&nbsp;xx&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_plus&nbsp;y&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;halfstep&nbsp;k1&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k3&nbsp;=&nbsp;f&nbsp;xx&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_plus&nbsp;y&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;halfstep&nbsp;k2&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;:=&nbsp;!x&nbsp;+.&nbsp;step&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k4&nbsp;=&nbsp;f&nbsp;!x&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_plus&nbsp;y&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;step&nbsp;k3&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ll&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z.(j)&nbsp;&lt;-&nbsp;y.(j)&nbsp;+.&nbsp;(&nbsp;halfstep&nbsp;*.&nbsp;(&nbsp;k1.(j)&nbsp;+.&nbsp;k4.(j)&nbsp;)&nbsp;+.&nbsp;step&nbsp;*.&nbsp;(&nbsp;k2.(j)&nbsp;+.&nbsp;k3.(j)&nbsp;)&nbsp;)&nbsp;/.&nbsp;3.&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y.(j)&nbsp;&lt;-&nbsp;z.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;y</code></body></html>

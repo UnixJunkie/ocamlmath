@@ -1,0 +1,24 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.matrix_ioa_affect_column</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_ioa_affect_column&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(index:int)&nbsp;(v:int_or_array)&nbsp;(m:int_or_array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(ioa_thickness&nbsp;m)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_int_demakeup&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;affect_column&nbsp;index&nbsp;(vector_int_demakeup&nbsp;v)&nbsp;mm&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Int_matrix_cons</span>&nbsp;mm<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_ioa_demakeup&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;r&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm.(i).(index)&nbsp;&lt;-&nbsp;(&nbsp;vector_ioa_demakeup&nbsp;v&nbsp;).(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ioa_matrix_cons</span>&nbsp;mm</code></body></html>

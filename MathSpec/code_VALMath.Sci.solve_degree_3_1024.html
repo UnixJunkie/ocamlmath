@@ -1,0 +1,41 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sci.solve_degree_3_1024</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;solve_degree_3_1024&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(a:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;(b:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;(c:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;(d:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;b_a&nbsp;=&nbsp;div_1024&nbsp;b&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;c_a&nbsp;=&nbsp;div_1024&nbsp;c&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d_a&nbsp;=&nbsp;div_1024&nbsp;d&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Num</span>.sign_num&nbsp;(&nbsp;minus_1024&nbsp;x.(0)&nbsp;y.(0)&nbsp;).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;minus_1024&nbsp;c_a&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;mult_1024&nbsp;b_a&nbsp;b_a&nbsp;)&nbsp;sci_3&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;q&nbsp;=&nbsp;plus_1024&nbsp;d_a&nbsp;(&nbsp;minus_1024&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;mult_1024&nbsp;sci_2&nbsp;(&nbsp;int_pow_1024&nbsp;3&nbsp;b_a&nbsp;)&nbsp;)&nbsp;sci_27&nbsp;)&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;mult_1024&nbsp;b_a&nbsp;c_a&nbsp;)&nbsp;sci_3&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pp&nbsp;=&nbsp;mult_1024&nbsp;sci_minus_27&nbsp;(&nbsp;int_pow_1024&nbsp;3&nbsp;p&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;qq&nbsp;=&nbsp;mult_1024&nbsp;sci_27&nbsp;q&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;solve_degree_2_1024&nbsp;sci_1&nbsp;qq&nbsp;pp&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m1&nbsp;=&nbsp;cubic_root_1024&nbsp;t.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;m2&nbsp;=&nbsp;cubic_root_1024&nbsp;t.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm1&nbsp;=&nbsp;square_module_1024&nbsp;m1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm2&nbsp;=&nbsp;square_module_1024&nbsp;m2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;a1&nbsp;=&nbsp;ref&nbsp;m1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;a2&nbsp;=&nbsp;ref&nbsp;m2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;diff&nbsp;=&nbsp;minus_1024&nbsp;mm1&nbsp;mm2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;m3p&nbsp;=&nbsp;mult_1024&nbsp;sci_minus_3&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Num</span>.sign_num&nbsp;diff.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;s&nbsp;&gt;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;a2&nbsp;:=&nbsp;div_1024&nbsp;m3p&nbsp;m1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;a1&nbsp;:=&nbsp;div_1024&nbsp;m3p&nbsp;m2&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x1&nbsp;=&nbsp;ref&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;plus_1024&nbsp;!a1&nbsp;!a2&nbsp;)&nbsp;sci_3&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x2&nbsp;=&nbsp;ref&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;plus_1024&nbsp;(&nbsp;mult_1024&nbsp;sci_1024_j2&nbsp;!a1&nbsp;)&nbsp;(&nbsp;mult_1024&nbsp;sci_1024_j&nbsp;!a2&nbsp;)&nbsp;)&nbsp;sci_3&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x3&nbsp;=&nbsp;ref&nbsp;(&nbsp;div_1024&nbsp;(&nbsp;plus_1024&nbsp;(&nbsp;mult_1024&nbsp;sci_1024_j&nbsp;!a1&nbsp;)&nbsp;(&nbsp;mult_1024&nbsp;sci_1024_j2&nbsp;!a2&nbsp;)&nbsp;)&nbsp;sci_3&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;square_module_1024&nbsp;x&nbsp;;&nbsp;sci_copy&nbsp;x&nbsp;|]&nbsp;)&nbsp;[|&nbsp;!x1&nbsp;;&nbsp;!x2&nbsp;;&nbsp;!x3&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.sort&nbsp;f&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x2&nbsp;:=&nbsp;m.(1).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x3&nbsp;:=&nbsp;m.(2).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x1&nbsp;:=&nbsp;div_1024&nbsp;(&nbsp;opp&nbsp;q&nbsp;)&nbsp;(&nbsp;mult_1024&nbsp;!x2&nbsp;!x3&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;plus_1024&nbsp;x&nbsp;(&nbsp;div_1024&nbsp;b_a&nbsp;sci_minus_3&nbsp;)&nbsp;)&nbsp;[|&nbsp;!x1&nbsp;;&nbsp;!x2&nbsp;;&nbsp;!x3&nbsp;|]</code></body></html>

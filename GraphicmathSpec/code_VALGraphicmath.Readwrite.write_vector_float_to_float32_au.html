@@ -1,0 +1,31 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.write_vector_float_to_float32_au</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;write_vector_float_to_float32_au&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(sample_rate:int)&nbsp;(v:float&nbsp;array)&nbsp;(fname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;oc&nbsp;=&nbsp;open_out&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;offset&nbsp;=&nbsp;24<br>
+&nbsp;<span class="keyword">and</span>&nbsp;size&nbsp;=&nbsp;-&nbsp;1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;encoding&nbsp;=&nbsp;6<br>
+&nbsp;<span class="keyword">and</span>&nbsp;channels&nbsp;=&nbsp;1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;output_string&nbsp;oc&nbsp;<span class="string">".snd"</span>&nbsp;;<br>
+&nbsp;&nbsp;set_binary_mode_out&nbsp;oc&nbsp;<span class="keyword">true</span>&nbsp;;<br>
+&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;offset&nbsp;;<br>
+&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;size&nbsp;;<br>
+&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;encoding&nbsp;;<br>
+&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;sample_rate&nbsp;;<br>
+&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;channels&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;l&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Int32</span>.to_int&nbsp;(&nbsp;<span class="constructor">Int32</span>.bits_of_float&nbsp;v.(i)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;output_binary_int&nbsp;oc&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;close_out_noerr&nbsp;oc</code></body></html>

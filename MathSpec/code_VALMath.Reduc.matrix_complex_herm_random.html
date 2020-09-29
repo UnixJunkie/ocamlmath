@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.matrix_complex_herm_random</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_complex_herm_random&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(r:int)&nbsp;(x:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Matrix</span>.sym_float_bal_random&nbsp;r&nbsp;x<br>
+&nbsp;<span class="keyword">and</span>&nbsp;a&nbsp;=&nbsp;<span class="constructor">Matrix</span>.antisym_float_bal_random&nbsp;r&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;matrix_complexify&nbsp;s&nbsp;a</code></body></html>

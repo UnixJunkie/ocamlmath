@@ -1,0 +1,25 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_tensor.Rng.extract</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;=&nbsp;<span class="constructor">V</span>.extract&nbsp;i.(0)&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;[|&nbsp;j&nbsp;|]&nbsp;,&nbsp;x&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.extract&nbsp;i&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

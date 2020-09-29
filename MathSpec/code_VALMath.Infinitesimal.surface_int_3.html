@@ -1,0 +1,14 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.surface_int_3</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;surface_int_3&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode_diff&nbsp;methode_int&nbsp;(f:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(phi:float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(a:float&nbsp;array)&nbsp;(b:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;phi&nbsp;(&nbsp;f&nbsp;x&nbsp;)&nbsp;)&nbsp;*.&nbsp;(&nbsp;surface_area_element_3&nbsp;methode_diff&nbsp;f&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;methode_int&nbsp;g&nbsp;a&nbsp;b</code></body></html>

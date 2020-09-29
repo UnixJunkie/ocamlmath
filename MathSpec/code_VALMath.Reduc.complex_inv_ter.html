@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.complex_inv_ter</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;complex_inv_ter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(parameter:float)&nbsp;(z:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y0&nbsp;=&nbsp;built_in_complex_to_matrix&nbsp;(&nbsp;<span class="constructor">Complex</span>.inv&nbsp;{<span class="constructor">Complex</span>.re=z.(0).(0)&nbsp;;&nbsp;<span class="constructor">Complex</span>.im=z.(1).(0)}&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;y1&nbsp;=&nbsp;complex_inv_bis&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;(&nbsp;clean_complex&nbsp;y1&nbsp;)&nbsp;(&nbsp;clean_complex&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_mult&nbsp;parameter&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;y1&nbsp;y0&nbsp;)&nbsp;)&nbsp;)</code></body></html>

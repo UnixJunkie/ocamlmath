@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Bary.Make.copy</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;element_copy&nbsp;x&nbsp;)&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">E</span>.fold&nbsp;g&nbsp;s.content&nbsp;<span class="constructor">E</span>.empty&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;s.cardinal&nbsp;;&nbsp;content&nbsp;=&nbsp;d&nbsp;}</code></body></html>

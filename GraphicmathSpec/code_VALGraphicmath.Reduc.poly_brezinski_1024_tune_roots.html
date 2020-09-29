@@ -1,0 +1,43 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Reduc.poly_brezinski_1024_tune_roots</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;poly_brezinski_1024_tune_roots&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;eval_rule&nbsp;(k:int)&nbsp;(threshold:float)&nbsp;(mult_threshold:float)&nbsp;(candidates:<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;(p:<span class="constructor">Num</span>.num&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;candidates<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dk&nbsp;=&nbsp;2&nbsp;*&nbsp;k<br>
+&nbsp;<span class="keyword">and</span>&nbsp;derivative_array&nbsp;=&nbsp;ref&nbsp;[|&nbsp;p&nbsp;;&nbsp;poly_sci_deriv&nbsp;p&nbsp;|]<br>
+&nbsp;<span class="keyword">and</span>&nbsp;j&nbsp;=&nbsp;ref&nbsp;1<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;int_of_float&nbsp;(&nbsp;poly_sci_deg&nbsp;p&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;l&nbsp;<span class="constructor">Sci</span>.sci_0<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;kk&nbsp;=&nbsp;succ&nbsp;dk<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;d<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;multip&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;d&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;roots&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;kk&nbsp;1&nbsp;(&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;1&nbsp;1&nbsp;<span class="constructor">Sci</span>.sci_0&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;l&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roots.(0)&nbsp;&lt;-&nbsp;[|&nbsp;[|[|&nbsp;candidates.(i)&nbsp;;&nbsp;<span class="constructor">Sci</span>.sci_1&nbsp;;&nbsp;<span class="constructor">Sci</span>.sci_of_float&nbsp;max_float&nbsp;|]|]&nbsp;;&nbsp;!derivative_array&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;index&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;dk&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;racine&nbsp;=&nbsp;roots.(&nbsp;pred&nbsp;index&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roots.(index)&nbsp;&lt;-&nbsp;poly_sci_1024_tune_root_step&nbsp;eval_rule&nbsp;p&nbsp;racine.(1)&nbsp;threshold&nbsp;racine.(0).(0).(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;estimate&nbsp;=&nbsp;<span class="constructor">Sci</span>.brezinski_1024&nbsp;(&nbsp;dk&nbsp;-&nbsp;2&nbsp;)&nbsp;0&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.(0).(0).(0)&nbsp;)&nbsp;roots&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z.(i)&nbsp;&lt;-&nbsp;estimate&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;derivative_array&nbsp;:=&nbsp;roots.(dk).(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j&nbsp;:=&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!j&nbsp;&lt;&nbsp;d&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Array</span>.length&nbsp;!derivative_array&nbsp;=&nbsp;!j&nbsp;<span class="keyword">then</span>&nbsp;derivative_array&nbsp;:=&nbsp;<span class="constructor">Array</span>.append&nbsp;!derivative_array&nbsp;[|&nbsp;poly_sci_1024_deriv&nbsp;!derivative_array.(&nbsp;!j&nbsp;-&nbsp;1&nbsp;)&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;essai&nbsp;=&nbsp;complex_module&nbsp;(&nbsp;<span class="constructor">Sci</span>.complex_of_sci&nbsp;(&nbsp;eval_rule&nbsp;!derivative_array.(!j)&nbsp;estimate&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;essai&nbsp;&gt;&nbsp;mult_threshold&nbsp;<span class="keyword">then</span>&nbsp;(&nbsp;accu&nbsp;:=&nbsp;!j&nbsp;;&nbsp;j&nbsp;:=&nbsp;d&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j&nbsp;:=&nbsp;!j&nbsp;+&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multip.(i)&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j&nbsp;:=&nbsp;1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;[|&nbsp;[|&nbsp;z&nbsp;;&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Sci</span>.sci_of_int&nbsp;multip&nbsp;|]&nbsp;;&nbsp;!derivative_array&nbsp;|]</code></body></html>

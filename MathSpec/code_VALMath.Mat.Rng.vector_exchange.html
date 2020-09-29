@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Rng.vector_exchange</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_exchange&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:int)&nbsp;(j:int)&nbsp;(v:vector)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tmp&nbsp;=&nbsp;<span class="constructor">R</span>.copy&nbsp;w.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;w.(i)&nbsp;&lt;-&nbsp;w.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;w.(j)&nbsp;&lt;-&nbsp;tmp&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.exchange&nbsp;i&nbsp;j&nbsp;w</code></body></html>

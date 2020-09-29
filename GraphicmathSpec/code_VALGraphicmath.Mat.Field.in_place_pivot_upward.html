@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Mat.Field.in_place_pivot_upward</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;in_place_pivot_upward&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(m:matrix)&nbsp;(p:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;(&nbsp;m&nbsp;,&nbsp;p&nbsp;)&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;mm&nbsp;,&nbsp;<span class="constructor">Sparse_matrix</span>&nbsp;pp&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_pivot_upward&nbsp;mm&nbsp;pp<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;(&nbsp;<span class="constructor">Full_matrix</span>&nbsp;w&nbsp;,&nbsp;_&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">F</span>.one&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_left&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_output_right&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;last_column&nbsp;=&nbsp;ref&nbsp;(&nbsp;vector_zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rr&nbsp;=&nbsp;pred&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;rr&nbsp;<span class="keyword">downto</span>&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;:=&nbsp;pred&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_column&nbsp;:=&nbsp;mask_vector&nbsp;0&nbsp;!index&nbsp;(&nbsp;matrix_column_extract&nbsp;i&nbsp;m&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;i&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;!index&nbsp;<span class="keyword">downto</span>&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_left&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coeff&nbsp;:=&nbsp;vector_extract&nbsp;i&nbsp;!row_output_left&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_replace&nbsp;(&nbsp;<span class="constructor">F</span>.zero&nbsp;()&nbsp;)&nbsp;j&nbsp;i&nbsp;m&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;matrix_row_extract&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_output_right&nbsp;:=&nbsp;vector_sub&nbsp;!row_output_right&nbsp;(&nbsp;vector_scal_mult&nbsp;!coeff&nbsp;!row_right&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_row_replace&nbsp;!row_output_right&nbsp;j&nbsp;p&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Incompatible&nbsp;formats&nbsp;in&nbsp;Mat.Field.in_place_pivot_upward."</span></code></body></html>

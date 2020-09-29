@@ -1,0 +1,26 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_tensor.Rng.eq</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;eq&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.eq&nbsp;v&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;ee&nbsp;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;eq&nbsp;w&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;eq&nbsp;(&nbsp;tensor_to_vector&nbsp;w&nbsp;)&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;e&nbsp;=&nbsp;ee&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Info</span>.eq&nbsp;t&nbsp;tt&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">M</span>.eq&nbsp;v&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

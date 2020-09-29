@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.float_int_romberg</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;float_int_romberg&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(k:int)&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float)&nbsp;(a:float)&nbsp;(b:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;kk&nbsp;=&nbsp;abs&nbsp;k<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;abs&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;kk&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float_int_trapez&nbsp;(&nbsp;int_of_float&nbsp;(&nbsp;2.&nbsp;**&nbsp;(&nbsp;float&nbsp;nn&nbsp;)&nbsp;)&nbsp;)&nbsp;f&nbsp;a&nbsp;b<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float_int_simpson&nbsp;(&nbsp;int_of_float&nbsp;(&nbsp;2.&nbsp;**&nbsp;(&nbsp;float&nbsp;nn&nbsp;)&nbsp;)&nbsp;)&nbsp;f&nbsp;a&nbsp;b<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;kkk&nbsp;=&nbsp;kk&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;4.&nbsp;**&nbsp;(&nbsp;float&nbsp;kk&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;aa&nbsp;=&nbsp;float_int_romberg&nbsp;(&nbsp;nn&nbsp;+&nbsp;1&nbsp;)&nbsp;kkk&nbsp;f&nbsp;a&nbsp;b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;bb&nbsp;=&nbsp;float_int_romberg&nbsp;nn&nbsp;kkk&nbsp;f&nbsp;a&nbsp;b&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;coeff&nbsp;*.&nbsp;aa&nbsp;-.&nbsp;bb&nbsp;)&nbsp;/.&nbsp;(&nbsp;coeff&nbsp;-.&nbsp;1.&nbsp;)</code></body></html>

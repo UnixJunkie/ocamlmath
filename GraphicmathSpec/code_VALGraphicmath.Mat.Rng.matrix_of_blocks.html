@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Mat.Rng.matrix_of_blocks</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_of_blocks&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:matrix&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;small_dims&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;matrix_dimensions&nbsp;)&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;brute_widths&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.(1)&nbsp;)&nbsp;)&nbsp;small_dims<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;brute_heights&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.(0)&nbsp;)&nbsp;)&nbsp;small_dims<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;bands&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;r&nbsp;m.(0).(0)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;mm&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;r&nbsp;c&nbsp;m.(0).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;heights&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Util</span>.array_maximum&nbsp;compare&nbsp;)&nbsp;brute_heights<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;widths&nbsp;=&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Util</span>.array_maximum&nbsp;compare&nbsp;)&nbsp;(&nbsp;<span class="constructor">Util</span>.transpose&nbsp;brute_widths&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nrows&nbsp;=&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;(&nbsp;+&nbsp;)&nbsp;0&nbsp;heights<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ncolumns&nbsp;=&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;(&nbsp;+&nbsp;)&nbsp;0&nbsp;widths<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v_shifts&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;[|&nbsp;0&nbsp;|]&nbsp;heights<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h_shifts&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;[|&nbsp;0&nbsp;|]&nbsp;widths&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v_shifts.(&nbsp;succ&nbsp;i&nbsp;)&nbsp;&lt;-&nbsp;v_shifts.(i)&nbsp;+&nbsp;heights.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;c&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h_shifts.(&nbsp;succ&nbsp;i&nbsp;)&nbsp;&lt;-&nbsp;h_shifts.(i)&nbsp;+&nbsp;widths.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_embed&nbsp;[|&nbsp;nrows&nbsp;;&nbsp;ncolumns&nbsp;|]&nbsp;[|&nbsp;v_shifts.(i)&nbsp;;&nbsp;0&nbsp;|]&nbsp;z<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;j&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;matrix_embed&nbsp;[|&nbsp;heights.(i)&nbsp;;&nbsp;ncolumns&nbsp;|]&nbsp;[|&nbsp;0&nbsp;;&nbsp;h_shifts.(j)&nbsp;|]&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.mapi&nbsp;(&nbsp;g&nbsp;i&nbsp;)&nbsp;m.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bands.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;matrix_add&nbsp;(&nbsp;matrix_sparse_null&nbsp;[|&nbsp;heights.(i)&nbsp;;&nbsp;ncolumns&nbsp;|]&nbsp;)&nbsp;mm.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;f&nbsp;bands&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;matrix_add&nbsp;(&nbsp;matrix_sparse_null&nbsp;[|&nbsp;nrows&nbsp;;&nbsp;ncolumns&nbsp;|]&nbsp;)&nbsp;mmm</code></body></html>

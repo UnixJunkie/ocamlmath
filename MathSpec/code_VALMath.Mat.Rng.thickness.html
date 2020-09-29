@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Rng.thickness</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;thickness&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:tensor)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.thickness&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;thickness&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;succ&nbsp;(&nbsp;<span class="constructor">Util</span>.array_maximum&nbsp;compare&nbsp;t&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

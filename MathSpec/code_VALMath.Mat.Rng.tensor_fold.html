@@ -1,0 +1,24 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Mat.Rng.tensor_fold</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;tensor_fold&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(v:tensor)&nbsp;init&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">T</span>.fold&nbsp;f&nbsp;x&nbsp;init<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;y&nbsp;)&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;y&nbsp;)&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;vector_fold&nbsp;g&nbsp;x&nbsp;init<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Full_tensor</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;z&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tensor_fold&nbsp;f&nbsp;y&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;g&nbsp;init&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

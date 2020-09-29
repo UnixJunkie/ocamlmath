@@ -1,0 +1,25 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Matrix.gamma_float_inv</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;gamma_float_inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span><br>
+</code><table><tr><td></td><td><span class="comment">(** let b = int_of_float ( 0.4 *. sqrt ( float (Array.length m) ) ) in *)</span></td></tr></table><code class="code"><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;r&nbsp;&lt;&nbsp;2000&nbsp;<span class="keyword">then</span>&nbsp;float_inv&nbsp;m<br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;b&nbsp;=&nbsp;int_of_float&nbsp;(&nbsp;(&nbsp;float&nbsp;(<span class="constructor">Array</span>.length&nbsp;m)&nbsp;)&nbsp;/.&nbsp;70.&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;matrix_float_cut&nbsp;b&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;debut&nbsp;=&nbsp;[|&nbsp;<span class="constructor">Float_vector_cons</span>&nbsp;[|0.;0.|]&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;square_foa_hash&nbsp;8&nbsp;mm.(0)&nbsp;(&nbsp;<span class="constructor">Foa_vector_cons</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.append&nbsp;(vector_foa_demakeup&nbsp;mm.(1))&nbsp;debut&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmm&nbsp;=&nbsp;foa_inv&nbsp;ww.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mmmm&nbsp;=&nbsp;square_foa_crash&nbsp;[|&nbsp;mmm&nbsp;;&nbsp;ww.(1)&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix_float_demakeup&nbsp;mmmm.(0)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

@@ -1,0 +1,15 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.matrix_complexify</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;matrix_complexify&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:float&nbsp;array&nbsp;array)&nbsp;(y:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;[|&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.<span class="constructor">Float_matrix_cons</span>&nbsp;x&nbsp;;&nbsp;<span class="constructor">Matrix</span>.<span class="constructor">Float_matrix_cons</span>&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_opp&nbsp;y&nbsp;)&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.<span class="constructor">Float_matrix_cons</span>&nbsp;y&nbsp;;&nbsp;<span class="constructor">Matrix</span>.<span class="constructor">Float_matrix_cons</span>&nbsp;x&nbsp;|]&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Matrix</span>.matrix_float_demakeup&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_foa_crash&nbsp;(&nbsp;<span class="constructor">Matrix</span>.<span class="constructor">Foa_matrix_cons</span>&nbsp;m&nbsp;)&nbsp;)</code></body></html>

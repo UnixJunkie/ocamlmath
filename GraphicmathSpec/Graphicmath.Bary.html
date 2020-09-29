@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Util.html">
+<link rel="next" href="Graphicmath.Deg.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Bary</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Util.html">Previous</a>
+&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;<a href="Graphicmath.Deg.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Graphicmath.Bary.html">Graphicmath.Bary</a> (<a href="code_Graphicmath.Bary.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Bary: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module tools to treat weighted sets, 
+inspired from those of the module <code class="code"><span class="constructor">Set</span></code> of the OCaml standard library,
+with the difference that the sets are preferably modified in place.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+An element disappears when its weight is zero.
+<p>
+
+The functions of this module are not sealed.
+<p>
+
+The sets are modifiable in place.
+<p>
+
+The cardinal is recorded and modified with the set.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des outils pour traiter les ensembles à poids,
+inspirés de ceux du module <code class="code"><span class="constructor">Set</span></code> de la bibliothèque standard OCaml,
+à la différence près que les ensembles sont de préférence modifiés en place.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Un élément disparaît quand son poids est nul.
+<p>
+
+Les fonctions de ce module ne sont pas étanches.
+<p>
+
+Les ensembles sont modifiables en place.
+<p>
+
+Le cardinal est enregistré et modifié avec l'ensemble.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center><br>
+<pre><span class="keyword">module type</span> <a href="Graphicmath.Bary.Index_type.html">Index_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.Index_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module type</span> <a href="Graphicmath.Bary.Weight_type.html">Weight_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.Weight_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Bary.Make.html">Make</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Bary.Index_type.html">Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Weight</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Bary.Weight_type.html">Weight_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.Make.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Bary.Z.html">Z</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.Z.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Bary.Zset.html">Zset</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Bary.Zset.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><br>
+<center>§ § § </center><br>
+</body></html>

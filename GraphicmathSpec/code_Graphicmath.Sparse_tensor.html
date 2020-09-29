@@ -1,0 +1,1518 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_tensor</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+The mathematician will find in this module functors to handle
+sparse tensors with coefficients in a commutative rng or a field.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Dimensions are often unreachable in a sparse tensor as soon as it is null (excepted sometimes for the first variable). 
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+A function is <em>sealed</em> if there is no sharing between the input variables and the output value.
+This is the expected behavior of usual mathematical functions.
+The recursive programming of polymorphic functions is easier in a <em>non sealed</em> way.
+Some copy functions are provided for every type of data.
+They are sealed provided that they receive as argument elementary copy functions for coefficients and indices.
+By composition, they permit to seal all functions necessary.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des foncteurs pour traiter
+les tenseurs creux à coefficients dans un annau commutatif ou un corps commutatif.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les dimensions d'un tenseur creux sont souvent inaccessibles (sauf parfois pour la première variable) dès qu'il est nul.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Une fonction est <em>étanche</em> quand il n'y a aucun partage entre les variables fournies en entrée et la valeur obtenue en sortie.
+C'est le comportement attendu des fonctions mathématiques habituelles. 
+La programmation récursive des fonctions polymorphes est plus facile de manière <em>non étanche</em>.
+Des fonctions de recopie sont fournies pour tous les types de données. 
+Elles sont étanches à condition de leur fournir en argument des fonctions élémentaires de recopie des coefficients et des indices. 
+Par composition, elle permettent d'étanchéifier toutes les fonctions voulues.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@version 0.1
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@author Stéphane Grognet
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@since 2013
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_Tenseurscreuxcoefficientsdansunannaucommutatif"><h2>Tenseurs creux à coefficients dans un annau commutatif</h2></span>
+<span id="2_Sparsetensorswithcoefficientsinacommutativerng"><h2>Sparse tensors with coefficients in a commutative rng</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Util</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Data</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Hash</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Sparse_vector</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Index</span>:<span class="constructor">Data</span>.<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Hasher</span>:<span class="constructor">Hash</span>.<span class="constructor">Hash_type</span>&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t)&nbsp;(<span class="constructor">Coeff</span>:<span class="constructor">Data</span>.<span class="constructor">Rng_coeff_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<span class="keyword">type</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;coeff&nbsp;=&nbsp;<span class="constructor">Coeff</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;elt&nbsp;=&nbsp;index&nbsp;*&nbsp;coeff&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">V</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** Sparse tensors are built in a flat manner as sparse vectors with multi-indices.
+<p>
+
+Les tenseurs creux sont construits à plat comme des vecteurs creux avec des multi-indices. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Multi_index</span>&nbsp;=&nbsp;<span class="constructor">Data</span>.<span class="constructor">Multi_index</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Multi_hasher</span>&nbsp;=&nbsp;<span class="constructor">Hash</span>.<span class="constructor">Multi_hasher</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">M</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Multi_index</span>)&nbsp;(<span class="constructor">Multi_hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** In order to have access to the different levels of a tensor, the coordinates of a multi-index are necessary.
+<p>
+
+Pour accéder aux différents niveaux d'un tenseur, les coordonnées d'un multi-indice sont nécessaires. *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Multi_hash</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Multi_index</span>)&nbsp;(<span class="constructor">Multi_hasher</span>)&nbsp;(<span class="constructor">Data</span>.<span class="constructor">Zcoeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Info</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Multi_hash</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The type <code class="code">t</code> is either a sparse vector or a flat tensor which contains the thickness, the information tree and the multi-indices vector.
+<p>
+
+Le type <code class="code">t</code> est soit un vecteur creux soit un tenseur à plat qui contient l'épaisseur, l'arbre d'information et le vecteur à multi-indices. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">V</span>.t<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;*&nbsp;<span class="constructor">Info</span>.t&nbsp;array&nbsp;*&nbsp;<span class="constructor">M</span>.t&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+<p>
+
+Pour trouver les éléments du tenseur dont le kème indice est i, on extrait le kème élément du tableau qui est de type <code class="code"><span class="constructor">Info</span>.t</code>.
+Dans ce vecteur, on extrait l'élément de coordonnée <code class="code"><span class="constructor">Hasher</span>.hash i</code> (la dimension est toujours <code class="code">1</code>) .
+Cet élément est un vecteur creux dont les indices sont des multi-entiers et les coefficients sont les valeurs de hachage des multi-indices du tenseur (la dimension est toujours <code class="code"><span class="constructor">Array</span>.make (e+1) 1</code>).
+L'indice est la valeur de hachage du kème indice.
+Les réponses sont dedans, il faut continuer avec des tests sur le tenseur lui-même, mais seulement en extrayant les éléments dont la valeur de hachage est lue dans les coefficients des éléments de ce vecteur.
+Il est possible de sélectionner en deuxième étape des contraintes supplémentaires sur l'ensemble des indices en testant les multi_indices de ce vecteur (attention à la permutation circulaire).
+<p>
+
+Attention ! les vecteurs Info.t peuvent donner des coefficients nuls dans la lecture du tenseur parce qu'il est difficile d'effacer dans le tableau d'information lors d'une modification en place. *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>copy tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.copy&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.copy&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>info_augment tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;info_augment&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;()<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;information&nbsp;=&nbsp;t.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;index.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;i&nbsp;information&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;h&nbsp;index&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;x&nbsp;i&nbsp;information&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.iter&nbsp;f&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>info_cleanup tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;info_cleanup&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;()<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;dim&nbsp;,&nbsp;table&nbsp;)&nbsp;=&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ensemble&nbsp;=&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data.(&nbsp;coefficient&nbsp;<span class="keyword">mod</span>&nbsp;s&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;z&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Multi_index</span>.eq&nbsp;i&nbsp;index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.exists&nbsp;p&nbsp;ensemble&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.remove&nbsp;index&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Multi_hash</span>.iter&nbsp;(&nbsp;f&nbsp;coefficient&nbsp;)&nbsp;coefficient&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;information&nbsp;=&nbsp;t.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.iter&nbsp;g&nbsp;information&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.cleanup&nbsp;information&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>info_update tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;info_update&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;info_augment&nbsp;w&nbsp;;<br>
+&nbsp;info_cleanup&nbsp;w&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>cleanup tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;cleanup&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.cleanup&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.cleanup&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;info_update&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>resize size tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;resize&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.resize&nbsp;n&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.resize&nbsp;n&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>thickness tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;thickness&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;e&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>vector_demakeup tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;vector_demakeup&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;Vector&nbsp;in&nbsp;Sparse.Rng_tensor.vector_demakeup."</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>flat_tensor_demakeup tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;flat_tensor_demakeup&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;Flat_tensor&nbsp;in&nbsp;Sparse.Rng_tensor.flat_tensor_demakeup."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>flat_tensor_info tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;flat_tensor_info&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;Flat_tensor&nbsp;in&nbsp;Sparse.Rng_tensor.flat_tensor_info."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>flat_tensor_bare_demakeup tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;flat_tensor_bare_demakeup&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;Flat_tensor&nbsp;in&nbsp;Sparse.Rng_tensor.flat_tensor_bare_demakeup."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>null multi_dimension</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;null&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(i:index&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;ee&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;pred&nbsp;ee&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Index</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;ee&nbsp;()&nbsp;)&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.null&nbsp;i&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>zero unit</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.zero&nbsp;()&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>dimensions tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;dimensions&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;<span class="constructor">V</span>.dimension&nbsp;v&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.dimension&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>filling tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;filling&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.filling&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.filling&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sizes tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sizes&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">V</span>.size&nbsp;v&nbsp;,&nbsp;[|&nbsp;|]&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">M</span>.size&nbsp;v&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.size&nbsp;t&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>size tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.size&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.size&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>eq_zero tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.eq_zero&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.eq_zero&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_opp tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_opp&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.in_place_opp&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>opp tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.opp&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.opp&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>flatten tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;flatten&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">V</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;[|&nbsp;<span class="constructor">Info</span>.zero&nbsp;()&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="constructor">V</span>.filling&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.empty&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;table&nbsp;=&nbsp;snd&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;source&nbsp;=&nbsp;(&nbsp;snd&nbsp;v&nbsp;).<span class="constructor">V</span>.<span class="constructor">H</span>.data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;[|&nbsp;i&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Multi_hash</span>.null&nbsp;[|&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.insert_add&nbsp;(&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;ii&nbsp;)&nbsp;ii&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.insert_add&nbsp;x&nbsp;i&nbsp;t.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.add&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;x&nbsp;)&nbsp;!accu&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.iter&nbsp;h&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;source&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;goal&nbsp;=&nbsp;(&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.create&nbsp;r&nbsp;).<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;g&nbsp;source.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal.(i)&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.empty&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vv&nbsp;=&nbsp;(&nbsp;[|&nbsp;d&nbsp;|]&nbsp;,&nbsp;{&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.filling&nbsp;=&nbsp;f&nbsp;;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.auto&nbsp;=&nbsp;table.<span class="constructor">V</span>.<span class="constructor">H</span>.auto&nbsp;;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;=&nbsp;goal&nbsp;}&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;0&nbsp;,&nbsp;t&nbsp;,&nbsp;vv&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;w&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tensor_to_vector tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tensor_to_vector&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;w<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.tensor_to_vector."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="constructor">M</span>.filling&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.empty&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;source&nbsp;=&nbsp;(&nbsp;snd&nbsp;v&nbsp;).<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.add&nbsp;(&nbsp;i.(0)&nbsp;,&nbsp;x&nbsp;)&nbsp;!accu&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;goal&nbsp;=&nbsp;(&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.create&nbsp;r&nbsp;).<span class="constructor">V</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;g&nbsp;source.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal.(i)&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.empty&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;d.(0)&nbsp;,&nbsp;{&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.filling&nbsp;=&nbsp;f&nbsp;;&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.auto&nbsp;=&nbsp;(&nbsp;snd&nbsp;v&nbsp;).<span class="constructor">M</span>.<span class="constructor">H</span>.auto&nbsp;;&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.data&nbsp;=&nbsp;goal&nbsp;}&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>to_string tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;to_string&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;to_string&nbsp;(&nbsp;flatten&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ee&nbsp;=&nbsp;string_of_int&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tt&nbsp;=&nbsp;<span class="constructor">Util</span>.vector_to_string&nbsp;(&nbsp;<span class="constructor">Info</span>.special_to_string&nbsp;<span class="string">'!'</span>&nbsp;<span class="string">"&lt;"</span>&nbsp;<span class="string">"@"</span>&nbsp;<span class="string">"&gt;;"</span>&nbsp;)&nbsp;<span class="string">"{"</span>&nbsp;<span class="string">"_"</span>&nbsp;<span class="string">"}"</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;vv&nbsp;=&nbsp;<span class="constructor">M</span>.to_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"("</span>&nbsp;^&nbsp;ee&nbsp;^&nbsp;<span class="string">"#"</span>&nbsp;^&nbsp;tt&nbsp;^&nbsp;<span class="string">"#"</span>&nbsp;^&nbsp;vv&nbsp;^&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>bare_to_string tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;bare_to_string&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;to_string&nbsp;(&nbsp;flatten&nbsp;w&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ee&nbsp;=&nbsp;string_of_int&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;vv&nbsp;=&nbsp;<span class="constructor">M</span>.to_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"("</span>&nbsp;^&nbsp;ee&nbsp;^&nbsp;<span class="string">"#"</span>&nbsp;^&nbsp;vv&nbsp;^&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>of_string string</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;of_string&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">String</span>.index&nbsp;s&nbsp;<span class="string">'#'</span>&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;int_of_string&nbsp;(&nbsp;<span class="constructor">String</span>.sub&nbsp;s&nbsp;1&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;pred&nbsp;!a&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rest&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">String</span>.sub&nbsp;s&nbsp;(&nbsp;!a&nbsp;+&nbsp;1&nbsp;)&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;s&nbsp;-&nbsp;2&nbsp;-&nbsp;!a&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;a&nbsp;:=&nbsp;<span class="constructor">String</span>.index&nbsp;!rest&nbsp;<span class="string">'#'</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Index</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;<span class="constructor">String</span>.sub&nbsp;!rest&nbsp;0&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;!a&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;:=&nbsp;<span class="constructor">Util</span>.vector_of_string&nbsp;(&nbsp;<span class="constructor">Info</span>.special_from_string&nbsp;<span class="string">'!'</span>&nbsp;<span class="string">"&lt;"</span>&nbsp;<span class="string">"@"</span>&nbsp;<span class="string">"&gt;;"</span>&nbsp;(-1)&nbsp;)&nbsp;<span class="string">"{"</span>&nbsp;<span class="string">"_"</span>&nbsp;<span class="string">"}"</span>&nbsp;chaine&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rest&nbsp;:=&nbsp;<span class="constructor">String</span>.sub&nbsp;!rest&nbsp;(&nbsp;!a&nbsp;+&nbsp;1&nbsp;)&nbsp;(&nbsp;max&nbsp;0&nbsp;(&nbsp;<span class="constructor">String</span>.length&nbsp;!rest&nbsp;-&nbsp;1&nbsp;-&nbsp;!a&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">M</span>.of_string&nbsp;!rest&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;!t&nbsp;,&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>print tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;print_string&nbsp;(&nbsp;to_string&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>eq tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;eq&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.eq&nbsp;v&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;ee&nbsp;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;eq&nbsp;w&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;eq&nbsp;(&nbsp;tensor_to_vector&nbsp;w&nbsp;)&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;e&nbsp;=&nbsp;ee&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Info</span>.eq&nbsp;t&nbsp;tt&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">M</span>.eq&nbsp;v&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>unsafe_extract index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;unsafe_extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.unsafe_extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;=&nbsp;<span class="constructor">V</span>.unsafe_extract&nbsp;i.(0)&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;[|&nbsp;j&nbsp;|]&nbsp;,&nbsp;x&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.unsafe_extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.unsafe_extract&nbsp;i&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extract index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;x&nbsp;)&nbsp;=&nbsp;<span class="constructor">V</span>.extract&nbsp;i.(0)&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;[|&nbsp;j&nbsp;|]&nbsp;,&nbsp;x&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.extract."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.extract&nbsp;i&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>raw_extract index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;raw_extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;snd&nbsp;(&nbsp;extract&nbsp;i&nbsp;w&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>is_present index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;is_present&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ee&nbsp;=&nbsp;thickness&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.is_present."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ignore&nbsp;(&nbsp;unsafe_extract&nbsp;i&nbsp;w&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">false</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>find coefficient tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;find&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(c:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[|&nbsp;<span class="constructor">V</span>.find&nbsp;c&nbsp;v&nbsp;|]<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">M</span>.find&nbsp;c&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ee&nbsp;=&nbsp;succ&nbsp;e&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Array</span>.length&nbsp;index&nbsp;&lt;&nbsp;ee&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Index</span>.witness&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;ee&nbsp;()&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>list_find_all coefficient tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;list_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(c:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.rev_map&nbsp;f&nbsp;(&nbsp;<span class="constructor">V</span>.list_find_all&nbsp;c&nbsp;v&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.list_find_all&nbsp;c&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>index_list_find_all coefficient tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;index_list_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(c:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.rev_map&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;1&nbsp;)&nbsp;(&nbsp;<span class="constructor">V</span>.index_list_find_all&nbsp;c&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.index_list_find_all&nbsp;c&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>filter predicate tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;filter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:index&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.rev_map&nbsp;f&nbsp;(&nbsp;<span class="constructor">V</span>.filter&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;i&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;p&nbsp;[|&nbsp;i&nbsp;|]&nbsp;)&nbsp;v&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.filter&nbsp;p&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub_tensor_extract level index tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;sub_tensor_extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(k:int)&nbsp;(i:index)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;k&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">V</span>.null&nbsp;(&nbsp;<span class="constructor">Index</span>.zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.insert_add&nbsp;(&nbsp;<span class="constructor">V</span>.raw_extract&nbsp;i&nbsp;v&nbsp;)&nbsp;(&nbsp;<span class="constructor">Index</span>.witness&nbsp;()&nbsp;)&nbsp;z&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;z<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sub_tensor_extract&nbsp;k&nbsp;i&nbsp;(&nbsp;tensor_to_vector&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;dim&nbsp;,&nbsp;table&nbsp;)&nbsp;=&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ee&nbsp;=&nbsp;pred&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tt&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Info</span>.null&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Index</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;hints&nbsp;=&nbsp;t.(k)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Util</span>.array_forget&nbsp;k&nbsp;dim<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;range&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;i&nbsp;hints&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">M</span>.null&nbsp;d<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;candidates&nbsp;=&nbsp;<span class="constructor">Multi_hash</span>.elements&nbsp;range&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;indices&nbsp;,&nbsp;hash_values&nbsp;)&nbsp;=&nbsp;<span class="constructor">List</span>.split&nbsp;candidates<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;index.(k)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_index&nbsp;=&nbsp;<span class="constructor">Util</span>.array_forget&nbsp;k&nbsp;index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;new_index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;level&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ee&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indice&nbsp;=&nbsp;new_index.(level)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ttt&nbsp;=&nbsp;tt.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indice&nbsp;ttt&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;h&nbsp;new_index&nbsp;element&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;element&nbsp;indice&nbsp;ttt&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;index.(k)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_index&nbsp;=&nbsp;<span class="constructor">Util</span>.array_forget&nbsp;k&nbsp;index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.replace&nbsp;coefficient&nbsp;new_index&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hv&nbsp;=&nbsp;<span class="constructor">Array</span>.of_list&nbsp;hash_values<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;taille&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;u&nbsp;=&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data.(&nbsp;hv.(0)&nbsp;<span class="keyword">mod</span>&nbsp;taille&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;f&nbsp;u&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;g&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data.(&nbsp;hv.(0)&nbsp;<span class="keyword">mod</span>&nbsp;taille&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;hv&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data.(&nbsp;hv.(j)&nbsp;<span class="keyword">mod</span>&nbsp;taille&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;f&nbsp;s&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;result&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Util</span>.array_forget&nbsp;k&nbsp;(&nbsp;dimensions&nbsp;w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;pred&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.null&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Index</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;e&nbsp;()&nbsp;)&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.null&nbsp;d&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>insert_add coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;insert_add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;&lt;&gt;&nbsp;(&nbsp;succ&nbsp;(&nbsp;thickness&nbsp;w&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.insert."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.insert_add&nbsp;x&nbsp;i.(0)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.insert_add&nbsp;x&nbsp;i&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">M</span>.raw_extract&nbsp;i&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;test&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;level&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indice&nbsp;=&nbsp;i.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indice&nbsp;t.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;h&nbsp;i&nbsp;element&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;element&nbsp;indice&nbsp;t.(level)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>insert_sub coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;insert_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;&lt;&gt;&nbsp;(&nbsp;succ&nbsp;(&nbsp;thickness&nbsp;w&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.insert."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.insert_sub&nbsp;x&nbsp;i.(0)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.insert_sub&nbsp;x&nbsp;i&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">M</span>.raw_extract&nbsp;i&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;test&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;level&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indice&nbsp;=&nbsp;i.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indice&nbsp;t.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;h&nbsp;i&nbsp;element&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;element&nbsp;indice&nbsp;t.(level)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>replace coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;replace&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;&lt;&gt;&nbsp;(&nbsp;succ&nbsp;(&nbsp;thickness&nbsp;w&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.replace."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.replace&nbsp;x&nbsp;i.(0)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.replace&nbsp;x&nbsp;i&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">M</span>.raw_extract&nbsp;i&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;test&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;level&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indice&nbsp;=&nbsp;i.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indice&nbsp;t.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;h&nbsp;i&nbsp;element&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;element&nbsp;indice&nbsp;t.(level)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>remove index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;remove&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;)&nbsp;&lt;&gt;&nbsp;(&nbsp;succ&nbsp;(&nbsp;thickness&nbsp;w&nbsp;)&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.remove."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.remove&nbsp;i.(0)&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">M</span>.raw_extract&nbsp;i&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Coeff</span>.eq_zero&nbsp;test&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;level&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indice&nbsp;=&nbsp;i.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;element&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indice&nbsp;t.(level)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.remove&nbsp;i&nbsp;element&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;element&nbsp;indice&nbsp;t.(level)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.remove&nbsp;i&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub_tensor_remove level index tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub_tensor_remove&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(k:int)&nbsp;(i:index)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;k&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.remove&nbsp;i&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tk&nbsp;=&nbsp;t.(k)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;y&nbsp;((&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;):index&nbsp;array&nbsp;*&nbsp;coeff)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;index.(k)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.remove&nbsp;(&nbsp;index&nbsp;,&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)&nbsp;y&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;k&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;jj&nbsp;=&nbsp;index.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tj&nbsp;=&nbsp;t.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;jj&nbsp;tj&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.remove&nbsp;index&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;x&nbsp;jj&nbsp;tj&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;succ&nbsp;k&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;jj&nbsp;=&nbsp;index.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tj&nbsp;=&nbsp;t.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;jj&nbsp;tj&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.remove&nbsp;index&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;x&nbsp;jj&nbsp;tj&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;(&nbsp;dim&nbsp;,&nbsp;table&nbsp;)&nbsp;=&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tki&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;i&nbsp;tk<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;((&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;):index&nbsp;array&nbsp;*&nbsp;int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;u&nbsp;=&nbsp;table.<span class="constructor">M</span>.<span class="constructor">H</span>.data.(&nbsp;coefficient&nbsp;<span class="keyword">mod</span>&nbsp;s&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.iter&nbsp;(&nbsp;f&nbsp;u&nbsp;)&nbsp;u&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.iter&nbsp;g&nbsp;tki&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.remove&nbsp;i&nbsp;tk&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub_tensor_replace sub_tensor level index tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub_tensor_replace&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:t)&nbsp;(k:int)&nbsp;(i:index)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;k&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;<span class="constructor">V</span>.elements&nbsp;(&nbsp;vector_demakeup&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">List</span>.length&nbsp;e&nbsp;=&nbsp;1&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;snd&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;e&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.replace&nbsp;y&nbsp;i&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;sub_tensor_remove&nbsp;k&nbsp;i&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_index&nbsp;=&nbsp;<span class="constructor">Util</span>.array_insert&nbsp;k&nbsp;i&nbsp;index&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;insert_add&nbsp;coefficient&nbsp;new_index&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;e&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tj&nbsp;=&nbsp;t.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;indj&nbsp;=&nbsp;new_index.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;<span class="constructor">Info</span>.raw_extract&nbsp;indj&nbsp;tj&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Multi_hash</span>.replace&nbsp;(&nbsp;<span class="constructor">Multi_hasher</span>.hash&nbsp;new_index&nbsp;)&nbsp;new_index&nbsp;xx&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Info</span>.replace&nbsp;xx&nbsp;indj&nbsp;tj&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.iter&nbsp;f&nbsp;(&nbsp;flat_tensor_bare_demakeup&nbsp;(&nbsp;flatten&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>iter function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;iter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:<span class="constructor">M</span>.elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.iter&nbsp;ff&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.iter&nbsp;f&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_map function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:coeff&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_map&nbsp;f&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.in_place_map&nbsp;f&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_mapi function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_mapi&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;[|&nbsp;i&nbsp;|]&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.in_place_mapi&nbsp;g&nbsp;v<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.in_place_mapi&nbsp;f&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>raw_map function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;raw_map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:coeff&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.map&nbsp;f&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.map&nbsp;f&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>map function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:coeff&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.map&nbsp;f&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.map&nbsp;f&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>mapi function tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;mapi&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;i&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;[|&nbsp;i&nbsp;|]&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.mapi&nbsp;g&nbsp;v&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.mapi&nbsp;f&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>fold function tensor init</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;fold&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:<span class="constructor">M</span>.elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;(w:t)&nbsp;(init:<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;(&nbsp;[|&nbsp;i&nbsp;|]&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.fold&nbsp;ff&nbsp;v&nbsp;init<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.fold&nbsp;f&nbsp;v&nbsp;init&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub_flat_tensor index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub_flat_tensor&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;flat&nbsp;tensor&nbsp;in&nbsp;Sparse.Rng_tensor.sub_tensor."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;shift&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;complement&nbsp;=&nbsp;e&nbsp;-&nbsp;shift&nbsp;+&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;j&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;j&nbsp;0&nbsp;shift&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;shift&nbsp;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;valid&nbsp;index&nbsp;array&nbsp;in&nbsp;Sparse.Rng_tensor.sub_tensor."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dd&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;d&nbsp;shift&nbsp;complement&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;null&nbsp;dd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;p&nbsp;(i)&nbsp;<span class="keyword">then</span>&nbsp;insert_add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;i&nbsp;shift&nbsp;complement&nbsp;)&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>suffix_sub_flat_tensor index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;suffix_sub_flat_tensor&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;flat&nbsp;tensor&nbsp;in&nbsp;Sparse.Rng_tensor.suffix_sub_tensor."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;complement&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;complement&nbsp;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;valid&nbsp;index&nbsp;array&nbsp;in&nbsp;Sparse.Rng_tensor.suffix_sub_tensor."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;shift&nbsp;=&nbsp;e&nbsp;-&nbsp;complement&nbsp;+&nbsp;1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dd&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;d&nbsp;0&nbsp;shift<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;j&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;j&nbsp;shift&nbsp;complement&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;null&nbsp;dd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;p(i)&nbsp;<span class="keyword">then</span>&nbsp;insert_add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;i&nbsp;0&nbsp;shift&nbsp;)&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub_vector_tensor index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub_vector_tensor&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;flat&nbsp;tensor&nbsp;in&nbsp;Sparse.Rng_tensor.sub_vector."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;shift&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;shift&nbsp;&lt;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;valid&nbsp;index&nbsp;array&nbsp;in&nbsp;Sparse.Rng_tensor.sub_vector."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;j&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;j&nbsp;0&nbsp;shift&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;<span class="constructor">Util</span>.array_last&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">V</span>.null&nbsp;dd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;p&nbsp;i&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">V</span>.insert_add&nbsp;x&nbsp;(&nbsp;<span class="constructor">Util</span>.array_last&nbsp;i&nbsp;)&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>suffix_sub_vector_tensor index_array tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;suffix_sub_vector_tensor&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;flat&nbsp;tensor&nbsp;in&nbsp;Sparse.Rng_tensor.suffix_sub_vector."</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">M</span>.dimension&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;complement&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;complement&nbsp;&lt;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;valid&nbsp;index&nbsp;array&nbsp;in&nbsp;Sparse.Rng_tensor.suffix_sub_vector."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;j&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Util</span>.array_eq&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;(&nbsp;<span class="constructor">Util</span>.array_tail&nbsp;j&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;d.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">V</span>.null&nbsp;dd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;p&nbsp;i&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">V</span>.insert_add&nbsp;x&nbsp;i.(0)&nbsp;result&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>embed dimensions shift tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;embed&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(dimensions:index&nbsp;array)&nbsp;(shift:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;dimensions&nbsp;=&nbsp;1&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;shift&nbsp;=&nbsp;1&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.embed&nbsp;dimensions.(0)&nbsp;shift.(0)&nbsp;v&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ee&nbsp;=&nbsp;succ&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;tt&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;dimensions&nbsp;=&nbsp;ee&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;shift&nbsp;=&nbsp;ee&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;tt&nbsp;,&nbsp;<span class="constructor">M</span>.embed&nbsp;dimensions&nbsp;shift&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>min tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;min&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.min&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.min&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>max tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;max&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.max&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.max&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_opp tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_opp&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.in_place_opp&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>opp tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.opp&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">M</span>.opp&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_add tensor1 tensor2</pre> The first tensor stores the result.
+<p>
+
+Le premier tenseur accueille le résultat. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.in_place_add."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_add&nbsp;u&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.in_place_add&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_add&nbsp;v&nbsp;(&nbsp;flat_tensor_bare_demakeup&nbsp;(&nbsp;flatten&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_add&nbsp;v&nbsp;vv&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>add tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.add."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.add&nbsp;u&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.add&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;add&nbsp;x&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.add&nbsp;v&nbsp;vv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_sub tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.in_place_sub."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_sub&nbsp;u&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.in_place_sub&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_sub&nbsp;v&nbsp;(&nbsp;flat_tensor_bare_demakeup&nbsp;(&nbsp;flatten&nbsp;x&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_sub&nbsp;v&nbsp;vv&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_update&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.sub."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.sub&nbsp;u&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.sub&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.sub&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;w&nbsp;)&nbsp;)&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.sub&nbsp;v&nbsp;vv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>tensor_sample beginning ending tensor</pre> All the multi-indices between the two ends 
+in the lexicographic order are selected.
+<p>
+
+Tous les multi-indices entre les deux bornes dans l'ordre lexicographique sont sélectionnés. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;tensor_sample&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(beginning:index&nbsp;array)&nbsp;(ending:index&nbsp;array)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.sub_vector&nbsp;beginning.(0)&nbsp;ending.(0)&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.sub_vector&nbsp;beginning&nbsp;ending&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sum tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sum&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.sum&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.sum&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>contraction init tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;contraction&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(init:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.contraction&nbsp;init&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.contraction&nbsp;init&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_add scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_scal_add&nbsp;scal&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_scal_add&nbsp;scal&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;info_update&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_add scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.scal_add&nbsp;scal&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.scal_add&nbsp;scal&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_mult scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_scal_mult&nbsp;scal&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_scal_mult&nbsp;scal&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;info_update&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_mult scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.scal_mult&nbsp;scal&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.scal_mult&nbsp;scal&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_right_sub scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_right_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_scal_right_sub&nbsp;scal&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_scal_right_sub&nbsp;scal&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;info_update&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_right_sub scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_right_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.scal_right_sub&nbsp;scal&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.scal_right_sub&nbsp;scal&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_left_sub scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_left_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.in_place_scal_left_sub&nbsp;scal&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.in_place_scal_left_sub&nbsp;scal&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;info_update&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_left_sub scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_left_sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(scal:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.scal_left_sub&nbsp;scal&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.scal_left_sub&nbsp;scal&nbsp;v&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>coeff_prod tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;coeff_prod&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.coeff_prod."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.coeff_prod&nbsp;u&nbsp;y&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">V</span>.coeff_prod&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;coeff_prod&nbsp;x&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.zero&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;()&nbsp;)&nbsp;,&nbsp;<span class="constructor">M</span>.coeff_prod&nbsp;v&nbsp;vv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info_augment&nbsp;result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_prod tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;scal_prod&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;thickness&nbsp;in&nbsp;Sparse.Rng_tensor.scal_prod."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.scal_prod&nbsp;u&nbsp;y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ee&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.scal_prod&nbsp;u&nbsp;(&nbsp;vector_demakeup&nbsp;(&nbsp;tensor_to_vector&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;x&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;scal_prod&nbsp;x&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e&nbsp;&lt;&gt;&nbsp;ee&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.scal_prod&nbsp;v&nbsp;vv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>norm_1 tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;norm_1&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.norm_1&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.norm_1&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>norm_inf tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;norm_inf&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.norm_inf&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.norm_inf&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>square_sum tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;square_sum&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.square_sum&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.square_sum&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>square_norm_2 tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;square_norm_2&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">V</span>.square_norm_2&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">M</span>.square_norm_2&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>norm_compare norm tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;norm_compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;n&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Coeff</span>.norm_compare&nbsp;(&nbsp;n&nbsp;w&nbsp;)&nbsp;(&nbsp;n&nbsp;x&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>compare tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;norm_compare&nbsp;norm_1&nbsp;w&nbsp;x&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>exchange level index1 index2 tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;exchange&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(level:int)&nbsp;(i:index)&nbsp;(j:index)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;level&nbsp;in&nbsp;Sparse.Rng_tensor.exchange."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;level&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.exchange&nbsp;i&nbsp;j&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.cleanup&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;level&nbsp;&gt;&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Index</span>.eq&nbsp;i&nbsp;j&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;old_i&nbsp;=&nbsp;sub_tensor_extract&nbsp;level&nbsp;i&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;old_j&nbsp;=&nbsp;sub_tensor_extract&nbsp;level&nbsp;j&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub_tensor_replace&nbsp;old_i&nbsp;level&nbsp;j&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub_tensor_replace&nbsp;old_j&nbsp;level&nbsp;i&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>level_exchange level1 level2 tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;level_exchange&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:int)&nbsp;(j:int)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;error_message&nbsp;=&nbsp;<span class="string">"Bad&nbsp;levels&nbsp;in&nbsp;Sparse.Rng_tensor.level_exchange."</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;i&nbsp;&lt;&gt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;j&nbsp;&lt;&gt;&nbsp;0&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;i&nbsp;&gt;&nbsp;e&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;j&nbsp;&gt;&nbsp;e&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;error_message&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;i&nbsp;&lt;&gt;&nbsp;j&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;k&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;k.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k.(i)&nbsp;&lt;-&nbsp;k.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k.(j)&nbsp;&lt;-&nbsp;accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;fst&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;d.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.(i)&nbsp;&lt;-&nbsp;d.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.(j)&nbsp;&lt;-&nbsp;accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cleanup&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>mult tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(ww:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ww&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;vv&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;[|&nbsp;<span class="constructor">V</span>.dimension&nbsp;v&nbsp;;&nbsp;<span class="constructor">V</span>.dimension&nbsp;vv&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;null&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub_tensor_replace&nbsp;(&nbsp;scal_mult&nbsp;coefficient&nbsp;ww&nbsp;)&nbsp;0&nbsp;index&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;[|&nbsp;<span class="constructor">V</span>.dimension&nbsp;v&nbsp;|]&nbsp;(&nbsp;<span class="constructor">M</span>.dimension&nbsp;vv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;null&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub_tensor_replace&nbsp;(&nbsp;scal_mult&nbsp;coefficient&nbsp;ww&nbsp;)&nbsp;0&nbsp;index&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ww&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;vv&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;(&nbsp;<span class="constructor">M</span>.dimension&nbsp;v&nbsp;)&nbsp;[|&nbsp;<span class="constructor">V</span>.dimension&nbsp;vv&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;null&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub_tensor_replace&nbsp;(&nbsp;scal_mult&nbsp;coefficient&nbsp;w&nbsp;)&nbsp;(&nbsp;succ&nbsp;e&nbsp;)&nbsp;index&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.iter&nbsp;f&nbsp;vv&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;ee&nbsp;,&nbsp;tt&nbsp;,&nbsp;vv&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;(&nbsp;<span class="constructor">M</span>.dimension&nbsp;v&nbsp;)&nbsp;(&nbsp;<span class="constructor">M</span>.dimension&nbsp;vv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;null&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;index&nbsp;,&nbsp;coefficient&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;insert_add&nbsp;(&nbsp;<span class="constructor">Coeff</span>.mult&nbsp;coefficient&nbsp;y&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.append&nbsp;index&nbsp;i&nbsp;)&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.iter&nbsp;g&nbsp;vv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.iter&nbsp;f&nbsp;v&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>safe_mult tensor1 tensor2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;safe_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(w:t)&nbsp;(ww:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;mult&nbsp;(&nbsp;copy&nbsp;w&nbsp;)&nbsp;(&nbsp;copy&nbsp;ww&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_Tenseurscreuxcoefficientsdansuncorpscommutatif"><h2>Tenseurs creux à coefficients dans un corps commutatif</h2></span>
+<span id="2_Sparsetensorswithcoefficientsinafield"><h2>Sparse tensors with coefficients in a field</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Field</span>&nbsp;(<span class="constructor">Index</span>:<span class="constructor">Data</span>.<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Hasher</span>:<span class="constructor">Hash</span>.<span class="constructor">Hash_type</span>&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t)&nbsp;(<span class="constructor">Coeff</span>:<span class="constructor">Data</span>.<span class="constructor">Field_coeff_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<span class="keyword">include</span>&nbsp;<span class="constructor">Rng</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">W</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">N</span>&nbsp;=&nbsp;<span class="constructor">Sparse_vector</span>.<span class="constructor">Field</span>&nbsp;(<span class="constructor">Multi_index</span>)&nbsp;(<span class="constructor">Multi_hasher</span>)&nbsp;(<span class="constructor">Coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_inv tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">W</span>.in_place_inv&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_inv&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inv tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">W</span>.inv&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">N</span>.inv&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_right_div scalar tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_right_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">W</span>.in_place_scal_right_div&nbsp;x&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_scal_right_div&nbsp;x&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_right_div scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_right_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">W</span>.scal_right_div&nbsp;x&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">N</span>.scal_right_div&nbsp;x&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_scal_left_div scalar tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">W</span>.in_place_scal_left_div&nbsp;x&nbsp;v<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">N</span>.in_place_scal_left_div&nbsp;x&nbsp;v&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>scal_left_div scalar tensor</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;scal_left_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:coeff)&nbsp;(w:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;w&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Vector</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Vector</span>&nbsp;(&nbsp;<span class="constructor">W</span>.scal_left_div&nbsp;x&nbsp;v&nbsp;)<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;t&nbsp;,&nbsp;v&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Flat_tensor</span>&nbsp;(&nbsp;e&nbsp;,&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Info</span>.copy&nbsp;t&nbsp;,&nbsp;<span class="constructor">N</span>.scal_left_div&nbsp;x&nbsp;v&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

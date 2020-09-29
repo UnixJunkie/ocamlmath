@@ -1,0 +1,225 @@
++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
++ Mathematic calculations for Ocaml +
++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+
+
++----------------------+
+| INSTALLATION AND USE |
++----------------------+
+
+*******
+* (0) *
+*******
+Uncompress the archive:
+tar -xjvf ocamlmath-[X.Y].tbz
+
+*******
+* (1) *
+*******
+Read math/MathSpec/index.html 
+to have an idea of the calculations proposed.
+
+*******
+* (2) *
+*******
+Read math/GraphicmathSpec/index.html 
+to have an idea of supplementary graphic and browsing (see step (6)) functions.
+
+*******
+* (3) *
+*******
+In order to use source code or only the bytecodes proposed in the distribution, 
+no further installation is required. 
+
+Use the toplevels "topmath" or "graphicmath/topgraphicmath", by typing
+
+cd math
+ledit ./topmath
+
+or
+
+cd math/graphicmath
+ledit ./topgraphicmath
+
+or load the libraries "math.cma" or "graphicmath/graphicmath.cma" into Ocaml, 
+or use the instructions '#load "nums.cma" ;; #load "str.cma" ;; 
+#use "math.ml" ;;' et caetera.
+It may be convenient to add the instructions "open Math ;;" or "open Graphicmath ;;" :
+refer to the files "math/.ocamlinit" and "math/graphicmath/.ocamlinit".
+
+
+>>---------------------------
+On a non BSD system, the toplevels to use are "nonBSDtopmath" and "graphicmath/nonBSDtopgraphicmath".
+In case of problem, the following instructions should work.
+
+ledit ocamlrun topmath
+or
+ocamlrun topmath
+
+and
+
+ledit ocamlrun topgraphicmath
+or
+ocamlrun topgraphicmath
+
+(The bytecode executables differ only by the shebangs.)
+---------------------------<<
+
+In order to use bytecode software, execute (on a BSD system)
+
+cd math/analogic
+./ferdinand.cmo true true 800 600 10
+
+>---------------------------
+On a non BSD system, try to use "nonBSDferdinand.cmo" instead.
+
+In case of problem, try
+
+ocamlrun ferdinand.cmo
+
+(The bytecode executables differ only by the shebangs.)
+---------------------------<
+
+Go to step (6).
+
+**********
+* (3bis) *
+**********
+To know if the operating system respects the BSD standard,
+the answer of the command :
+
+which ocamlrun
+
+must be :
+
+/usr/local/bin/ocamlrun
+
+In case of a different answer, like :
+
+/usr/bin/ocamlrun
+
+the operating sytem does not respect the BSD standard.
+
+It is possible to recompile or edit the bytecode executables in order to write a shebang compatible with the operating system.
+In any case, taking the bytecode file as argument of the instruction "ocamlrun" should solve the problem of the path.
+
+*******
+* (4) *
+*******
+In order to use native code libraries, execute either
+
+cd math
+sh block_native_lib.sh [inline_parameter]
+
+or
+
+cd math
+sh fragment_native_lib.sh
+
+*******
+* (5) *
+*******
+In order to use native code software, execute either
+
+cd math/analogic
+sh block_native.sh
+
+or, if "sh fragment_native_lib.sh" has already been done,
+
+cd math/analogic
+sh fragment_native.sh
+
+and then
+
+./ferdinand true true 800 600 10
+
+*******
+* (6) *
+*******
+Go to steps (1) and (2) and follow the different links 
+in order to deepen your reading.
+
+(In the following the prefix "Spec." is facultative 
+if the instruction "open Spec ;;" is written in the file ".oamlinit".)
+
+Inside "topgraphicmath", in order to find a function "foobar", 
+use the instruction
+
+Spec.which "foobar" ;;
+
+This applies both to functions from the standard distribution 
+and from the present math distribution.
+(It may be taylored to anything else 
+by modifying the data arrays of the Spec module.)
+
+If the answer array is not empty, take one of its item "Thing.foobar" 
+and read the basic specification:
+
+Spec.what "Thing.foobar" ;;
+
+for this math distribution.
+For another distribution, provide as first argument 
+a path to the html documentation of the source code.
+
+With the same environment (mutatis mutandis), get the source code 
+(also to be known as extended specification) of the function :
+
+Spec.how "Thing.foobar" ;;
+
+And in order to know where this function is called, type
+
+Spec.why "Thing.foobar" ;
+Spec.why "foobar" ;;
+
+In these last instructions, the string of the function may be cut ad libitum 
+in order to generalize the search.
+
+
++---------------+
+| CUSTOMIZATION |
++---------------+
+
+
+*******
+* (7) *
+*******
+In order to develop further bytecode or nativecode, read and use 
+"depend.sh" and "bytecode_instructions.sh" and "native_instructions.sh" 
+and "depend.defaults" and "depend.conf" and "depend.txt".
+
+Create shell scripts and taylor files to your use.
+
+
++--------------+
+| MODIFICATION |
++--------------+
+
+
+*******
+* (8) *
+*******
+In order to modify this distribution, copy (recursively) 
+the subdirectories of "math/" as its brothers 
+(excepted GraphicmathSpec, MathSpec, graphicmath).
+
+Do the modifications in these brother directories. 
+It is possible to create new directories.
+
+Modify "math/script.sh" in consequence if necessary.
+
+Run "math/script.sh". 
+This script CRASHES those directories inside "math/" 
+and also "depend.txt" in order to avoid out of date information.
+
+The script "script.sh" is intended to be used on a BSD system.
+It must be modified to run properly on a non BSD system.
+
+To detect if the operating system respects the BSD standard, go to step (3bis).
+
+
+*******
+* (9) *
+*******
+Respect the Ocaml library licence: see the file "licence.html".
+
+

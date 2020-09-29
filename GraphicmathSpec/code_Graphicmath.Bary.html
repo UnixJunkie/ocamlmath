@@ -1,0 +1,601 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Bary</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+The mathematician will find in this module tools to treat weighted sets, 
+inspired from those of the module <code class="code"><span class="constructor">Set</span></code> of the OCaml standard library,
+with the difference that the sets are preferably modified in place.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+An element disappears when its weight is zero.
+<p>
+
+The functions of this module are not sealed.
+<p>
+
+The sets are modifiable in place.
+<p>
+
+The cardinal is recorded and modified with the set.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des outils pour traiter les ensembles à poids,
+inspirés de ceux du module <code class="code"><span class="constructor">Set</span></code> de la bibliothèque standard OCaml,
+à la différence près que les ensembles sont de préférence modifiés en place.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Un élément disparaît quand son poids est nul.
+<p>
+
+Les fonctions de ce module ne sont pas étanches.
+<p>
+
+Les ensembles sont modifiables en place.
+<p>
+
+Le cardinal est enregistré et modifié avec l'ensemble.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@version 0.1
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@author Stéphane Grognet
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@since 2013
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Util</span>&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Index_type</span>&nbsp;=&nbsp;<span class="keyword">sig</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;zero:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;compare:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+<span class="keyword">val</span>&nbsp;copy:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Weight_type</span>&nbsp;=&nbsp;<span class="keyword">sig</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;zero:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;eq_zero:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+<span class="keyword">val</span>&nbsp;compare:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+<span class="keyword">val</span>&nbsp;copy:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;add:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;sub:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;opp:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Make</span>&nbsp;(<span class="constructor">Index</span>:&nbsp;<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Weight</span>:&nbsp;<span class="constructor">Weight_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** This functor deals with weighted sets.
+<p>
+
+Ce foncteur traite des ensembles à poids. *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Modulesauxiliaires"><h1>Modules auxiliaires</h1></span>
+<span id="1_Auxiliarymodules"><h1>Auxiliary modules</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Pairs</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;*&nbsp;<span class="constructor">Weight</span>.t&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;((&nbsp;x&nbsp;,&nbsp;xx&nbsp;):t)&nbsp;((&nbsp;y&nbsp;,&nbsp;yy&nbsp;):t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Index</span>.compare&nbsp;x&nbsp;y&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">StrongPairs</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;*&nbsp;<span class="constructor">Weight</span>.t&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;((&nbsp;x&nbsp;,&nbsp;xx&nbsp;):t)&nbsp;((&nbsp;y&nbsp;,&nbsp;yy&nbsp;):t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;<span class="constructor">Index</span>.compare&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;c&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Weight</span>.compare&nbsp;xx&nbsp;yy<br>
+&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;c&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The type <code class="code">elt</code> consists in couples (index, weight) and is identified with the type <code class="code">elt</code> of the following modules <code class="code"><span class="constructor">E</span></code> and <code class="code"><span class="constructor">S</span></code>.
+<p>
+
+Le type <code class="code">elt</code> est formé par couple (indice, poids) et est identifié avec le type <code class="code">elt</code> des modules <code class="code"><span class="constructor">E</span></code> et <code class="code"><span class="constructor">S</span></code> suivants. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">type</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;weight&nbsp;=&nbsp;<span class="constructor">Weight</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;elt&nbsp;=&nbsp;index&nbsp;*&nbsp;weight&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module <code class="code"><span class="constructor">E</span></code> provides basic tools from the module Set of the standard OCaml library.
+<p>
+
+Le module <code class="code"><span class="constructor">E</span></code> fournit les outils de base à partir du module Set de la bibliothèque standard OCaml. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">E</span>&nbsp;=&nbsp;(&nbsp;<span class="constructor">Set</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">Pairs</span>)<br>
+:&nbsp;<span class="keyword">sig</span><br>
+&nbsp;<span class="keyword">include</span>&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Set</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">Pairs</span>)<br>
+<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;elt&nbsp;:=&nbsp;elt&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** In contrast to the module <code class="code"><span class="constructor">E</span></code>, the module <code class="code"><span class="constructor">S</span></code> takes the weights into account in order to build some functions.
+<p>
+
+À la différence du module <code class="code"><span class="constructor">E</span></code>, le module <code class="code"><span class="constructor">S</span></code> tient compte des poids pour construire quelques fonctions. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">S</span>&nbsp;=&nbsp;(&nbsp;<span class="constructor">Set</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">StrongPairs</span>)<br>
+:&nbsp;<span class="keyword">sig</span><br>
+&nbsp;<span class="keyword">include</span>&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Set</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">StrongPairs</span>)<br>
+<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;elt&nbsp;:=&nbsp;elt&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Constructionofthefunctor"><h1>Construction of the functor</h1></span>
+<span id="1_Constructiondufoncteur"><h1>Construction du foncteur</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The type <code class="code">t</code> records a set modifiable in place and its cardinal.
+<p>
+
+Le type <code class="code">t</code> enregistre un ensemble modifiable en place et son cardinal.*)</span></td></tr></table><code class="code"><br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;{&nbsp;<span class="keyword">mutable</span>&nbsp;cardinal:&nbsp;int&nbsp;;&nbsp;<span class="keyword">mutable</span>&nbsp;content:&nbsp;<span class="constructor">E</span>.t&nbsp;}&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_Importations"><h2>Importations</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>empty unit</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;empty&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;0&nbsp;;&nbsp;content&nbsp;=&nbsp;<span class="constructor">E</span>.empty&nbsp;}&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>is_empty set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;is_empty&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.is_empty&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>quick_is_empty set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;quick_is_empty&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;s.cardinal&nbsp;=&nbsp;0&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>mem element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;mem&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.mem&nbsp;x&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_copy element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;((x&nbsp;,&nbsp;y):elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;(&nbsp;<span class="constructor">Index</span>.copy&nbsp;x&nbsp;,&nbsp;<span class="constructor">Weight</span>.copy&nbsp;y&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>singleton element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;singleton&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;1&nbsp;;&nbsp;content&nbsp;=&nbsp;<span class="constructor">E</span>.singleton&nbsp;x&nbsp;}&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>remove element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;remove&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">E</span>.mem&nbsp;x&nbsp;s.content&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;s.cardinal&nbsp;&lt;-&nbsp;pred&nbsp;s.cardinal&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.remove&nbsp;x&nbsp;s.content<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>iter function set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;iter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.iter&nbsp;f&nbsp;s.content&nbsp;;<br>
+&nbsp;s.cardinal&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.cardinal&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>fold function set init</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;fold&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(s:t)&nbsp;init&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.fold&nbsp;f&nbsp;s.content&nbsp;init&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>for_all predicate set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;for_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.for_all&nbsp;p&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>exists predicate set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;exists&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.exists&nbsp;p&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>filter predicate set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;filter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">E</span>.filter&nbsp;p&nbsp;s.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;<span class="constructor">E</span>.cardinal&nbsp;t&nbsp;;&nbsp;content&nbsp;=&nbsp;t&nbsp;}&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>partition predicate set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;partition&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(p:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;yes&nbsp;,&nbsp;no&nbsp;)&nbsp;=&nbsp;<span class="constructor">E</span>.partition&nbsp;p&nbsp;s.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;<span class="constructor">E</span>.cardinal&nbsp;yes<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;cc&nbsp;=&nbsp;<span class="constructor">E</span>.cardinal&nbsp;no&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;(&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;c&nbsp;;&nbsp;content&nbsp;=&nbsp;yes&nbsp;}&nbsp;,&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;cc&nbsp;;&nbsp;content&nbsp;=&nbsp;no&nbsp;}&nbsp;)<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>cardinal set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;cardinal&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;s.cardinal&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>elements set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;elements&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;(&nbsp;s.cardinal&nbsp;,&nbsp;<span class="constructor">E</span>.elements&nbsp;s.content&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>to_list set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;to_list&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">List</span>.fast_sort&nbsp;<span class="constructor">Pairs</span>.compare&nbsp;(&nbsp;<span class="constructor">E</span>.elements&nbsp;s.content&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>min_elt set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;min_elt&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.min_elt&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>max_elt set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;max_elt&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.max_elt&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>choose set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;choose&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.choose&nbsp;s.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>split element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;split&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">E</span>.split&nbsp;x&nbsp;s.content&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>translate set</pre> This function helps to use the module <code class="code"><span class="constructor">S</span></code>.
+<p>
+
+Cette fonction sert à utiliser le module <code class="code"><span class="constructor">S</span></code>. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;translate&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">List</span>.fold_right&nbsp;<span class="constructor">S</span>.add&nbsp;(&nbsp;<span class="constructor">E</span>.elements&nbsp;s.content&nbsp;)&nbsp;<span class="constructor">S</span>.empty&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>compare set1 set2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">S</span>.compare&nbsp;(&nbsp;translate&nbsp;s1&nbsp;)&nbsp;(&nbsp;translate&nbsp;s2&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>equal set1 set2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;equal&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">S</span>.equal&nbsp;(&nbsp;translate&nbsp;s1&nbsp;)&nbsp;(&nbsp;translate&nbsp;s2&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>subset set1 set2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;subset&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">S</span>.subset&nbsp;(&nbsp;translate&nbsp;s1&nbsp;)&nbsp;(&nbsp;translate&nbsp;s2&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>strong_mem element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;strong_mem&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">S</span>.mem&nbsp;x&nbsp;(&nbsp;translate&nbsp;s&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="2_Constructionspropresauxensemblespoids"><h2>Constructions propres aux ensembles à poids</h2></span>
+<span id="2_Constructionspropertoweightedsets"><h2>Constructions proper to weighted sets</h2></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>add element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;((&nbsp;x&nbsp;,&nbsp;xx&nbsp;)&nbsp;<span class="keyword">as</span>&nbsp;z:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;s.cardinal<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;s.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">E</span>.mem&nbsp;z&nbsp;s.content&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="constructor">E</span>.filter&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Pairs</span>.compare&nbsp;z&nbsp;w&nbsp;=&nbsp;0&nbsp;)&nbsp;d<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">E</span>.remove&nbsp;z&nbsp;d&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;liste&nbsp;=&nbsp;<span class="constructor">E</span>.elements&nbsp;f&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">List</span>.length&nbsp;(&nbsp;<span class="constructor">List</span>.tl&nbsp;liste&nbsp;)&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;yy&nbsp;)&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;liste&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Weight</span>.add&nbsp;xx&nbsp;yy&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Weight</span>.eq_zero&nbsp;w&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.cardinal&nbsp;&lt;-&nbsp;pred&nbsp;c&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;s.cardinal&nbsp;&lt;-&nbsp;succ&nbsp;c&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.add&nbsp;z&nbsp;d&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub element set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;((&nbsp;x&nbsp;,&nbsp;xx&nbsp;)&nbsp;<span class="keyword">as</span>&nbsp;z:elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;s.content<br>
+&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;s.cardinal&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">E</span>.mem&nbsp;z&nbsp;e&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="constructor">E</span>.filter&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Pairs</span>.compare&nbsp;z&nbsp;w&nbsp;=&nbsp;0&nbsp;)&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">E</span>.remove&nbsp;z&nbsp;e&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;liste&nbsp;=&nbsp;<span class="constructor">E</span>.elements&nbsp;f&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">List</span>.length&nbsp;(&nbsp;<span class="constructor">List</span>.tl&nbsp;liste&nbsp;)&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;yy&nbsp;)&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;liste&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Weight</span>.sub&nbsp;yy&nbsp;xx&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Weight</span>.eq_zero&nbsp;w&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.cardinal&nbsp;&lt;-&nbsp;pred&nbsp;c&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;x&nbsp;,&nbsp;w&nbsp;)&nbsp;t&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;s.cardinal&nbsp;&lt;-&nbsp;succ&nbsp;c&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;s.content&nbsp;&lt;-&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;x&nbsp;,&nbsp;<span class="constructor">Weight</span>.opp&nbsp;xx&nbsp;)&nbsp;e&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>inter set1 set2</pre> The intersection chooses the minimal weight.
+<p>
+
+L'intersection choisit le poids minimal. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;inter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;c1&nbsp;=&nbsp;s1.cardinal<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d1&nbsp;=&nbsp;s1.content<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d&nbsp;=&nbsp;ref&nbsp;<span class="constructor">E</span>.empty<br>
+&nbsp;<span class="keyword">and</span>&nbsp;c&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;c2&nbsp;=&nbsp;s2.cardinal<br>
+&nbsp;<span class="keyword">and</span>&nbsp;d2&nbsp;=&nbsp;s2.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;c1&nbsp;&lt;=&nbsp;c2&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;liste&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">E</span>.elements&nbsp;d1&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;count&nbsp;=&nbsp;ref&nbsp;c1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;!count&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;!liste&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">E</span>.mem&nbsp;z&nbsp;d2&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;<span class="constructor">E</span>.elements&nbsp;(&nbsp;<span class="constructor">E</span>.filter&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Pairs</span>.compare&nbsp;z&nbsp;w&nbsp;=&nbsp;0&nbsp;)&nbsp;d2&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;fst&nbsp;z<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;xx&nbsp;=&nbsp;snd&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;(&nbsp;<span class="constructor">List</span>.length&nbsp;(&nbsp;<span class="constructor">List</span>.tl&nbsp;e&nbsp;)&nbsp;=&nbsp;0&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;yy&nbsp;)&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;e&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Weight</span>.compare&nbsp;xx&nbsp;yy&nbsp;&lt;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;xx&nbsp;<span class="keyword">else</span>&nbsp;yy&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;:=&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;x&nbsp;,&nbsp;zz&nbsp;)&nbsp;!d&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;c&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;liste&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!liste&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decr&nbsp;count&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;!c&nbsp;;&nbsp;content&nbsp;=&nbsp;!d&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;inter&nbsp;s2&nbsp;s1&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>of_list element_list</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;of_list&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:elt&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;empty&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;add&nbsp;y&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;f&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;s&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>map function set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;elt)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;f&nbsp;x&nbsp;)&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">E</span>.fold&nbsp;g&nbsp;s.content&nbsp;<span class="constructor">E</span>.empty&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;<span class="constructor">E</span>.cardinal&nbsp;d&nbsp;;&nbsp;content&nbsp;=&nbsp;d&nbsp;}&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>copy set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;element_copy&nbsp;x&nbsp;)&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">E</span>.fold&nbsp;g&nbsp;s.content&nbsp;<span class="constructor">E</span>.empty&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;s.cardinal&nbsp;;&nbsp;content&nbsp;=&nbsp;d&nbsp;}&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>opp set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;<span class="constructor">Weight</span>.opp&nbsp;y&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;u&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">E</span>.add&nbsp;(&nbsp;f&nbsp;x&nbsp;)&nbsp;u&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;<span class="constructor">E</span>.fold&nbsp;g&nbsp;s.content&nbsp;<span class="constructor">E</span>.empty&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cardinal&nbsp;=&nbsp;s.cardinal&nbsp;;&nbsp;content&nbsp;=&nbsp;d&nbsp;}&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>union set1 set2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;union&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;empty&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;add&nbsp;y&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">E</span>.iter&nbsp;f&nbsp;s1.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">E</span>.iter&nbsp;f&nbsp;s2.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;s&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>diff set1 set2</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;diff&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(s1:t)&nbsp;(s2:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;empty&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;add&nbsp;y&nbsp;s<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub&nbsp;y&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">E</span>.iter&nbsp;f&nbsp;s1.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">E</span>.iter&nbsp;g&nbsp;s2.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;s&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extract index set</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:<span class="constructor">Index</span>.t)&nbsp;(s:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;mem&nbsp;(&nbsp;i&nbsp;,&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;test&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;j&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;i&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;with_i&nbsp;,&nbsp;without_i&nbsp;)&nbsp;=&nbsp;partition&nbsp;p&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">E</span>.choose&nbsp;with_i.content<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Index&nbsp;not&nbsp;present&nbsp;in&nbsp;Bary.Make.extract."</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Z</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;int&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="constructor">Pervasives</span>.compare&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="constructor">Util</span>.int_identity&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x&nbsp;=&nbsp;0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;(&nbsp;+&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;(&nbsp;-&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;(&nbsp;<span class="keywordsign">~-</span>&nbsp;)&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Zset</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<span class="keyword">include</span>&nbsp;<span class="constructor">Make</span>&nbsp;(<span class="constructor">Z</span>)&nbsp;(<span class="constructor">Z</span>)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;insert_add&nbsp;=&nbsp;add&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;insert_sub&nbsp;=&nbsp;sub&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;t&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;v&nbsp;=&nbsp;t&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;abs&nbsp;y&nbsp;)&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;map&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;empty&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;string_of_int&nbsp;x&nbsp;)&nbsp;^&nbsp;<span class="string">"^"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;y&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"~"</span>&nbsp;(&nbsp;<span class="constructor">List</span>.rev&nbsp;(&nbsp;<span class="constructor">List</span>.rev_map&nbsp;f&nbsp;(&nbsp;snd&nbsp;(&nbsp;elements&nbsp;x&nbsp;)&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;listing&nbsp;=&nbsp;<span class="constructor">Str</span>.split&nbsp;(&nbsp;<span class="constructor">Str</span>.regexp_string&nbsp;<span class="string">"~"</span>&nbsp;)&nbsp;s<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;empty&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(st:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;listing&nbsp;=&nbsp;<span class="constructor">Str</span>.split&nbsp;(&nbsp;<span class="constructor">Str</span>.regexp_string&nbsp;<span class="string">"^"</span>&nbsp;)&nbsp;st&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add&nbsp;(&nbsp;int_of_string&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;listing&nbsp;)&nbsp;,&nbsp;int_of_string&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;(&nbsp;<span class="constructor">List</span>.tl&nbsp;listing&nbsp;)&nbsp;)&nbsp;)&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">List</span>.rev_map&nbsp;f&nbsp;listing&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;print_string&nbsp;(&nbsp;to_string&nbsp;x&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;equal&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x.cardinal&nbsp;=&nbsp;0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;n&nbsp;*&nbsp;b&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;map&nbsp;f&nbsp;x<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_pow&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(n:int)&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;<span class="constructor">Util</span>.int_power&nbsp;n&nbsp;b&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;map&nbsp;f&nbsp;x<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;union&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;diff&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;add&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

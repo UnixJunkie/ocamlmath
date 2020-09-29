@@ -1,0 +1,63 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.direct_complex_shifted_diagonalization</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;direct_complex_shifted_diagonalization&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode_ker&nbsp;(threshold_qr:float)&nbsp;(threshold:float)&nbsp;(steps_qr:int)&nbsp;(steps:int)&nbsp;(shift:float&nbsp;array&nbsp;array)&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;res&nbsp;=&nbsp;complex_shifted_francis_schur_decomposition&nbsp;threshold_qr&nbsp;threshold&nbsp;steps_qr&nbsp;shift&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;seuil&nbsp;=&nbsp;sqrt&nbsp;epsilon_float<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu_integer&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu_complex&nbsp;=&nbsp;ref&nbsp;complex_0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;clean_complex&nbsp;(&nbsp;matrix_complex_extract_diag_to_poly&nbsp;res.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;q&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_transpose&nbsp;res.(1)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;n&nbsp;=&nbsp;nn&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;spectrum&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;complex_0<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;n_n&nbsp;=&nbsp;n&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;trans_passage&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;nn&nbsp;nn&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;n_n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;candidate_value&nbsp;=&nbsp;p.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;difference&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;m&nbsp;(&nbsp;scal_complex&nbsp;n&nbsp;n&nbsp;candidate_value&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_invertibility&nbsp;difference&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;test&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;<span class="constructor">Matrix</span>.clean_inv&nbsp;difference&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_normalized_iterate&nbsp;<span class="constructor">Matrix</span>.vector_float_norm_2&nbsp;steps&nbsp;mm&nbsp;q.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trans_passage.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.vector_float_copy&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trans_passage.(&nbsp;n&nbsp;+&nbsp;i&nbsp;)&nbsp;&lt;-&nbsp;vector_complex_i_times&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ww&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_vector_float_prod&nbsp;mm&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;z&nbsp;=&nbsp;complex_vector_to_complex_poly&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;complex_vector_to_complex_poly&nbsp;ww&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;n_n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;divisor&nbsp;=&nbsp;z.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;complex_module&nbsp;divisor&nbsp;&gt;&nbsp;seuil&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu_complex&nbsp;:=&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;!accu_complex&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;zz.(j)&nbsp;(&nbsp;complex_inv&nbsp;divisor&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu_integer&nbsp;:=&nbsp;succ&nbsp;!accu_integer&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;clean_complex&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_left_div&nbsp;(&nbsp;float&nbsp;!accu_integer&nbsp;)&nbsp;!accu_complex&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu_complex&nbsp;:=&nbsp;complex_0&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu_integer&nbsp;:=&nbsp;0&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spectrum.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;candidate_value&nbsp;(&nbsp;complex_inv&nbsp;coeff&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spectrum.(i)&nbsp;&lt;-&nbsp;candidate_value&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k&nbsp;=&nbsp;methode_ker&nbsp;difference&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;kk&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;k&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_bal_random&nbsp;kk&nbsp;10.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w_w&nbsp;=&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_vector_float_prod&nbsp;(&nbsp;<span class="constructor">Matrix</span>.float_transpose&nbsp;k&nbsp;)&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;(&nbsp;1.&nbsp;/.&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_norm_2&nbsp;v&nbsp;)&nbsp;)&nbsp;v&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w_coeff&nbsp;=&nbsp;1.&nbsp;/.&nbsp;(&nbsp;<span class="constructor">Matrix</span>.vector_float_norm_2&nbsp;w_w&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_scal_mult&nbsp;w_coeff&nbsp;w_w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trans_passage.(i)&nbsp;&lt;-&nbsp;<span class="constructor">Matrix</span>.vector_float_copy&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trans_passage.(&nbsp;n&nbsp;+&nbsp;i&nbsp;)&nbsp;&lt;-&nbsp;vector_complex_i_times&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;spectrum&nbsp;;&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.float_transpose&nbsp;trans_passage&nbsp;|]&nbsp;;&nbsp;[|&nbsp;trans_passage&nbsp;&nbsp;|]&nbsp;|]</code></body></html>

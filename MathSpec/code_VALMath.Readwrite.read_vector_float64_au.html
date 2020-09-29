@@ -1,0 +1,40 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Readwrite.read_vector_float64_au</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;read_vector_float64_au&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(fname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;read_header_au&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;tmp1&nbsp;=&nbsp;<span class="string">"tmp1"</span>&nbsp;^&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;tmp2&nbsp;=&nbsp;<span class="string">"tmp2"</span>&nbsp;^&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ic&nbsp;=&nbsp;open_in_bin&nbsp;fname&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;compare&nbsp;h.(3)&nbsp;7&nbsp;!=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;encoding&nbsp;in&nbsp;Readwrite.read_vector_float64_au."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;seek_in&nbsp;ic&nbsp;h.(1)&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">End_of_file</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;offset&nbsp;in&nbsp;Readwrite.read_vector_float64_au."</span><br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;h.(5)&nbsp;!=&nbsp;1&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Several&nbsp;channels&nbsp;in&nbsp;Readwrite.read_vector_float64_au."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;fake&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;count&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fake&nbsp;:=&nbsp;input_binary_int&nbsp;ic&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count&nbsp;:=&nbsp;succ&nbsp;!count&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">End_of_file</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;close_in_noerr&nbsp;ic<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;samples&nbsp;=&nbsp;!count&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;samples&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;write_float_array_value&nbsp;v&nbsp;tmp1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;(&nbsp;<span class="string">"head&nbsp;-c&nbsp;22&nbsp;"</span>&nbsp;^&nbsp;tmp1&nbsp;^&nbsp;<span class="string">"&nbsp;&gt;&nbsp;"</span>&nbsp;^&nbsp;tmp2&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;(&nbsp;<span class="string">"tail&nbsp;-c+"</span>&nbsp;^&nbsp;(&nbsp;string_of_int&nbsp;(&nbsp;succ&nbsp;h.(1)&nbsp;)&nbsp;)&nbsp;^&nbsp;<span class="string">"&nbsp;"</span>&nbsp;^&nbsp;fname&nbsp;^&nbsp;<span class="string">"&nbsp;&gt;&gt;&nbsp;"</span>&nbsp;^&nbsp;tmp2&nbsp;)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;read_float_array_value&nbsp;tmp2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sys</span>.remove&nbsp;tmp1&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Sys</span>.remove&nbsp;tmp2&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w</code></body></html>

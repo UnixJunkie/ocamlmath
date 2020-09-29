@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.float_discrete_int_simpson</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_discrete_int_simpson&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(length:float)&nbsp;(v:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vv&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;n&nbsp;<span class="keyword">mod</span>&nbsp;2&nbsp;)&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Array</span>.append&nbsp;v&nbsp;vv&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nnn&nbsp;=&nbsp;nn&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;(&nbsp;w.(0)&nbsp;+.&nbsp;w.(&nbsp;nn&nbsp;-&nbsp;1&nbsp;)&nbsp;)&nbsp;*.&nbsp;0.5&nbsp;+.&nbsp;2.&nbsp;*.&nbsp;w.(&nbsp;nn&nbsp;-&nbsp;2&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;nnn&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+.&nbsp;w.(&nbsp;2&nbsp;*&nbsp;i&nbsp;)&nbsp;+.&nbsp;2.&nbsp;*.&nbsp;w.(&nbsp;2&nbsp;*&nbsp;i&nbsp;-&nbsp;1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!accu&nbsp;&nbsp;*.&nbsp;length&nbsp;/.&nbsp;(&nbsp;1.5&nbsp;*.&nbsp;float&nbsp;n&nbsp;)</code></body></html>

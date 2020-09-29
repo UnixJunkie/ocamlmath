@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.complex_francis_shifted_step</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;complex_francis_shifted_step&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(threshold:float)&nbsp;(shift:float&nbsp;array&nbsp;array)&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;r&nbsp;/&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sc&nbsp;=&nbsp;scal_complex&nbsp;nn&nbsp;nn&nbsp;shift&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;mm&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;m&nbsp;sc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result&nbsp;=&nbsp;complex_qr_decomposition&nbsp;threshold&nbsp;mm&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;product&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;result.(1)&nbsp;result.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;sc&nbsp;product&nbsp;;&nbsp;result.(0)&nbsp;;&nbsp;result.(2)&nbsp;|]</code></body></html>

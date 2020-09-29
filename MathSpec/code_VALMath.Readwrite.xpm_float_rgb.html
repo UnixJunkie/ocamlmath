@@ -1,0 +1,32 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Readwrite.xpm_float_rgb</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;xpm_float_rgb&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(v:string&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;vv&nbsp;=&nbsp;xpm_pixels_values&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;vv<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;vv.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;red&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;l&nbsp;w&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;green&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;l&nbsp;w&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;blue&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;l&nbsp;w&nbsp;0.<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ww&nbsp;=&nbsp;pred&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;l&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;red_output&nbsp;=&nbsp;red.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;green_output&nbsp;=&nbsp;green.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;blue_output&nbsp;=&nbsp;blue.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;row_input&nbsp;=&nbsp;vv.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ww&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;string_to_float_rgb&nbsp;row_input.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red_output.(j)&nbsp;&lt;-&nbsp;x.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green_output.(j)&nbsp;&lt;-&nbsp;x.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue_output.(j)&nbsp;&lt;-&nbsp;x.(2)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;red&nbsp;;&nbsp;green&nbsp;;&nbsp;blue&nbsp;|]</code></body></html>

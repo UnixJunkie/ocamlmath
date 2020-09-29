@@ -1,0 +1,16 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sci.num_fact_aux</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;num_fact_aux&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:<span class="constructor">Num</span>.num)&nbsp;(y:<span class="constructor">Num</span>.num)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Num</span>.int_of_num&nbsp;y&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;1&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x<br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;num_fact_aux&nbsp;(&nbsp;<span class="constructor">Num</span>.mult_num&nbsp;x&nbsp;y&nbsp;)&nbsp;(&nbsp;<span class="constructor">Num</span>.pred_num&nbsp;y&nbsp;)</code></body></html>

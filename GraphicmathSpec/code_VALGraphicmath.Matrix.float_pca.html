@@ -1,0 +1,20 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Matrix.float_pca</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_pca&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode_reduc&nbsp;(x:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;cc&nbsp;=&nbsp;float&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;x.(0)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xbar&nbsp;=&nbsp;matrix_float_mean_by_row&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xxx&nbsp;=&nbsp;<span class="constructor">Array</span>.mapi&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;i&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;vector_float_scal_left_sub&nbsp;xbar.(i)&nbsp;)&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;matrix_float_scal_left_div&nbsp;(&nbsp;sqrt&nbsp;cc&nbsp;)&nbsp;xxx&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;matrix_float_twisted_prod&nbsp;xx&nbsp;xx&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;methode_reduc&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;[|&nbsp;xbar&nbsp;;&nbsp;zz.(0).(0)&nbsp;|]&nbsp;;&nbsp;zz.(1)&nbsp;;&nbsp;zz.(2)&nbsp;;&nbsp;zz.(3)&nbsp;;&nbsp;zz.(4)&nbsp;|]</code></body></html>

@@ -1,0 +1,19 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Readwrite.list_write_text_file</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;list_write_text_file&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(l:string&nbsp;list)&nbsp;(fname:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;oc&nbsp;=&nbsp;open_out&nbsp;fname<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ll&nbsp;=&nbsp;ref&nbsp;l&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="constructor">List</span>.length&nbsp;!ll&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;output_string&nbsp;oc&nbsp;(&nbsp;(&nbsp;<span class="constructor">List</span>.hd&nbsp;!ll&nbsp;)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;ll&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!ll<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;close_out_noerr&nbsp;oc</code></body></html>

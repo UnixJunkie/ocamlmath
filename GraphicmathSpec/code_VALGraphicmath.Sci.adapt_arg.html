@@ -1,0 +1,24 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sci.adapt_arg</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;adapt_arg&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(steps:int)&nbsp;(threshold:float)&nbsp;f&nbsp;fdot&nbsp;(x:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;(y:<span class="constructor">Num</span>.num&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;nouveau&nbsp;=&nbsp;ref&nbsp;(&nbsp;tune_arg&nbsp;f&nbsp;fdot&nbsp;x&nbsp;y&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;i&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ancien&nbsp;=&nbsp;ref&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;error&nbsp;=&nbsp;ref&nbsp;(&nbsp;complex_of_sci&nbsp;(&nbsp;minus&nbsp;!nouveau&nbsp;!ancien&nbsp;)&nbsp;).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;(&nbsp;!i&nbsp;&lt;&nbsp;steps&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;(&nbsp;abs_float&nbsp;!error.(0)&nbsp;+.&nbsp;abs_float&nbsp;!error.(1)&nbsp;)&nbsp;&gt;&nbsp;threshold&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ancien&nbsp;:=&nbsp;!nouveau&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nouveau&nbsp;:=&nbsp;tune_arg&nbsp;f&nbsp;fdot&nbsp;x&nbsp;!nouveau&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;error&nbsp;:=&nbsp;(&nbsp;complex_of_sci&nbsp;(&nbsp;minus&nbsp;!nouveau&nbsp;!ancien&nbsp;)&nbsp;).(0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;i&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!nouveau</code></body></html>

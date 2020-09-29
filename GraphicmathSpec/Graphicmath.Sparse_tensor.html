@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Sparse_vector.html">
+<link rel="next" href="Graphicmath.Sparse_matrix.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<link title="Tenseurs creux à coefficients dans un annau commutatif" rel="Subsection" href="#2_Tenseurscreuxcoefficientsdansunannaucommutatif">
+<link title="Sparse tensors with coefficients in a commutative rng" rel="Subsection" href="#2_Sparsetensorswithcoefficientsinacommutativerng">
+<link title="Tenseurs creux à coefficients dans un corps commutatif" rel="Subsection" href="#2_Tenseurscreuxcoefficientsdansuncorpscommutatif">
+<link title="Sparse tensors with coefficients in a field" rel="Subsection" href="#2_Sparsetensorswithcoefficientsinafield">
+<title>Graphicmath.Sparse_tensor</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Sparse_vector.html">Previous</a>
+&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;<a href="Graphicmath.Sparse_matrix.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Graphicmath.Sparse_tensor.html">Graphicmath.Sparse_tensor</a> (<a href="code_Graphicmath.Sparse_tensor.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Sparse_tensor: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Sparse_tensor.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module functors to handle
+sparse tensors with coefficients in a commutative rng or a field.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Dimensions are often unreachable in a sparse tensor as soon as it is null (excepted sometimes for the first variable). 
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+A function is <em>sealed</em> if there is no sharing between the input variables and the output value.
+This is the expected behavior of usual mathematical functions.
+The recursive programming of polymorphic functions is easier in a <em>non sealed</em> way.
+Some copy functions are provided for every type of data.
+They are sealed provided that they receive as argument elementary copy functions for coefficients and indices.
+By composition, they permit to seal all functions necessary.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des foncteurs pour traiter
+les tenseurs creux à coefficients dans un annau commutatif ou un corps commutatif.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les dimensions d'un tenseur creux sont souvent inaccessibles (sauf parfois pour la première variable) dès qu'il est nul.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Une fonction est <em>étanche</em> quand il n'y a aucun partage entre les variables fournies en entrée et la valeur obtenue en sortie.
+C'est le comportement attendu des fonctions mathématiques habituelles. 
+La programmation récursive des fonctions polymorphes est plus facile de manière <em>non étanche</em>.
+Des fonctions de recopie sont fournies pour tous les types de données. 
+Elles sont étanches à condition de leur fournir en argument des fonctions élémentaires de recopie des coefficients et des indices. 
+Par composition, elle permettent d'étanchéifier toutes les fonctions voulues.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="2_Tenseurscreuxcoefficientsdansunannaucommutatif"><h2>Tenseurs creux à coefficients dans un annau commutatif</h2></span>
+<span id="2_Sparsetensorswithcoefficientsinacommutativerng"><h2>Sparse tensors with coefficients in a commutative rng</h2></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.html">Rng</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Index_type.html">Graphicmath.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Hash.Hash_type.html">Graphicmath.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Rng_coeff_type.html">Graphicmath.Data.Rng_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Sparse_tensor.Rng.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><br>
+<center>§ </center><br>
+<br>
+<span id="2_Tenseurscreuxcoefficientsdansuncorpscommutatif"><h2>Tenseurs creux à coefficients dans un corps commutatif</h2></span>
+<span id="2_Sparsetensorswithcoefficientsinafield"><h2>Sparse tensors with coefficients in a field</h2></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Field.html">Field</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Index_type.html">Graphicmath.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Hash.Hash_type.html">Graphicmath.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Field_coeff_type.html">Graphicmath.Data.Field_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Sparse_tensor.Field.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><br>
+<center>§ § § </center><br>
+</body></html>

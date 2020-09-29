@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.discrete_graph_curvature</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_graph_curvature&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(scale:float)&nbsp;(position:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;first&nbsp;=&nbsp;methode&nbsp;scale&nbsp;position&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;second&nbsp;=&nbsp;methode&nbsp;scale&nbsp;first&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;second&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;curvature&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;n&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;n&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;first.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coefficient&nbsp;=&nbsp;1.&nbsp;+.&nbsp;coeff&nbsp;*.&nbsp;coeff&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature.(i)&nbsp;&lt;-&nbsp;second.(i)&nbsp;/.&nbsp;(&nbsp;coefficient&nbsp;*.&nbsp;(&nbsp;sqrt&nbsp;coefficient&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curvature</code></body></html>

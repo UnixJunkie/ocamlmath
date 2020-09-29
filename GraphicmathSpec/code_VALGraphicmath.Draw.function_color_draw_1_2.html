@@ -1,0 +1,33 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Draw.function_color_draw_1_2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;function_color_draw_1_2&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(g:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(fc:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(interval:float&nbsp;array)&nbsp;(nsteps:int)&nbsp;(coordinates:float&nbsp;array)&nbsp;(size:int&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;h_real&nbsp;=&nbsp;coordinates.(1)&nbsp;-.&nbsp;coordinates.(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;v_real&nbsp;=&nbsp;coordinates.(3)&nbsp;-.&nbsp;coordinates.(2)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;h_margin&nbsp;=&nbsp;max&nbsp;(&nbsp;size.(0)&nbsp;/&nbsp;10&nbsp;)&nbsp;(&nbsp;10&nbsp;*&nbsp;tsh&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;v_margin&nbsp;=&nbsp;max&nbsp;(&nbsp;size.(1)&nbsp;/&nbsp;10&nbsp;)&nbsp;(&nbsp;4&nbsp;*&nbsp;tsv&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h_inv_scale&nbsp;=&nbsp;(&nbsp;float&nbsp;(&nbsp;size.(0)&nbsp;-&nbsp;2&nbsp;*&nbsp;h_margin&nbsp;)&nbsp;)&nbsp;/.&nbsp;h_real<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t_scale&nbsp;=&nbsp;(&nbsp;interval.(1)&nbsp;-.&nbsp;interval.(0)&nbsp;)&nbsp;/.&nbsp;(&nbsp;float&nbsp;nsteps&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;v_inv_scale&nbsp;=&nbsp;(&nbsp;float&nbsp;(&nbsp;size.(1)&nbsp;-&nbsp;2&nbsp;*&nbsp;v_margin&nbsp;)&nbsp;)&nbsp;/.&nbsp;v_real&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t_function&nbsp;=&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;interval.(0)&nbsp;+.&nbsp;t_scale&nbsp;*.&nbsp;z&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x_function&nbsp;=&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;z&nbsp;-.&nbsp;coordinates.(0)&nbsp;)&nbsp;*.&nbsp;h_inv_scale&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y_function&nbsp;=&nbsp;(&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;z&nbsp;-.&nbsp;coordinates.(2)&nbsp;)&nbsp;*.&nbsp;v_inv_scale&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;nsteps&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;t_function&nbsp;(&nbsp;float&nbsp;i&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;zz&nbsp;=&nbsp;g&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;real_color&nbsp;=&nbsp;fc&nbsp;t&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;x_function&nbsp;(&nbsp;zz.(0)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;y_function&nbsp;(&nbsp;zz.(1)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;color&nbsp;=&nbsp;<span class="constructor">Matrix</span>.int_of_vector&nbsp;real_color&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;(&nbsp;<span class="constructor">Graphics</span>.rgb&nbsp;color.(0)&nbsp;color.(1)&nbsp;color.(2)&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.plot&nbsp;(&nbsp;(&nbsp;int_of_float&nbsp;x&nbsp;)&nbsp;+&nbsp;h_margin&nbsp;)&nbsp;(&nbsp;(&nbsp;int_of_float&nbsp;y&nbsp;)&nbsp;+&nbsp;v_margin&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span></code></body></html>

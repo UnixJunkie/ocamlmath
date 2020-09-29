@@ -1,0 +1,1228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Hash.Multi_hasher.html">
+<link rel="Up" href="Graphicmath.Hash.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Ensembles à poids" rel="Section" href="#1_Ensemblespoids">
+<link title="Weighted sets" rel="Section" href="#1_Weightedsets">
+<link title="Tables de hachage" rel="Section" href="#1_Tablesdehachage">
+<link title="Hash tables" rel="Section" href="#1_Hashtables">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Hash.Make</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Hash.Multi_hasher.html">Previous</a>
+&nbsp;<a href="Graphicmath.Hash.html">Up</a>
+&nbsp;</div>
+<center><h1>Functor <a href="type_Graphicmath.Hash.Make.html">Graphicmath.Hash.Make</a> (<a href="code_Graphicmath.Hash.Make.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Make: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Bary.Index_type.html">Graphicmath.Bary.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Hash.Hash_type.html">Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Weight</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Bary.Weight_type.html">Graphicmath.Bary.Weight_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Hash.Make.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Index</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Bary.Index_type.html">Graphicmath.Bary.Index_type</a></code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Hasher</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Hash_type with type t = Index.t</code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Weight</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Bary.Weight_type.html">Graphicmath.Bary.Weight_type</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module tools to treat couples (index, weight) in hash tables.
+<p>
+
+If the index is an integer and the weight an element of a ring or a field,
+sparse vectors may be treated.
+<p>
+
+If the index is an element of a totally ordered set and the weight an integer,
+then (totally ordered) sets may be treated with multiplicity.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+The hash tables are arrays of weighted sets.
+<p>
+
+The functions of this module are not sealed.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+This module is inspired by the module <code class="code"><span class="constructor">Hashtbl</span></code> of the standard library of OCaml.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des outils pour traiter 
+des couples (indice, poids) dans des tables de hachage.
+<p>
+
+Si l'indice est un entier et le poids un élément d'un anneau ou d'un corps, 
+on peut traiter des vecteurs creux.
+<p>
+
+Si l'indice est un élément d'un ensemble totalement ordonnné et le poids un entier, 
+on peut traiter des ensembles (totalement ordonnnés) avec multiplicité.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les tables de hachage sont des tableaux d'ensembles à poids.
+<p>
+
+Les fonctions de ce module ne sont pas étanches.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Ce module est inspiré du module <code class="code"><span class="constructor">Hashtbl</span></code> de la bibliothèque standard d'OCaml.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Ensemblespoids"><h1>Ensembles à poids</h1></span>
+<span id="1_Weightedsets"><h1>Weighted sets</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The type <code class="code">elt</code> consists in couples (index, weight) and is identified with the type <code class="code">elt</code> of the following module <code class="code"><span class="constructor">B</span></code>.
+<p>
+
+Le type <code class="code">elt</code> est formé par couple (indice, poids) et est identifié avec le type <code class="code">elt</code> du module <code class="code"><span class="constructor">B</span></code> suivant.<br>
+<pre><span id="TYPEindex"><span class="keyword">type</span> <code class="type"></code>index</span> = <code class="type">Index.t</code> </pre>
+
+<pre><span id="TYPEweight"><span class="keyword">type</span> <code class="type"></code>weight</span> = <code class="type">Weight.t</code> </pre>
+
+<pre><span id="TYPEelt"><span class="keyword">type</span> <code class="type"></code>elt</span> = <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> * <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code> </pre>
+
+<br>
+The module <code class="code"><span class="constructor">B</span></code> provides the weighted sets.
+<p>
+
+Le module <code class="code"><span class="constructor">B</span></code> fournit les ensembles à poids.<br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Hash.Make.B.html">B</a>: <code class="type"><a href="Graphicmath.Bary.Make.html">Graphicmath.Bary.Make</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Weight</code><code class="code">)</code></pre><pre><span id="VALelement_copy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.element_copy.html">element_copy</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> Index.t * Weight.t</code></pre><div class="info">
+<pre>element_copy element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALset_copy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.set_copy.html">set_copy</a></span> : <code class="type">B.t -> B.t</code></pre><div class="info">
+<pre>set_copy element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">B.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<span id="1_Tablesdehachage"><h1>Tables de hachage</h1></span>
+<span id="1_Hashtables"><h1>Hash tables</h1></span><br>
+<br>
+<center> </center><br>
+<br><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>filling&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>auto&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>data&nbsp;: <code class="type">B.t array</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+The type <code class="code">t</code> records the hash table together with its filling value.
+A switch shows if the length of the array must be automatically tuned in some operations.
+<p>
+
+Le type <code class="code">t</code> enregistre la table de hachage avec la valeur de son remplissage. 
+Un commutateur indique si la longueur du tableau doit être ajustée automatiquement dans certaines opérations.<br>
+</div>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.create.html">create</a></span> : <code class="type">int -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>create initial_size</pre> A negative initial size activates the switch of the automatic tuning of the length.
+<p>
+
+Une taille initiale négative active le commutateur d'ajustage automatique de la longueur.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+initial_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmake"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.make.html">make</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> int -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>make element initial_size</pre> A negative initial size activates the switch of the automatic tuning of the length.
+<p>
+
+Une taille initiale négative active le commutateur d'ajustage automatique de la longueur.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+initial_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALclear"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.clear.html">clear</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>clear table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.copy.html">copy</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>copy table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfilling"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.filling.html">filling</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>filling table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlength"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.length.html">length</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>length table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.size.html">size</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>size table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALexpand"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.expand.html">expand</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>expand table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALretract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.retract.html">retract</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>retract table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALresize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.resize.html">resize</a></span> : <code class="type">int -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>resize new_length table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+new_length</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALauto_resize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.auto_resize.html">auto_resize</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>auto_resize table</pre> If the filling exceeds <code class="code"><span class="constructor">Hasher</span>.high</code> times the length of the table, then the size is doubled. 
+If the size exceeds <code class="code"><span class="constructor">Hasher</span>.low</code> times the filling, then the size is divided by two.
+<p>
+
+Si le remplissage dépasse <code class="code"><span class="constructor">Hasher</span>.high</code> fois la taille de la table, la taille est doublée.
+Si la taille dépasse <code class="code"><span class="constructor">Hasher</span>.low</code> fois le remplissage, la taille est divisée par deux.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelements"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.elements.html">elements</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> list</code></pre><div class="info">
+<pre>elements table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALapply"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.apply.html">apply</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       (<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> B.t -> unit) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>apply table function element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> B.t -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadd"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.add.html">add</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>add table element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.sub.html">sub</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>sub table element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_apply"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.raw_apply.html">raw_apply</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       (<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> B.t -> unit) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>raw_apply table function element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> B.t -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALremove"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.remove.html">remove</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>remove table element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALindex_mem"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.index_mem.html">index_mem</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -> bool</code></pre><div class="info">
+<pre>index_mem table key</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+key</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALindex_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.index_find_all.html">index_find_all</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -> int * B.E.t</code></pre><div class="info">
+<pre>index_find_all table key</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+key</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALindex_find"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.index_find.html">index_find</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code></pre><div class="info">
+<pre>index_find table key</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+key</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALload_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.load_find_all.html">load_find_all</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> B.E.t</code></pre><div class="info">
+<pre>load_find_all table load</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+load</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALload_find"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.load_find.html">load_find</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code></pre><div class="info">
+<pre>load_find table load</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+load</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelement_mem"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.element_mem.html">element_mem</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> bool</code></pre><div class="info">
+<pre>element_mem table key</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelement_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.element_find_all.html">element_find_all</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> int * B.E.t</code></pre><div class="info">
+<pre>element_find_all</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALelement_find"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.element_find.html">element_find</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code></pre><div class="info">
+<pre>element_find</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreplace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.replace.html">replace</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code></pre><div class="info">
+<pre>replace table element</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+(key,load)</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_map"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.in_place_map.html">in_place_map</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_map weight_function table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_mapi"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.in_place_mapi.html">in_place_mapi</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -><br>        <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_mapi function table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_opp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.in_place_opp.html">in_place_opp</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_opp table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALiter"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.iter.html">iter</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit) -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>iter function table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.copy.html">copy</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>copy copy_function table</pre> The copy function is supposed not to change the hash value of the first factor.
+<p>
+
+La fonction de recopie est censée ne pas changer la valeur de hachage du premier facteur.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmap"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.map.html">map</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>map weight_function table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmapi"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.mapi.html">mapi</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -><br>        <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a>) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>mapi function table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.opp.html">opp</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>opp table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfold"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.fold.html">fold</a></span> : <code class="type">(<a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> 'a -> 'a) -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> 'a -> 'a</code></pre><div class="info">
+<pre>fold function table init</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> -> 'a -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdump"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.dump.html">dump</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> B.Pairs.t list</code></pre><div class="info">
+<pre>dump table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflush"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.flush.html">flush</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> B.Pairs.t list</code></pre><div class="info">
+<pre>flush table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALof_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.of_list.html">of_list</a></span> : <code class="type">int -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> list -> <a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code></pre><div class="info">
+<pre>of_list size element_list</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a> list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmin"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.min.html">min</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code></pre><div class="info">
+<pre>min table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmax"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.max.html">max</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEweight">weight</a></code></pre><div class="info">
+<pre>max table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Hash.Make.extract.html">extract</a></span> : <code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Hash.Make.html#TYPEt">t</a> -> <a href="Graphicmath.Hash.Make.html#TYPEelt">elt</a></code></pre><div class="info">
+<pre>extract index table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Hash.Make.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

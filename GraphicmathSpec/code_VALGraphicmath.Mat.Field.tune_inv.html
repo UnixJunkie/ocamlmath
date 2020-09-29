@@ -1,0 +1,18 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Mat.Field.tune_inv</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;tune_inv&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:matrix)&nbsp;(y:matrix)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;matrix_dimensions&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;double&nbsp;=&nbsp;scalar_matrix&nbsp;(&nbsp;coeff_two&nbsp;()&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;d.(0)&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;right_product&nbsp;=&nbsp;matrix_mult&nbsp;x&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;difference&nbsp;=&nbsp;matrix_sub&nbsp;double&nbsp;right_product&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;matrix_mult&nbsp;y&nbsp;difference</code></body></html>

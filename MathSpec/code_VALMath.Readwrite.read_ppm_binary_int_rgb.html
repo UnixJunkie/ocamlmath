@@ -1,0 +1,34 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Readwrite.read_ppm_binary_int_rgb</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;read_ppm_binary_int_rgb&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;e&nbsp;=&nbsp;read_pnm_header&nbsp;s<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dot&nbsp;=&nbsp;<span class="constructor">String</span>.make&nbsp;1&nbsp;(&nbsp;char_of_int&nbsp;10&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;e.(0).[1]&nbsp;!=&nbsp;<span class="string">'6'</span>&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;a&nbsp;ppm_binary&nbsp;file&nbsp;in&nbsp;Readwrite.read_ppm_binary_int_rgb."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;e&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;one&nbsp;=&nbsp;l&nbsp;-&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;two&nbsp;=&nbsp;l&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;sharp&nbsp;=&nbsp;(&nbsp;<span class="keyword">if</span>&nbsp;l&nbsp;=&nbsp;3&nbsp;<span class="keyword">then</span>&nbsp;<span class="string">""</span>&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x&nbsp;^&nbsp;dot&nbsp;^&nbsp;y&nbsp;)&nbsp;<span class="string">""</span>&nbsp;(&nbsp;<span class="constructor">Array</span>.sub&nbsp;e&nbsp;1&nbsp;(&nbsp;l&nbsp;-&nbsp;3&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;e.(one)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;depth&nbsp;=&nbsp;e.(two)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Str</span>.regexp_string&nbsp;<span class="string">"&nbsp;"</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dim&nbsp;=&nbsp;<span class="constructor">Array</span>.of_list&nbsp;(&nbsp;<span class="constructor">Str</span>.split&nbsp;r&nbsp;size&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;atom&nbsp;=&nbsp;int_of_string&nbsp;depth&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;atom&nbsp;!=&nbsp;255&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Only&nbsp;color&nbsp;files&nbsp;with&nbsp;depth&nbsp;255&nbsp;are&nbsp;taken&nbsp;in&nbsp;account&nbsp;in&nbsp;Readwrite.read_ppm_binary_int_rgb."</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;int_of_string&nbsp;dim.(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;l&nbsp;=&nbsp;int_of_string&nbsp;dim.(1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dot&nbsp;=&nbsp;<span class="constructor">String</span>.make&nbsp;1&nbsp;(&nbsp;char_of_int&nbsp;10&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;chaine&nbsp;=&nbsp;e.(0)&nbsp;^&nbsp;dot&nbsp;^&nbsp;e.(one)&nbsp;^&nbsp;dot&nbsp;^&nbsp;e.(two)&nbsp;^&nbsp;dot&nbsp;^&nbsp;sharp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;taille&nbsp;=&nbsp;3&nbsp;*&nbsp;l&nbsp;*&nbsp;c&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;offset&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;chaine&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;v&nbsp;=&nbsp;array_read_binary_file&nbsp;(&nbsp;offset&nbsp;+&nbsp;taille&nbsp;)&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vv&nbsp;=&nbsp;<span class="constructor">Array</span>.sub&nbsp;v&nbsp;offset&nbsp;taille&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.map&nbsp;(&nbsp;<span class="constructor">Util</span>.vector_to_matrix&nbsp;l&nbsp;c&nbsp;)&nbsp;(&nbsp;<span class="constructor">Util</span>.vector_spray&nbsp;3&nbsp;vv&nbsp;)</code></body></html>

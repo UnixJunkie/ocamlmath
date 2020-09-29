@@ -1,0 +1,205 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Data2</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+The mathematician will find in this module algebraic structures to use in the modules <code class="code">sparse_vector.ml</code>, <code class="code">sparse_tensor.ml</code>, <code class="code">sparse_matrix.ml</code>, <code class="code">mat.ml</code>, <code class="code">fft.ml</code> as coefficients.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des structures algébriques à utiliser dans les modules <code class="code">sparse_vector.ml</code>, <code class="code">sparse_tensor.ml</code>, <code class="code">sparse_matrix.ml</code>, <code class="code">mat.ml</code>, <code class="code">fft.ml</code> comme coefficients.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.2</center>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@version 0.2
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@author Stéphane Grognet
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@since 2012, 2013
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Util</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Data</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Matrix</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Sci</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Reduc</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">C_coeff</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;float&nbsp;array&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;([|&nbsp;[|&nbsp;x&nbsp;;&nbsp;0.&nbsp;|]&nbsp;;&nbsp;[|&nbsp;0.&nbsp;;&nbsp;x&nbsp;|]&nbsp;|]:t)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_of_string&nbsp;=&nbsp;float_of_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_to_string&nbsp;=&nbsp;string_of_float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_print&nbsp;=&nbsp;print_float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_eq&nbsp;=&nbsp;(&nbsp;=&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_eq_zero&nbsp;=&nbsp;(&nbsp;=&nbsp;)&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:u)&nbsp;(y:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;((<span class="constructor">Pervasives</span>.compare&nbsp;x&nbsp;y):int)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_add&nbsp;=&nbsp;(&nbsp;+.&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:int)&nbsp;(y:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;*.&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_mult&nbsp;=&nbsp;(&nbsp;*.&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_square&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x&nbsp;*.&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;2&nbsp;2&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;one&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.identity_float&nbsp;2&nbsp;2&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_of_string<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_to_string<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_print&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;x&nbsp;==&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;eq_zero&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;x&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_one&nbsp;=&nbsp;eq&nbsp;(&nbsp;one&nbsp;()&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;compare&nbsp;(&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;x&nbsp;)&nbsp;(&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_module&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_opp&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_mult&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;square&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult&nbsp;x&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_inv&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;div&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_div&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_left_div&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_pow&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_power&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Sci_bare_coeff</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">include</span>&nbsp;<span class="constructor">Sci</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Sci</span>&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;v&nbsp;=&nbsp;t&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(x:v)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sci</span>.sci_0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;one&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sci</span>.sci_1&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_of_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_to_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_to_string_array&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;print_string&nbsp;(&nbsp;s.(0)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;print_string&nbsp;(&nbsp;s.(1)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;print_string&nbsp;s.(2)<br>
+&nbsp;<span class="keyword">end</span><br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="constructor">Sci</span>.eq_0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;<span class="constructor">Sci</span>.eq&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_one&nbsp;=&nbsp;eq&nbsp;(&nbsp;one&nbsp;()&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;<span class="constructor">Sci</span>.square_module&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;<span class="constructor">Sci</span>.square_module&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Sci</span>.minus&nbsp;xx&nbsp;yy&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.compare_num&nbsp;<span class="constructor">Sci</span>.num_0&nbsp;z.(0)<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;<span class="constructor">Sci</span>.square_module&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="constructor">Sci</span>.plus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="constructor">Sci</span>.minus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;square&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult&nbsp;x&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;div&nbsp;y&nbsp;(&nbsp;sci_of_int&nbsp;x&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult&nbsp;(&nbsp;sci_of_int&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Sci_coeff</span>&nbsp;=&nbsp;<span class="constructor">Data</span>.<span class="constructor">Normalize_field_coefficient</span>&nbsp;(<span class="constructor">Sci_bare_coeff</span>)&nbsp;(<span class="constructor">Sci_bare_coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Sci_1024_bare_coeff</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">include</span>&nbsp;<span class="constructor">Sci</span>&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;<span class="constructor">Num</span>.num&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;v&nbsp;=&nbsp;t<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(x:v)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sci</span>.sci_0&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;one&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sci</span>.sci_1&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_of_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_to_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="constructor">Sci</span>.print_sci_1024_10&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="constructor">Sci</span>.sci_copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;eq_0_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;<span class="constructor">Sci</span>.eq&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_one&nbsp;=&nbsp;eq&nbsp;(&nbsp;one&nbsp;()&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;<span class="constructor">Sci</span>.square_module&nbsp;x<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;<span class="constructor">Sci</span>.square_module&nbsp;y&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Sci</span>.minus_1024&nbsp;xx&nbsp;yy&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Num</span>.compare_num&nbsp;<span class="constructor">Sci</span>.num_0&nbsp;z.(0)<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;<span class="constructor">Sci</span>.module_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="constructor">Sci</span>.plus_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="constructor">Sci</span>.minus_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;<span class="constructor">Sci</span>.mult_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;square&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult&nbsp;x&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult_1024&nbsp;(&nbsp;sci_of_int&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="constructor">Sci</span>.inv_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;div&nbsp;=&nbsp;<span class="constructor">Sci</span>.div_1024&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;div_1024&nbsp;y&nbsp;(&nbsp;sci_of_int&nbsp;x&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_pow&nbsp;=&nbsp;<span class="constructor">Sci</span>.int_pow_1024&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Sci_1024_coeff</span>&nbsp;=&nbsp;<span class="constructor">Data</span>.<span class="constructor">Normalize_field_coefficient</span>&nbsp;(<span class="constructor">Sci_1024_bare_coeff</span>)&nbsp;(<span class="constructor">Sci_1024_bare_coeff</span>)&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

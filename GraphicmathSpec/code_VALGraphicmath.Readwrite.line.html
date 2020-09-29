@@ -1,0 +1,21 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Readwrite.line</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;line&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;array_write_text_file&nbsp;[|&nbsp;<span class="string">"#!/bin/sh"</span>&nbsp;;&nbsp;<span class="string">"echo&nbsp;`apm&nbsp;-a`&nbsp;&gt;&nbsp;tmp_line"</span>&nbsp;;&nbsp;<span class="string">"exit&nbsp;0"</span>&nbsp;|]&nbsp;<span class="string">"tmp_script.sh"</span>&nbsp;;<br>
+&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">Sys</span>.command&nbsp;<span class="string">"sh&nbsp;tmp_script.sh"</span>&nbsp;)&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;line&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;(&nbsp;list_read_reverse_text_file&nbsp;<span class="string">"tmp_line"</span>&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;clear&nbsp;<span class="string">"tmp_script.sh&nbsp;tmp_line"</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;int_of_string&nbsp;line&nbsp;==&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">true</span></code></body></html>

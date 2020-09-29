@@ -1,0 +1,2196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Graphicmath.Sparse_tensor.Field.html">
+<link rel="Up" href="Graphicmath.Sparse_tensor.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Sparse_tensor.Rng</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Graphicmath.Sparse_tensor.html">Up</a>
+&nbsp;<a href="Graphicmath.Sparse_tensor.Field.html">Next</a>
+</div>
+<center><h1>Functor <a href="type_Graphicmath.Sparse_tensor.Rng.html">Graphicmath.Sparse_tensor.Rng</a> (<a href="code_Graphicmath.Sparse_tensor.Rng.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Rng: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Index_type.html">Graphicmath.Data.Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Hasher</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Hash.Hash_type.html">Graphicmath.Hash.Hash_type</a></code><code class="type">  with type t = Index.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Coeff</span></code><code class="code"> : </code><code class="type"><a href="Graphicmath.Data.Rng_coeff_type.html">Graphicmath.Data.Rng_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Sparse_tensor.Rng.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Index</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Index_type.html">Graphicmath.Data.Index_type</a></code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Hasher</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Hash.Hash_type with type t = Index.t</code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>Coeff</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Data.Rng_coeff_type.html">Graphicmath.Data.Rng_coeff_type</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<pre><span id="TYPEindex"><span class="keyword">type</span> <code class="type"></code>index</span> = <code class="type">Index.t</code> </pre>
+
+<pre><span id="TYPEcoeff"><span class="keyword">type</span> <code class="type"></code>coeff</span> = <code class="type">Coeff.t</code> </pre>
+
+<pre><span id="TYPEelt"><span class="keyword">type</span> <code class="type"></code>elt</span> = <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> * <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code> </pre>
+
+<pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.V.html">V</a>: <code class="type"><a href="Graphicmath.Sparse_vector.Rng.html">Graphicmath.Sparse_vector.Rng</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Hasher</code><code class="code">)</code><code class="code">(</code><code class="type">Coeff</code><code class="code">)</code></pre><br>
+Sparse tensors are built in a flat manner as sparse vectors with multi-indices.
+<p>
+
+Les tenseurs creux sont construits à plat comme des vecteurs creux avec des multi-indices.<br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.Multi_index.html">Multi_index</a>: <code class="type"><a href="Graphicmath.Data.Multi_index.html">Graphicmath.Data.Multi_index</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.Multi_hasher.html">Multi_hasher</a>: <code class="type"><a href="Graphicmath.Hash.Multi_hasher.html">Graphicmath.Hash.Multi_hasher</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Hasher</code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.M.html">M</a>: <code class="type"><a href="Graphicmath.Sparse_vector.Rng.html">Graphicmath.Sparse_vector.Rng</a></code><code class="code">(</code><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.Multi_index.html">Multi_index</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.Multi_hasher.html">Multi_hasher</a></code><code class="code">)</code><code class="code">(</code><code class="type">Coeff</code><code class="code">)</code></pre><br>
+In order to have access to the different levels of a tensor, the coordinates of a multi-index are necessary.
+<p>
+
+Pour accéder aux différents niveaux d'un tenseur, les coordonnées d'un multi-indice sont nécessaires.<br>
+<pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.Multi_hash.html">Multi_hash</a>: <code class="type"><a href="Graphicmath.Sparse_vector.Rng.html">Graphicmath.Sparse_vector.Rng</a></code><code class="code">(</code><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.Multi_index.html">Multi_index</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.Multi_hasher.html">Multi_hasher</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Graphicmath.Data.Zcoeff.html">Graphicmath.Data.Zcoeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Graphicmath.Sparse_tensor.Rng.Info.html">Info</a>: <code class="type"><a href="Graphicmath.Sparse_vector.Rng.html">Graphicmath.Sparse_vector.Rng</a></code><code class="code">(</code><code class="type">Index</code><code class="code">)</code><code class="code">(</code><code class="type">Hasher</code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.Multi_hash.html">Multi_hash</a></code><code class="code">)</code></pre><br><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Vector</span> <span class="keyword">of</span> <code class="type">V.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Flat_tensor</span> <span class="keyword">of</span> <code class="type">int * Info.t array<br>        * M.t</code></code></td>
+
+</tr></table>
+
+<div class="info">
+The type <code class="code">t</code> is either a sparse vector or a flat tensor which contains the thickness, the information tree and the multi-indices vector.
+<p>
+
+Le type <code class="code">t</code> est soit un vecteur creux soit un tenseur à plat qui contient l'épaisseur, l'arbre d'information et le vecteur à multi-indices.<br>
+</div>
+
+<br>
+Pour trouver les éléments du tenseur dont le kème indice est i, on extrait le kème élément du tableau qui est de type <code class="code"><span class="constructor">Info</span>.t</code>.
+Dans ce vecteur, on extrait l'élément de coordonnée <code class="code"><span class="constructor">Hasher</span>.hash i</code> (la dimension est toujours <code class="code">1</code>) .
+Cet élément est un vecteur creux dont les indices sont des multi-entiers et les coefficients sont les valeurs de hachage des multi-indices du tenseur (la dimension est toujours <code class="code"><span class="constructor">Array</span>.make (e+1) 1</code>).
+L'indice est la valeur de hachage du kème indice.
+Les réponses sont dedans, il faut continuer avec des tests sur le tenseur lui-même, mais seulement en extrayant les éléments dont la valeur de hachage est lue dans les coefficients des éléments de ce vecteur.
+Il est possible de sélectionner en deuxième étape des contraintes supplémentaires sur l'ensemble des indices en testant les multi_indices de ce vecteur (attention à la permutation circulaire).
+<p>
+
+Attention ! les vecteurs Info.t peuvent donner des coefficients nuls dans la lecture du tenseur parce qu'il est difficile d'effacer dans le tableau d'information lors d'une modification en place.<br>
+<pre><span id="VALcopy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.copy.html">copy</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>copy tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinfo_augment"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.info_augment.html">info_augment</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>info_augment tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinfo_cleanup"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.info_cleanup.html">info_cleanup</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>info_cleanup tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinfo_update"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.info_update.html">info_update</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>info_update tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcleanup"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.cleanup.html">cleanup</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>cleanup tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALresize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.resize.html">resize</a></span> : <code class="type">int -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>resize size tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALthickness"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.thickness.html">thickness</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>thickness tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALvector_demakeup"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.vector_demakeup.html">vector_demakeup</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> V.t</code></pre><div class="info">
+<pre>vector_demakeup tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflat_tensor_demakeup"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.flat_tensor_demakeup.html">flat_tensor_demakeup</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       int * Info.t array *<br>       M.t</code></pre><div class="info">
+<pre>flat_tensor_demakeup tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflat_tensor_info"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.flat_tensor_info.html">flat_tensor_info</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.t</code></pre><div class="info">
+<pre>flat_tensor_info tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflat_tensor_bare_demakeup"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.flat_tensor_bare_demakeup.html">flat_tensor_bare_demakeup</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.t</code></pre><div class="info">
+<pre>flat_tensor_bare_demakeup tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnull"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.null.html">null</a></span> : <code class="type">M.index -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>null multi_dimension</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALzero"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.zero.html">zero</a></span> : <code class="type">unit -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>zero unit</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+()</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdimensions"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.dimensions.html">dimensions</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       Multi_index.t</code></pre><div class="info">
+<pre>dimensions tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfilling"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.filling.html">filling</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>filling tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsizes"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sizes.html">sizes</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int * int array</code></pre><div class="info">
+<pre>sizes tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsize"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.size.html">size</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>size tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq_zero"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.eq_zero.html">eq_zero</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>eq_zero tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_opp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_opp.html">in_place_opp</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_opp tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.opp.html">opp</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>opp tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflatten"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.flatten.html">flatten</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>flatten tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_to_vector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.tensor_to_vector.html">tensor_to_vector</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>tensor_to_vector tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALto_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.to_string.html">to_string</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> string</code></pre><div class="info">
+<pre>to_string tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbare_to_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.bare_to_string.html">bare_to_string</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> string</code></pre><div class="info">
+<pre>bare_to_string tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALof_string"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.of_string.html">of_string</a></span> : <code class="type">string -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.print.html">print</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>print tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.eq.html">eq</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>eq tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALunsafe_extract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.unsafe_extract.html">unsafe_extract</a></span> : <code class="type">M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.elt</code></pre><div class="info">
+<pre>unsafe_extract index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALextract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.extract.html">extract</a></span> : <code class="type">M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.elt</code></pre><div class="info">
+<pre>extract index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_extract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.raw_extract.html">raw_extract</a></span> : <code class="type">M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.coeff</code></pre><div class="info">
+<pre>raw_extract index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_present"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.is_present.html">is_present</a></span> : <code class="type">M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<pre>is_present index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfind"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.find.html">find</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.index</code></pre><div class="info">
+<pre>find coefficient tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlist_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.list_find_all.html">list_find_all</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.elt list</code></pre><div class="info">
+<pre>list_find_all coefficient tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALindex_list_find_all"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.index_list_find_all.html">index_list_find_all</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> M.index list</code></pre><div class="info">
+<pre>index_list_find_all coefficient tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfilter"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.filter.html">filter</a></span> : <code class="type">(M.index -> bool) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       (M.index *<br>        V.coeff)<br>       list</code></pre><div class="info">
+<pre>filter predicate tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index -> bool</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_tensor_extract"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub_tensor_extract.html">sub_tensor_extract</a></span> : <code class="type">int -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sub_tensor_extract level index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinsert_add"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.insert_add.html">insert_add</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>insert_add coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinsert_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.insert_sub.html">insert_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>insert_sub coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreplace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.replace.html">replace</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>replace coefficient index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALremove"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.remove.html">remove</a></span> : <code class="type">M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>remove index_array tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_tensor_remove"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub_tensor_remove.html">sub_tensor_remove</a></span> : <code class="type">int -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>sub_tensor_remove level index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_tensor_replace"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub_tensor_replace.html">sub_tensor_replace</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       int -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>sub_tensor_replace sub_tensor level index tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALiter"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.iter.html">iter</a></span> : <code class="type">(M.elt -> unit) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>iter function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.elt -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_map"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_map.html">in_place_map</a></span> : <code class="type">(M.H.weight -><br>        M.H.weight) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_map function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.H.weight -><br>       M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_mapi"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_mapi.html">in_place_mapi</a></span> : <code class="type">(M.H.index -><br>        M.H.weight -><br>        M.H.weight) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_mapi function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.H.index -><br>       M.H.weight -><br>       M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALraw_map"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.raw_map.html">raw_map</a></span> : <code class="type">(M.H.weight -><br>        M.H.weight) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>raw_map function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.H.weight -><br>       M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmap"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.map.html">map</a></span> : <code class="type">(M.H.weight -><br>        M.H.weight) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>map function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.H.weight -><br>       M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmapi"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.mapi.html">mapi</a></span> : <code class="type">(M.H.index -><br>        M.H.weight -><br>        M.H.weight) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>mapi function tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.H.index -><br>       M.H.weight -><br>       M.H.weight</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfold"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.fold.html">fold</a></span> : <code class="type">(M.elt -> 'a -> 'a) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> 'a -> 'a</code></pre><div class="info">
+<pre>fold function tensor init</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.elt -> 'a -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_flat_tensor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub_flat_tensor.html">sub_flat_tensor</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sub_flat_tensor index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsuffix_sub_flat_tensor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.suffix_sub_flat_tensor.html">suffix_sub_flat_tensor</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>suffix_sub_flat_tensor index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub_vector_tensor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub_vector_tensor.html">sub_vector_tensor</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       Index.t * V.H.t</code></pre><div class="info">
+<pre>sub_vector_tensor index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsuffix_sub_vector_tensor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.suffix_sub_vector_tensor.html">suffix_sub_vector_tensor</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       Index.t * V.H.t</code></pre><div class="info">
+<pre>suffix_sub_vector_tensor index_array tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALembed"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.embed.html">embed</a></span> : <code class="type">M.index -><br>       M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>embed dimensions shift tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dimensions</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+shift</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmin"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.min.html">min</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> V.H.weight</code></pre><div class="info">
+<pre>min tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmax"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.max.html">max</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> V.H.weight</code></pre><div class="info">
+<pre>max tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_opp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_opp.html">in_place_opp</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_opp tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.opp.html">opp</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>opp tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_add"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_add.html">in_place_add</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_add tensor1 tensor2</pre> The first tensor stores the result.
+<p>
+
+Le premier tenseur accueille le résultat.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadd"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.add.html">add</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>add tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_sub.html">in_place_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_sub tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sub.html">sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>sub tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtensor_sample"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.tensor_sample.html">tensor_sample</a></span> : <code class="type">M.index -><br>       M.index -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>tensor_sample beginning ending tensor</pre> All the multi-indices between the two ends 
+in the lexicographic order are selected.
+<p>
+
+Tous les multi-indices entre les deux bornes dans l'ordre lexicographique sont sélectionnés.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+beginning</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ending</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">M.index</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.sum.html">sum</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>sum tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcontraction"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.contraction.html">contraction</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> V.coeff</code></pre><div class="info">
+<pre>contraction init tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_scal_add"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_scal_add.html">in_place_scal_add</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_scal_add scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_add"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.scal_add.html">scal_add</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>scal_add scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_scal_mult"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_scal_mult.html">in_place_scal_mult</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_scal_mult scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_mult"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.scal_mult.html">scal_mult</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>scal_mult scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_scal_right_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_scal_right_sub.html">in_place_scal_right_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_scal_right_sub scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_right_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.scal_right_sub.html">scal_right_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>scal_right_sub scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALin_place_scal_left_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.in_place_scal_left_sub.html">in_place_scal_left_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>in_place_scal_left_sub scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_left_sub"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.scal_left_sub.html">scal_left_sub</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>scal_left_sub scalar tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+scal</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEcoeff">coeff</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcoeff_prod"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.coeff_prod.html">coeff_prod</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>coeff_prod tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALscal_prod"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.scal_prod.html">scal_prod</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>scal_prod tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_1"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.norm_1.html">norm_1</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>norm_1 tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_inf"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.norm_inf.html">norm_inf</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>norm_inf tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsquare_sum"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.square_sum.html">square_sum</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.t</code></pre><div class="info">
+<pre>square_sum tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsquare_norm_2"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.square_norm_2.html">square_norm_2</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.u</code></pre><div class="info">
+<pre>square_norm_2 tensor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_compare"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.norm_compare.html">norm_compare</a></span> : <code class="type">(<a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.u) -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>norm_compare norm tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> Coeff.u</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcompare"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.compare.html">compare</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<pre>compare tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALexchange"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.exchange.html">exchange</a></span> : <code class="type">int -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>exchange level index1 index2 tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+level</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEindex">index</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlevel_exchange"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.level_exchange.html">level_exchange</a></span> : <code class="type">int -> int -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+<pre>level_exchange level1 level2 tensor</pre> This function is applied in place.
+<p>
+
+Cette fonction est appliquée en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+i</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+j</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmult"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.mult.html">mult</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>mult tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ww</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsafe_mult"><span class="keyword">val</span> <a href="code_VALGraphicmath.Sparse_tensor.Rng.safe_mult.html">safe_mult</a></span> : <code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -><br>       <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a> -> <a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code></pre><div class="info">
+<pre>safe_mult tensor1 tensor2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+w</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ww</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Graphicmath.Sparse_tensor.Rng.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

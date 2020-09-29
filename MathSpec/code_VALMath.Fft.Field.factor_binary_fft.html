@@ -1,0 +1,25 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Fft.Field.factor_binary_fft</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;factor_binary_fft&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(omega:<span class="constructor">F</span>.t)&nbsp;(n:int)&nbsp;(step:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;n&nbsp;&lt;&nbsp;2&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;degree&nbsp;in&nbsp;Fft.element_binary_fft."</span>&nbsp;;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;nn&nbsp;=&nbsp;pred&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(&nbsp;step&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">||</span>&nbsp;(&nbsp;step&nbsp;&gt;&nbsp;nn&nbsp;)&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;step&nbsp;in&nbsp;Fft.element_binary_fft."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;slicing&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;step&nbsp;2<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;complement&nbsp;=&nbsp;nn&nbsp;-&nbsp;step&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;small_dim&nbsp;=&nbsp;<span class="constructor">Util</span>.int_power&nbsp;complement&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">M</span>.matrix_sparse_null&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;2&nbsp;(&nbsp;2&nbsp;*&nbsp;small_dim&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;slicing&nbsp;slicing&nbsp;z&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;slicing&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ii&nbsp;=&nbsp;<span class="constructor">Util</span>.truncated_bit_reversal&nbsp;nn&nbsp;i&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.(i).(i)&nbsp;&lt;-&nbsp;element_binary_fft&nbsp;omega&nbsp;complement&nbsp;ii&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">M</span>.matrix_of_blocks&nbsp;m</code></body></html>

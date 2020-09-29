@@ -1,0 +1,31 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Reduc.simple_direct_complex_roots</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;simple_direct_complex_roots&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;eval_rule&nbsp;(stages_roots:int)&nbsp;(steps:int)&nbsp;(threshold_qr:float)&nbsp;(threshold:float)&nbsp;(p:float&nbsp;array&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;d&nbsp;=&nbsp;poly_complex_deg&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;d&nbsp;=&nbsp;neg_infinity&nbsp;<span class="keyword">then</span>&nbsp;failwith&nbsp;<span class="string">"Null&nbsp;polynomial&nbsp;in&nbsp;Reduc.simple_direct_complex_roots."</span>&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;d&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;0.&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;<span class="string">"Nonzero&nbsp;constant&nbsp;polynomial&nbsp;in&nbsp;Reduc.simple_direct_complex_roots."</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;1.&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;complex_div&nbsp;p.(0)&nbsp;p.(1)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;<span class="constructor">Matrix</span>.matrix_float_opp&nbsp;s&nbsp;|]<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;2.&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;complex_solve_degree_2&nbsp;p.(2)&nbsp;p.(1)&nbsp;p.(0)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;complex_companion&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;direct_complex_spectrum&nbsp;threshold_qr&nbsp;threshold&nbsp;steps&nbsp;steps&nbsp;m&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;res&nbsp;=&nbsp;poly_aitken_seki_rec_complex_tune_roots&nbsp;eval_rule&nbsp;stages_roots&nbsp;threshold&nbsp;1.&nbsp;[|&nbsp;s.(0)&nbsp;|]&nbsp;p&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;a&nbsp;=&nbsp;res.(0).(0).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;q&nbsp;=&nbsp;(&nbsp;poly_complex_div&nbsp;p&nbsp;(&nbsp;poly_complex_x_a&nbsp;a&nbsp;)&nbsp;).(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.append&nbsp;[|&nbsp;a&nbsp;|]&nbsp;(&nbsp;simple_direct_complex_roots&nbsp;eval_rule&nbsp;stages_roots&nbsp;steps&nbsp;threshold_qr&nbsp;threshold&nbsp;q&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

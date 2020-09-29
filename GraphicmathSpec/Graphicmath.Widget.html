@@ -1,0 +1,2662 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Draw.html">
+<link rel="next" href="Graphicmath.Analogic.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Utilitaires" rel="Section" href="#1_Utilitaires">
+<link title="Utilities" rel="Section" href="#1_Utilities">
+<link title="Interrupteurs" rel="Section" href="#1_Interrupteurs">
+<link title="Switches" rel="Section" href="#1_Switches">
+<link title="Sélecteurs" rel="Section" href="#1_Slecteurs">
+<link title="Selectors" rel="Section" href="#1_Selectors">
+<link title="Verniers" rel="Section" href="#1_Verniers">
+<link title="Modelage de chaînes de caractères" rel="Section" href="#1_Modelagedechanesdecaractres">
+<link title="Character string edition" rel="Section" href="#1_Characterstringedition">
+<link title="Divers" rel="Section" href="#1_Divers">
+<link title="Miscellaneous" rel="Section" href="#1_Miscellaneous">
+<link title="Interactions" rel="Section" href="#1_Interactions">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Widget</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Draw.html">Previous</a>
+&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;<a href="Graphicmath.Analogic.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Graphicmath.Widget.html">Graphicmath.Widget</a> (<a href="code_Graphicmath.Widget.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Widget: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Widget.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module:
+<p>
+<ul>
+<li>utility functions in order to make interactive graphical windows,</li>
+</ul>
+<ul>
+<li>some dialog boxes.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+In order to activate a graphic element, one has to click in the area that it determines (with the left button of the pointing device),
+casually twice.
+<p>
+
+The use is rather aimed at analogic metrology.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+When rewriting a button, it useful to use messages with the same number of lines,
+lines with fixed lengths, and a character font with fixed width.
+<p>
+
+For character string edition, controls similar to common controls are available,
+given that not all of them are reachable, depending on the system :
+<p>
+<ul>
+<li>move to left end with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">A</span></code>,</li>
+</ul>
+<ul>
+<li>delete left part with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">U</span></code>,</li>
+</ul>
+<ul>
+<li>delete toward left with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">Space</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">H</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">R</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">X</span></code>,</li>
+</ul>
+<ul>
+<li>move left with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">B</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">P</span></code>,</li>
+</ul>
+<ul>
+<li>move right with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">F</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">N</span></code>,</li>
+</ul>
+<ul>
+<li>delete toward right with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">S</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">Z</span></code>,</li>
+</ul>
+<ul>
+<li>delete right part with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">K</span></code>,</li>
+</ul>
+<ul>
+<li>move to right end with <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">E</span></code>.</li>
+</ul>
+
+The position of the edited character is at the change of the color of the text.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des fonctions utilitaires pour construire des fenêtres graphiques interactives,</li>
+</ul>
+<ul>
+<li>quelques boîtes de dialogues.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Pour activer un élément graphique, il faut cliquer dans zone qu'il délimite (avec le bouton gauche du pointeur),
+éventuellement deux fois.
+<p>
+
+L'utilisation visée est plutôt la métrologie analogique.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Quand on réécrit un bouton, il est utile que les messages utilisent le même nombre de lignes, 
+des lignes de longueurs invariables et une police de caractères à chasse fixe.
+<p>
+
+Pour le modelage de chaînes de caractères, des commandes proches des commandes habituelles sont disponibles, 
+sachant qu'elles ne sont pas toutes accessibles d'un système à l'autre :
+<p>
+<ul>
+<li>déplacement vers l'extrémité gauche avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">A</span></code>,</li>
+</ul>
+<ul>
+<li>effaçage de la partie gauche avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">U</span></code>,</li>
+</ul>
+<ul>
+<li>effaçage vers la gauche avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">Space</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">H</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">R</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">X</span></code>,</li>
+</ul>
+<ul>
+<li>déplacement vers la gauche avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">B</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">P</span></code>,</li>
+</ul>
+<ul>
+<li>déplacement vers la droite avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">F</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">N</span></code>,</li>
+</ul>
+<ul>
+<li>effaçage vers la droite avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">S</span></code>, <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">Z</span></code>,</li>
+</ul>
+<ul>
+<li>effaçage de la partie droite avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">K</span></code>,</li>
+</ul>
+<ul>
+<li>déplacement vers l'extrémité droite avec <code class="code"><span class="constructor">Ctl</span>-<span class="constructor">E</span></code>.</li>
+</ul>
+
+La position du caractère courant est au changement de couleur du texte.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.3</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Utilitaires"><h1>Utilitaires</h1></span>
+<span id="1_Utilities"><h1>Utilities</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALdark_grey"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.dark_grey.html">dark_grey</a></span> : <code class="type">int</code></pre><div class="info">
+<pre>dark_grey</pre><br>
+</div>
+<pre><span id="VALbee_v"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.bee_v.html">bee_v</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>bee_v integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhalf_bee_v"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.half_bee_v.html">half_bee_v</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>half_bee_v integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbee_h"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.bee_h.html">bee_h</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>bee_h integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdouble_bee_h"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.double_bee_h.html">double_bee_h</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>double_bee_h integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtour_split"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.tour_split.html">tour_split</a></span> : <code class="type">int -> float -> float -> float -> float array array</code></pre><div class="info">
+<pre>tour_split integer center_abscissa center_ordinate radius</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALring_split"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.ring_split.html">ring_split</a></span> : <code class="type">int -> int -> int -> int -> int -> (int * int) array</code></pre><div class="info">
+<pre>ring_split integer center_abscissa center_ordinate inner_radius exterior_radius</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r_in</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r_ext</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriangle_isobarycentre"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.triangle_isobarycentre.html">triangle_isobarycentre</a></span> : <code class="type">int * int -> int * int -> int * int -> int array</code></pre><div class="info">
+<pre>triangle_isobarycentre x y z</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtriangle_barycentre"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.triangle_barycentre.html">triangle_barycentre</a></span> : <code class="type">float -> int * int -> int * int -> int * int -> int array</code></pre><div class="info">
+<pre>triangle_barycentre weight x y z</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+weight</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int * int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpositive_argument"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.positive_argument.html">positive_argument</a></span> : <code class="type">float -> float -> float</code></pre><div class="info">
+<pre>positive_argument x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Interrupteurs"><h1>Interrupteurs</h1></span>
+<span id="1_Switches"><h1>Switches</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALrect_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.rect_switch.html">rect_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>rect_switch center_abscissa center_ordinate button_color text_color text</pre> The function returns the coordinates
+of the bottom left corner, the coordinates of the upper right corner.
+<p>
+
+La fonction retourne les coordonnées du coin en bas à gauche, les coordonnées du point en haut à droite.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_rect_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_rect_button.html">is_over_rect_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_rect_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhat_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.hat_switch.html">hat_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>hat_switch center_abscissa center_ordinate button_color text_color text</pre> The function returns 
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_hat_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_hat_button.html">is_over_hat_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_hat_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcup_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.cup_switch.html">cup_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>cup_switch center_abscissa center_ordinate button_color text_color text</pre> The function returns 
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_cup_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_cup_button.html">is_over_cup_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_cup_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALright_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.right_switch.html">right_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>right_switch center_abscissa center_ordinate button_color text_color text</pre> The function returns 
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_right_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_right_button.html">is_over_right_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_right_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALleft_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.left_switch.html">left_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>left_switch center_abscissa center_ordinate button_color text_color text</pre> The function returns 
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_left_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_left_button.html">is_over_left_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_left_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALll_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.ll_switch.html">ll_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>ll_switch bottom_left_corner_abscissa bottom_left_corner_ordinate button_color text_color text</pre> The function returns
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_ll_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_ll_button.html">is_over_ll_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_ll_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlr_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.lr_switch.html">lr_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>lr_switch bottom_right_corner_abscissa bottom_right_corner_ordinate button_color text_color text</pre> The function returns
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_lr_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_lr_button.html">is_over_lr_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_lr_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALul_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.ul_switch.html">ul_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>ul_switch upper_left_corner_abscissa upper_left_corner_ordinate button_color text_color text</pre> The function returns
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_ul_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_ul_button.html">is_over_ul_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_ul_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALur_switch"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.ur_switch.html">ur_switch</a></span> : <code class="type">int -> int -> Graphics.color -> Graphics.color -> string array -> int array</code></pre><div class="info">
+<pre>ur_switch upper_right_corner_abscissa upper_right_corner_ordinate button_color text_color text</pre> The function returns
+the position of the circonscript rectangle of the triangle.
+<p>
+
+La fonction retourne la position du rectangle circonscrit au triangle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_ur_button"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_ur_button.html">is_over_ur_button</a></span> : <code class="type">int array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_ur_button button_position abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Slecteurs"><h1>Sélecteurs</h1></span>
+<span id="1_Selectors"><h1>Selectors</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALpolygon_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.polygon_selector.html">polygon_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int array</code></pre><div class="info">
+<pre>polygon_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcursor_polygon_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.cursor_polygon_selector.html">cursor_polygon_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int array</code></pre><div class="info">
+<pre>cursor_polygon_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALround_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.round_selector.html">round_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int array</code></pre><div class="info">
+<pre>round_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcursor_round_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.cursor_round_selector.html">cursor_round_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int array</code></pre><div class="info">
+<pre>cursor_round_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALover_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.over_selector.html">over_selector</a></span> : <code class="type">int array -> int -> int -> int</code></pre><div class="info">
+<pre>over_selector button_position x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpolygon_folded_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.polygon_folded_selector.html">polygon_folded_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> int -> string array -> int -> int -> int array</code></pre><div class="info">
+<pre>polygon_folded_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcursor_polygon_folded_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.cursor_polygon_folded_selector.html">cursor_polygon_folded_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int -> int array</code></pre><div class="info">
+<pre>cursor_polygon_folded_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALround_folded_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.round_folded_selector.html">round_folded_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> int -> string array -> int -> int -> int array</code></pre><div class="info">
+<pre>round_folded_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcursor_round_folded_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.cursor_round_folded_selector.html">cursor_round_folded_selector</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string array -> int -> int -> int array</code></pre><div class="info">
+<pre>cursor_round_folded_selector center_abscissa center_ordinate small_radius button_color color text_color selection_color text selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the size of the choice, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, la taille du choix, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALover_folded_selector"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.over_folded_selector.html">over_folded_selector</a></span> : <code class="type">int array -> int -> int -> int</code></pre><div class="info">
+<pre>over_folded_selector button_position x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Verniers"><h1>Verniers</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALfloat_vernier"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.float_vernier.html">float_vernier</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> int -> float array -> float -> float array</code></pre><div class="info">
+<pre>float_vernier center_abscissa center_ordinate small_radius button_color color text_color selection_color cursor_color steps range selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the number of steps, the range, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, le nombre de pas, l'ambitus, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+range</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALover_float_vernier"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.over_float_vernier.html">over_float_vernier</a></span> : <code class="type">float array -> int -> int -> float</code></pre><div class="info">
+<pre>over_float_vernier button_position x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_vernier"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.int_vernier.html">int_vernier</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> int -> int array -> int -> int array</code></pre><div class="info">
+<pre>int_vernier center_abscissa center_ordinate small_radius button_color color text_color selection_color cursor_color steps range selection</pre> The function returns 
+the coordinates of the center, the radius of the button, the big radius, the number of steps, the range, the selection.
+<p>
+
+La fonction retourne les coordonnées du centre, le rayon du bouton, le grand rayon, le nombre de pas, l'ambitus, la sélection.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+small_radius</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+cursor_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+range</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+selection</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALover_int_vernier"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.over_int_vernier.html">over_int_vernier</a></span> : <code class="type">int array -> int -> int -> int</code></pre><div class="info">
+<pre>over_int_vernier button_position x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+button</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Modelagedechanesdecaractres"><h1>Modelage de chaînes de caractères</h1></span>
+<span id="1_Characterstringedition"><h1>Character string edition</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALstring_treatment"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.string_treatment.html">string_treatment</a></span> : <code class="type">string -> string -> string -> string array</code></pre><div class="info">
+<pre>string_treatment left_string right_string escaped_character</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+r</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALstring_edit"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.string_edit.html">string_edit</a></span> : <code class="type">int -><br>       int -><br>       int -><br>       Graphics.color -><br>       Graphics.color -> Graphics.color -> string -> string -> string array</code></pre><div class="info">
+<pre>string_edit bottom_left_corner_abscissa bottom_left_corner_ordinate width background_color left_text_color right_text_color left_string right_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+width</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+left_text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+right_text_color</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Graphics.color</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+initial</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+final</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_over_string_edit"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.is_over_string_edit.html">is_over_string_edit</a></span> : <code class="type">string array -> int -> int -> bool</code></pre><div class="info">
+<pre>is_over_string_edit bottom_left_corner_abscissa bottom_left_corner_ordinate width abscissa ordinate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+zone</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+abscissa</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+ordinate</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Divers"><h1>Divers</h1></span>
+<span id="1_Miscellaneous"><h1>Miscellaneous</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALsand_glass"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.sand_glass.html">sand_glass</a></span> : <code class="type">int -> int -> unit</code></pre><div class="info">
+sand_glass<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Interactions"><h1>Interactions</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The interaction loop comes from E. Chailloux, P. Manoury, B. Pagano : Developing Applications With Objective Caml, O'Reilly &amp; associates.
+<p>
+
+La boucle d'interaction provient de E. Chailloux, P. Manoury, B. Pagano : Developing Applications With Objective Caml, O'Reilly &amp; associates.<br>
+<pre><span id="EXCEPTIONEnd"><span class="keyword">exception</span> End</span></pre>
+<div class="info">
+<pre>End</pre><br>
+</div>
+<pre><span id="VALskeleton"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.skeleton.html">skeleton</a></span> : <code class="type">(unit -> 'a) -><br>       (unit -> unit) -><br>       (char -> unit) -> (int -> int -> unit) -> (exn -> unit) -> unit</code></pre><div class="info">
+<pre>skeleton f_init f_end f_key f_mouse f_except </pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f_init</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit -> 'a</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f_end</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f_key</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">char -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f_mouse</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int -> int -> unit</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f_except</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">exn -> unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALchoose_directory"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.choose_directory.html">choose_directory</a></span> : <code class="type">int -> int -> int -> string -> string</code></pre><div class="info">
+<pre>choose_directory approx_hori_size approx_verti_size max_number_display address</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALchoose_regular_file"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.choose_regular_file.html">choose_regular_file</a></span> : <code class="type">int -> int -> int -> string -> string</code></pre><div class="info">
+<pre>choose_regular_file approx_hori_size approx_verti_size max_number_display address</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+approx_verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+max_number</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+dname</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALchoose_real"><span class="keyword">val</span> <a href="code_VALGraphicmath.Widget.choose_real.html">choose_real</a></span> : <code class="type">int -> int -> float array -> float array -> float array</code></pre><div class="info">
+<pre>choose_real hori_size verti_size range value</pre> The float vector <code class="code">value</code> is modified in place.
+<p>
+
+Le vecteur réel <code class="code">value</code> est modifié en place.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+hori_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+verti_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+range</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+value</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

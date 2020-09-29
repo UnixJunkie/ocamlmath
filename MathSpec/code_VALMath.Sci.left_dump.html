@@ -1,0 +1,14 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sci.left_dump</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;left_dump&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:<span class="keywordsign">'</span>a&nbsp;<span class="constructor">P</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;<span class="constructor">P</span>.fold&nbsp;(&nbsp;<span class="keyword">fun</span>&nbsp;key&nbsp;coeff&nbsp;liste&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;key&nbsp;::&nbsp;liste&nbsp;)&nbsp;x&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;<span class="constructor">Array</span>.of_list&nbsp;(&nbsp;<span class="constructor">List</span>.fast_sort&nbsp;compare&nbsp;accu&nbsp;)</code></body></html>

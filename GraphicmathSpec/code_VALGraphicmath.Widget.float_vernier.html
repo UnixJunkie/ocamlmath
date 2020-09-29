@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Widget.float_vernier</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_vernier&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:int)&nbsp;(y:int)&nbsp;(small_radius:int)&nbsp;(button_color:int)&nbsp;(color:int)&nbsp;(text_color:int)&nbsp;(selection_color:int)&nbsp;(cursor_color:int)&nbsp;(n:int)&nbsp;(range:float&nbsp;array)&nbsp;(selection:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;beginning&nbsp;=&nbsp;range.(0)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ending&nbsp;=&nbsp;range.(1)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;nn&nbsp;=&nbsp;succ&nbsp;n<br>
+&nbsp;<span class="keyword">and</span>&nbsp;n_n&nbsp;=&nbsp;2&nbsp;*&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;marks&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_closed_equal_subdivision&nbsp;beginning&nbsp;nn&nbsp;ending<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;sector&nbsp;=&nbsp;<span class="constructor">Infinitesimal</span>.doublepi&nbsp;/.&nbsp;(&nbsp;1.&nbsp;+.&nbsp;(&nbsp;float&nbsp;nn&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;angle&nbsp;=&nbsp;sector&nbsp;*.&nbsp;(&nbsp;0.5&nbsp;+.&nbsp;(&nbsp;float&nbsp;nn&nbsp;)&nbsp;*.&nbsp;(&nbsp;min&nbsp;1.&nbsp;(&nbsp;(&nbsp;max&nbsp;0.&nbsp;(&nbsp;selection&nbsp;-.&nbsp;beginning&nbsp;)&nbsp;)&nbsp;/.&nbsp;(&nbsp;ending&nbsp;-.&nbsp;beginning&nbsp;)&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;text&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;string_of_float&nbsp;marks<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;nnn&nbsp;=&nbsp;n_n&nbsp;-&nbsp;2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ts&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Graphics</span>.text_size&nbsp;text&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;widths&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;fst&nbsp;ts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;heights&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;snd&nbsp;ts&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_int_max&nbsp;widths<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;h&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_int_max&nbsp;heights&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;wh&nbsp;=&nbsp;(&nbsp;(&nbsp;max&nbsp;w&nbsp;h&nbsp;)&nbsp;*&nbsp;707&nbsp;)&nbsp;/&nbsp;500&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;radius&nbsp;=&nbsp;small_radius&nbsp;+&nbsp;wh&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;float&nbsp;radius<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;ring_split&nbsp;nn&nbsp;x&nbsp;y&nbsp;small_radius&nbsp;radius<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;pp&nbsp;=&nbsp;ring_split&nbsp;nn&nbsp;x&nbsp;y&nbsp;small_radius&nbsp;(&nbsp;radius&nbsp;/&nbsp;2&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.fill_circle&nbsp;x&nbsp;y&nbsp;radius&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;n&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;position&nbsp;=&nbsp;p.(&nbsp;n&nbsp;+&nbsp;i&nbsp;+&nbsp;1&nbsp;<span class="keyword">mod</span>&nbsp;nnn&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;point&nbsp;=&nbsp;pp.(&nbsp;n&nbsp;+&nbsp;i&nbsp;+&nbsp;1&nbsp;<span class="keyword">mod</span>&nbsp;nnn&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;selection_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;[|&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;,&nbsp;fst&nbsp;point,&nbsp;snd&nbsp;point&nbsp;)&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;place&nbsp;=&nbsp;[|&nbsp;(&nbsp;(&nbsp;fst&nbsp;point&nbsp;)&nbsp;+&nbsp;(&nbsp;fst&nbsp;position&nbsp;)&nbsp;)&nbsp;/&nbsp;2&nbsp;-&nbsp;widths.(i)&nbsp;/&nbsp;3&nbsp;;&nbsp;(&nbsp;(&nbsp;snd&nbsp;point&nbsp;)&nbsp;+&nbsp;(&nbsp;snd&nbsp;position&nbsp;)&nbsp;-&nbsp;heights.(i)&nbsp;)&nbsp;/&nbsp;2&nbsp;|]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.moveto&nbsp;place.(0)&nbsp;place.(1)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;text_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_string&nbsp;text.(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xx&nbsp;=&nbsp;x&nbsp;-&nbsp;(&nbsp;int_of_float&nbsp;(&nbsp;r&nbsp;*.&nbsp;(&nbsp;sin&nbsp;angle&nbsp;)&nbsp;)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;y&nbsp;-&nbsp;(&nbsp;int_of_float&nbsp;(&nbsp;r&nbsp;*.&nbsp;(&nbsp;cos&nbsp;angle&nbsp;)&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;cursor_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.draw_segments&nbsp;[|&nbsp;(&nbsp;x&nbsp;,&nbsp;y&nbsp;,&nbsp;xx&nbsp;,&nbsp;yy&nbsp;)&nbsp;|]&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.set_color&nbsp;button_color&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Graphics</span>.fill_circle&nbsp;x&nbsp;y&nbsp;small_radius&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[|&nbsp;float&nbsp;x&nbsp;;&nbsp;float&nbsp;y&nbsp;;&nbsp;float&nbsp;small_radius&nbsp;;&nbsp;float&nbsp;radius&nbsp;;&nbsp;float&nbsp;n&nbsp;;&nbsp;beginning&nbsp;;&nbsp;ending&nbsp;;&nbsp;selection&nbsp;|]</code></body></html>

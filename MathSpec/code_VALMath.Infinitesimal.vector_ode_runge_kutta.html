@@ -1,0 +1,84 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.vector_ode_runge_kutta</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;vector_ode_runge_kutta&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(a:float&nbsp;array&nbsp;array)&nbsp;(b:float&nbsp;array)&nbsp;(f:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;array)&nbsp;(nsteps:int)&nbsp;(y0:float&nbsp;array)&nbsp;(beginning:float)&nbsp;(ending:float)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;l&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;a<br>
+&nbsp;<span class="keyword">and</span>&nbsp;step&nbsp;=&nbsp;(&nbsp;ending&nbsp;-.&nbsp;beginning&nbsp;)&nbsp;/.&nbsp;(&nbsp;float&nbsp;nsteps&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;xx&nbsp;=&nbsp;ref&nbsp;beginning<br>
+&nbsp;<span class="keyword">and</span>&nbsp;dim&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;y0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;c&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;l&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;z&nbsp;=&nbsp;<span class="constructor">Matrix</span>.vector_float_copy&nbsp;y0<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;zz&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;dim&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;y&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(&nbsp;nsteps&nbsp;+&nbsp;1&nbsp;)&nbsp;dim&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ll&nbsp;=&nbsp;l&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;dd&nbsp;=&nbsp;dim&nbsp;-&nbsp;1<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;l&nbsp;beginning<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;yy&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;l&nbsp;dim&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;k&nbsp;=&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;(&nbsp;l&nbsp;+&nbsp;1&nbsp;)&nbsp;dim&nbsp;0.&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ll&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;a.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;i&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.(i)&nbsp;&lt;-&nbsp;c.(i)&nbsp;+.&nbsp;row.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;y.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(j)&nbsp;&lt;-&nbsp;y0.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;1&nbsp;<span class="keyword">to</span>&nbsp;nsteps&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;xx&nbsp;:=&nbsp;x.(0)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;y.(&nbsp;i&nbsp;-&nbsp;1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ligne&nbsp;=&nbsp;k.(0)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;image&nbsp;=&nbsp;f&nbsp;!xx&nbsp;row&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z.(j)&nbsp;&lt;-&nbsp;row.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ligne.(j)&nbsp;&lt;-&nbsp;image.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;ll&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x.(j)&nbsp;&lt;-&nbsp;!xx&nbsp;+.&nbsp;step&nbsp;*.&nbsp;c.(j)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;yy.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(indice)&nbsp;&lt;-&nbsp;z.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;a.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;index&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;j&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;coeff&nbsp;=&nbsp;row.(index)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;ligne&nbsp;=&nbsp;k.(index)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zz.(indice)&nbsp;&lt;-&nbsp;zz.(indice)&nbsp;+.&nbsp;coeff&nbsp;*.&nbsp;ligne.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;yy.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(indice)&nbsp;&lt;-&nbsp;row.(indice)&nbsp;+.&nbsp;step&nbsp;*.&nbsp;zz.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;k.(&nbsp;j&nbsp;+&nbsp;1&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;image&nbsp;=&nbsp;f&nbsp;x.(j)&nbsp;yy.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zz.(indice)&nbsp;&lt;-&nbsp;0.&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(indice)&nbsp;&lt;-&nbsp;image.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x.(0)&nbsp;&lt;-&nbsp;!xx&nbsp;+.&nbsp;step&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;j&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;l&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;k.(j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;coeff&nbsp;=&nbsp;b.(j)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zz.(indice)&nbsp;&lt;-&nbsp;zz.(indice)&nbsp;+.&nbsp;coeff&nbsp;*.&nbsp;row.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;y.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;indice&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;dd&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.(indice)&nbsp;&lt;-&nbsp;z.(indice)&nbsp;+.&nbsp;step&nbsp;*.&nbsp;zz.(indice)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zz.(indice)&nbsp;&lt;-&nbsp;0.&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;y</code></body></html>

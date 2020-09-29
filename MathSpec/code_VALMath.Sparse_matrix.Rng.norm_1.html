@@ -1,0 +1,38 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Sparse_matrix.Rng.norm_1</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;norm_1&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(m:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">match</span>&nbsp;m&nbsp;<span class="keyword">with</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Half_full_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.fold_left&nbsp;<span class="constructor">Coeff</span>.norm_add&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_zero&nbsp;()&nbsp;)&nbsp;(&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">V</span>.norm_inf&nbsp;w&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse_tensor_matrix</span>&nbsp;w&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.<span class="constructor">E</span>.empty&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;result&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Coeff</span>.norm_zero&nbsp;()&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;accumulator&nbsp;=&nbsp;ref&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.<span class="constructor">E</span>.add&nbsp;(&nbsp;i.(0)&nbsp;,&nbsp;<span class="constructor">Coeff</span>.zero&nbsp;()&nbsp;)&nbsp;!accu<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;g&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;row&nbsp;=&nbsp;tensor_row_extract&nbsp;i&nbsp;w&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accumulator&nbsp;:=&nbsp;(&nbsp;<span class="constructor">V</span>.norm_inf&nbsp;row&nbsp;)&nbsp;::&nbsp;!accumulator&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">T</span>.iter&nbsp;ff&nbsp;w&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">V</span>.<span class="constructor">H</span>.<span class="constructor">B</span>.<span class="constructor">E</span>.iter&nbsp;g&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="constructor">Util</span>.list_non_empty&nbsp;!accumulator&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;test&nbsp;=&nbsp;<span class="constructor">List</span>.hd&nbsp;!accumulator&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;:=&nbsp;<span class="constructor">Coeff</span>.norm_add&nbsp;test&nbsp;!result&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accumulator&nbsp;:=&nbsp;<span class="constructor">List</span>.tl&nbsp;!accumulator&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!result<br>
+&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;norm_1&nbsp;(&nbsp;to_half_full&nbsp;m&nbsp;)</code></body></html>

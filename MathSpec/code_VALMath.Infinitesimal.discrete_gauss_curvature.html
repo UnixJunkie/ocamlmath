@@ -1,0 +1,23 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><title>Math.Infinitesimal.discrete_gauss_curvature</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;discrete_gauss_curvature&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;methode&nbsp;(m:float&nbsp;array&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;discrete_partial_diff_x&nbsp;methode&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ww&nbsp;=&nbsp;discrete_partial_diff_y&nbsp;methode&nbsp;m<br>
+&nbsp;<span class="keyword">and</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;1.&nbsp;/.&nbsp;(&nbsp;1.&nbsp;+.&nbsp;x&nbsp;*.&nbsp;x&nbsp;+.&nbsp;y&nbsp;*.&nbsp;y&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w_xx&nbsp;=&nbsp;discrete_partial_diff_x&nbsp;methode&nbsp;w<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w_xy&nbsp;=&nbsp;discrete_partial_diff_x&nbsp;methode&nbsp;ww<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w_yy&nbsp;=&nbsp;discrete_partial_diff_y&nbsp;methode&nbsp;ww<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w1&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_apply2&nbsp;f&nbsp;w&nbsp;ww&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w2&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_coeff_prod&nbsp;w_xx&nbsp;w_yy<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;w3&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_coeff_prod&nbsp;w_xy&nbsp;w_xy&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w4&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;w2&nbsp;w3&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Matrix</span>.matrix_float_coeff_prod&nbsp;w4&nbsp;w1</code></body></html>

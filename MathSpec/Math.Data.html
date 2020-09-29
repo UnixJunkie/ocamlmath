@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Deg.html">
+<link rel="next" href="Math.Hash.html">
+<link rel="Up" href="Math.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Types de modules divers" rel="Section" href="#1_Typesdemodulesdivers">
+<link title="Miscellaneous module types" rel="Section" href="#1_Miscellaneousmoduletypes">
+<link title="Modules de calcul" rel="Section" href="#1_Modulesdecalcul">
+<link title="Autres modules de calcul" rel="Section" href="#1_Autresmodulesdecalcul">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Math.Data</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Deg.html">Previous</a>
+&nbsp;<a href="Math.html">Up</a>
+&nbsp;<a href="Math.Hash.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Math.Data.html">Math.Data</a> (<a href="code_Math.Data.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Data: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module:
+<p>
+<OL>
+<li>algebraic structures to use in the modules <code class="code">sparse_vector.ml</code>, <code class="code">sparse_tensor.ml</code>, <code class="code">sparse_matrix.ml</code>, <code class="code">mat.ml</code>, <code class="code">fft.ml</code> either as indices or as coefficients,</li>
+<li>constants used in the module <code class="code">sci.ml</code>,</li>
+<li>constants usable with it; in that case only the character string are provided.
+There is only to convert them into the type <code class="code"><span class="constructor">Num</span>.num</code> as in the examples of the section <code class="code">conversion_en</code>,
+paying attention to the decimal dot and to the length of the character strings.
+Afterwards the function <a href="Math.Sci.html#VALsci_of_num"> Sci.sci_of_num</a> provides the conversion into the complex numbers in scientific notation with big mantissa.</li>
+</OL>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+A functor <code class="code"><span class="constructor">Index_of_array</span></code> is provided in order to transform any family of indices gathered in an array
+and equipped with some utility functions into an acceptable index module.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<OL>
+<li>des structures algébriques à utiliser dans les modules <code class="code">sparse_vector.ml</code>, <code class="code">sparse_tensor.ml</code>, <code class="code">sparse_matrix.ml</code>, <code class="code">mat.ml</code>, <code class="code">fft.ml</code> comme indices ou coefficients,</li>
+<li>des constantes utilisées dans le module <code class="code">sci.ml</code>,</li>
+<li>des constantes utilisables avec celui-ci ; dans ce cas seules les chaînes de caractères sont fournies.
+Il suffit de les convertir vers le type <code class="code"><span class="constructor">Num</span>.num</code> comme dans dans les exemples de la section <code class="code">conversion_fr</code>,
+en faisant attention au point décimal et à la longueur des chaînes de caractères.
+Ensuite la fonction <a href="Math.Sci.html#VALsci_of_num"> Sci.sci_of_num</a> assure la conversion vers les nombres complexes en notation scientifique à grande mantisse.</li>
+</OL>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Un foncteur <code class="code"><span class="constructor">Index_of_array</span></code> est fourni pour transformer une famille d'indices rassemblée dans un tableau 
+et munie de quelques fonctions utilitaires en un module d'indices acceptable.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.2</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Typesdemodulesdivers"><h1>Types de modules divers</h1></span>
+<span id="1_Miscellaneousmoduletypes"><h1>Miscellaneous module types</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module type</span> <a href="Math.Data.Norm_type.html">Norm_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Norm_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Bare_rng_coeff_type.html">Bare_rng_coeff_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Bare_rng_coeff_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Bare_field_coeff_type.html">Bare_field_coeff_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Bare_field_coeff_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">C</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Bare_rng_coeff_type.html">Bare_rng_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">N</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Norm_type.html">Norm_type</a></code><code class="type">  with type v = C.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Normalize_rng_coefficient.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></pre><pre><span class="keyword">module</span> <a href="Math.Data.Normalize_field_coefficient.html">Normalize_field_coefficient</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">C</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Bare_field_coeff_type.html">Bare_field_coeff_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">N</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Norm_type.html">Norm_type</a></code><code class="type">  with type v = C.t</code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Normalize_field_coefficient.html">..</a> <code class="code"><span class="keyword">end</span></code></div></div></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Rng_coeff_type.html">Rng_coeff_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Rng_coeff_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Field_coeff_type.html">Field_coeff_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Field_coeff_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Array_type.html">Array_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Array_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Index_of_array.html">Index_of_array</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">A</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Array_type.html">Array_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Index_of_array.html">..</a> <code class="code"><span class="keyword">end</span></code></div></pre><pre><span class="keyword">module type</span> <a href="Math.Data.Index_type.html">Index_type</a> = <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Index_type.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Multi_index.html">Multi_index</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Index</span></code><code class="code"> : </code><code class="type"><a href="Math.Data.Index_type.html">Index_type</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Multi_index.html">..</a> <code class="code"><span class="keyword">end</span></code></div></pre><br>
+<center>§ </center><br>
+<br>
+<span id="1_Modulesdecalcul"><h1>Modules de calcul</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Math.Data.Zindex.html">Zindex</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Zindex.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Zmulti_index.html">Zmulti_index</a>: <code class="type"><a href="Math.Data.Multi_index.html">Multi_index</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Zindex.html">Zindex</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Zbare_coeff.html">Zbare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Zbare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nbare_coeff.html">Nbare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Nbare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nbare_mult.html">Nbare_mult</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Nbare_mult.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Rbare_coeff.html">Rbare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Rbare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Big_int_index.html">Big_int_index</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Big_int_index.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Big_int_bare_coeff.html">Big_int_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Big_int_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Num_index.html">Num_index</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Num_index.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Num_bare_coeff.html">Num_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Num_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Ratio_bare_coeff.html">Ratio_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Ratio_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Complex_coeff.html">Complex_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Complex_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int32_index.html">Int32_index</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Int32_index.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int32_bare_coeff.html">Int32_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Int32_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int64_index.html">Int64_index</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Int64_index.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int64_bare_coeff.html">Int64_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Int64_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nativeint_index.html">Nativeint_index</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Nativeint_index.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nativeint_bare_coeff.html">Nativeint_bare_coeff</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Nativeint_bare_coeff.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><br>
+<center>§ </center><br>
+<br>
+<span id="1_Autresmodulesdecalcul"><h1>Autres modules de calcul</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span class="keyword">module</span> <a href="Math.Data.Zcoeff.html">Zcoeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Zbare_coeff.html">Zbare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Zbare_coeff.html">Zbare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Ncoeff.html">Ncoeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Nbare_coeff.html">Nbare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Nbare_coeff.html">Nbare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nmult.html">Nmult</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Nbare_mult.html">Nbare_mult</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Nbare_mult.html">Nbare_mult</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Rcoeff.html">Rcoeff</a>: <code class="type"><a href="Math.Data.Normalize_field_coefficient.html">Normalize_field_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Rbare_coeff.html">Rbare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Rbare_coeff.html">Rbare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Big_int_coeff.html">Big_int_coeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Big_int_bare_coeff.html">Big_int_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Big_int_bare_coeff.html">Big_int_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Num_coeff.html">Num_coeff</a>: <code class="type"><a href="Math.Data.Normalize_field_coefficient.html">Normalize_field_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Num_bare_coeff.html">Num_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Num_bare_coeff.html">Num_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Ratio_coeff.html">Ratio_coeff</a>: <code class="type"><a href="Math.Data.Normalize_field_coefficient.html">Normalize_field_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Ratio_bare_coeff.html">Ratio_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Ratio_bare_coeff.html">Ratio_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int32_coeff.html">Int32_coeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Int32_bare_coeff.html">Int32_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Int32_bare_coeff.html">Int32_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Int64_coeff.html">Int64_coeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Int64_bare_coeff.html">Int64_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Int64_bare_coeff.html">Int64_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Nativeint_coeff.html">Nativeint_coeff</a>: <code class="type"><a href="Math.Data.Normalize_rng_coefficient.html">Normalize_rng_coefficient</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Nativeint_bare_coeff.html">Nativeint_bare_coeff</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Nativeint_bare_coeff.html">Nativeint_bare_coeff</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Math.Data.Classical.html">Classical</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Data.Classical.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><br>
+<center>§ § § </center><br>
+</body></html>

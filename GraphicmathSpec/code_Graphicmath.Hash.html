@@ -1,0 +1,661 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Hash</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Util</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Bary</span>&nbsp;;;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Data</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Hash_type</span>&nbsp;=&nbsp;<span class="keyword">sig</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t<br>
+<span class="keyword">val</span>&nbsp;high:int<br>
+<span class="keyword">val</span>&nbsp;low:int<br>
+<span class="keyword">val</span>&nbsp;hash:t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Z</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;int&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>high</pre> In case of equirepartition, the depth of the binary trees does not exceed four.
+<p>
+
+En cas d'équirépartition, la profondeur des arbres binaires équilibrés ne va pas au-delà de quatre. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;high&nbsp;=&nbsp;32&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;low&nbsp;=&nbsp;32&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;hash&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Hashtbl</span>.hash&nbsp;x&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Big</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Big_int</span>.big_int&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>high</pre> In case of equirepartition, the depth of the binary trees does not exceed four.
+<p>
+
+En cas d'équirépartition, la profondeur des arbres binaires équilibrés ne va pas au-delà de quatre. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;high&nbsp;=&nbsp;32&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;low&nbsp;=&nbsp;2&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;hash&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Hashtbl</span>.hash&nbsp;x&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Number</span>&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Num</span>.num&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>high</pre> In case of equirepartition, the depth of the binary trees does not exceed four.
+<p>
+
+En cas d'équirépartition, la profondeur des arbres binaires équilibrés ne va pas au-delà de quatre. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;high&nbsp;=&nbsp;32&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;low&nbsp;=&nbsp;2&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;hash&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Hashtbl</span>.hash&nbsp;x&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Multi_hasher</span>&nbsp;(<span class="constructor">Index</span>:<span class="constructor">Bary</span>.<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Hasher</span>:<span class="constructor">Hash_type</span>&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;array&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;high&nbsp;=&nbsp;<span class="constructor">Hasher</span>.high&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;low&nbsp;=&nbsp;<span class="constructor">Hasher</span>.low&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;multi_hash&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** A null hash value must be avoided when it is considered as a coefficient in a sparse vector.
+<p>
+
+Il faut éviter une valeur de hachage nulle quand elle est considérée comme coefficient dans un vecteur creux. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;hash&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">begin</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;<span class="constructor">Hashtbl</span>.hash&nbsp;(&nbsp;multi_hash&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;y&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;max_int<br>
+&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;y<br>
+&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Make</span>&nbsp;(<span class="constructor">Index</span>:<span class="constructor">Bary</span>.<span class="constructor">Index_type</span>)&nbsp;(<span class="constructor">Hasher</span>:<span class="constructor">Hash_type</span>&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Index</span>.t)&nbsp;(<span class="constructor">Weight</span>:<span class="constructor">Bary</span>.<span class="constructor">Weight_type</span>)&nbsp;=&nbsp;<span class="keyword">struct</span><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Introduction"><h1>Introduction</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(**
+The mathematician will find in this module tools to treat couples (index, weight) in hash tables.
+<p>
+
+If the index is an integer and the weight an element of a ring or a field,
+sparse vectors may be treated.
+<p>
+
+If the index is an element of a totally ordered set and the weight an integer,
+then (totally ordered) sets may be treated with multiplicity.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+The hash tables are arrays of weighted sets.
+<p>
+
+The functions of this module are not sealed.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+This module is inspired by the module <code class="code"><span class="constructor">Hashtbl</span></code> of the standard library of OCaml.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des outils pour traiter 
+des couples (indice, poids) dans des tables de hachage.
+<p>
+
+Si l'indice est un entier et le poids un élément d'un anneau ou d'un corps, 
+on peut traiter des vecteurs creux.
+<p>
+
+Si l'indice est un élément d'un ensemble totalement ordonnné et le poids un entier, 
+on peut traiter des ensembles (totalement ordonnnés) avec multiplicité.
+<p>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les tables de hachage sont des tableaux d'ensembles à poids.
+<p>
+
+Les fonctions de ce module ne sont pas étanches.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Ce module est inspiré du module <code class="code"><span class="constructor">Hashtbl</span></code> de la bibliothèque standard d'OCaml.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet</center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS</center>
+<center>Fédération de recherche mathématique des Pays de la Loire</center>
+<center>Centre Henri Lebesgue</center>
+<center>IREM des Pays de la Loire - Université de Nantes</center>
+<center>version 0.1</center>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@version 0.1
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@author Stéphane Grognet
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(**
+@since 2013
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ </center> *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Ensemblespoids"><h1>Ensembles à poids</h1></span>
+<span id="1_Weightedsets"><h1>Weighted sets</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The type <code class="code">elt</code> consists in couples (index, weight) and is identified with the type <code class="code">elt</code> of the following module <code class="code"><span class="constructor">B</span></code>.
+<p>
+
+Le type <code class="code">elt</code> est formé par couple (indice, poids) et est identifié avec le type <code class="code">elt</code> du module <code class="code"><span class="constructor">B</span></code> suivant. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">type</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">Index</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;weight&nbsp;=&nbsp;<span class="constructor">Weight</span>.t&nbsp;;;<br>
+<br>
+<span class="keyword">type</span>&nbsp;elt&nbsp;=&nbsp;index&nbsp;*&nbsp;weight&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The module <code class="code"><span class="constructor">B</span></code> provides the weighted sets.
+<p>
+
+Le module <code class="code"><span class="constructor">B</span></code> fournit les ensembles à poids. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">B</span>&nbsp;=&nbsp;(&nbsp;<span class="constructor">Bary</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Weight</span>)<br>
+:&nbsp;<span class="keyword">sig</span><br>
+&nbsp;<span class="keyword">include</span>&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Bary</span>.<span class="constructor">Make</span>&nbsp;(<span class="constructor">Index</span>)&nbsp;(<span class="constructor">Weight</span>)<br>
+<span class="keyword">end</span><br>
+&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;elt&nbsp;:=&nbsp;elt&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;index&nbsp;=&nbsp;index&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;weight&nbsp;=&nbsp;weight&nbsp;)&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_copy element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">B</span>.element_copy&nbsp;x&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>set_copy element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;set_copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(s:<span class="constructor">B</span>.t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">B</span>.copy&nbsp;s&nbsp;;;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** 
+<span id="1_Tablesdehachage"><h1>Tables de hachage</h1></span>
+<span id="1_Hashtables"><h1>Hash tables</h1></span>
+*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <center> </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The type <code class="code">t</code> records the hash table together with its filling value.
+A switch shows if the length of the array must be automatically tuned in some operations.
+<p>
+
+Le type <code class="code">t</code> enregistre la table de hachage avec la valeur de son remplissage. 
+Un commutateur indique si la longueur du tableau doit être ajustée automatiquement dans certaines opérations. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=<br>
+&nbsp;{&nbsp;<span class="keyword">mutable</span>&nbsp;filling:&nbsp;int&nbsp;;&nbsp;<span class="keyword">mutable</span>&nbsp;auto:&nbsp;bool&nbsp;;&nbsp;<span class="keyword">mutable</span>&nbsp;data:&nbsp;<span class="constructor">B</span>.t&nbsp;array&nbsp;}&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>create initial_size</pre> A negative initial size activates the switch of the automatic tuning of the length.
+<p>
+
+Une taille initiale négative active le commutateur d'ajustage automatique de la longueur. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;create&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(initial_size:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;min&nbsp;(&nbsp;max&nbsp;1&nbsp;(&nbsp;abs&nbsp;initial_size&nbsp;)&nbsp;)&nbsp;<span class="constructor">Sys</span>.max_array_length&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;table&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">B</span>.empty&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;s&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;table.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.empty&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;initial_size&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;filling&nbsp;=&nbsp;0&nbsp;;&nbsp;auto&nbsp;=&nbsp;<span class="keyword">true</span>&nbsp;;&nbsp;data&nbsp;=&nbsp;table&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;filling&nbsp;=&nbsp;0&nbsp;;&nbsp;auto&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;;&nbsp;data&nbsp;=&nbsp;table&nbsp;}<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>make element initial_size</pre> A negative initial size activates the switch of the automatic tuning of the length.
+<p>
+
+Une taille initiale négative active le commutateur d'ajustage automatique de la longueur. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;make&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:elt)&nbsp;(initial_size:int)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;min&nbsp;(&nbsp;max&nbsp;1&nbsp;(&nbsp;abs&nbsp;initial_size&nbsp;)&nbsp;)&nbsp;<span class="constructor">Sys</span>.max_array_length&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;table&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">B</span>.empty&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;s&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;s&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;table.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.singleton&nbsp;x&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;initial_size&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;filling&nbsp;=&nbsp;s&nbsp;;&nbsp;auto&nbsp;=&nbsp;<span class="keyword">true</span>&nbsp;;&nbsp;data&nbsp;=&nbsp;table&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;filling&nbsp;=&nbsp;s&nbsp;;&nbsp;auto&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;;&nbsp;data&nbsp;=&nbsp;table&nbsp;}<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>clear table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;clear&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;h.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.empty&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;0&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>copy table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;out&nbsp;=&nbsp;create&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.data.(i)&nbsp;&lt;-&nbsp;set_copy&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;out.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;out&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>filling table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;filling&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;h.filling&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>length table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;length&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>size table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;size&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;h.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;-&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;)<br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>expand table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;expand&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_length&nbsp;=&nbsp;min&nbsp;(&nbsp;2&nbsp;*&nbsp;r&nbsp;)&nbsp;<span class="constructor">Sys</span>.max_array_length&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;table&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">B</span>.empty&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;new_length&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">B</span>.add&nbsp;x&nbsp;(&nbsp;table.(&nbsp;(&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;)&nbsp;<span class="keyword">mod</span>&nbsp;new_length&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.iter&nbsp;f&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.data&nbsp;&lt;-&nbsp;table&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>retract table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;retract&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_length&nbsp;=&nbsp;max&nbsp;1&nbsp;(&nbsp;r&nbsp;/&nbsp;2&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;table&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">B</span>.empty&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;new_length&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">B</span>.add&nbsp;x&nbsp;(&nbsp;table.(&nbsp;(&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;)&nbsp;<span class="keyword">mod</span>&nbsp;new_length&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.iter&nbsp;f&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.data&nbsp;&lt;-&nbsp;table&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>resize new_length table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;resize&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(new_length:int)&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;nl&nbsp;=&nbsp;abs&nbsp;new_length&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;table&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;<span class="constructor">B</span>.empty&nbsp;(&nbsp;<span class="constructor">Array</span>.make&nbsp;nl&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">B</span>.add&nbsp;x&nbsp;(&nbsp;table.(&nbsp;(&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;)&nbsp;<span class="keyword">mod</span>&nbsp;nl&nbsp;)&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.iter&nbsp;f&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;new_length&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.auto&nbsp;&lt;-&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.auto&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;h.data&nbsp;&lt;-&nbsp;table&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>auto_resize table</pre> If the filling exceeds <code class="code"><span class="constructor">Hasher</span>.high</code> times the length of the table, then the size is doubled. 
+If the size exceeds <code class="code"><span class="constructor">Hasher</span>.low</code> times the filling, then the size is divided by two.
+<p>
+
+Si le remplissage dépasse <code class="code"><span class="constructor">Hasher</span>.high</code> fois la taille de la table, la taille est doublée.
+Si la taille dépasse <code class="code"><span class="constructor">Hasher</span>.low</code> fois le remplissage, la taille est divisée par deux. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;auto_resize&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;h.filling&nbsp;&gt;&nbsp;<span class="constructor">Hasher</span>.high&nbsp;*&nbsp;r&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;resize&nbsp;(&nbsp;2&nbsp;*&nbsp;r&nbsp;)&nbsp;h<br>
+&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;r&nbsp;&gt;&nbsp;<span class="constructor">Hasher</span>.low&nbsp;*&nbsp;h.filling&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;resize&nbsp;(&nbsp;max&nbsp;1&nbsp;(&nbsp;r&nbsp;/&nbsp;2&nbsp;)&nbsp;)&nbsp;h&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>elements table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;elements&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;snd&nbsp;(&nbsp;<span class="constructor">B</span>.elements&nbsp;s&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;<span class="constructor">Array</span>.map&nbsp;f&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;(&nbsp;<span class="constructor">Array</span>.to_list&nbsp;t&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>apply table function element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;apply&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(f:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">B</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(&nbsp;<span class="constructor">Weight</span>.eq_zero&nbsp;load&nbsp;)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;previous&nbsp;=&nbsp;<span class="constructor">B</span>.cardinal&nbsp;h.data.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;x&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;+&nbsp;(&nbsp;<span class="constructor">B</span>.cardinal&nbsp;h.data.(i)&nbsp;)&nbsp;-&nbsp;previous<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;<br>
+&nbsp;<span class="keyword">if</span>&nbsp;h.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;auto_resize&nbsp;h&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>add table element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;apply&nbsp;h&nbsp;<span class="constructor">B</span>.add&nbsp;x&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>sub table element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;apply&nbsp;h&nbsp;<span class="constructor">B</span>.sub&nbsp;x&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>raw_apply table function element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;raw_apply&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(f:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">B</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;previous&nbsp;=&nbsp;<span class="constructor">B</span>.cardinal&nbsp;h.data.(i)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;f&nbsp;x&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;+&nbsp;(&nbsp;<span class="constructor">B</span>.cardinal&nbsp;h.data.(i)&nbsp;)&nbsp;-&nbsp;previous&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;h.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_resize&nbsp;h&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>remove table element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;remove&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;raw_apply&nbsp;h&nbsp;<span class="constructor">B</span>.remove&nbsp;x&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>index_mem table key</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;index_mem&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(key:index)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.mem&nbsp;(&nbsp;key&nbsp;,&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>index_find_all table key</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;index_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(key:index)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;key&nbsp;(&nbsp;fst&nbsp;z&nbsp;)&nbsp;=&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;with_key&nbsp;,&nbsp;without_key&nbsp;)&nbsp;=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.partition&nbsp;p&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;(&nbsp;i&nbsp;,&nbsp;with_key&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>index_find table key</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;index_find&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(key:index)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;with_key&nbsp;)&nbsp;=&nbsp;index_find_all&nbsp;h&nbsp;key&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.choose&nbsp;with_key<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;(&nbsp;key&nbsp;,&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>load_find_all table load</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;load_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(load:weight)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Weight</span>.compare&nbsp;load&nbsp;(&nbsp;snd&nbsp;z&nbsp;)&nbsp;=&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.empty&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;(&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;with_load&nbsp;,&nbsp;without_load&nbsp;)&nbsp;=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.partition&nbsp;p&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.union&nbsp;with_load&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>load_find table load</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;load_find&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(load:weight)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.choose&nbsp;(&nbsp;load_find_all&nbsp;h&nbsp;load&nbsp;)<br>
+&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;failwith&nbsp;<span class="string">"Not&nbsp;found&nbsp;in&nbsp;Hash.Make.load_find."</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_mem table key</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_mem&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;((key,load)&nbsp;<span class="keyword">as</span>&nbsp;x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">B</span>.strong_mem&nbsp;x&nbsp;h.data.(i)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_find_all</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_find_all&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;((key,load):elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(&nbsp;y&nbsp;,&nbsp;z&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;<span class="constructor">Index</span>.compare&nbsp;key&nbsp;y&nbsp;=&nbsp;0&nbsp;)&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;(&nbsp;<span class="constructor">Weight</span>.compare&nbsp;load&nbsp;z&nbsp;=&nbsp;0&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;with_pair&nbsp;,&nbsp;without_pair&nbsp;)&nbsp;=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.partition&nbsp;p&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;(&nbsp;i&nbsp;,&nbsp;with_pair&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>element_find</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;element_find&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(x:elt)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.choose&nbsp;(&nbsp;snd&nbsp;(&nbsp;element_find_all&nbsp;h&nbsp;x&nbsp;)&nbsp;)<br>
+&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;(&nbsp;fst&nbsp;x&nbsp;,&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>replace table element</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;replace&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;(&nbsp;(&nbsp;key&nbsp;,&nbsp;load&nbsp;)&nbsp;<span class="keyword">as</span>&nbsp;x:&nbsp;elt&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Weight</span>.eq_zero&nbsp;load&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;remove&nbsp;h&nbsp;x<br>
+&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;i&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;key&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;p&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;z&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;key&nbsp;(&nbsp;fst&nbsp;z&nbsp;)&nbsp;=&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;(&nbsp;with_key&nbsp;,&nbsp;without_key&nbsp;)&nbsp;=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.partition&nbsp;p&nbsp;h.data.(i).<span class="constructor">B</span>.content<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;previous&nbsp;=&nbsp;h.data.(i).<span class="constructor">B</span>.cardinal&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.add&nbsp;x&nbsp;without_key&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;difference&nbsp;=&nbsp;1&nbsp;-&nbsp;(&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.cardinal&nbsp;with_key&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.data.(i).<span class="constructor">B</span>.cardinal&nbsp;&lt;-&nbsp;previous&nbsp;+&nbsp;difference&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;+&nbsp;difference&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_map weight_function table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;f&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;h.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.map&nbsp;ff&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_mapi function table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_mapi&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;f&nbsp;i&nbsp;x&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;h.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.map&nbsp;ff&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>in_place_opp table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;in_place_opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;h.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.opp&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>iter function table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;iter&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;0&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.iter&nbsp;f&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;contribution&nbsp;=&nbsp;<span class="constructor">B</span>.<span class="constructor">E</span>.cardinal&nbsp;h.data.(i).<span class="constructor">B</span>.content&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;h.data.(i).<span class="constructor">B</span>.cardinal&nbsp;&lt;-&nbsp;contribution&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+&nbsp;contribution&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;h.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;auto_resize&nbsp;h&nbsp;;;<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>copy copy_function table</pre> The copy function is supposed not to change the hash value of the first factor.
+<p>
+
+La fonction de recopie est censée ne pas changer la valeur de hachage du premier facteur. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hh&nbsp;=&nbsp;create&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;hh.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.map&nbsp;f&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.auto&nbsp;&lt;-&nbsp;h.auto&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>map weight_function table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;map&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:weight&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;weight)&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;f&nbsp;b&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hh&nbsp;=&nbsp;create&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;hh.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.map&nbsp;ff&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+&nbsp;<span class="constructor">B</span>.cardinal&nbsp;hh.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.filling&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.auto&nbsp;&lt;-&nbsp;h.auto&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;hh.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_resize&nbsp;hh&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>mapi function table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;mapi&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;f&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;<span class="keyword">and</span>&nbsp;ff&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;b&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;a&nbsp;,&nbsp;f&nbsp;a&nbsp;b&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hh&nbsp;=&nbsp;create&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;hh.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.map&nbsp;ff&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;!accu&nbsp;+&nbsp;<span class="constructor">B</span>.cardinal&nbsp;hh.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.filling&nbsp;&lt;-&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.auto&nbsp;&lt;-&nbsp;h.auto&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;hh.auto&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_resize&nbsp;hh&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>opp table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hh&nbsp;=&nbsp;create&nbsp;r&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;hh.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.opp&nbsp;h.data.(i)&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.filling&nbsp;&lt;-&nbsp;h.filling&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh.auto&nbsp;&lt;-&nbsp;h.auto&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;hh&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>fold function table init</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;fold&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(f:elt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;(h:t)&nbsp;(init:<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;init&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">B</span>.fold&nbsp;f&nbsp;h.data.(i)&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>dump table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;dump&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;cmp&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;(&nbsp;fst&nbsp;x&nbsp;)&nbsp;(&nbsp;fst&nbsp;y&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">List</span>.merge&nbsp;cmp&nbsp;(&nbsp;<span class="constructor">B</span>.to_list&nbsp;h.data.(i)&nbsp;)&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>flush table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;flush&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;r&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;h.data<br>
+&nbsp;<span class="keyword">and</span>&nbsp;cmp&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Index</span>.compare&nbsp;(&nbsp;fst&nbsp;x&nbsp;)&nbsp;(&nbsp;fst&nbsp;y&nbsp;)<br>
+&nbsp;<span class="keyword">and</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;pred&nbsp;r&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;<span class="constructor">List</span>.merge&nbsp;cmp&nbsp;(&nbsp;<span class="constructor">B</span>.to_list&nbsp;h.data.(i)&nbsp;)&nbsp;!accu&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;h.data.(i)&nbsp;&lt;-&nbsp;<span class="constructor">B</span>.empty&nbsp;()&nbsp;;<br>
+&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;<br>
+&nbsp;&nbsp;h.filling&nbsp;&lt;-&nbsp;0&nbsp;;<br>
+&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>of_list size element_list</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;of_list&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(size:int)&nbsp;(x:elt&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;h&nbsp;=&nbsp;create&nbsp;size&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;ignore&nbsp;(&nbsp;<span class="constructor">List</span>.rev_map&nbsp;(&nbsp;add&nbsp;h&nbsp;)&nbsp;x&nbsp;)&nbsp;;<br>
+&nbsp;&nbsp;h&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>min table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;min&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;compare&nbsp;x&nbsp;!accu&nbsp;&lt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>max table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;max&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;accu&nbsp;=&nbsp;ref&nbsp;(&nbsp;<span class="constructor">Weight</span>.zero&nbsp;()&nbsp;)<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(&nbsp;i&nbsp;,&nbsp;x&nbsp;)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;compare&nbsp;x&nbsp;!accu&nbsp;&gt;&nbsp;0&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;accu&nbsp;:=&nbsp;x&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;iter&nbsp;f&nbsp;h&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;!accu&nbsp;;;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <pre>extract index table</pre> *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;extract&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(i:index)&nbsp;(h:t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;j&nbsp;=&nbsp;<span class="constructor">Hasher</span>.hash&nbsp;i&nbsp;<span class="keyword">mod</span>&nbsp;(<span class="constructor">Array</span>.length&nbsp;h.data)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">B</span>.extract&nbsp;i&nbsp;h.data.(j)<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Bad&nbsp;index&nbsp;in&nbsp;Hash.Make.extract."</span>&nbsp;;;<br>
+&nbsp;<br>
+<br>
+<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <center>§ § § </center> *)</span></td></tr></table><code class="code"><br>
+<br>
+<br>
+<br>
+<span class="keyword">end</span>&nbsp;;;<br>
+<br>
+<br>
+<span class="keyword">end</span></code></body></html>

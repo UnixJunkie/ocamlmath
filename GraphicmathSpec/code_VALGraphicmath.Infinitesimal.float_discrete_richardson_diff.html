@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Infinitesimal.float_discrete_richardson_diff</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;float_discrete_richardson_diff&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(radix:int)&nbsp;(scale:float)&nbsp;(v:float&nbsp;array)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;<span class="keyword">let</span>&nbsp;n&nbsp;=&nbsp;<span class="constructor">Array</span>.length&nbsp;v<br>
+&nbsp;<span class="keyword">and</span>&nbsp;r&nbsp;=&nbsp;float&nbsp;radix&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;<span class="constructor">Array</span>.make&nbsp;(&nbsp;n&nbsp;-&nbsp;radix&nbsp;)&nbsp;0.<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;rr&nbsp;=&nbsp;r&nbsp;*.&nbsp;r<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;inv_otherscale&nbsp;=&nbsp;1.&nbsp;/.&nbsp;(&nbsp;r&nbsp;*.&nbsp;(&nbsp;r&nbsp;-.&nbsp;1.&nbsp;)&nbsp;*.&nbsp;scale&nbsp;)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;i&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;(&nbsp;n&nbsp;-&nbsp;radix&nbsp;-&nbsp;1&nbsp;)&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w.(i)&nbsp;&lt;-&nbsp;(&nbsp;rr&nbsp;*.&nbsp;v.(&nbsp;i&nbsp;+&nbsp;1&nbsp;)&nbsp;-.&nbsp;(&nbsp;rr&nbsp;-.&nbsp;1.&nbsp;)&nbsp;*.&nbsp;v.(i)&nbsp;-.&nbsp;v.(&nbsp;i&nbsp;+&nbsp;radix&nbsp;)&nbsp;)&nbsp;*.&nbsp;inv_otherscale&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">done</span>&nbsp;;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;w</code></body></html>

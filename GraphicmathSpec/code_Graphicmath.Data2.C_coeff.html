@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><title>Graphicmath.Data2.C_coeff</title>
+</head>
+<body>
+<code class="code"><span class="keyword">struct</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;float&nbsp;array&nbsp;array&nbsp;;;<br>
+<span class="keyword">type</span>&nbsp;u&nbsp;=&nbsp;float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_inject&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;(x:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;([|&nbsp;[|&nbsp;x&nbsp;;&nbsp;0.&nbsp;|]&nbsp;;&nbsp;[|&nbsp;0.&nbsp;;&nbsp;x&nbsp;|]&nbsp;|]:t)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_of_string&nbsp;=&nbsp;float_of_string&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_to_string&nbsp;=&nbsp;string_of_float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_print&nbsp;=&nbsp;print_float&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_eq&nbsp;=&nbsp;(&nbsp;=&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_eq_zero&nbsp;=&nbsp;(&nbsp;=&nbsp;)&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:u)&nbsp;(y:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;((<span class="constructor">Pervasives</span>.compare&nbsp;x&nbsp;y):int)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_add&nbsp;=&nbsp;(&nbsp;+.&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;(x:int)&nbsp;(y:u)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;*.&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_mult&nbsp;=&nbsp;(&nbsp;*.&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm_square&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;x&nbsp;*.&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Array</span>.make_matrix&nbsp;2&nbsp;2&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;one&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;()&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.identity_float&nbsp;2&nbsp;2&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;of_string&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_of_string<br>
+<span class="keyword">let</span>&nbsp;to_string&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_to_string<br>
+<span class="keyword">let</span>&nbsp;print&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_print&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;copy&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_copy&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_zero&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;x&nbsp;==&nbsp;0.&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;eq_zero&nbsp;(&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;x&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;eq_one&nbsp;=&nbsp;eq&nbsp;(&nbsp;one&nbsp;()&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;compare&nbsp;(&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;x&nbsp;)&nbsp;(&nbsp;<span class="constructor">Reduc</span>.complex_square_module&nbsp;y&nbsp;)&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;norm&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_module&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;opp&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_opp&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;add&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_plus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;sub&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_minus&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_mult&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_mult&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;mult&nbsp;=&nbsp;<span class="constructor">Matrix</span>.matrix_float_prod&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;square&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mult&nbsp;x&nbsp;x&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;inv&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_inv&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;div&nbsp;=&nbsp;<span class="constructor">Reduc</span>.complex_div&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_div&nbsp;=&nbsp;<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Matrix</span>.matrix_float_scal_left_div&nbsp;(&nbsp;float&nbsp;x&nbsp;)&nbsp;y&nbsp;;;<br>
+<span class="keyword">let</span>&nbsp;int_pow&nbsp;=&nbsp;<span class="constructor">Matrix</span>.float_power&nbsp;;;<br>
+<br>
+<span class="keyword">end</span></code></body></html>

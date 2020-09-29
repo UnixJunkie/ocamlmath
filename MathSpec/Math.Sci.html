@@ -1,0 +1,4302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Math.Infinitesimal.html">
+<link rel="next" href="Math.Reduc.html">
+<link rel="Up" href="Math.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Math" rel="Chapter" href="Math.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Constantes diverses et mises en forme" rel="Section" href="#1_Constantesdiversesetmisesenforme">
+<link title="Miscellaneous constants and formatting" rel="Section" href="#1_Miscellaneousconstantsandformatting">
+<link title="Fonctions élémentaires pour Num.num" rel="Section" href="#1_FonctionslmentairespourNumnum">
+<link title="Elementary functions for Num.num" rel="Section" href="#1_ElementaryfunctionsforNumnum">
+<link title="Fonctions élémentaires pour les nombres complexes en notation scientifique" rel="Section" href="#1_Fonctionslmentairespourlesnombrescomplexesennotationscientifique">
+<link title="Elementary functions for complex numbers in scientific notation" rel="Section" href="#1_Elementaryfunctionsforcomplexnumbersinscientificnotation">
+<link title="Utilisation de structures creuses en arithmétique" rel="Section" href="#1_Utilisationdestructurescreusesenarithmtique">
+<link title="Use of sparse structures in arithmetic" rel="Section" href="#1_Useofsparsestructuresinarithmetic">
+<link title="Autour de PI" rel="Section" href="#1_AutourdePI">
+<link title="Around PI" rel="Section" href="#1_AroundPI">
+<link title="Fonctions de base en précision fixe" rel="Section" href="#1_Fonctionsdebaseenprcisionfixe">
+<link title="Fixed precision basic functions" rel="Section" href="#1_Fixedprecisionbasicfunctions">
+<link title="Accélérateurs de convergence en précision fixe" rel="Section" href="#1_Acclrateursdeconvergenceenprcisionfixe">
+<link title="Fixed precision convergence accelerators" rel="Section" href="#1_Fixedprecisionconvergenceaccelerators">
+<link title="Fonctions classiques en précision fixe" rel="Section" href="#1_Fonctionsclassiquesenprcisionfixe">
+<link title="Fixed precision classical functions" rel="Section" href="#1_Fixedprecisionclassicalfunctions">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<title>Math.Sci</title>
+</head>
+<body>
+<div class="navbar"><a href="Math.Infinitesimal.html">Previous</a>
+&nbsp;<a href="Math.html">Up</a>
+&nbsp;<a href="Math.Reduc.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Math.Sci.html">Math.Sci</a> (<a href="code_Math.Sci.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Sci: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Sci.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module:
+<p>
+<ul>
+<li>constructions in order to do the elementary operations with complex numbers in scientific notation whose mantissas are greater than fifty three bits,</li>
+</ul>
+<OL>
+<li>either with absolute precision, mantissas being big rational numbers, </li>
+<li>or with mantissas truncated at 1024 bits,</li>
+</OL>
+<ul>
+<li>common convergence acceleration methods,</li>
+</ul>
+<ul>
+<li>functions on complex numbers in scientific notation whose mantissas are truncated at 1024 bits
+(the last figures of the mantissa may be wrong):</li>
+</ul>
+<OL>
+<li>root functions,</li>
+<li>solutions of polynomial equations of degree 2 or 3 or 4,</li>
+<li>trigonometric functions.</li>
+</OL>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+A (complex) number in scientific notation is an array <code class="code">[| x ; y ; w |]</code> of three numbers of type <code class="code"><span class="constructor">Num</span>.num</code> 
+which represent <code class="code">z = ( x + i y ) * 2 ^ w</code>. They satisfy <code class="code">x = y = w = 0</code> or <code class="code">1 &lt;= x ^ 2 + y ^ 2 &lt; 4</code>, and <code class="code">w</code> is a big integer.
+<p>
+
+Some constants come from the module <a href="Math.Data.Classical.html"> Data.Classical</a>.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module :
+<p>
+<ul>
+<li>des constructions pour effectuer les opérations élémentaires avec des nombres complexes en notation scientifique dont la mantisse dépasse cinquante-trois bits :</li>
+</ul>
+<OL>
+<li>en précision absolue, les mantisses étant de grands nombres rationnels,</li>
+<li>ou avec des mantisses tronquées à 1024 bits,</li>
+</OL>
+<ul>
+<li>des méthodes usuelles d'accélération de convergence,</li>
+</ul>
+<ul>
+<li>des fonctions sur des nombres complexes en notation scientifique dont la mantisse est tronquée à 1024 bits
+(les derniers chiffres de la mantisse peuvent être faux) : </li>
+</ul>
+<OL>
+<li>fonctions racines,</li>
+<li>solutions d'équations polynomiales de degré 2, 3 ou 4,</li>
+<li>fonctions trigonométriques.</li>
+</OL>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Un nombre (complexe) en notation scientifique est un tableau <code class="code">[| x ; y ; w |]</code> de trois nombres de type <code class="code"><span class="constructor">Num</span>.num</code> 
+qui représentent <code class="code">z = ( x + i y ) * 2 ^ w</code>. Ils vérifient <code class="code">x = y = w = 0</code> ou bien <code class="code">1 &lt;= x ^ 2 + y ^ 2 &lt; 4</code>, et <code class="code">w</code> est un grand entier.
+<p>
+
+Des constantes proviennent du module <a href="Math.Data.Classical.html"> Data.Classical</a>.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.4</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Constantesdiversesetmisesenforme"><h1>Constantes diverses et mises en forme</h1></span>
+<span id="1_Miscellaneousconstantsandformatting"><h1>Miscellaneous constants and formatting</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALnum_0"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_0.html">num_0</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_0</pre><br>
+</div>
+<pre><span id="VALnum_1"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_1.html">num_1</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_1</pre><br>
+</div>
+<pre><span id="VALnum_minus_1"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_1.html">num_minus_1</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_1</pre><br>
+</div>
+<pre><span id="VALnum_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2.html">num_2</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2</pre><br>
+</div>
+<pre><span id="VALnum_minus_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_2.html">num_minus_2</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_2</pre><br>
+</div>
+<pre><span id="VALnum_3"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_3.html">num_3</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_3</pre><br>
+</div>
+<pre><span id="VALnum_minus_3"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_3.html">num_minus_3</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_3</pre><br>
+</div>
+<pre><span id="VALnum_3_over_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_3_over_2.html">num_3_over_2</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_3_over_2</pre><br>
+</div>
+<pre><span id="VALnum_minus_3_over_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_3_over_2.html">num_minus_3_over_2</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_3_over_2</pre><br>
+</div>
+<pre><span id="VALnum_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_4.html">num_4</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_4</pre><br>
+</div>
+<pre><span id="VALnum_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_4.html">num_minus_4</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_4</pre><br>
+</div>
+<pre><span id="VALnum_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_5.html">num_5</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_5</pre><br>
+</div>
+<pre><span id="VALnum_minus_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_5.html">num_minus_5</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_5</pre><br>
+</div>
+<pre><span id="VALnum_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_6.html">num_6</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_6</pre><br>
+</div>
+<pre><span id="VALnum_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_6.html">num_minus_6</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_6</pre><br>
+</div>
+<pre><span id="VALnum_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_7.html">num_7</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_7</pre><br>
+</div>
+<pre><span id="VALnum_minus_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_7.html">num_minus_7</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_7</pre><br>
+</div>
+<pre><span id="VALnum_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_8.html">num_8</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_8</pre><br>
+</div>
+<pre><span id="VALnum_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_8.html">num_minus_8</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_8</pre><br>
+</div>
+<pre><span id="VALnum_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_9.html">num_9</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_9</pre><br>
+</div>
+<pre><span id="VALnum_minus_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_9.html">num_minus_9</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_9</pre><br>
+</div>
+<pre><span id="VALnum_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_10.html">num_10</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_10</pre><br>
+</div>
+<pre><span id="VALnum_minus_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_10.html">num_minus_10</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_10</pre><br>
+</div>
+<pre><span id="VALnum_12"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_12.html">num_12</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_12</pre><br>
+</div>
+<pre><span id="VALnum_minus_12"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_12.html">num_minus_12</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_12</pre><br>
+</div>
+<pre><span id="VALnum_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_16.html">num_16</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_16</pre><br>
+</div>
+<pre><span id="VALnum_minus_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_16.html">num_minus_16</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_16</pre><br>
+</div>
+<pre><span id="VALnum_27"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_27.html">num_27</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_27</pre><br>
+</div>
+<pre><span id="VALnum_minus_27"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_27.html">num_minus_27</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_27</pre><br>
+</div>
+<pre><span id="VALnum_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_32.html">num_32</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_32</pre><br>
+</div>
+<pre><span id="VALnum_minus_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_32.html">num_minus_32</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_32</pre><br>
+</div>
+<pre><span id="VALnum_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_64.html">num_64</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_64</pre><br>
+</div>
+<pre><span id="VALnum_minus_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_64.html">num_minus_64</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_64</pre><br>
+</div>
+<pre><span id="VALnum_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_128.html">num_128</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_128</pre><br>
+</div>
+<pre><span id="VALnum_minus_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_128.html">num_minus_128</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_128</pre><br>
+</div>
+<pre><span id="VALnum_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_256.html">num_256</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_256</pre><br>
+</div>
+<pre><span id="VALnum_minus_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_256.html">num_minus_256</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_256</pre><br>
+</div>
+<pre><span id="VALnum_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_512.html">num_512</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_512</pre><br>
+</div>
+<pre><span id="VALnum_minus_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_512.html">num_minus_512</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_512</pre><br>
+</div>
+<pre><span id="VALnum_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_1024.html">num_1024</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_1024</pre><br>
+</div>
+<pre><span id="VALnum_minus_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_1024.html">num_minus_1024</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_1024</pre><br>
+</div>
+<pre><span id="VALnum_2048"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2048.html">num_2048</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2048</pre><br>
+</div>
+<pre><span id="VALnum_minus_2048"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_2048.html">num_minus_2048</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_2048</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_16.html">num_2_pow_16</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_16</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_32.html">num_2_pow_32</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_32</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_64.html">num_2_pow_64</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_64</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_128.html">num_2_pow_128</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_128</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_256.html">num_2_pow_256</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_256</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_512.html">num_2_pow_512</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_512</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_1024.html">num_2_pow_1024</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_1024</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_2048"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_2048.html">num_2_pow_2048</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_2048</pre><br>
+</div>
+<pre><span id="VALnum_05"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_05.html">num_05</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_05</pre><br>
+</div>
+<pre><span id="VALnum_minus_05"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_minus_05.html">num_minus_05</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_minus_05</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_16.html">num_2_pow_minus_16</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_16</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_32.html">num_2_pow_minus_32</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_32</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_64.html">num_2_pow_minus_64</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_64</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_128.html">num_2_pow_minus_128</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_128</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_256.html">num_2_pow_minus_256</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_256</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_512.html">num_2_pow_minus_512</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_512</pre><br>
+</div>
+<pre><span id="VALnum_2_pow_minus_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_2_pow_minus_1024.html">num_2_pow_minus_1024</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_2_pow_minus_1024</pre><br>
+</div>
+<br>
+The <code class="code">num_of_float</code> function is not provided by the Ocaml distribution.
+<p>
+
+La fonction <code class="code">num_of_float</code> n'est pas fournie par la distribution <code class="code"><span class="constructor">Ocaml</span></code>.<br>
+<pre><span id="VALnum_of_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_of_float.html">num_of_float</a></span> : <code class="type">float -> Num.num</code></pre><div class="info">
+<pre>num_of_float real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_epsilon_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_epsilon_float.html">num_epsilon_float</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_epsilon_float</pre><br>
+</div>
+<pre><span id="VALnum_min_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_min_float.html">num_min_float</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_min_float</pre><br>
+</div>
+<pre><span id="VALnum_max_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_max_float.html">num_max_float</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_max_float</pre><br>
+</div>
+<pre><span id="VALnum_min_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_min_int.html">num_min_int</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_min_int</pre><br>
+</div>
+<pre><span id="VALnum_max_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_max_int.html">num_max_int</a></span> : <code class="type">Num.num</code></pre><div class="info">
+<pre>num_max_int</pre><br>
+</div>
+<pre><span id="VALsci_0"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_0.html">sci_0</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_0</pre><br>
+</div>
+<pre><span id="VALsci_1"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1.html">sci_1</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1</pre><br>
+</div>
+<pre><span id="VALsci_minus_1"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_1.html">sci_minus_1</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_1</pre><br>
+</div>
+<pre><span id="VALsci_i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i.html">sci_i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i</pre><br>
+</div>
+<pre><span id="VALsci_minus_i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i.html">sci_minus_i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i</pre><br>
+</div>
+<pre><span id="VALsci_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2.html">sci_2</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2</pre><br>
+</div>
+<pre><span id="VALsci_minus_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2.html">sci_minus_2</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2</pre><br>
+</div>
+<pre><span id="VALsci_2i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2i.html">sci_2i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2i</pre><br>
+</div>
+<pre><span id="VALsci_minus_2i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2i.html">sci_minus_2i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2i</pre><br>
+</div>
+<pre><span id="VALsci_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_4.html">sci_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_4</pre><br>
+</div>
+<pre><span id="VALsci_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_4.html">sci_minus_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_4</pre><br>
+</div>
+<pre><span id="VALsci_4i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_4i.html">sci_4i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_4i</pre><br>
+</div>
+<pre><span id="VALsci_minus_4i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_4i.html">sci_minus_4i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_4i</pre><br>
+</div>
+<pre><span id="VALsci_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_8.html">sci_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_8</pre><br>
+</div>
+<pre><span id="VALsci_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_8.html">sci_minus_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_8</pre><br>
+</div>
+<pre><span id="VALsci_8i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_8i.html">sci_8i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_8i</pre><br>
+</div>
+<pre><span id="VALsci_minus_8i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_8i.html">sci_minus_8i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_8i</pre><br>
+</div>
+<pre><span id="VALsci_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_16.html">sci_16</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_16</pre><br>
+</div>
+<pre><span id="VALsci_minus_16"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_16.html">sci_minus_16</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_16</pre><br>
+</div>
+<pre><span id="VALsci_16i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_16i.html">sci_16i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_16i</pre><br>
+</div>
+<pre><span id="VALsci_minus_16i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_16i.html">sci_minus_16i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_16i</pre><br>
+</div>
+<pre><span id="VALsci_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_32.html">sci_32</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_32</pre><br>
+</div>
+<pre><span id="VALsci_minus_32"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_32.html">sci_minus_32</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_32</pre><br>
+</div>
+<pre><span id="VALsci_32i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_32i.html">sci_32i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_32i</pre><br>
+</div>
+<pre><span id="VALsci_minus_32i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_32i.html">sci_minus_32i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_32i</pre><br>
+</div>
+<pre><span id="VALsci_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_64.html">sci_64</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_64</pre><br>
+</div>
+<pre><span id="VALsci_minus_64"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_64.html">sci_minus_64</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_64</pre><br>
+</div>
+<pre><span id="VALsci_64i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_64i.html">sci_64i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_64i</pre><br>
+</div>
+<pre><span id="VALsci_minus_64i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_64i.html">sci_minus_64i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_64i</pre><br>
+</div>
+<pre><span id="VALsci_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_128.html">sci_128</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_128</pre><br>
+</div>
+<pre><span id="VALsci_minus_128"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_128.html">sci_minus_128</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_128</pre><br>
+</div>
+<pre><span id="VALsci_128i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_128i.html">sci_128i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_128i</pre><br>
+</div>
+<pre><span id="VALsci_minus_128i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_128i.html">sci_minus_128i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_128i</pre><br>
+</div>
+<pre><span id="VALsci_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_256.html">sci_256</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_256</pre><br>
+</div>
+<pre><span id="VALsci_minus_256"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_256.html">sci_minus_256</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_256</pre><br>
+</div>
+<pre><span id="VALsci_256i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_256i.html">sci_256i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_256i</pre><br>
+</div>
+<pre><span id="VALsci_minus_256i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_256i.html">sci_minus_256i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_256i</pre><br>
+</div>
+<pre><span id="VALsci_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_512.html">sci_512</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_512</pre><br>
+</div>
+<pre><span id="VALsci_minus_512"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_512.html">sci_minus_512</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_512</pre><br>
+</div>
+<pre><span id="VALsci_512i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_512i.html">sci_512i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_512i</pre><br>
+</div>
+<pre><span id="VALsci_minus_512i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_512i.html">sci_minus_512i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_512i</pre><br>
+</div>
+<pre><span id="VALsci_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024.html">sci_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1024</pre><br>
+</div>
+<pre><span id="VALsci_minus_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_1024.html">sci_minus_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_1024</pre><br>
+</div>
+<pre><span id="VALsci_1024i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024i.html">sci_1024i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1024i</pre><br>
+</div>
+<pre><span id="VALsci_minus_1024i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_1024i.html">sci_minus_1024i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_1024i</pre><br>
+</div>
+<pre><span id="VALsci_05"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_05.html">sci_05</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_05</pre><br>
+</div>
+<pre><span id="VALsci_minus_05"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_05.html">sci_minus_05</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_05</pre><br>
+</div>
+<pre><span id="VALsci_05i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_05i.html">sci_05i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_05i</pre><br>
+</div>
+<pre><span id="VALsci_minus_05i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_05i.html">sci_minus_05i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_05i</pre><br>
+</div>
+<pre><span id="VALsci_025"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_025.html">sci_025</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_025</pre><br>
+</div>
+<pre><span id="VALsci_minus_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2.html">sci_minus_2</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_025</pre><br>
+</div>
+<pre><span id="VALsci_025i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_025i.html">sci_025i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_025i</pre><br>
+</div>
+<pre><span id="VALsci_minus_025i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_025i.html">sci_minus_025i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_025i</pre><br>
+</div>
+<pre><span id="VALsci_0125"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_0125.html">sci_0125</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_0125</pre><br>
+</div>
+<pre><span id="VALsci_minus_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2.html">sci_minus_2</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_0125</pre><br>
+</div>
+<pre><span id="VALsci_025i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_025i.html">sci_025i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_0125i</pre><br>
+</div>
+<pre><span id="VALsci_minus_025i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_025i.html">sci_minus_025i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_0125i</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_4.html">sci_2_pow_minus_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_4</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_4.html">sci_minus_2_pow_minus_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_4</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_4.html">sci_i_2_pow_minus_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_4</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_4"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_4.html">sci_minus_i_2_pow_minus_4</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_4</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_5.html">sci_2_pow_minus_5</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_5</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_5.html">sci_minus_2_pow_minus_5</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_5</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_5.html">sci_i_2_pow_minus_5</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_5</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_5"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_5.html">sci_minus_i_2_pow_minus_5</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_5</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_6.html">sci_2_pow_minus_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_6</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_6.html">sci_minus_2_pow_minus_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_6</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_6.html">sci_i_2_pow_minus_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_6</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_6.html">sci_minus_i_2_pow_minus_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_6</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_7.html">sci_2_pow_minus_7</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_7</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_7.html">sci_minus_2_pow_minus_7</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_7</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_7.html">sci_i_2_pow_minus_7</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_7</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_7"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_7.html">sci_minus_i_2_pow_minus_7</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_7</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_8.html">sci_2_pow_minus_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_8</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_8.html">sci_minus_2_pow_minus_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_8</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_8.html">sci_i_2_pow_minus_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_8</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_8"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_8.html">sci_minus_i_2_pow_minus_8</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_8</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_9.html">sci_2_pow_minus_9</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_9</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_9.html">sci_minus_2_pow_minus_9</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_9</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_9.html">sci_i_2_pow_minus_9</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_9</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_9"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_9.html">sci_minus_i_2_pow_minus_9</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_9</pre><br>
+</div>
+<pre><span id="VALsci_2_pow_minus_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_2_pow_minus_10.html">sci_2_pow_minus_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_2_pow_minus_10</pre><br>
+</div>
+<pre><span id="VALsci_minus_2_pow_minus_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_2_pow_minus_10.html">sci_minus_2_pow_minus_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_2_pow_minus_10</pre><br>
+</div>
+<pre><span id="VALsci_i_2_pow_minus_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_i_2_pow_minus_10.html">sci_i_2_pow_minus_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_i_2_pow_minus_10</pre><br>
+</div>
+<pre><span id="VALsci_minus_i_2_pow_minus_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_i_2_pow_minus_10.html">sci_minus_i_2_pow_minus_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_i_2_pow_minus_10</pre><br>
+</div>
+<br>
+The formatting function of numbers in scientific notation is delicate 
+and is useful to the definitions of the elementary operations.
+<p>
+
+La fonction de mise en forme des nombres en notation scientifique est délicate 
+et sert aux définitions des opérations élémentaires.<br>
+<pre><span id="VALformat"><span class="keyword">val</span> <a href="code_VALMath.Sci.format.html">format</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>format number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_3"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_3.html">sci_3</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_3</pre><br>
+</div>
+<pre><span id="VALsci_minus_3"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_3.html">sci_minus_3</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_3</pre><br>
+</div>
+<pre><span id="VALsci_3i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_3i.html">sci_3i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_3i</pre><br>
+</div>
+<pre><span id="VALsci_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_6.html">sci_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_6</pre><br>
+</div>
+<pre><span id="VALsci_minus_6"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_6.html">sci_minus_6</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_6</pre><br>
+</div>
+<pre><span id="VALsci_27"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_27.html">sci_27</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_27</pre><br>
+</div>
+<pre><span id="VALsci_minus_27"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_minus_27.html">sci_minus_27</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_minus_27</pre><br>
+</div>
+<pre><span id="VALsci_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_10.html">sci_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_10</pre><br>
+</div>
+<pre><span id="VALsci_10i"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_10i.html">sci_10i</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_10i</pre><br>
+</div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_FonctionslmentairespourNumnum"><h1>Fonctions élémentaires pour Num.num</h1></span>
+<span id="1_ElementaryfunctionsforNumnum"><h1>Elementary functions for Num.num</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALnum_sqrt"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_sqrt.html">num_sqrt</a></span> : <code class="type">int -> Num.num</code></pre><div class="info">
+<pre>num_sqrt integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_add_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_add_int.html">num_add_int</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>num_add_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_sub_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_sub_int.html">num_sub_int</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>num_sub_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_mult_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_mult_int.html">num_mult_int</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>num_mult_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_div_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_div_int.html">num_div_int</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>num_div_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_mod_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_mod_int.html">num_mod_int</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>num_mod_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmake_fraction"><span class="keyword">val</span> <a href="code_VALMath.Sci.make_fraction.html">make_fraction</a></span> : <code class="type">int -> int -> Num.num</code></pre><div class="info">
+<pre>make_fraction num denom</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+numer</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+denom</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint_make_fraction"><span class="keyword">val</span> <a href="code_VALMath.Sci.print_make_fraction.html">print_make_fraction</a></span> : <code class="type">int -> int -> unit</code></pre><div class="info">
+<pre>print_make_fraction num denom</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+num</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+denom</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fonctionslmentairespourlesnombrescomplexesennotationscientifique"><h1>Fonctions élémentaires pour les nombres complexes en notation scientifique</h1></span>
+<span id="1_Elementaryfunctionsforcomplexnumbersinscientificnotation"><h1>Elementary functions for complex numbers in scientific notation</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALsci_copy"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_copy.html">sci_copy</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>sci_copy number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfloat_of_sci"><span class="keyword">val</span> <a href="code_VALMath.Sci.float_of_sci.html">float_of_sci</a></span> : <code class="type">Num.num array -> float array</code></pre><div class="info">
+<pre>float_of_sci number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcomplex_of_sci"><span class="keyword">val</span> <a href="code_VALMath.Sci.complex_of_sci.html">complex_of_sci</a></span> : <code class="type">Num.num array -> float array array</code></pre><div class="info">
+<pre>complex_of_sci number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_num"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_num.html">sci_of_num</a></span> : <code class="type">Num.num -> Num.num array</code></pre><div class="info">
+<pre>sci_of_num number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_to_string_array"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_to_string_array.html">sci_to_string_array</a></span> : <code class="type">Num.num array -> string array</code></pre><div class="info">
+<pre>sci_to_string_array number_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_to_string"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_to_string.html">sci_to_string</a></span> : <code class="type">Num.num array -> string</code></pre><div class="info">
+<pre>sci_to_string number_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_string_array"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_string_array.html">sci_of_string_array</a></span> : <code class="type">string array -> Num.num array</code></pre><div class="info">
+<pre>sci_of_string_array string_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_string"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_string.html">sci_of_string</a></span> : <code class="type">string -> Num.num array</code></pre><div class="info">
+<pre>sci_of_string string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_float.html">sci_of_float</a></span> : <code class="type">float -> Num.num array</code></pre><div class="info">
+<pre>sci_of_float real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_int.html">sci_of_int</a></span> : <code class="type">int -> Num.num array</code></pre><div class="info">
+<pre>sci_of_int integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_of_complex"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_of_complex.html">sci_of_complex</a></span> : <code class="type">float array array -> Num.num array</code></pre><div class="info">
+<pre>sci_of_complex real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsquare_module"><span class="keyword">val</span> <a href="code_VALMath.Sci.square_module.html">square_module</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>square_module number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_inf"><span class="keyword">val</span> <a href="code_VALMath.Sci.norm_inf.html">norm_inf</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>norm_inf number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_1"><span class="keyword">val</span> <a href="code_VALMath.Sci.norm_1.html">norm_1</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>norm_1 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreal_part"><span class="keyword">val</span> <a href="code_VALMath.Sci.real_part.html">real_part</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>real_part number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALimag_part"><span class="keyword">val</span> <a href="code_VALMath.Sci.imag_part.html">imag_part</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>imag_part number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreal_part_abs"><span class="keyword">val</span> <a href="code_VALMath.Sci.real_part_abs.html">real_part_abs</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>real_part_abs number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALimag_part_abs"><span class="keyword">val</span> <a href="code_VALMath.Sci.imag_part_abs.html">imag_part_abs</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>imag_part_abs number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALopp"><span class="keyword">val</span> <a href="code_VALMath.Sci.opp.html">opp</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>opp number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALitimes"><span class="keyword">val</span> <a href="code_VALMath.Sci.itimes.html">itimes</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>itimes number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALplus"><span class="keyword">val</span> <a href="code_VALMath.Sci.plus.html">plus</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>plus number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALminus"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus.html">minus</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>minus number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmult"><span class="keyword">val</span> <a href="code_VALMath.Sci.mult.html">mult</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>mult number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALconj"><span class="keyword">val</span> <a href="code_VALMath.Sci.conj.html">conj</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>conj number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinv"><span class="keyword">val</span> <a href="code_VALMath.Sci.inv.html">inv</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>inv number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiv"><span class="keyword">val</span> <a href="code_VALMath.Sci.div.html">div</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>div number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq_0"><span class="keyword">val</span> <a href="code_VALMath.Sci.eq_0.html">eq_0</a></span> : <code class="type">Num.num array -> bool</code></pre><div class="info">
+<pre>eq_0 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnot_eq_0"><span class="keyword">val</span> <a href="code_VALMath.Sci.not_eq_0.html">not_eq_0</a></span> : <code class="type">Num.num array -> bool</code></pre><div class="info">
+<pre>not_eq_0 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq"><span class="keyword">val</span> <a href="code_VALMath.Sci.eq.html">eq</a></span> : <code class="type">Num.num array -> Num.num array -> bool</code></pre><div class="info">
+<pre>eq number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnot_eq"><span class="keyword">val</span> <a href="code_VALMath.Sci.not_eq.html">not_eq</a></span> : <code class="type">Num.num array -> Num.num array -> bool</code></pre><div class="info">
+<pre>not_eq number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_pow"><span class="keyword">val</span> <a href="code_VALMath.Sci.int_pow.html">int_pow</a></span> : <code class="type">int -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>int_pow exponent number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_epsilon_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_epsilon_float.html">sci_epsilon_float</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_epsilon_float</pre><br>
+</div>
+<pre><span id="VALsci_min_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_min_float.html">sci_min_float</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_min_float</pre><br>
+</div>
+<pre><span id="VALsci_max_float"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_max_float.html">sci_max_float</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_max_float</pre><br>
+</div>
+<pre><span id="VALsci_min_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_min_int.html">sci_min_int</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_min_int</pre><br>
+</div>
+<pre><span id="VALsci_max_int"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_max_int.html">sci_max_int</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_max_int</pre><br>
+</div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Utilisationdestructurescreusesenarithmtique"><h1>Utilisation de structures creuses en arithmétique</h1></span>
+<span id="1_Useofsparsestructuresinarithmetic"><h1>Use of sparse structures in arithmetic</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The module <code class="code"><span class="constructor">Z</span></code> is used as an argument for the functor <code class="code"><span class="constructor">Hashtbl</span>.<span class="constructor">Make</span></code>.
+<p>
+
+Le module <code class="code"><span class="constructor">Z</span></code> sert d'argument au foncteur <code class="code"><span class="constructor">Hashtbl</span>.<span class="constructor">Make</span></code>.<br>
+<pre><span class="keyword">module</span> <a href="Math.Sci.Z.html">Z</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Math.Sci.Z.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><br>
+The module <code class="code"><span class="constructor">P</span></code> is used to construct hash tables where to store the prime numbers.
+<p>
+
+Le module <code class="code"><span class="constructor">P</span></code> sert à construire des tables de hachage où stocker les nombres premiers.<br>
+<pre><span class="keyword">module</span> <a href="Math.Sci.P.html">P</a>: <code class="type">Hashtbl.Make</code><code class="code">(</code><code class="type"><a href="Math.Sci.Z.html">Z</a></code><code class="code">)</code></pre><pre><span id="VALleft_dump"><span class="keyword">val</span> <a href="code_VALMath.Sci.left_dump.html">left_dump</a></span> : <code class="type">'a P.t -> P.key array</code></pre><div class="info">
+<pre>left_dump table</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a P.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimes_init"><span class="keyword">val</span> <a href="code_VALMath.Sci.primes_init.html">primes_init</a></span> : <code class="type">int -> 'a P.t</code></pre><div class="info">
+<pre>primes_init size</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfirst_compare"><span class="keyword">val</span> <a href="code_VALMath.Sci.first_compare.html">first_compare</a></span> : <code class="type">'a * 'b -> 'a * 'c -> int</code></pre><div class="info">
+<pre>first_compare x y</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'b</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">'a * 'c</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The module <code class="code"><span class="constructor">H</span></code> is used to construct hash tables where to store the prime factors of the factorial with multiplicity.
+<p>
+
+Le module <code class="code"><span class="constructor">H</span></code> sert à construire des tables de hachage où stocker les facteurs premiers de la factorielle avec multiplicité.<br>
+<pre><span class="keyword">module</span> <a href="Math.Sci.H.html">H</a>: <code class="type"><a href="Math.Hash.Make.html">Math.Hash.Make</a></code><code class="code">(</code><code class="type"><a href="Math.Data.Zindex.html">Math.Data.Zindex</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Hash.Z.html">Math.Hash.Z</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Math.Data.Zcoeff.html">Math.Data.Zcoeff</a></code><code class="code">)</code></pre><pre><span id="VALpowers_init"><span class="keyword">val</span> <a href="code_VALMath.Sci.powers_init.html">powers_init</a></span> : <code class="type">int -> H.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALflush"><span class="keyword">val</span> <a href="code_VALMath.Sci.flush.html">flush</a></span> : <code class="type">H.t -> H.B.Pairs.t array</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+h</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">H.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcontract"><span class="keyword">val</span> <a href="code_VALMath.Sci.contract.html">contract</a></span> : <code class="type">('a * int) list -> ('a * int) list</code></pre><div class="info">
+<pre>contract list_of_power_pairs</pre> The list must be ordered according to the first factors.
+<p>
+
+La liste doit être ordonnée selon les premiers facteurs.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">('a * int) list</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcomplete_sieve_aux"><span class="keyword">val</span> <a href="code_VALMath.Sci.complete_sieve_aux.html">complete_sieve_aux</a></span> : <code class="type">int -><br>       int -><br>       P.key -><br>       H.t -><br>       int array -> (P.key * int) list array -> int P.t -> unit</code></pre><div class="info">
+<pre>complete_sieve_aux number step factor powers source factors primes</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+step</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">P.key</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+powers</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">H.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+source</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factors</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">(P.key * int) list array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+primes</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int P.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcomplete_sieve"><span class="keyword">val</span> <a href="code_VALMath.Sci.complete_sieve.html">complete_sieve</a></span> : <code class="type">int -><br>       int -><br>       P.key array * (P.key * int) list array *<br>       H.B.Pairs.t array</code></pre><div class="info">
+<pre>complete_sieve table_size number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimes_sieve_aux"><span class="keyword">val</span> <a href="code_VALMath.Sci.primes_sieve_aux.html">primes_sieve_aux</a></span> : <code class="type">int -> int -> P.key -> int array -> int P.t -> unit</code></pre><div class="info">
+<pre>primes_sieve_aux number step factor source primes</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+step</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">P.key</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+source</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+primes</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int P.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprimes_sieve"><span class="keyword">val</span> <a href="code_VALMath.Sci.primes_sieve.html">primes_sieve</a></span> : <code class="type">int -> int -> P.key array</code></pre><div class="info">
+<pre>primes_sieve table_size number</pre> This function is ten to one hundred times slower than the unix function <code class="code">primes</code> on moderate numbers.
+<p>
+
+Cette fonction est dix à cent fois plus lente que la fonction unix <code class="code">primes</code> sur des nombres modérés.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsieve"><span class="keyword">val</span> <a href="code_VALMath.Sci.sieve.html">sieve</a></span> : <code class="type">int -> P.key array</code></pre><div class="info">
+<pre>sieve number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfactorial_sieve_aux"><span class="keyword">val</span> <a href="code_VALMath.Sci.factorial_sieve_aux.html">factorial_sieve_aux</a></span> : <code class="type">int -><br>       int -><br>       P.key -> H.t -> int array -> int P.t -> unit</code></pre><div class="info">
+<pre>factorial_sieve_aux number step factor powers source primes</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+step</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+factor</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">P.key</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+powers</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">H.t</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+source</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+primes</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int P.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfactorial_sieve"><span class="keyword">val</span> <a href="code_VALMath.Sci.factorial_sieve.html">factorial_sieve</a></span> : <code class="type">int -> int -> P.key array * H.B.Pairs.t array</code></pre><div class="info">
+<pre>factorial_sieve table_size number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+p</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnaive_factors"><span class="keyword">val</span> <a href="code_VALMath.Sci.naive_factors.html">naive_factors</a></span> : <code class="type">int -> (P.key * int) list</code></pre><div class="info">
+<pre>naive_factors number</pre> This function is slower than the following one but reacts well with big prime factors. 
+In case of a prime number, the resulting list contains a unique element.
+<p>
+
+Cette fonction est plus lente que la suivante mais réagit bien avec de grands facteurs premiers. 
+Dans le cas d'un nombre premier, la liste résultat ne contient qu'un élément.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfactors"><span class="keyword">val</span> <a href="code_VALMath.Sci.factors.html">factors</a></span> : <code class="type">int -> (P.key * int) list</code></pre><div class="info">
+<pre>factors number</pre> This function calls the former one when it has not been able to factorize the number with small prime numbers.
+<p>
+
+Cett fonction appelle la précédente quand elle n'a pas pu factoriser entièrement le nombre avec de petits premiers.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALis_prime"><span class="keyword">val</span> <a href="code_VALMath.Sci.is_prime.html">is_prime</a></span> : <code class="type">int -> bool</code></pre><div class="info">
+<pre>is_prime number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfact"><span class="keyword">val</span> <a href="code_VALMath.Sci.fact.html">fact</a></span> : <code class="type">int -> int -> Big_int.big_int</code></pre><div class="info">
+<pre>fact table_size number</pre> This way of calculating the factorial is quicker than that of the following chapter (inside the toplevel).
+<p>
+
+Cette manière de calculer la factorielle est plus rapide que celle du chapitre suivant (dans le toplevel).<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALapprox_decimal_fact"><span class="keyword">val</span> <a href="code_VALMath.Sci.approx_decimal_fact.html">approx_decimal_fact</a></span> : <code class="type">int -> int -> float array</code></pre><div class="info">
+<pre>approx_decimal_fact table_size number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALphi_euler"><span class="keyword">val</span> <a href="code_VALMath.Sci.phi_euler.html">phi_euler</a></span> : <code class="type">int -> int</code></pre><div class="info">
+<pre>phi_euler number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_AutourdePI"><h1>Autour de PI</h1></span>
+<span id="1_AroundPI"><h1>Around PI</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+Source : 
+<p>
+
+The CAML Numbers Reference Manual by Valérie Ménissier-Morain, technical
+report 141, INRIA, july 1992 (available electronically,
+ftp://ftp.inria.fr/INRIA/publication/RT/RT-0141.ps.gz).<br>
+<br>
+<center>§ </center><br>
+<pre><span id="VALnum_fact_aux"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_fact_aux.html">num_fact_aux</a></span> : <code class="type">Num.num -> Num.num -> Num.num</code></pre><div class="info">
+<pre>num_fact_aux num_integer1 num_integer2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_fact"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_fact.html">num_fact</a></span> : <code class="type">Num.num -> Num.num</code></pre><div class="info">
+<pre>num_fact num_integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint_num_fact"><span class="keyword">val</span> <a href="code_VALMath.Sci.print_num_fact.html">print_num_fact</a></span> : <code class="type">Num.num -> unit</code></pre><div class="info">
+<pre>print_num_fact num_integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_fact"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_fact.html">sci_fact</a></span> : <code class="type">Num.num -> Num.num array</code></pre><div class="info">
+<pre>sci_fact num_integer</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_sqrt640320"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_sqrt640320.html">num_sqrt640320</a></span> : <code class="type">int -> Num.num * Num.num</code></pre><div class="info">
+<pre>num_sqrt640320 digits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+digits</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_approx_pi"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_approx_pi.html">num_approx_pi</a></span> : <code class="type">int -> Num.num</code></pre><div class="info">
+<pre>num_approx_pi digits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+digits</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnum_show_pi"><span class="keyword">val</span> <a href="code_VALMath.Sci.num_show_pi.html">num_show_pi</a></span> : <code class="type">int -> string</code></pre><div class="info">
+<pre>num_show_pi digits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+digits</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_approx_pi"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_approx_pi.html">sci_approx_pi</a></span> : <code class="type">int -> Num.num array</code></pre><div class="info">
+<pre>sci_approx_pi digits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+digits</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALpi_1000_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.pi_1000_10.html">pi_1000_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>pi_1000_10</pre><br>
+</div>
+<pre><span id="VALhalf_pi_1000_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.half_pi_1000_10.html">half_pi_1000_10</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>half_pi_1000_10</pre><br>
+</div>
+<pre><span id="VALsci_approx_ipi"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_approx_ipi.html">sci_approx_ipi</a></span> : <code class="type">int -> Num.num array</code></pre><div class="info">
+<pre>sci_approx_ipi digits</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+digits</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fonctionsdebaseenprcisionfixe"><h1>Fonctions de base en précision fixe</h1></span>
+<span id="1_Fixedprecisionbasicfunctions"><h1>Fixed precision basic functions</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mantissa is truncated at 1024 bits.
+<p>
+
+La mantisse est tronquée à 1024 bits.<br>
+<pre><span id="VALformat_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.format_1024.html">format_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>format_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmantissa_threshold"><span class="keyword">val</span> <a href="code_VALMath.Sci.mantissa_threshold.html">mantissa_threshold</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>mantissa_threshold</pre><br>
+</div>
+<pre><span id="VALprint_sci_1024_2"><span class="keyword">val</span> <a href="code_VALMath.Sci.print_sci_1024_2.html">print_sci_1024_2</a></span> : <code class="type">Num.num array -> unit</code></pre><div class="info">
+<pre>print_sci_1024_2 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALprint_sci_1024_10"><span class="keyword">val</span> <a href="code_VALMath.Sci.print_sci_1024_10.html">print_sci_1024_10</a></span> : <code class="type">Num.num array -> unit</code></pre><div class="info">
+<pre>print_sci_1024_10 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALplus_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.plus_1024.html">plus_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>plus_1024 number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALminus_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_1024.html">minus_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>minus_1024 number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmult_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.mult_1024.html">mult_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>mult_1024 number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsquare_module_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.square_module_1024.html">square_module_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>square_module_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_inf_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.norm_inf_1024.html">norm_inf_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>norm_inf_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnorm_1_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.norm_1_1024.html">norm_1_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>norm_1_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdiv_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.div_1024.html">div_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>div_1024 dividend divisor</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreal_sqrt_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.real_sqrt_1024.html">real_sqrt_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>real_sqrt_1024 number</pre> This function operates on the real part.
+<p>
+
+Cette fonction agit sur la partie réelle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALmodule_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.module_1024.html">module_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>module_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreal_part_compare_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.real_part_compare_1024.html">real_part_compare_1024</a></span> : <code class="type">Num.num array -> Num.num array -> int</code></pre><div class="info">
+<pre>real_part_compare_1024 number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALimag_part_compare_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.imag_part_compare_1024.html">imag_part_compare_1024</a></span> : <code class="type">Num.num array -> Num.num array -> int</code></pre><div class="info">
+<pre>imag_part_compare_1024 number1 number2</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALeq_0_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.eq_0_1024.html">eq_0_1024</a></span> : <code class="type">Num.num array -> bool</code></pre><div class="info">
+<pre>eq_0_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsqrt_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sqrt_1024.html">sqrt_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>sqrt_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALinv_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.inv_1024.html">inv_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>inv_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALint_pow_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.int_pow_1024.html">int_pow_1024</a></span> : <code class="type">int -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>int_pow_1024 exponent number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsolve_degree_2_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.solve_degree_2_1024.html">solve_degree_2_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array -> Num.num array array</code></pre><div class="info">
+<pre>solve_degree_2_1024 a b c</pre> Gives the two solutions of <code class="code">a x ^ 2 + b x + c = 0</code>.
+<p>
+
+Donne les deux solutions x de <code class="code">a x ^ 2 + b x + c = 0</code>.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALreal_cubic_root_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.real_cubic_root_1024.html">real_cubic_root_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>real_cubic_root_1024 threshold number</pre> This function operates on the real part.
+<p>
+
+Cette fonction agit sur la partie réelle.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcubic_root_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.cubic_root_1024.html">cubic_root_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>cubic_root_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALnth_root_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.nth_root_1024.html">nth_root_1024</a></span> : <code class="type">int -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>nth_root_1024 order number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsci_1024_jj"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024_jj.html">sci_1024_jj</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1024_jj</pre> Primitive sixth root of unity.
+<p>
+
+Racine sixième primitive de l'unité.<br>
+</div>
+<pre><span id="VALsci_1024_j"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024_j.html">sci_1024_j</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1024_j</pre> Primitive cubic root of unity.
+<p>
+
+Racine cubique primitive de l'unité.<br>
+</div>
+<pre><span id="VALsci_1024_j2"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024_j2.html">sci_1024_j2</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sci_1024_j2</pre> Second primitive cubic root of unity.
+<p>
+
+Deuxième racine cubique primitive de l'unité.<br>
+</div>
+<pre><span id="VALsci_1024_primitive_root_of_unity"><span class="keyword">val</span> <a href="code_VALMath.Sci.sci_1024_primitive_root_of_unity.html">sci_1024_primitive_root_of_unity</a></span> : <code class="type">int -> Num.num array</code></pre><div class="info">
+<pre>sci_1024_primitive_root_of_unity integer</pre> Primitive nth root of unity.
+<p>
+
+Racine n-ème primitive de l'unité.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsqrt_1024_of_3"><span class="keyword">val</span> <a href="code_VALMath.Sci.sqrt_1024_of_3.html">sqrt_1024_of_3</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sqrt_1024_of_3</pre><br>
+</div>
+<pre><span id="VALsqrt_1024_of_27"><span class="keyword">val</span> <a href="code_VALMath.Sci.sqrt_1024_of_27.html">sqrt_1024_of_27</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>sqrt_1024_of_27</pre><br>
+</div>
+<pre><span id="VALsolve_degree_3_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.solve_degree_3_1024.html">solve_degree_3_1024</a></span> : <code class="type">Num.num array -><br>       Num.num array -> Num.num array -> Num.num array -> Num.num array array</code></pre><div class="info">
+<pre>solve_degree_3_1024 a b c d</pre> Gives the three solutions of <code class="code">a x ^ 3 + b x ^ 2 + c x + d = 0</code>.
+<p>
+
+Donne les trois solutions x de <code class="code">a x ^ 3 + b x ^ 2 + c x + d = 0</code>.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsolve_degree_4_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.solve_degree_4_1024.html">solve_degree_4_1024</a></span> : <code class="type">Num.num array -><br>       Num.num array -><br>       Num.num array -> Num.num array -> Num.num array -> Num.num array array</code></pre><div class="info">
+<pre>solve_degree_4_1024 a b c d e</pre> Gives the four solutions of <code class="code">a x ^ 4 + b x ^ 3 + c x ^ 2 + d x + e = 0</code>.
+<p>
+
+Donne les quatre solutions x de <code class="code">a x ^ 4 + b x ^ 3 + c x ^ 2 + d x + e = 0</code>.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+e</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdet_2_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.det_2_1024.html">det_2_1024</a></span> : <code class="type">Num.num array array array -> Num.num array</code></pre><div class="info">
+<pre>det_2_1024 sci_2x2_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdet_3_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.det_3_1024.html">det_3_1024</a></span> : <code class="type">Num.num array array array -> Num.num array</code></pre><div class="info">
+<pre>det_3_1024 sci_3x3_matrix</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+m</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Acclrateursdeconvergenceenprcisionfixe"><h1>Accélérateurs de convergence en précision fixe</h1></span>
+<span id="1_Fixedprecisionconvergenceaccelerators"><h1>Fixed precision convergence accelerators</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALaitken_seki_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.aitken_seki_1024.html">aitken_seki_1024</a></span> : <code class="type">Num.num array -> Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>aitken_seki_1024 u(n) u(n+1) u(n+2)</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALaitken_seki_rec_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.aitken_seki_rec_1024.html">aitken_seki_rec_1024</a></span> : <code class="type">int -> int -> Num.num array array -> Num.num array</code></pre><div class="info">
+<pre>aitken_seki_rec_1024 k n value_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALshanks2_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.shanks2_1024.html">shanks2_1024</a></span> : <code class="type">Num.num array -><br>       Num.num array -><br>       Num.num array -> Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>shanks2_1024 u(n) u(n+1) u(n+2) u(n+3) u(n+4)</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+a</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+b</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+c</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+e</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwynn_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.wynn_1024.html">wynn_1024</a></span> : <code class="type">int -> int -> Num.num array array -> Num.num array</code></pre><div class="info">
+<pre>wynn_1024 k n value_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwynn_rho_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.wynn_rho_1024.html">wynn_rho_1024</a></span> : <code class="type">int -> int -> Num.num array array -> Num.num array</code></pre><div class="info">
+<pre>wynn_rho_1024 k n value_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALbrezinski_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.brezinski_1024.html">brezinski_1024</a></span> : <code class="type">int -> int -> Num.num array array -> Num.num array</code></pre><div class="info">
+<pre>brezinski_1024 k n value_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+k</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+n</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALapprox_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.approx_1024.html">approx_1024</a></span> : <code class="type">Num.num array array -> Num.num array</code></pre><div class="info">
+<pre>approx_1024 value_array</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+s</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fonctionsclassiquesenprcisionfixe"><h1>Fonctions classiques en précision fixe</h1></span>
+<span id="1_Fixedprecisionclassicalfunctions"><h1>Fixed precision classical functions</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALpi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.pi_1024.html">pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>pi_1024</pre><br>
+</div>
+<pre><span id="VALminus_pi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_pi_1024.html">minus_pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_pi_1024</pre><br>
+</div>
+<pre><span id="VALipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.ipi_1024.html">ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>ipi_1024</pre><br>
+</div>
+<pre><span id="VALminus_ipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_ipi_1024.html">minus_ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_ipi_1024</pre><br>
+</div>
+<pre><span id="VALhalf_pi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.half_pi_1024.html">half_pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>half_pi_1024</pre><br>
+</div>
+<pre><span id="VALminus_half_pi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_half_pi_1024.html">minus_half_pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_half_pi_1024</pre><br>
+</div>
+<pre><span id="VALhalf_ipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.half_ipi_1024.html">half_ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>half_ipi_1024</pre><br>
+</div>
+<pre><span id="VALminus_half_ipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_half_ipi_1024.html">minus_half_ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_half_ipi_1024</pre><br>
+</div>
+<pre><span id="VALquarter_pi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.quarter_pi_1024.html">quarter_pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>quarter_pi_1024</pre><br>
+</div>
+<pre><span id="VALminus_quarter_pi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_quarter_pi_1024.html">minus_quarter_pi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_quarter_pi_1024</pre><br>
+</div>
+<pre><span id="VALquarter_ipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.quarter_ipi_1024.html">quarter_ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>quarter_ipi_1024</pre><br>
+</div>
+<pre><span id="VALminus_quarter_ipi_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_quarter_ipi_1024.html">minus_quarter_ipi_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_quarter_ipi_1024</pre><br>
+</div>
+<pre><span id="VALe_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.e_1024.html">e_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>e_1024</pre><br>
+</div>
+<pre><span id="VALminus_e_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.minus_e_1024.html">minus_e_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>minus_e_1024</pre><br>
+</div>
+<pre><span id="VALlog_2_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.log_2_1024.html">log_2_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>log_2_1024</pre><br>
+</div>
+<pre><span id="VALlog_10_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.log_10_1024.html">log_10_1024</a></span> : <code class="type">Num.num array</code></pre><div class="info">
+<pre>log_10_1024</pre><br>
+</div>
+<pre><span id="VALinteger_part_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.integer_part_1024.html">integer_part_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>integer_part_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALround_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.round_1024.html">round_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>round_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALfractional_part_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.fractional_part_1024.html">fractional_part_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>fractional_part_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALth_threshold"><span class="keyword">val</span> <a href="code_VALMath.Sci.th_threshold.html">th_threshold</a></span> : <code class="type">float</code></pre><div class="info">
+<pre>th_threshold</pre><br>
+</div>
+<pre><span id="VALquadruple_th_real"><span class="keyword">val</span> <a href="code_VALMath.Sci.quadruple_th_real.html">quadruple_th_real</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>quadruple_th_real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALquadruple_tan_real"><span class="keyword">val</span> <a href="code_VALMath.Sci.quadruple_tan_real.html">quadruple_tan_real</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>quadruple_tan_real</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+Some of the following functions make use of a threshold.
+The value of the threshold acts upon the speed and the precision of the calculus.
+A good value for the threshold may be between 0.01 and 1e-6.
+<p>
+
+Certaines des fonctions suivantes utilisent un seuil.
+La valeur du seuil influence la vitesse et la précision du calcul.
+Une bonne valeur pour le seuil peut être entre 0.01 et 1e-6.<br>
+<br>
+The two following functions have mutually recursive definitions.
+<p>
+
+les deux fonctions qui suivent ont des définitions mutuellement récursives.<br>
+<pre><span id="VALth_of_real_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.th_of_real_1024.html">th_of_real_1024</a></span> : <code class="type">float -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>th_of_real_1024 threshold number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALexpm1_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.expm1_1024.html">expm1_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>expm1_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtan_of_real_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.tan_of_real_1024.html">tan_of_real_1024</a></span> : <code class="type">float -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>tan_of_real_1024 threshold number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_tan_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_tan_1024.html">direct_tan_1024</a></span> : <code class="type">float -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_tan_1024 threshold number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtan_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.tan_1024.html">tan_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>tan_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtan_dot_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.tan_dot_1024.html">tan_dot_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>tan_dot_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_th_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_th_1024.html">direct_th_1024</a></span> : <code class="type">float -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_th_1024 threshold number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALth_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.th_1024.html">th_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>th_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALth_dot_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.th_dot_1024.html">th_dot_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>th_dot_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcos_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.cos_1024.html">cos_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>cos_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_sin_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_sin_1024.html">direct_sin_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_sin_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsin_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sin_1024.html">sin_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>sin_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALch_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.ch_1024.html">ch_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>ch_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_sh_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_sh_1024.html">direct_sh_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_sh_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsh_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sh_1024.html">sh_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>sh_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALexp_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.exp_1024.html">exp_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>exp_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcotan_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.cotan_1024.html">cotan_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+cotan_1024 number<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsec_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sec_1024.html">sec_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+sec_1024 number<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALsech_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.sech_1024.html">sech_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+sech_1024 number<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcosec_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.cosec_1024.html">cosec_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+cosec_1024 number<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALcosech_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.cosech_1024.html">cosech_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+cosech_1024 number<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The algorithm of the arithmetic and geometric means comes from the pages 15 and 16 of the document <code class="code">log2.ps</code>
+at the following address.
+<p>
+
+<code class="code">http://numbers.computation.free.fr/<span class="constructor">Constants</span>/constants.html</code>
+<p>
+
+L'algorithme de la moyenne arithmétique et géométrique provient des pages 15 et 16
+du document <code class="code">log2.ps</code> à l'adresse précédente.<br>
+<pre><span id="VALagm_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.agm_1024.html">agm_1024</a></span> : <code class="type">Num.num array array -> Num.num array array</code></pre><div class="info">
+<pre>agm_1024 vector</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALagm_sum_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.agm_sum_1024.html">agm_sum_1024</a></span> : <code class="type">Num.num array array -> Num.num array</code></pre><div class="info">
+agm_sum_1024 vector<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALagm_log_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.agm_log_1024.html">agm_log_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>agm_log_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlog1p_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.log1p_1024.html">log1p_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>log1p_1024</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_log_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_log_1024.html">direct_log_1024</a></span> : <code class="type">float -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_log_1024 threshold number</pre> A good threshold is -100.
+<p>
+
+Un bon seuil est -100.<br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALlog_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.log_1024.html">log_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>log_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALtune_arg"><span class="keyword">val</span> <a href="code_VALMath.Sci.tune_arg.html">tune_arg</a></span> : <code class="type">(Num.num array -> Num.num array) -><br>       (Num.num array -> Num.num array) -><br>       Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>tune_arg function derivative argument candidate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array -> Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fdot</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array -> Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALadapt_arg"><span class="keyword">val</span> <a href="code_VALMath.Sci.adapt_arg.html">adapt_arg</a></span> : <code class="type">int -><br>       float -><br>       (Num.num array -> Num.num array) -><br>       (Num.num array -> Num.num array) -><br>       Num.num array -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>adapt_arg steps threshold function derivative argument candidate</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+steps</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+threshold</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">float</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+f</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array -> Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+fdot</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array -> Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+y</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargth_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argth_1024.html">argth_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>argth_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargch_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argch_1024.html">argch_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>argch_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_argsh_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_argsh_1024.html">direct_argsh_1024</a></span> : <code class="type">int -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_argsh_1024 steps number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+steps</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargsh_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argsh_1024.html">argsh_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>argsh_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarctan_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arctan_1024.html">arctan_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arctan_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALdirect_arcsin_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.direct_arcsin_1024.html">direct_arcsin_1024</a></span> : <code class="type">int -> Num.num array -> Num.num array</code></pre><div class="info">
+<pre>direct_arcsin_1024 steps number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+steps</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarcsin_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arcsin_1024.html">arcsin_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arcsin_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarccos_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arccos_1024.html">arccos_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arccos_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarcsec_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arcsec_1024.html">arcsec_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arcsec_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargsech_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argsech_1024.html">argsech_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>argsech_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarccosec_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arccosec_1024.html">arccosec_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arccosec_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargcosech_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argcosech_1024.html">argcosech_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>argcosech_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALarccotan_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.arccotan_1024.html">arccotan_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arccotan_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALargcoth_1024"><span class="keyword">val</span> <a href="code_VALMath.Sci.argcoth_1024.html">argcoth_1024</a></span> : <code class="type">Num.num array -> Num.num array</code></pre><div class="info">
+<pre>arccoth_1024 number</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+z</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Num.num array</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+<center>§ § § </center><br>
+</body></html>

@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Graphicmath.Analogic.html">
+<link rel="Up" href="Graphicmath.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Graphicmath" rel="Chapter" href="Graphicmath.html"><link title="Introduction" rel="Section" href="#1_Introduction">
+<link title="Initialisation" rel="Section" href="#1_Initialisation">
+<link title="Fonctions de recherche et de documentation" rel="Section" href="#1_Fonctionsderechercheetdedocumentation">
+<link title="Search and documentation functions" rel="Section" href="#1_Searchanddocumentationfunctions">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Comments" rel="Subsection" href="#2_Comments">
+<link title="Conventions" rel="Subsection" href="#2_Conventions">
+<link title="Commentaires" rel="Subsection" href="#2_Commentaires">
+<title>Graphicmath.Spec</title>
+</head>
+<body>
+<div class="navbar"><a href="Graphicmath.Analogic.html">Previous</a>
+&nbsp;<a href="Graphicmath.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_Graphicmath.Spec.html">Graphicmath.Spec</a> (<a href="code_Graphicmath.Spec.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Spec: <code class="code"><span class="keyword">sig</span></code> <a href="Graphicmath.Spec.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Introduction"><h1>Introduction</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The mathematician will find in this module functions in order to:
+<p>
+<ul>
+<li>find to which module(s) belongs a function,</li>
+</ul>
+<ul>
+<li>extract the basis specification from the html documentation,</li>
+</ul>
+<ul>
+<li>extract the source code (extended specification) from the html documentation,</li>
+</ul>
+<ul>
+<li>find quotations in the html documentation.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+The functions <code class="code">what*</code>, <code class="code">how*</code> and <code class="code">why*</code> browse the html documentation. 
+Some of these functions must receive as arguments character strings in order to build paths toward adequate directories or files.
+<p>
+
+The functions <code class="code">which*</code> proceed by try-and-fail compilation: they do not need any presence of html documentation.
+<p>
+
+<span id="2_Comments"><h2>Comments</h2></span>
+<p>
+
+In order to avoid early coincidences, it may be useful to put a space at the end of the name of a function.
+<p>
+
+The extractions from the documentation are done with <code class="code">lynx</code> which must be installed on the machine.
+<p>
+
+This module is distributed under the same licence as Ocaml.
+<p>
+
+<center>§ </center>
+<p>
+
+La mathématicienne ou le mathématicien trouvera dans ce module des fonctions pour :
+<p>
+<ul>
+<li>trouver à quel(s) module(s) appartient une fonction,</li>
+</ul>
+<ul>
+<li>extraire la spécification de base à partir de la documentation html,</li>
+</ul>
+<ul>
+<li>extraire le code source (spécification étendue) à partir de la documentation html,</li>
+</ul>
+<ul>
+<li>trouver des citations dans la documentation html.</li>
+</ul>
+
+<span id="2_Conventions"><h2>Conventions</h2></span>
+<p>
+
+Les fonctions <code class="code">what*</code>, <code class="code">how*</code> et <code class="code">why*</code> explorent la documentation html. 
+Il faut fournir en arguments à certaines de ces fonctions des chaînes de caractères pour constituer un chemin vers les répertoires ou fichiers adéquats.
+<p>
+
+Les fonctions <code class="code">which*</code> procèdent par essai-échec de compilation : elles ne nécessitent aucune présence de documentation html.
+<p>
+
+<span id="2_Commentaires"><h2>Commentaires</h2></span>
+<p>
+
+Pour éviter des coïncidences précoces, il est parfois utile de mettre un espace à la fin d'un nom de fonction.
+<p>
+
+Les extractions à partir de la documentation se font avec <code class="code">lynx</code> qui doit être installé sur la machine.
+<p>
+
+Ce module est distribué selon la même licence qu'Ocaml.
+<p>
+
+<center>Copyright Stéphane Grognet </center>
+<center>Laboratoire de mathématiques Jean Leray UMR 6629 CNRS </center>
+<center>Fédération de recherche mathématique des Pays de la Loire </center>
+<center>IREM des Pays de la Loire - Université de Nantes </center>
+<center>version 0.2</center><br>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Initialisation"><h1>Initialisation</h1></span><br>
+<br>
+<center> </center><br>
+<pre><span id="VALstandard_modules_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.standard_modules_list.html">standard_modules_list</a></span> : <code class="type">string list</code></pre><div class="info">
+<pre>standard_modules_list</pre><br>
+</div>
+<pre><span id="VALnon_standard_modules_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.non_standard_modules_list.html">non_standard_modules_list</a></span> : <code class="type">(string * string) list</code></pre><div class="info">
+<pre>non_standard_modules_list</pre><br>
+</div>
+<pre><span id="VALmath_modules_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.math_modules_list.html">math_modules_list</a></span> : <code class="type">string list</code></pre><div class="info">
+<pre>math_modules_list</pre><br>
+</div>
+<pre><span id="VALmath_functors_list"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.math_functors_list.html">math_functors_list</a></span> : <code class="type">string list</code></pre><div class="info">
+<pre>math_functors_list</pre><br>
+</div>
+<pre><span id="VALstandard_path"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.standard_path.html">standard_path</a></span> : <code class="type">string</code></pre><div class="info">
+<pre>standard_path</pre><br>
+</div>
+<br>
+<center>§ </center><br>
+<br>
+<span id="1_Fonctionsderechercheetdedocumentation"><h1>Fonctions de recherche et de documentation</h1></span>
+<span id="1_Searchanddocumentationfunctions"><h1>Search and documentation functions</h1></span><br>
+<br>
+<center> </center><br>
+<br>
+The functions <code class="code">which*</code> proceed by try-and-fail compilation.
+<p>
+
+Les fonctions <code class="code">which*</code> procèdent par essai-échec de compilation.<br>
+<pre><span id="VALwhich_standard"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.which_standard.html">which_standard</a></span> : <code class="type">string list -> string -> (string * string) array</code></pre><div class="info">
+<pre>which_standard standard_modules_list value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhich_non_standard"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.which_non_standard.html">which_non_standard</a></span> : <code class="type">(string * string) list -> string -> (string * string) array</code></pre><div class="info">
+<pre>which_non_standard non_standard_modules_list value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">(string * string) list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhich_math"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.which_math.html">which_math</a></span> : <code class="type">string list -> string -> (string * string) array</code></pre><div class="info">
+<pre>which_math math_modules_list value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhich_math_functor"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.which_math_functor.html">which_math_functor</a></span> : <code class="type">string list -> string -> (string * string) array</code></pre><div class="info">
+<pre>which_math_functor math_modules_list value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+l</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string list</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhich"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.which.html">which</a></span> : <code class="type">string -> (string * string) array</code></pre><div class="info">
+<pre>which value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The functions <code class="code">how*</code> proceed by browsing the html documentation made from the source codes by <code class="code">ocamldoc</code>
+(forbidden <code class="code">*.mli</code> interfaces).
+<p>
+
+Les fonctions <code class="code">how*</code> procèdent en butinant la documentation html fabriquée à partir des codes sources par <code class="code">ocamldoc</code> 
+(interfaces <code class="code">*.mli</code> proscrites).<br>
+<pre><span id="VALhow_generic"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.how_generic.html">how_generic</a></span> : <code class="type">string -> string -> string -> string array</code></pre><div class="info">
+<pre>how_generic documentation_directory inter_name complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+inter_name</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhow_math"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.how_math.html">how_math</a></span> : <code class="type">string -> string -> string array</code></pre><div class="info">
+<pre>how_math documentation_directory complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALhow"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.how.html">how</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>how complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The functions <code class="code">what*</code> proceed by browsing the html documentation made by <code class="code">ocamldoc</code>.
+<p>
+
+Les fonctions <code class="code">what*</code> procèdent en butinant la documentaion html fabriquée par <code class="code">ocamldoc</code>.<br>
+<pre><span id="VALwhat_generic"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what_generic.html">what_generic</a></span> : <code class="type">string -> string -> string -> string array</code></pre><div class="info">
+<pre>what_generic documentation_directory inter_name complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+inter_name</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhat_math"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what_math.html">what_math</a></span> : <code class="type">string -> string -> string array</code></pre><div class="info">
+<pre>what_math documentation_directory complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhat_standard"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what_standard.html">what_standard</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>what_standard complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhat_findlib"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what_findlib.html">what_findlib</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>what_findlib complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhat_ocamlgraph"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what_ocamlgraph.html">what_ocamlgraph</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>what_ocamlgraph complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhat"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.what.html">what</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>what complete_value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
+The functions <code class="code">why*</code> proceed by browsing the html documentation made from the source codes by <code class="code">ocamldoc</code>
+(forbidden <code class="code">*.mli</code> interfaces).
+<p>
+
+Les fonctions <code class="code">why*</code> procèdent en butinant la documentation html fabriquée à partir des codes sources par <code class="code">ocamldoc</code> 
+(interfaces <code class="code">*.mli</code> proscrites).<br>
+<pre><span id="VALwhy_generic"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.why_generic.html">why_generic</a></span> : <code class="type">string -> string -> string -> string array</code></pre><div class="info">
+<pre>why_generic documentation_directory inter_name value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+inter_name</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhy_math"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.why_math.html">why_math</a></span> : <code class="type">string -> string -> string array</code></pre><div class="info">
+<pre>why_math documentation_directory value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+d</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<pre><span id="VALwhy"><span class="keyword">val</span> <a href="code_VALGraphicmath.Spec.why.html">why</a></span> : <code class="type">string -> string array</code></pre><div class="info">
+<pre>why value_string</pre><br>
+</div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+x</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+</body></html>
